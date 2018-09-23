@@ -5,7 +5,7 @@ export default {
     debug: true,
     devtool: 'inline-source-map',
     noInfo: true,
-    entry: path.resolve(__dirname, '/src/index'),
+    entry: path.resolve(__dirname, 'src/index'),
     target: 'web',
     output: {
         path: path.resolve(__dirname, '/dist'), // Note: Physical files are only output by the production build task `npm run build`.
@@ -17,9 +17,10 @@ export default {
     },
     devServer: {
         contentBase: path.resolve(__dirname, 'src')
+        // stats: 'errors-only'
     },
     module: {
-        rules: [
+        loaders: [
             {test: /\.js$/, include: [
                     path.join(__dirname, 'src')
                 ], loaders: ['babel']},
