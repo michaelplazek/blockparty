@@ -4,7 +4,9 @@
   "description": "Mobile, user-based ATM for cryptocurrencies",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npm-run-all --parallel open:src",
+    "open:src": "babel-node tools/server.js",
+    "babel": " babel ./src -d ./dist"
   },
   "repository": {
     "type": "git",
@@ -15,5 +17,26 @@
   "bugs": {
     "url": "https://github.com/michaelplazek/cash-for-crypto/issues"
   },
-  "homepage": "https://github.com/michaelplazek/cash-for-crypto#readme"
+  "homepage": "https://github.com/michaelplazek/cash-for-crypto#readme",
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.0.2",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "express": "^4.16.3",
+    "grommet": "^2.0.0-beta.6",
+    "json-loader": "^0.5.7",
+    "lodash": "^4.17.11",
+    "npm-run-all": "^4.1.3",
+    "open": "^0.0.5",
+    "path": "^0.12.7",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
+    "url-loader": "^1.1.1",
+    "webpack": "^4.19.1",
+    "webpack-dev-middleware": "^3.3.0"
+  }
 }
