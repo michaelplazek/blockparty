@@ -1,0 +1,19 @@
+{
+  "name": "cash-for-crypto",
+  "version": "1.0.0",
+  "description": "Mobile, user-based ATM for cryptocurrencies",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/michaelplazek/cash-for-crypto.git"
+  },
+  "author": "Michael Plazek",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/michaelplazek/cash-for-crypto/issues"
+  },
+  "homepage": "https://github.com/michaelplazek/cash-for-crypto#readme"
+}
