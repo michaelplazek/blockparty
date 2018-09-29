@@ -12,4 +12,6 @@ const store = createStore(reducers, composeWithDevTools(
     applyMiddleware(thunk),
 ));
 let content = document.getElementById('content');
-ReactDOM.render(<Provider store={store}><div>Index</div></Provider>, content);
+ReactDOM.render(
+    <Provider store={store}><div>Index</div></Provider>
+, content);
