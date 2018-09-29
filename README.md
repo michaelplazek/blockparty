@@ -1,1 +1,3 @@
-# cash-for-crypto
+# Cash For Cypto
+
+To run: `npm start`
