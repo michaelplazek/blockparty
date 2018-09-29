@@ -4,6 +4,7 @@ import {
     Route,
     Link,
 } from 'react-router-dom';
+import { hot } from 'react-hot-loader'
 
 import Market from './screens/Market';
 
@@ -13,4 +14,4 @@ const App = () => (
     </Router>
 );
 
-export default App;
+export default hot(module)(App);

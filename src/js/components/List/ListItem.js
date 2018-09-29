@@ -5,7 +5,9 @@ import PropTypes from 'prop-types';
 
 const ListItem = ({ item }) => (
     <Box direction='row'>
-        <Btc />
+        <Box background='red' align='center'>
+            <Btc />
+        </Box>
         <Box>
             <Heading margin='none'>{item.amount}</Heading>
             <Paragraph margin='none'>{`at ${item.price}`}</Paragraph>
