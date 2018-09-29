@@ -4,18 +4,23 @@ import { Btc } from 'react-cryptocoins';
 import PropTypes from 'prop-types';
 
 const ListItem = ({ item }) => (
-    <Box direction='row' margin='large'>
+    <Box direction='row' margin='medium'>
         <Box justify='center' align='center'>
-            <Btc size={50}/>
+            <Btc size={40}/>
         </Box>
-        <Box>
+        <Box margin={{ horizontal: 'medium' }}>
             <Box>
-                <Heading margin='none'>{item.amount}</Heading>
-                <Paragraph margin='none'>{`at ${item.price}`}</Paragraph>
+                <Heading padding='none' margin='none'>{item.amount}</Heading>
+                <Paragraph
+                    size='small'
+                    margin='none'
+                >
+                    at {item.price}/{item.coin}
+                </Paragraph>
             </Box>
-            <Box>
-                <Text>{item.timestamp}</Text>
-            </Box>
+        </Box>
+        <Box margin='small'>
+            <Text size='xsmall'>{item.timestamp}</Text>
         </Box>
     </Box>
 );

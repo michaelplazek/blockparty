@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import ListItem from "./ListItem";
 
 const List = ({ items }) => (
-    <Box margin='small'>
+    <Box>
         {items.map(item =>
             <ListItem
                 item={item}
