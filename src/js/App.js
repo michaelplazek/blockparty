@@ -8,11 +8,15 @@ import {
 } from 'react-router-dom';
 
 import Market from './screens/Market';
+import Post from './screens/Post';
 
 setConfig({logLevel: 'no-errors-please'});
 const App = () => (
     <Router>
-        <Route path="/" component={Market}/>
+        <div>
+            <Route exact path="/" component={Market} />
+            <Route path="/post" component={Post} />
+        </div>
     </Router>
 );
 

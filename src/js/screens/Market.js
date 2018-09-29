@@ -13,7 +13,8 @@ const Market = () => (
                     owner: 'Rich',
                     price: '$6,657.78',
                     timestamp: moment().format('MMM D'),
-                    coin: 'BTC'
+                    coin: 'BTC',
+                    location: 'Fort Collins'
                 }
             ]
         }
