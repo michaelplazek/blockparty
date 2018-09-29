@@ -1,9 +1,9 @@
 import React from 'react';
-import { Box, Heading } from 'grommet';
+import {Box, Heading, Layer} from 'grommet';
 import { compose, lifecycle } from 'recompose';
 import mapper from "../utils/connect";
 
-import { selectPostsForDisplay } from "../selectors";
+import { selectPostsForDisplay} from "../selectors";
 import { loadPosts as loadPostsAction } from "../actions/posts";
 
 import List from "../components/List";
