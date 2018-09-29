@@ -4,15 +4,18 @@ import { hot, setConfig } from 'react-hot-loader'
 import {
     BrowserRouter as Router,
     Route,
-    Link,
 } from 'react-router-dom';
 
 import Market from './screens/Market';
+import Post from './screens/Post';
 
 setConfig({logLevel: 'no-errors-please'});
 const App = () => (
     <Router>
-        <Route path="/" component={Market}/>
+        <div>
+            <Route exact path="/" component={Market} />
+            <Route path="/post" component={Post} />
+        </div>
     </Router>
 );
 

@@ -1,28 +1,40 @@
 import React from 'react';
-import { Box, Heading, Paragraph, Text } from 'grommet';
-import { Btc } from 'react-cryptocoins';
+import { Box, Heading, Paragraph, Text, Button } from 'grommet';
 import PropTypes from 'prop-types';
 
+import { getCoinIcon } from "./utils";
+
 const ListItem = ({ item }) => (
-    <Box direction='row' margin='medium'>
-        <Box justify='center' align='center'>
-            <Btc size={40}/>
-        </Box>
-        <Box margin={{ horizontal: 'medium' }}>
-            <Box>
-                <Heading padding='none' margin='none'>{item.amount}</Heading>
-                <Paragraph
-                    size='small'
-                    margin='none'
-                >
-                    at {item.price}/{item.coin}
-                </Paragraph>
+    <Button
+        href='/post'
+    >
+        <Box
+            border={{ color: 'light-1', side: 'bottom'}}
+            justify='center' fill='horizontal'
+            direction='row'
+            pad='medium'
+            background={{ color: 'neutral-1' }}
+        >
+            <Box justify='center' align='center'>
+                {getCoinIcon(item.coin)}
+            </Box>
+            <Box margin={{ horizontal: 'medium' }}>
+                <Box>
+                    <Heading padding='none' margin='none'>{item.amount}</Heading>
+                    <Paragraph
+                        size='small'
+                        margin='none'
+                    >
+                        {item.price}/{item.coin}
+                    </Paragraph>
+                </Box>
+            </Box>
+            <Box align='end' margin='small'>
+                <Text margin='none' size='xsmall'>{item.location}</Text>
+                <Text margin='none' size='xsmall'>{item.timestamp}</Text>
             </Box>
         </Box>
-        <Box margin='small'>
-            <Text size='xsmall'>{item.timestamp}</Text>
-        </Box>
-    </Box>
+    </Button>
 );
 
 ListItem.propTypes = {
