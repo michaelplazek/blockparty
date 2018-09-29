@@ -4,7 +4,6 @@ import { hot, setConfig } from 'react-hot-loader'
 import {
     BrowserRouter as Router,
     Route,
-    Link,
 } from 'react-router-dom';
 
 import Market from './screens/Market';

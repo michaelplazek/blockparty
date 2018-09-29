@@ -3,15 +3,19 @@ import { Box } from 'grommet';
 import PropTypes from 'prop-types';
 
 import ListItem from "./ListItem";
+import Placeholder from'./Placeholder';
 
 const List = ({ items }) => (
-    <Box>
+    <Box responsive={true}>
         {items.map(item =>
             <ListItem
                 item={item}
-                key={`${item.owner}-${item.timestamp}`}
+                key={`${item._id}`}
             />
         )}
+        {(items.length < 1) &&
+            <Placeholder />
+        }
     </Box>
 );
 
