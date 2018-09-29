@@ -4,7 +4,7 @@ import { Btc } from 'react-cryptocoins';
 import PropTypes from 'prop-types';
 
 const ListItem = ({ item }) => (
-    <Box direction='row'>
+    <Box direction='row' margin='large'>
         <Box justify='center' align='center'>
             <Btc size={50}/>
         </Box>

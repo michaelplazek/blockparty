@@ -16,25 +16,29 @@ const store = createStore(reducers, composeWithDevTools(
 ));
 let content = document.getElementById('content');
 ReactDOM.render(
+    <AppContainer>
     <Provider store={store}>
         <Grommet theme={theme} full={true}>
-            <AppContainer>
+
                 <App />
-            </AppContainer>
         </Grommet>
     </Provider>
-, content);
+    </AppContainer>
+
+    , content);
 
 if (module.hot) {
     module.hot.accept('./js/App.js', () => {
         ReactDOM.render(
-            <Provider store={store}>
-                <Grommet theme={theme} full={true}>
-                    <AppContainer>
+            <AppContainer>
+                <Provider store={store}>
+                    <Grommet theme={theme} full={true}>
+
                         <App />
-                    </AppContainer>
-                </Grommet>
-            </Provider>
+                    </Grommet>
+                </Provider>
+            </AppContainer>
+
             , content);
     });
 }
