@@ -21,13 +21,18 @@
     "aws-sdk": "^2.100.0",
     "file-system": "^2.2.2",
     "fs": "^0.0.1-security",
-    "grommet": "*",
+    "grommet": "^2.0.0-beta.6",
+    "grommet-icons": "^3.0.0",
     "jsdom": "^11.0.0",
     "json-loader": "^0.5.4",
     "jsonfile": "^3.0.1",
     "lodash": "^4.17.4",
+    "moment": "^2.22.2",
+    "prop-types": "^15.6.2",
+    "react-cryptocoins": "^1.0.11",
     "react-fontawesome": "^1.6.1",
     "react-google-maps": "^7.2.0",
+    "react-hot-loader": "^4.3.11",
     "react-image-lightbox": "^4.1.0",
     "react-redux": "^5.0.7",
     "react-responsive": "^4.0.5",
@@ -36,7 +41,9 @@
     "recompose": "^0.30.0",
     "redux": "^4.0.0",
     "redux-devtools-extension": "^2.13.5",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "styled-components": "^3.4.9",
+    "webpack-hot-middleware": "^2.24.2"
   },
   "devDependencies": {
     "babel-cli": "6.8.0",
@@ -65,7 +72,6 @@
     "style-loader": "0.13.1",
     "url-loader": "0.5.7",
     "webpack": "^1.13.0",
-    "webpack-dev-middleware": "1.6.1",
-    "webpack-hot-middleware": "2.10.0"
+    "webpack-dev-middleware": "1.6.1"
   }
 }

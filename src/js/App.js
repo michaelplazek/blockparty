@@ -1,4 +1,6 @@
 import React from 'react';
+import { hot, setConfig } from 'react-hot-loader'
+
 import {
     BrowserRouter as Router,
     Route,
@@ -7,10 +9,11 @@ import {
 
 import Market from './screens/Market';
 
+setConfig({logLevel: 'no-errors-please'});
 const App = () => (
     <Router>
         <Route path="/" component={Market}/>
     </Router>
 );
 
-export default App;
+export default hot(module)(App);
