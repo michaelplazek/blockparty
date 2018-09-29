@@ -1,10 +1,11 @@
 import React from 'react';
+import { hot, setConfig } from 'react-hot-loader'
+
 import {
     BrowserRouter as Router,
     Route,
     Link,
 } from 'react-router-dom';
-import { hot, setConfig } from 'react-hot-loader'
 setConfig({logLevel: 'no-errors-please'});
 
 import Market from './screens/Market';

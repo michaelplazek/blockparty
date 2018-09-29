@@ -6,14 +6,16 @@ import PropTypes from 'prop-types';
 const ListItem = ({ item }) => (
     <Box direction='row'>
         <Box justify='center' align='center'>
-            <Btc size={150}/>
+            <Btc size={50}/>
         </Box>
         <Box>
-            <Heading margin='none'>{item.amount}</Heading>
-            <Paragraph margin='none'>{`at ${item.price}`}</Paragraph>
-        </Box>
-        <Box>
-            <Text>{item.timestamp}</Text>
+            <Box>
+                <Heading margin='none'>{item.amount}</Heading>
+                <Paragraph margin='none'>{`at ${item.price}`}</Paragraph>
+            </Box>
+            <Box>
+                <Text>{item.timestamp}</Text>
+            </Box>
         </Box>
     </Box>
 );
