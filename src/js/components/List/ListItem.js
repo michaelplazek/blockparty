@@ -1,17 +1,17 @@
 import React from 'react';
-import { Box, Heading, Paragraph } from 'grommet';
+import { Box, Heading, Paragraph, Text } from 'grommet';
 import { Btc } from 'react-cryptocoins';
 import PropTypes from 'prop-types';
 
 const ListItem = ({ item }) => (
-    <Box>
+    <Box direction='row'>
         <Btc />
         <Box>
-            <Heading>{item.amount}</Heading>
-            <Paragraph>{`at ${item.price}`}</Paragraph>
+            <Heading margin='none'>{item.amount}</Heading>
+            <Paragraph margin='none'>{`at ${item.price}`}</Paragraph>
         </Box>
         <Box>
-
+            <Text>{item.timestamp}</Text>
         </Box>
     </Box>
 );

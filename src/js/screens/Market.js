@@ -8,7 +8,7 @@ const Market = () => (
     <Box>
         <List items={
             [
-                {amount: '$700', owner: 'Rich', price: '$6,657.78', timestamp: moment().format('M D')}
+                {amount: '$700', owner: 'Rich', price: '$6,657.78', timestamp: moment().format('MMM D')}
             ]
         }
         />
