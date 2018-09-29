@@ -6,10 +6,10 @@ import {
     Route,
     Link,
 } from 'react-router-dom';
-setConfig({logLevel: 'no-errors-please'});
 
 import Market from './screens/Market';
 
+setConfig({logLevel: 'no-errors-please'});
 const App = () => (
     <Router>
         <Route path="/" component={Market}/>

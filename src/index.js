@@ -26,5 +26,15 @@ ReactDOM.render(
 , content);
 
 if (module.hot) {
-    module.hot.accept('./js/App.js', () => { render(App) });
+    module.hot.accept('./js/App.js', () => {
+        ReactDOM.render(
+            <Provider store={store}>
+                <Grommet theme={theme} full={true}>
+                    <AppContainer>
+                        <App />
+                    </AppContainer>
+                </Grommet>
+            </Provider>
+            , content);
+    });
 }
