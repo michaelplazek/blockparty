@@ -5,8 +5,8 @@ import PropTypes from 'prop-types';
 
 const ListItem = ({ item }) => (
     <Box direction='row'>
-        <Box background='red' align='center'>
-            <Btc />
+        <Box justify='center' align='center'>
+            <Btc size={150}/>
         </Box>
         <Box>
             <Heading margin='none'>{item.amount}</Heading>

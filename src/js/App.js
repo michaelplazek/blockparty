@@ -4,7 +4,8 @@ import {
     Route,
     Link,
 } from 'react-router-dom';
-import { hot } from 'react-hot-loader'
+import { hot, setConfig } from 'react-hot-loader'
+setConfig({logLevel: 'no-errors-please'});
 
 import Market from './screens/Market';
 
