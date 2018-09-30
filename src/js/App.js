@@ -13,6 +13,7 @@ import Post from './screens/Post';
 import Navigation from "./components/Navigation";
 import NavigationFlyout from "./components/LayerModal/NavigationFlyout";
 import mapper from "./utils/connect";
+import routes from './config/routes';
 import { selectLayer } from "./selectors";
 import { setLayer as setLayerAction } from "./actions/layers";
 
@@ -32,8 +33,14 @@ const App = ({ setLayer, LAYER }) => (
         </Layer> }
         <Router>
             <div>
-                <Route exact path="/" component={Market} />
-                <Route path="/post" component={Post} />
+                {routes.map(route =>
+                    <Route
+                        exact={route.exact}
+                        component={route.component}
+                        path={route.path}
+                        key={route.index}
+                    />)
+                }
             </div>
         </Router>
     </Box>

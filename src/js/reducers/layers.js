@@ -2,7 +2,7 @@ import { stateReducer } from "./utils";
 import { SET_LAYER } from "../actions";
 
 const initialState = {
-    layer: 'NAVIGATION',
+    layer: '',
 };
 
 const handlers = {

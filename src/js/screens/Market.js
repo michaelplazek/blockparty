@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, Heading, Layer} from 'grommet';
+import { Box } from 'grommet';
 import { compose, lifecycle } from 'recompose';
 import mapper from "../utils/connect";
 
