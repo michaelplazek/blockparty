@@ -1,5 +1,5 @@
 import React from 'react';
-import { Currency, Add, VirtualMachine } from 'grommet-icons';
+import { Currency, Add, VirtualMachine, Dashboard } from 'grommet-icons';
 
 export const flyoutNavigation = [
     {
@@ -9,10 +9,10 @@ export const flyoutNavigation = [
         icon: <Currency />,
     },
     {
-        path: '/post',
-        label: 'Make a Post',
+        path: '/',
+        label: 'Dashboard',
         index: 1,
-        icon: <Add />,
+        icon: <Dashboard />,
     },
     {
         path: '/about',

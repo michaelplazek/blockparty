@@ -4,9 +4,13 @@ import PropTypes from 'prop-types';
 
 import ListItem from "./ListItem";
 import Placeholder from'./Placeholder';
+import Taskbar from "../Taskbar";
 
 const List = ({ items }) => (
     <Box responsive={true}>
+        {items.length > 0 &&
+        <Taskbar />
+        }
         {items.map(item =>
             <ListItem
                 item={item}

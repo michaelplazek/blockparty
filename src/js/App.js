@@ -19,13 +19,14 @@ import { setLayer as setLayerAction } from "./actions/layers";
 
 setConfig({logLevel: 'no-errors-please'});
 const App = ({ setLayer, LAYER }) => (
-    <Box fill={true} overflow='hidden'>
+    <Box background={{ color: 'light-1' }} fill={true} overflow='hidden'>
         <Navigation />
         { LAYER === 'NAVIGATION' &&
         <Layer
             modal={true}
             responsive={true}
             full='vertical'
+            background={{ color: 'dark-4' }}
             onClickOutside={() => {setLayer('')}}
             position='left'
         >
