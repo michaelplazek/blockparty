@@ -1,5 +1,7 @@
 import React from 'react';
+import { compose } from 'recompose';
 import { hot, setConfig } from 'react-hot-loader'
+import { Box, Layer } from'grommet';
 
 import {
     BrowserRouter as Router,
@@ -8,15 +10,51 @@ import {
 
 import Market from './screens/Market';
 import Post from './screens/Post';
+import Navigation from "./components/Navigation";
+import NavigationFlyout from "./components/LayerModal/NavigationFlyout";
+import mapper from "./utils/connect";
+import routes from './config/routes';
+import { selectLayer } from "./selectors";
+import { setLayer as setLayerAction } from "./actions/layers";
 
 setConfig({logLevel: 'no-errors-please'});
-const App = () => (
-    <Router>
-        <div>
-            <Route exact path="/" component={Market} />
-            <Route path="/post" component={Post} />
-        </div>
-    </Router>
+const App = ({ setLayer, LAYER }) => (
+    <Box fill={true} overflow='hidden'>
+        <Navigation />
+        { LAYER === 'NAVIGATION' &&
+        <Layer
+            modal={true}
+            responsive={true}
+            full='vertical'
+            onClickOutside={() => {setLayer('')}}
+            position='left'
+        >
+            <NavigationFlyout />
+        </Layer> }
+        <Router>
+            <div>
+                {routes.map(route =>
+                    <Route
+                        exact={route.exact}
+                        component={route.component}
+                        path={route.path}
+                        key={route.index}
+                    />)
+                }
+            </div>
+        </Router>
+    </Box>
 );
 
-export default hot(module)(App);
+const propMap = {
+    LAYER: selectLayer,
+};
+
+const actionMap = {
+    setLayer: setLayerAction,
+};
+
+export default compose(
+    mapper(propMap, actionMap),
+    hot(module)
+)(App);

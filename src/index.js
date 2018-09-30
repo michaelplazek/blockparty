@@ -4,7 +4,7 @@ import { applyMiddleware, createStore } from 'redux'
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { Grommet, hpe as theme } from 'grommet';
+import { Grommet, hpe as theme, Box } from 'grommet';
 
 import { AppContainer } from 'react-hot-loader';
 
@@ -17,28 +17,24 @@ const store = createStore(reducers, composeWithDevTools(
 let content = document.getElementById('content');
 ReactDOM.render(
     <AppContainer>
-    <Provider store={store}>
-        <Grommet theme={theme} full={true}>
-
+        <Provider store={store}>
+            <Grommet theme={theme} full={false}>
                 <App />
-        </Grommet>
-    </Provider>
+            </Grommet>
+        </Provider>
     </AppContainer>
-
     , content);
 
 if (module.hot) {
     module.hot.accept('./js/App.js', () => {
         ReactDOM.render(
             <AppContainer>
-                <Provider store={store}>
-                    <Grommet theme={theme} full={true}>
-
+                <Provider store={store} >
+                    <Grommet theme={theme} full={false}>
                         <App />
                     </Grommet>
                 </Provider>
             </AppContainer>
-
             , content);
     });
 }

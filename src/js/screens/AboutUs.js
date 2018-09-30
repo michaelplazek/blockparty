@@ -1,10 +1,10 @@
 import React from 'react';
 import { Box } from 'grommet';
 
-const Post = () => (
+const AboutUs = () => (
     <Box>
-        Post
+        AboutUs
     </Box>
 );
 
-export default Post;
+export default AboutUs;
