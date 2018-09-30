@@ -7,12 +7,29 @@ import {selectLayer} from "../../selectors";
 import { setLayer as setLayerAction } from "../../actions/layers";
 import mapper from "../../utils/connect";
 
-const Navigation = ({ items, handleMenuSelect }) => (
-    <Box basis='full' align='start' justify='between' direction='row' background='light-3'>
+import { headerNavigation } from '../../config/navigation';
+
+const Navigation = ({ items, handleMenuSelect, LAYER }) => (
+    <Box justify='between' direction='row' background='light-3'>
         <Button
             icon={<Menu />}
             onClick={handleMenuSelect}
         />
+        { LAYER !== 'NAVIGATION' &&
+            <Box align='center' justify='center' direction='row'>
+                {headerNavigation.map(item =>
+                    <Box margin='small' key={item.index}>
+                        <Button
+                            color='light-2'
+                            primary={false}
+                            plain={true}
+                            label={item.label}
+                            href={item.path}
+                        />
+                    </Box>
+                )}
+            </Box>
+        }
     </Box>
 );
 
