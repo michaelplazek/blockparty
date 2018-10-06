@@ -16,7 +16,7 @@ const Navigation = ({ items, handleMenuSelect, LAYER }) => (
             onClick={handleMenuSelect}
         />
         { LAYER !== 'NAVIGATION' &&
-            <Box align='center' justify='center' direction='row'>
+            <Box align='start' justify='center' direction='row'>
                 {headerNavigation.map(item =>
                     <Box margin='small' key={item.index}>
                         <Button

@@ -18,7 +18,7 @@ let content = document.getElementById('content');
 ReactDOM.render(
     <AppContainer>
         <Provider store={store}>
-            <Grommet theme={theme} full={false}>
+            <Grommet theme={theme} full={true}>
                 <App />
             </Grommet>
         </Provider>
@@ -30,7 +30,7 @@ if (module.hot) {
         ReactDOM.render(
             <AppContainer>
                 <Provider store={store} >
-                    <Grommet theme={theme} full={false}>
+                    <Grommet theme={theme} full={true}>
                         <App />
                     </Grommet>
                 </Provider>
