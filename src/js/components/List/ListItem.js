@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ListItem from "@material-ui/core/ListItem/ListItem";
 
 import { getCoinIcon } from "./utils";
+import ListItem from "@material-ui/core/ListItem/ListItem";
 import Typography from "@material-ui/core/Typography/Typography";
 import ListItemIcon from "@material-ui/core/ListItemIcon/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText/ListItemText";
@@ -10,7 +10,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 
 const styles = () => ({
    root: {
-       borderBottom: 'solid 1px',
+       borderBottom: 'solid 1px #CCC',
        margin: '1px 0px 1px 0px'
    }
 });

@@ -11,14 +11,14 @@ import List from "@material-ui/core/List/List";
 const ListBase = ({ items }) => (
     <div>
         {items.length > 0 &&
-        <List>
-        {items.map(item =>
-            <ListItem
-                item={item}
-                key={`${item._id}`}
-                />
-            )}
-        </List>
+            <List>
+                {items.map(item =>
+                    <ListItem
+                        item={item}
+                        key={`${item._id}`}
+                    />
+                )}
+            </List>
         }
         {(items.length < 1) &&
             <Placeholder />
