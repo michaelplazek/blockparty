@@ -11,5 +11,8 @@ export const selectPostsForDisplay = createSelector(
     }))
 );
 
+// POST
+export const selectPost = state => state.posts.post;
+
 // LAYERS
 export const selectLayer = state => state.layers.layer;

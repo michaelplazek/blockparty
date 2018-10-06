@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { compose, withHandlers } from 'recompose';
+import { withRouter } from 'react-router-dom';
 
 import { getCoinIcon } from "./utils";
 import ListItem from "@material-ui/core/ListItem/ListItem";
@@ -15,9 +17,13 @@ const styles = () => ({
    }
 });
 
-const ListItemBase = ({ item, classes }) => (
+const ListItemBase = ({ item, classes, handleClick }) => (
 
-    <ListItem button className={classes.root}>
+    <ListItem
+        button
+        className={classes.root}
+        onClick={() => handleClick(item._id)}
+    >
         <ListItemIcon>
             {getCoinIcon(item.coin)}
         </ListItemIcon>
@@ -42,7 +48,19 @@ const ListItemBase = ({ item, classes }) => (
 );
 
 ListItemBase.propTypes = {
-  item: PropTypes.object.isRequired,
+    item: PropTypes.object.isRequired,
+    onClick: PropTypes.func.isRequired,
+    handleClick: PropTypes.func.isRequired,
+    path: PropTypes.string.isRequired,
 };
 
-export default withStyles(styles)(ListItemBase);
+export default compose(
+    withStyles(styles),
+    withRouter,
+    withHandlers({
+        handleClick: ({ history, onClick, path }) => (id) => {
+            onClick(id);
+            history.push(path);
+        }
+    }),
+)(ListItemBase);
