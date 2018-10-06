@@ -1,8 +1,9 @@
 import React from 'react';
 import { Btc, Eth, Ltc } from 'react-cryptocoins';
 
+const ICON_SIZE = 30;
 export const iconMap = {
-    'BTC': <Btc size={40} />,
-    'ETH': <Eth size={40} />,
-    'LTC': <Ltc size={40} />
+    'BTC': <Btc size={ICON_SIZE} />,
+    'ETH': <Eth size={ICON_SIZE} />,
+    'LTC': <Ltc size={ICON_SIZE} />
 };

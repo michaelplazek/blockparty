@@ -1,7 +1,7 @@
 import React from 'react';
-import { Currency, Add, VirtualMachine } from 'grommet-icons';
+import { Currency, Add, VirtualMachine, Dashboard, User } from 'grommet-icons';
 
-export const flyoutNavigation = [
+export const footerNavigation = [
     {
         path: '/',
         label: 'Marketplace',
@@ -9,28 +9,34 @@ export const flyoutNavigation = [
         icon: <Currency />,
     },
     {
-        path: '/post',
-        label: 'Make a Post',
+        path: '/',
+        label: 'Dashboard',
         index: 1,
-        icon: <Add />,
+        icon: <Dashboard />,
     },
     {
-        path: '/about',
-        label: 'About Us',
+        path: '/',
+        label: 'Account',
         index: 2,
-        icon: <VirtualMachine />,
+        icon: <User />,
     },
+    // {
+    //     path: '/about',
+    //     label: 'About Us',
+    //     index: 2,
+    //     icon: <VirtualMachine />,
+    // },
 ];
 
-export const headerNavigation = [
-    {
-        path: '/post',
-        label: 'Sign up',
-        index: 0
-    },
-    {
-        path: '/about',
-        label: 'Log In',
-        index: 1
-    },
-];
+// export const footerNavigation = [
+//     {
+//         path: '/post',
+//         label: 'Sign up',
+//         index: 0
+//     },
+//     {
+//         path: '/about',
+//         label: 'Log In',
+//         index: 1
+//     },
+// ];

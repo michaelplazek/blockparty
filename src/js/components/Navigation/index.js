@@ -10,17 +10,17 @@ import mapper from "../../utils/connect";
 import { headerNavigation } from '../../config/navigation';
 
 const Navigation = ({ items, handleMenuSelect, LAYER }) => (
-    <Box justify='between' direction='row' background='light-3'>
+    <Box justify='between' direction='row' background='dark-1'>
         <Button
             icon={<Menu />}
             onClick={handleMenuSelect}
         />
         { LAYER !== 'NAVIGATION' &&
-            <Box align='center' justify='center' direction='row'>
+            <Box align='start' justify='center' direction='row'>
                 {headerNavigation.map(item =>
                     <Box margin='small' key={item.index}>
                         <Button
-                            color='light-2'
+                            hoverIndicator={{ color: 'dark-2' }}
                             primary={false}
                             plain={true}
                             label={item.label}

@@ -8,10 +8,14 @@ import { loadPosts as loadPostsAction } from "../actions/posts";
 
 import List from "../components/List";
 import PageHeader from '../components/PageHeader';
+import Taskbar from "../components/Taskbar";
 
 const Market = ({ posts }) => (
-    <Box>
-        <PageHeader title='Marketplace'/>
+    <Box
+        // fill={true}
+        responsive={true}
+    >
+        {/*<PageHeader title='Marketplace'/>*/}
         <List items={posts} />
     </Box>
 );

@@ -6,18 +6,23 @@ import Navigation from "../Navigation";
 import { flyoutNavigation } from '../../config/navigation';
 
 const NavigationFlyout = () => (
-    <Box>
+    <Box fill={true} background={{ color: 'light-2' }}>
         <Navigation />
-        <Box justify='start' background='light-1'>
+        <Box justify='start' >
             {flyoutNavigation.map(item =>
-                <Box pad='medium' margin='none'>
+                <Box
+                    border={{ side: 'bottom', color: 'dark-4' }}
+                    key={item.index}
+                    pad={{ vertical: 'small', horizontal: 'large' }}
+                    margin='none'
+                >
                     <Button
+                        hoverIndicator={{ color: 'light-2' }}
                         icon={item.icon}
                         color='neutral-1'
                         plain={true}
                         href={item.path}
                         label={item.label}
-                        key={item.index}
                     />
                 </Box>
             )}
