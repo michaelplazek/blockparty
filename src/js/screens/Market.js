@@ -12,11 +12,8 @@ import Taskbar from "../components/Taskbar";
 // import Grid from "@material-ui/core/Grid/Grid";
 
 const Market = ({ posts }) => (
-    <div
-        // fill={true}
-        // responsive={true}
-    >
-        {/*<PageHeader title='Marketplace'/>*/}
+    <div>
+        <PageHeader title='Marketplace'/>
         <List items={posts} />
     </div>
 );
