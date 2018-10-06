@@ -5,26 +5,29 @@ import PropTypes from 'prop-types';
 import ListItem from "./ListItem";
 import Placeholder from'./Placeholder';
 import Taskbar from "../Taskbar";
+import Grid from "@material-ui/core/Grid/Grid";
+import List from "@material-ui/core/List/List";
 
-const List = ({ items }) => (
-    <Box responsive={true}>
+const ListBase = ({ items }) => (
+    <div>
         {items.length > 0 &&
-        <Taskbar />
-        }
+        <List>
         {items.map(item =>
             <ListItem
                 item={item}
                 key={`${item._id}`}
-            />
-        )}
+                />
+            )}
+        </List>
+        }
         {(items.length < 1) &&
             <Placeholder />
         }
-    </Box>
+    </div>
 );
 
-List.propTypes = {
+ListBase.propTypes = {
   items: PropTypes.array.isRequired,
 };
 
-export default List;
+export default ListBase;
