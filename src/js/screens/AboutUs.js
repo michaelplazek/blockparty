@@ -1,10 +1,9 @@
 import React from 'react';
-import { Box } from 'grommet';
 
 const AboutUs = () => (
-    <Box>
+    <div>
         AboutUs
-    </Box>
+    </div>
 );
 
 export default AboutUs;

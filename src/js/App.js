@@ -1,61 +1,49 @@
 import React from 'react';
 import { compose } from 'recompose';
 import { hot, setConfig } from 'react-hot-loader'
-import { Box, Layer } from'grommet';
 
 import {
     BrowserRouter as Router,
     Route,
 } from 'react-router-dom';
 
-import Market from './screens/Market';
-import Post from './screens/Post';
-import Navigation from "./components/Navigation";
-import NavigationFlyout from "./components/LayerModal/NavigationFlyout";
 import mapper from "./utils/connect";
 import routes from './config/routes';
 import { selectLayer } from "./selectors";
 import { setLayer as setLayerAction } from "./actions/layers";
 import FooterNav from "./components/FooterNav";
+import withStyles from "@material-ui/core/styles/withStyles";
 
 setConfig({logLevel: 'no-errors-please'});
-const App = ({ setLayer, LAYER }) => (
-    <Box
-        responsive={true}
-        fill={true}
-        background={{ color: 'light-1' }}
-        justify='between'
-        direction='column'
-        overflow='hidden'
+const styles = () => ({
+    root: {
+        display: 'flex',
+        minHeight: '100vh',
+        flexDirection: 'column',
+    }
+});
+const App = ({ classes }) => (
+    <div
+        className={classes.root}
     >
-        {/*<Navigation />*/}
-        {/*{ LAYER === 'NAVIGATION' &&*/}
-        {/*<Layer*/}
-            {/*modal={true}*/}
-            {/*responsive={true}*/}
-            {/*full='vertical'*/}
-            {/*background={{ color: 'dark-4' }}*/}
-            {/*onClickOutside={() => {setLayer('')}}*/}
-            {/*position='left'*/}
-        {/*>*/}
-            {/*<NavigationFlyout />*/}
-        {/*</Layer> }*/}
         <Router>
             <div>
-                {routes.map(route =>
-                    <Route
-                        exact={route.exact}
-                        component={route.component}
-                        path={route.path}
-                        key={route.index}
-                    />)
-                }
+                <div>
+                    {routes.map(route =>
+                        <Route
+                            exact={route.exact}
+                            component={route.component}
+                            path={route.path}
+                            key={route.index}
+                        />
+                    )}
+                </div>
+                <div>
+                    <FooterNav />
+                </div>
             </div>
         </Router>
-        <Box>
-            <FooterNav />
-        </Box>
-    </Box>
+    </div>
 );
 
 const propMap = {
@@ -68,5 +56,6 @@ const actionMap = {
 
 export default compose(
     mapper(propMap, actionMap),
-    hot(module)
+    hot(module),
+    withStyles(styles),
 )(App);

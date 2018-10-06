@@ -1,10 +1,10 @@
 import React from 'react';
-import { Currency, Add, VirtualMachine, Dashboard, User } from 'grommet-icons';
+import { Currency, Dashboard, User } from 'grommet-icons';
 
 export const footerNavigation = [
     {
         path: '/',
-        label: 'Marketplace',
+        label: 'Market',
         index: 0,
         icon: <Currency />,
     },
@@ -15,7 +15,7 @@ export const footerNavigation = [
         icon: <Dashboard />,
     },
     {
-        path: '/',
+        path: '/post',
         label: 'Account',
         index: 2,
         icon: <User />,

@@ -1,48 +1,48 @@
 import React from 'react';
-import { Box, Heading, Paragraph, Text, Button } from 'grommet';
 import PropTypes from 'prop-types';
 
 import { getCoinIcon } from "./utils";
+import ListItem from "@material-ui/core/ListItem/ListItem";
+import Typography from "@material-ui/core/Typography/Typography";
+import ListItemIcon from "@material-ui/core/ListItemIcon/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText/ListItemText";
+import withStyles from "@material-ui/core/styles/withStyles";
 
-const ListItem = ({ item }) => (
-    <Button
-        href='/post'
-        hoverIndicator={{ color: 'light-1' }}
-    >
-        <Box
-            border={{ color: 'light-1', side: 'bottom'}}
-            justify='between'
-            fill='horizontal'
-            direction='row'
-            pad='medium'
-            background={{ color: 'neutral-1' }}
-        >
-            <Box justify='start' direction='row'>
-                <Box justify='center' align='center'>
-                    {getCoinIcon(item.coin)}
-                </Box>
-                <Box margin={{ horizontal: 'medium' }}>
-                    <Box>
-                        <Heading level={2} padding='none' margin='none'>{item.amount}</Heading>
-                        <Paragraph
-                            size='small'
-                            margin='none'
-                        >
-                            {item.price}/{item.coin}
-                        </Paragraph>
-                    </Box>
-                </Box>
-            </Box>
-            <Box align='end' margin='small'>
-                <Text margin='none' size='xsmall' color='light-3'>{item.location}</Text>
-                <Text margin='none' size='xsmall' color='light-3'>{item.timestamp}</Text>
-            </Box>
-        </Box>
-    </Button>
+const styles = () => ({
+   root: {
+       borderBottom: 'solid 1px #CCC',
+       margin: '1px 0px 1px 0px'
+   }
+});
+
+const ListItemBase = ({ item, classes }) => (
+
+    <ListItem button className={classes.root}>
+        <ListItemIcon>
+            {getCoinIcon(item.coin)}
+        </ListItemIcon>
+        <ListItemText
+            disableTypography={true}
+            primary={
+                <Typography variant='title'>{item.amount}</Typography>
+            }
+            secondary={
+                <Typography variant='subheading'>{item.coin}</Typography>
+            }
+        />
+        <ListItemText
+            primary={
+                <Typography align='right' variant='caption'>{item.location}</Typography>
+            }
+            secondary={
+                <Typography align='right' variant='caption'>{item.timestamp}</Typography>
+            }
+        />
+    </ListItem>
 );
 
-ListItem.propTypes = {
+ListItemBase.propTypes = {
   item: PropTypes.object.isRequired,
 };
 
-export default ListItem;
+export default withStyles(styles)(ListItemBase);

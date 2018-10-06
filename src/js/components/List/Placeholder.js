@@ -1,10 +1,18 @@
 import React from 'react';
-import { Box, Text} from 'grommet';
+import Typography from "@material-ui/core/Typography/Typography";
+import withStyles from "@material-ui/core/styles/withStyles";
 
-const Placeholder = () => (
-    <Box pad='xlarge' align='center'>
-        <Text>No results</Text>
-    </Box>
+const styles = () => ({
+   root: {
+       padding: '10px',
+       alignContent: 'center',
+   }
+});
+
+const Placeholder = ({classes }) => (
+    <div className={classes.root}>
+        <Typography>No results</Typography>
+    </div>
 );
 
-export default Placeholder;
+export default withStyles(styles)(Placeholder);
