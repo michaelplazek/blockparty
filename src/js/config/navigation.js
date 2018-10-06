@@ -4,7 +4,7 @@ import { Currency, Add, VirtualMachine, Dashboard, User } from 'grommet-icons';
 export const footerNavigation = [
     {
         path: '/',
-        label: 'Marketplace',
+        label: 'Market',
         index: 0,
         icon: <Currency />,
     },

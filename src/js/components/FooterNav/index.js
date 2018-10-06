@@ -9,19 +9,38 @@ import mapper from "../../utils/connect";
 
 import { footerNavigation } from '../../config/navigation';
 import NavItem from "./NavItem";
+import Grid from "@material-ui/core/Grid/Grid";
+import Toolbar from "@material-ui/core/Toolbar/Toolbar";
+import AppBar from "@material-ui/core/AppBar/AppBar";
+import Tabs from "@material-ui/core/Tabs/Tabs";
+import withStyles from "@material-ui/core/styles/withStyles";
 
-const FooterNavBase = () => (
-    <Box
-        responsive={true}
-        justify='between'
-        align='center'
-        direction='row'
-        background='light-1'
+const styles = () => ({
+   root: {
+       width: '100%',
+       bottom: 0,
+       position: 'absolute',
+   }
+});
+
+const FooterNavBase = ({ classes }) => (
+    <AppBar
+        className={classes.root}
+        position="static"
+        color="default"
     >
-        {footerNavigation.map(item =>
-            <NavItem item={item}/>
-        )}
-    </Box>
+        <Tabs
+            value={1}
+            onChange={() => {}}
+            indicatorColor="primary"
+            textColor="primary"
+            fullWidth={true}
+        >
+            {footerNavigation.map(item =>
+                <NavItem item={item}/>
+            )}
+        </Tabs>
+    </AppBar>
 );
 
 FooterNavBase.propTypes = {
@@ -38,4 +57,5 @@ const actionMap = {
 
 export default compose(
     mapper(propMap, actionMap),
+    withStyles(styles),
 )(FooterNavBase);

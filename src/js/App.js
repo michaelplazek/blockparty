@@ -17,29 +17,24 @@ import routes from './config/routes';
 import { selectLayer } from "./selectors";
 import { setLayer as setLayerAction } from "./actions/layers";
 import FooterNav from "./components/FooterNav";
+import withStyles from "@material-ui/core/styles/withStyles";
+// import Grid from '@material-ui/core/Grid/Grid';
+// import classNames from 'classnames';
+// import withStyles from "@material-ui/core/es/styles/withStyles";
 
 setConfig({logLevel: 'no-errors-please'});
-const App = ({ setLayer, LAYER }) => (
-    <Box
-        responsive={true}
-        fill={true}
-        background={{ color: 'light-1' }}
-        justify='between'
-        direction='column'
-        overflow='hidden'
+const styles = () => ({
+    root: {
+        display: 'flex',
+        minHeight: '100vh',
+        flexDirection: 'column',
+    }
+});
+const App = ({ classes }) => (
+    <div
+
+        className={classes.root}
     >
-        {/*<Navigation />*/}
-        {/*{ LAYER === 'NAVIGATION' &&*/}
-        {/*<Layer*/}
-            {/*modal={true}*/}
-            {/*responsive={true}*/}
-            {/*full='vertical'*/}
-            {/*background={{ color: 'dark-4' }}*/}
-            {/*onClickOutside={() => {setLayer('')}}*/}
-            {/*position='left'*/}
-        {/*>*/}
-            {/*<NavigationFlyout />*/}
-        {/*</Layer> }*/}
         <Router>
             <div>
                 {routes.map(route =>
@@ -48,14 +43,14 @@ const App = ({ setLayer, LAYER }) => (
                         component={route.component}
                         path={route.path}
                         key={route.index}
-                    />)
-                }
+                    />
+                )}
             </div>
         </Router>
         <Box>
             <FooterNav />
         </Box>
-    </Box>
+    </div>
 );
 
 const propMap = {
@@ -68,5 +63,6 @@ const actionMap = {
 
 export default compose(
     mapper(propMap, actionMap),
-    hot(module)
+    hot(module),
+    withStyles(styles),
 )(App);

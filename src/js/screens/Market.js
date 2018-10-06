@@ -9,15 +9,17 @@ import { loadPosts as loadPostsAction } from "../actions/posts";
 import List from "../components/List";
 import PageHeader from '../components/PageHeader';
 import Taskbar from "../components/Taskbar";
+// import Grid from "@material-ui/core/Grid/Grid";
 
 const Market = ({ posts }) => (
-    <Box
+    <div
+        container
         // fill={true}
-        responsive={true}
+        // responsive={true}
     >
         {/*<PageHeader title='Marketplace'/>*/}
         <List items={posts} />
-    </Box>
+    </div>
 );
 
 const propMap = {
