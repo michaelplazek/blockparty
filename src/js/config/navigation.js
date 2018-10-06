@@ -9,7 +9,7 @@ export const footerNavigation = [
         icon: <Currency />,
     },
     {
-        path: '/',
+        path: '/dashboard',
         label: 'Dashboard',
         index: 1,
         icon: <Dashboard />,
@@ -20,23 +20,4 @@ export const footerNavigation = [
         index: 2,
         icon: <User />,
     },
-    // {
-    //     path: '/about',
-    //     label: 'About Us',
-    //     index: 2,
-    //     icon: <VirtualMachine />,
-    // },
 ];
-
-// export const footerNavigation = [
-//     {
-//         path: '/post',
-//         label: 'Sign up',
-//         index: 0
-//     },
-//     {
-//         path: '/about',
-//         label: 'Log In',
-//         index: 1
-//     },
-// ];
