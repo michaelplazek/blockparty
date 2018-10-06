@@ -1,10 +1,9 @@
 import React from 'react';
-import { Box } from 'grommet';
 
 const Post = () => (
-    <Box>
+    <div>
         Post
-    </Box>
+    </div>
 );
 
 export default Post;

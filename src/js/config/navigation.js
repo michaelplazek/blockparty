@@ -1,5 +1,5 @@
 import React from 'react';
-import { Currency, Add, VirtualMachine, Dashboard, User } from 'grommet-icons';
+import { Currency, Dashboard, User } from 'grommet-icons';
 
 export const footerNavigation = [
     {

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Box } from 'grommet';
 import { compose, lifecycle } from 'recompose';
 import mapper from "../utils/connect";
 
@@ -8,8 +7,6 @@ import { loadPosts as loadPostsAction } from "../actions/posts";
 
 import List from "../components/List";
 import PageHeader from '../components/PageHeader';
-import Taskbar from "../components/Taskbar";
-// import Grid from "@material-ui/core/Grid/Grid";
 
 const Market = ({ posts }) => (
     <div>

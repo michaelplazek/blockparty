@@ -1,11 +1,10 @@
 import React from 'react';
-import { Box, Button, Anchor } from 'grommet';
 import PropTypes from 'prop-types';
 
 const CreatePost = () => (
-    <Box>
+    <div>
 
-    </Box>
+    </div>
 );
 
 CreatePost.propTypes = {
