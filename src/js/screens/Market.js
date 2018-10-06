@@ -13,7 +13,6 @@ import Taskbar from "../components/Taskbar";
 
 const Market = ({ posts }) => (
     <div
-        container
         // fill={true}
         // responsive={true}
     >

@@ -1,19 +1,15 @@
 import React from 'react';
-import { Box, Button, Anchor } from 'grommet';
+
 import PropTypes from 'prop-types';
-import { compose, withHandlers } from 'recompose';
-import { Menu } from 'grommet-icons';
-import {selectLayer} from "../../selectors";
-import { setLayer as setLayerAction } from "../../actions/layers";
+import { compose, withHandlers, withState } from 'recompose';
 import mapper from "../../utils/connect";
 
-import { footerNavigation } from '../../config/navigation';
-import NavItem from "./NavItem";
-import Grid from "@material-ui/core/Grid/Grid";
-import Toolbar from "@material-ui/core/Toolbar/Toolbar";
+import { footerNavigation as navigation } from '../../config/navigation';
 import AppBar from "@material-ui/core/AppBar/AppBar";
 import Tabs from "@material-ui/core/Tabs/Tabs";
 import withStyles from "@material-ui/core/styles/withStyles";
+import { withRouter } from 'react-router-dom'
+import Tab from "@material-ui/core/Tab/Tab";
 
 const styles = () => ({
    root: {
@@ -23,21 +19,21 @@ const styles = () => ({
    }
 });
 
-const FooterNavBase = ({ classes }) => (
+const FooterNavBase = ({ classes, handleChange, index }) => (
     <AppBar
         className={classes.root}
         position="static"
         color="default"
     >
         <Tabs
-            value={1}
-            onChange={() => {}}
+            value={index}
+            onChange={(_, value) => handleChange(value)}
             indicatorColor="primary"
             textColor="primary"
             fullWidth={true}
         >
-            {footerNavigation.map(item =>
-                <NavItem item={item}/>
+            {navigation.map(item =>
+                <Tab icon={item.icon} label={item.label} key={item.index}/>
             )}
         </Tabs>
     </AppBar>
@@ -48,14 +44,22 @@ FooterNavBase.propTypes = {
 };
 
 const propMap = {
-    LAYER: selectLayer,
+
 };
 
 const actionMap = {
-    setLayer: setLayerAction
+
 };
 
 export default compose(
     mapper(propMap, actionMap),
+    withRouter,
+    withState('index', 'setIndex', 0),
+    withHandlers({
+        handleChange: ({ setIndex, history }) => (value) => {
+            setIndex(value);
+            history.push(navigation[value].path)
+        },
+    }),
     withStyles(styles),
 )(FooterNavBase);
