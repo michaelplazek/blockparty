@@ -14,8 +14,7 @@ const styles = theme => ({
 });
 
 const Login = ({
-    handleEmail,
-    handlePassword,
+    handleSubmit,
     classes,
 }) => (
     <Grid
@@ -26,13 +25,12 @@ const Login = ({
     >
         <Typography
             align='center'
-            variant='h1'
+            variant='display1'
         >
             Login In
         </Typography>
         <LoginForm
-            handleEmail={handleEmail}
-            handlePassword={handlePassword}
+            handleSubmit={handleSubmit}
         />
     </Grid>
 
@@ -43,11 +41,9 @@ export default compose(
     withState('email', 'setEmail', ''),
     withState('password', 'setPassword', ''),
     withHandlers({
-        handleEmail: ({ email, setEmail }) => (input) => {
-
-        },
-        handlePassword: ({ password, setPassword }) => (input) => {
-
+        handleSubmit: () => (email, password) => {
+            console.log(email);
+            console.log(password);
         },
     }),
 )(Login);
