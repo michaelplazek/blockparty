@@ -3,6 +3,7 @@ import Post from "../screens/Post";
 import AboutUs from "../screens/AboutUs";
 import Details from '../screens/Details';
 import Dashboard from '../screens/Dashboard';
+import Login from '../screens/Login';
 
 export default [
     {
@@ -34,5 +35,11 @@ export default [
         exact: false,
         component: Details,
         index: 4
+    },
+    {
+        path: '/login',
+        exact: false,
+        component: Login,
+        index: 5
     },
 ]
