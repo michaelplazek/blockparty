@@ -13,6 +13,7 @@ import { selectLayer } from "./selectors";
 import { setLayer as setLayerAction } from "./actions/layers";
 import FooterNav from "./components/FooterNav";
 import withStyles from "@material-ui/core/styles/withStyles";
+import withAuthentification from "./HOCs/withAuthentification";
 
 setConfig({logLevel: 'no-errors-please'});
 const styles = () => ({
@@ -58,4 +59,5 @@ export default compose(
     mapper(propMap, actionMap),
     hot(module),
     withStyles(styles),
+    withAuthentification,
 )(App);

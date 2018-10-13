@@ -2,18 +2,15 @@ import { stateReducer } from "./utils";
 import { LOG_IN, LOG_OUT } from "../actions";
 
 const initialState = {
-    sessionId: '',
-    loggedIn: false,
+    email: ''
 };
 
 const handlers = {
     [LOG_IN]: (state, action) => ({
-        sessionId: action.session,
-        loggedIn: true,
+        email: action.data,
     }),
     [LOG_OUT]: () => ({
-        sessionId: initialState.sessionId,
-        loggedIn: false
+        email: initialState.email,
     }),
 };
 

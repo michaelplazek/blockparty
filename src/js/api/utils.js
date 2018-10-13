@@ -4,14 +4,13 @@ export const sendData = (url = '', data = {}, type = 'GET') => {
     const newUrl = `${BASE_URL}/${url}`;
     const promise = type !== 'GET' ? fetch(newUrl, {
         method: type,
-        mode: "no-cors",
-        credentials: "same-origin",
+        mode: "cors",
+        credentials: 'include',
         headers: {
             "Content-Type": "application/json; charset=utf-8",
-            // "Content-Type": "application/x-www-form-urlencoded",
         },
         referrer: "no-referrer",
-        body: JSON.stringify(data), // body data type must match "Content-Type" header
+        body: JSON.stringify(data),
     }) : fetch(newUrl);
 
     return promise

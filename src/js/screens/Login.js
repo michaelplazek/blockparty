@@ -7,7 +7,7 @@ import Grid from "@material-ui/core/Grid/Grid";
 import Typography from "@material-ui/core/Typography/Typography";
 
 import { validateInput } from "../utils/login";
-import { logInUser as logInUserAction } from "../actions/session";
+import { logInUser } from "../utils/session";
 import mapper from '../utils/connect';
 
 const styles = theme => ({
@@ -40,18 +40,21 @@ const Login = ({
 
 );
 
-const actionMap = {
-    logInUser: logInUserAction,
-};
-
+// const actionMap = {
+//     logInUser: logInUserAction,
+// };
+//
+// const propMap = {
+//
+// };
 
 export default compose(
-    mapper(_, actionMap),
+    // mapper(propMap, actionMap),
     withStyles(styles),
     withState('email', 'setEmail', ''),
     withState('password', 'setPassword', ''),
     withHandlers({
-        handleSubmit: ({ logInUser }) => (email, password) => {
+        handleSubmit: ({ }) => (email, password) => {
             if (validateInput(email, password)) {
                 logInUser(email, password);
             }
