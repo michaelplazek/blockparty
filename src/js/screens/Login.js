@@ -6,6 +6,10 @@ import LoginForm from "../components/LoginForm";
 import Grid from "@material-ui/core/Grid/Grid";
 import Typography from "@material-ui/core/Typography/Typography";
 
+import { validateInput } from "../utils/login";
+import { logInUser as logInUserAction } from "../actions/session";
+import mapper from '../utils/connect';
+
 const styles = theme => ({
     root: {
         background: 'white',
@@ -36,14 +40,21 @@ const Login = ({
 
 );
 
+const actionMap = {
+    logInUser: logInUserAction,
+};
+
+
 export default compose(
+    mapper(_, actionMap),
     withStyles(styles),
     withState('email', 'setEmail', ''),
     withState('password', 'setPassword', ''),
     withHandlers({
-        handleSubmit: () => (email, password) => {
-            console.log(email);
-            console.log(password);
+        handleSubmit: ({ logInUser }) => (email, password) => {
+            if (validateInput(email, password)) {
+                logInUser(email, password);
+            }
         },
     }),
 )(Login);

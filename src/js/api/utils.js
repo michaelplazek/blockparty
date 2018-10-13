@@ -1,6 +1,6 @@
 const BASE_URL = 'http://localhost:8000';
 
-export const getData = (url = '', data = {}, type = 'GET') => {
+export const sendData = (url = '', data = {}, type = 'GET') => {
     const newUrl = `${BASE_URL}/${url}`;
     const promise = type !== 'GET' ? fetch(newUrl, {
         method: type,
