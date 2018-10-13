@@ -15,7 +15,8 @@ const styles = () => ({
    root: {
        width: '100%',
        bottom: 0,
-       position: 'absolute',
+       position: 'fixed',
+       background: '#CCC',
    }
 });
 

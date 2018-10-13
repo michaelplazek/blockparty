@@ -11,13 +11,12 @@ const initialState = {
 };
 
 const handlers = {
-    [LOAD_POSTS]: (state, action) => ({
-       posts: action.data,
+    [LOAD_SESSION]: (state, action) => ({
+        posts: action.data,
     }),
-    [LOAD_POST_DETAILS]: (state, action) => ({
+    [UNLOAD_SESSION]: (state, action) => ({
         post: state.posts.find(x => x._id === action.id),
     }),
 };
 
 export default stateReducer(initialState, handlers);
-
