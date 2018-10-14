@@ -1,8 +1,19 @@
 import { stateReducer } from "./utils";
-import { LOG_IN, LOG_OUT } from "../actions";
+import {
+    LOG_IN,
+    LOG_OUT,
+    REGISTER_USER,
+    REGISTER_USER_FAILURE,
+    REGISTER_USER_SUCCESS,
+    USER_FROM_TOKEN,
+    USER_FROM_TOKEN_SUCCESS,
+    USER_FROM_TOKEN_FAILURE,
+} from "../actions";
 
 const initialState = {
-    email: ''
+    loggedIn: false,
+    email: '',
+    error: '',
 };
 
 const handlers = {
