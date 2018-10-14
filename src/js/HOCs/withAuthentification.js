@@ -1,26 +1,25 @@
-import React, { Component } from 'react'
-import { getSession } from "../utils/session";
+import React from 'react'
+import { compose } from 'recompose';
+
 import Login from "../screens/Login";
+import mapper from "../utils/connect";
+import { selectIsLoggedIn } from "../selectors";
 
 export default (ProtectedRoute) => {
-    class AuthHOC extends Component {
+    const AuthHOC = (props) => (
+        !props.loggedIn ? <Login/> : <ProtectedRoute {...props} />
+    );
 
-        constructor(props) {
-            super(props);
-        };
 
-        render () {
+    const propMap = {
+        loggedIn: selectIsLoggedIn,
+    };
 
-            if (!getSession()) {
-                return <Login />
-            }
-            return (
-                <ProtectedRoute
-                    {...this.props}
-                />
-            )
-        }
-    }
+    const actionMap = {
 
-    return AuthHOC
+    };
+
+    return compose(
+        mapper(propMap, actionMap)
+    )(AuthHOC)
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { compose } from 'recompose';
+import { compose, lifecycle } from 'recompose';
 import { hot, setConfig } from 'react-hot-loader'
 
 import {
@@ -9,8 +9,8 @@ import {
 
 import mapper from "./utils/connect";
 import routes from './config/routes';
-import { selectLayer } from "./selectors";
-import { setLayer as setLayerAction } from "./actions/layers";
+import { loadUserFromToken as loadUserFromTokenAction } from "./actions/session";
+
 import FooterNav from "./components/FooterNav";
 import withStyles from "@material-ui/core/styles/withStyles";
 import withAuthentification from "./HOCs/withAuthentification";
@@ -48,16 +48,24 @@ const App = ({ classes }) => (
 );
 
 const propMap = {
-    LAYER: selectLayer,
+
 };
 
 const actionMap = {
-    setLayer: setLayerAction,
+    loadUserFromToken: loadUserFromTokenAction
 };
 
 export default compose(
     mapper(propMap, actionMap),
     hot(module),
     withStyles(styles),
+    lifecycle({
+        componentWillMount() {
+            const { loadUserFromToken } = this.props;
+            // if (performance.navigation.type === 1) {
+            //     loadUserFromToken();
+            // }
+        }
+    }),
     withAuthentification,
 )(App);

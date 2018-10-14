@@ -7,7 +7,7 @@ import Grid from "@material-ui/core/Grid/Grid";
 import Typography from "@material-ui/core/Typography/Typography";
 
 import { validateInput } from "../utils/login";
-import { registerUser } from "../utils/session";
+import { registerUser } from "../actions/session";
 import mapper from '../utils/connect';
 
 const styles = theme => ({

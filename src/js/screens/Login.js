@@ -1,5 +1,5 @@
 import React from 'react';
-import { compose, withState, withHandlers } from 'recompose';
+import { compose, withHandlers } from 'recompose';
 
 import withStyles from "@material-ui/core/styles/withStyles";
 import LoginForm from "../components/LoginForm";
@@ -7,56 +7,91 @@ import Grid from "@material-ui/core/Grid/Grid";
 import Typography from "@material-ui/core/Typography/Typography";
 
 import { validateInput } from "../utils/login";
-import { logInUser } from "../utils/session";
-import mapper from '../utils/connect';
+import { logInUser, registerUser } from "../actions/session";
+import mapper from "../utils/connect";
 
 const styles = theme => ({
     root: {
         background: 'white',
         height: '90vh',
+        padding: '20px',
     }
 });
 
 const Login = ({
-    handleSubmit,
+    handleLogIn,
+    handleSignUp,
     classes,
 }) => (
     <Grid
         className={classes.root}
         container
-        direction='column'
         justify='center'
+        direction='column'
     >
-        <Typography
-            align='center'
-            variant='display1'
+        <Grid
+            item
         >
-            Login In
-        </Typography>
-        <LoginForm
-            handleSubmit={handleSubmit}
-        />
+            <Grid
+                container
+                direction='column'
+                justify='center'
+            >
+                <Typography
+                    align='center'
+                    variant='display1'
+                >
+                    Login In
+                </Typography>
+                <LoginForm
+                    onClick={handleLogIn}
+                />
+            </Grid>
+        </Grid>
+        <Grid
+            item
+        >
+            <Grid
+                container
+                direction='column'
+                justify='center'
+            >
+                <Typography
+                    align='center'
+                    variant='display1'
+                >
+                    Sign Up
+                </Typography>
+                <LoginForm
+                    onClick={handleSignUp}
+                />
+            </Grid>
+        </Grid>
     </Grid>
 
 );
 
-// const actionMap = {
-//     logInUser: logInUserAction,
-// };
-//
-// const propMap = {
-//
-// };
+const propMap = {
+
+};
+
+const actionMap = {
+    logInUser,
+    registerUser,
+};
 
 export default compose(
-    // mapper(propMap, actionMap),
     withStyles(styles),
-    withState('email', 'setEmail', ''),
-    withState('password', 'setPassword', ''),
+    mapper(propMap, actionMap),
     withHandlers({
-        handleSubmit: ({ }) => (email, password) => {
+        handleLogIn: ({ logInUser }) => (email, password) => {
             if (validateInput(email, password)) {
                 logInUser(email, password);
+            }
+        },
+        handleSignUp: ({ registerUser }) => (email, password) => {
+            if (validateInput(email, password)) {
+                registerUser(email, password);
             }
         },
     }),

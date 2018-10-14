@@ -23,3 +23,5 @@ export const selectTimestamp = state => state.posts.post.timestamp;
 
 // LAYERS
 export const selectLayer = state => state.layers.layer;
+
+export const selectIsLoggedIn = state => state.session.loggedIn;

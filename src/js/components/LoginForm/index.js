@@ -17,6 +17,7 @@ const LoginForm = ({
     password,
     setEmail,
     setPassword,
+    onClick,
     handleSubmit,
     classes,
 }) => (
@@ -53,8 +54,8 @@ export default compose(
     withState('email', 'setEmail', ''),
     withState('password', 'setPassword', ''),
     withHandlers({
-        handleSubmit: ({ handleSubmit, email, password }) => () => {
-            handleSubmit(email, password)
+        handleSubmit: ({ onClick, email, password }) => () => {
+            onClick(email, password)
         },
     }),
 )(LoginForm);
