@@ -62,9 +62,9 @@ export default compose(
     lifecycle({
         componentWillMount() {
             const { loadUserFromToken } = this.props;
-            // if (performance.navigation.type === 1) {
-            //     loadUserFromToken();
-            // }
+            if (performance.navigation.type === 1) {
+                loadUserFromToken();
+            }
         }
     }),
     withAuthentification,

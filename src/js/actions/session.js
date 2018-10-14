@@ -25,14 +25,16 @@ export const logInUser = (email, password) => dispatch => {
       password: md5(md5(password)),
     };
     sendData('users/login', user, 'POST').then(response => {
-        const data = response.json();
         if (response.status !== 200) {
-            dispatch({ type: LOG_IN_FAILURE, data })
-        } else {
-            setSession(data.token);
-            dispatch({ type: LOG_IN_SUCCESS, data });
+            dispatch({ type: LOG_IN_FAILURE });
         }
-    });
+        return response;
+    })
+        .then(response => response.json())
+        .then(response => {
+            setSession(response.token);
+            dispatch({ type: LOG_IN_SUCCESS, data: response });
+        })
 };
 
 export const registerUser = (email, password) => dispatch => {
@@ -42,14 +44,15 @@ export const registerUser = (email, password) => dispatch => {
     };
     sendData('users/signup', user, 'POST')
         .then(response => {
-            const data = response.json();
             if (response.status !== 200) {
-                dispatch({ type: REGISTER_USER_FAILURE, data });
-            } else {
-                console.log(data);
-                setSession(data.token);
-                dispatch({ type: REGISTER_USER_SUCCESS, data });
+                dispatch({ type: REGISTER_USER_FAILURE });
             }
+            return response;
+        })
+        .then(response => response.json())
+        .then(response => {
+            setSession(response.token);
+            dispatch({ type: REGISTER_USER_SUCCESS, data: response });
         })
 };
 
@@ -66,7 +69,7 @@ export const loadUserFromToken = () => dispatch => {
             dispatch({ type: USER_FROM_TOKEN_SUCCESS, data });
         } else {
             removeSession();
-            dispatch({ type: USER_FROM_TOKEN_FAILURE, response });
+            dispatch({ type: USER_FROM_TOKEN_FAILURE });
 
         }
     });

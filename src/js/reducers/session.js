@@ -21,9 +21,9 @@ const handlers = {
         error: '',
         loggedIn: true,
     }),
-    [LOG_IN_FAILURE]: (state, action) => ({
+    [LOG_IN_FAILURE]: () => ({
         email: initialState.email,
-        error: action.data.error,
+        error: 'Error loggin in.',
         loggedIn: false,
     }),
     [REGISTER_USER_SUCCESS]: (state, action) => ({
@@ -31,9 +31,9 @@ const handlers = {
         error: '',
         loggedIn: true,
     }),
-    [REGISTER_USER_FAILURE]: (state, action) => ({
+    [REGISTER_USER_FAILURE]: () => ({
         email: initialState.email,
-        error: action.data.error,
+        error: 'Error creating account',
         loggedIn: false,
     }),
     [USER_FROM_TOKEN_SUCCESS]: (state, action) => ({
@@ -41,9 +41,9 @@ const handlers = {
         error: '',
         loggedIn: true,
     }),
-    [USER_FROM_TOKEN_FAILURE]: (state, action) => ({
+    [USER_FROM_TOKEN_FAILURE]: () => ({
         email: initialState.email,
-        error: action.data.error,
+        error: 'Error retrieving token.',
         loggedIn: false,
     }),
     [LOG_OUT]: () => ({ ...initialState }),

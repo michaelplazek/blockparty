@@ -18,10 +18,7 @@ export const sendData = (url = '', data = {}, type = 'GET') => {
 
     return promise
         .then(response => response.ok ? Promise.resolve(response) : Promise.reject(response))
-        .then(response => {
-            console.log(response);
-            return response;
-        })
+        // .then(response => ({ status: response.status, data: response.json() }))
         .catch(e => console.log(e))
 };
 
@@ -34,7 +31,7 @@ export const getData = (url = '') => {
         .then(response => response.ok ? Promise.resolve(response) : Promise.reject(response))
         .then(response => response.json())
         .catch(e => console.log(e))
-}
+};
 
 export const fetchToken = token => {
     const newUrl = `${BASE_URL}/users/user_from_token/token?token=${token}`;
