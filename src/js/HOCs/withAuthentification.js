@@ -1,5 +1,5 @@
 import React from 'react'
-import { compose } from 'recompose';
+import { compose, lifecycle } from 'recompose';
 
 import Login from "../screens/Login";
 import mapper from "../utils/connect";
@@ -20,6 +20,17 @@ export default (ProtectedRoute) => {
     };
 
     return compose(
-        mapper(propMap, actionMap)
+        mapper(propMap, actionMap),
+        // lifecycle({
+        //     componentDidMount() {
+        //         if (window.performance) {
+        //             if (performance.navigation.type === 1) {
+        //                 alert( "This page is reloaded" );
+        //             } else {
+        //                 alert( "This page is not reloaded");
+        //             }
+        //         }
+        //     }
+        // })
     )(AuthHOC)
 };

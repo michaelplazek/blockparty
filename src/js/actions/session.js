@@ -47,8 +47,8 @@ export const loadUserFromToken = () => dispatch => {
     // fetch user from token
     fetchToken(token).then(response => {
         if (!response.error) {
-            setSession(data.token);
-            dispatch({ type: USER_FROM_TOKEN, data });
+            setSession(response.token);
+            dispatch({ type: USER_FROM_TOKEN, data: response });
         } else {
             removeSession();
         }
