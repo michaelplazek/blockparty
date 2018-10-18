@@ -1,12 +1,9 @@
 import { stateReducer } from "./utils";
 import {
-    LOG_IN_SUCCESS,
-    LOG_IN_FAILURE,
+    LOG_IN,
     LOG_OUT,
-    REGISTER_USER_FAILURE,
-    REGISTER_USER_SUCCESS,
-    USER_FROM_TOKEN_SUCCESS,
-    USER_FROM_TOKEN_FAILURE,
+    REGISTER_USER,
+    USER_FROM_TOKEN,
 } from "../actions";
 
 const initialState = {
@@ -16,35 +13,20 @@ const initialState = {
 };
 
 const handlers = {
-    [LOG_IN_SUCCESS]: (state, action) => ({
-        email: action.data.email,
+    [LOG_IN]: (state, action) => ({
+        email: action.data.user.email,
         error: '',
         loggedIn: true,
     }),
-    [LOG_IN_FAILURE]: () => ({
-        email: initialState.email,
-        error: 'Error loggin in.',
-        loggedIn: false,
-    }),
-    [REGISTER_USER_SUCCESS]: (state, action) => ({
-        email: action.data.email,
+    [REGISTER_USER]: (state, action) => ({
+        email: action.data.user.email,
         error: '',
         loggedIn: true,
     }),
-    [REGISTER_USER_FAILURE]: () => ({
-        email: initialState.email,
-        error: 'Error creating account',
-        loggedIn: false,
-    }),
-    [USER_FROM_TOKEN_SUCCESS]: (state, action) => ({
-        email: action.data.email,
+    [USER_FROM_TOKEN]: (state, action) => ({
+        email: action.data.user.email,
         error: '',
         loggedIn: true,
-    }),
-    [USER_FROM_TOKEN_FAILURE]: () => ({
-        email: initialState.email,
-        error: 'Error retrieving token.',
-        loggedIn: false,
     }),
     [LOG_OUT]: () => ({ ...initialState }),
 };

@@ -1,13 +1,10 @@
 import md5 from 'md5';
 import { fetchToken, sendData } from '../api/utils'
 import {
-    LOG_IN_SUCCESS,
-    LOG_IN_FAILURE,
+    LOG_IN,
     LOG_OUT,
-    REGISTER_USER_FAILURE,
-    REGISTER_USER_SUCCESS,
-    USER_FROM_TOKEN_SUCCESS,
-    USER_FROM_TOKEN_FAILURE,
+    REGISTER_USER,
+    USER_FROM_TOKEN,
 } from "./index";
 
 const setSession = token =>
@@ -24,16 +21,10 @@ export const logInUser = (email, password) => dispatch => {
       email,
       password: md5(md5(password)),
     };
-    sendData('users/login', user, 'POST').then(response => {
-        if (response.status !== 200) {
-            dispatch({ type: LOG_IN_FAILURE });
-        }
-        return response;
-    })
-        .then(response => response.json())
+    sendData('users/login', user, 'POST')
         .then(response => {
             setSession(response.token);
-            dispatch({ type: LOG_IN_SUCCESS, data: response });
+            dispatch({ type: LOG_IN, data: response });
         })
 };
 
@@ -44,15 +35,8 @@ export const registerUser = (email, password) => dispatch => {
     };
     sendData('users/signup', user, 'POST')
         .then(response => {
-            if (response.status !== 200) {
-                dispatch({ type: REGISTER_USER_FAILURE });
-            }
-            return response;
-        })
-        .then(response => response.json())
-        .then(response => {
             setSession(response.token);
-            dispatch({ type: REGISTER_USER_SUCCESS, data: response });
+            dispatch({ type: REGISTER_USER, data: response });
         })
 };
 
@@ -63,14 +47,10 @@ export const loadUserFromToken = () => dispatch => {
     // fetch user from token
     fetchToken(token).then(response => {
         if (!response.error) {
-            const data = response.json();
-
             setSession(data.token);
-            dispatch({ type: USER_FROM_TOKEN_SUCCESS, data });
+            dispatch({ type: USER_FROM_TOKEN, data });
         } else {
             removeSession();
-            dispatch({ type: USER_FROM_TOKEN_FAILURE });
-
         }
     });
 };

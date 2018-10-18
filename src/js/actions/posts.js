@@ -1,8 +1,8 @@
 import { LOAD_POSTS, LOAD_POST_DETAILS } from "./index";
-import { getData } from '../api/utils'
+import { sendData } from '../api/utils'
 
 export const loadPosts = () => dispatch =>
-    getData('posts').then(response => {
+    sendData('posts').then(response => {
         dispatch({ type: LOAD_POSTS, data: response })
     });
 

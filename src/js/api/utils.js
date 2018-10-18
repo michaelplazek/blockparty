@@ -18,20 +18,24 @@ export const sendData = (url = '', data = {}, type = 'GET') => {
 
     return promise
         .then(response => response.ok ? Promise.resolve(response) : Promise.reject(response))
-        // .then(response => ({ status: response.status, data: response.json() }))
+        .then(response => {
+            if (response.status === 200) {
+                return response.json()
+            }
+        })
         .catch(e => console.log(e))
 };
 
-export const getData = (url = '') => {
-    const newUrl = `${BASE_URL}/${url}`;
-    const token = getSession();
-    const promise = fetch(newUrl, {method: 'GET', Authorization: `Bearer ${token}`,});
-
-    return promise
-        .then(response => response.ok ? Promise.resolve(response) : Promise.reject(response))
-        .then(response => response.json())
-        .catch(e => console.log(e))
-};
+// export const getData = (url = '') => {
+//     const newUrl = `${BASE_URL}/${url}`;
+//     const token = getSession();
+//     const promise = fetch(newUrl, {method: 'GET', Authorization: `Bearer ${token}`,});
+//
+//     return promise
+//         .then(response => response.ok ? Promise.resolve(response) : Promise.reject(response))
+//         .then(response => response.json())
+//         .catch(e => console.log(e))
+// };
 
 export const fetchToken = token => {
     const newUrl = `${BASE_URL}/users/user_from_token/token?token=${token}`;
