@@ -55,12 +55,14 @@ class FooterNavBase extends Component{
 	shouldComponentUpdate(nextProps, nextState, nextContext) {
 		return (
 			this.state.width !== nextState.width ||
-			this.state.height !== nextState.height
+			this.state.height !== nextState.height ||
+			this.state.index !== nextState.index
 		)
 	}
 
 	handleChange(value){
-		this.setState({ index: value});
+		this.setState({ index: value });
+		console.log(this.state.index);
 		this.props.history.push(navigation[value].path);
 	};
 
