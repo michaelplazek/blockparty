@@ -2,7 +2,7 @@ import React from 'react';
 import { compose, withHandlers } from 'recompose';
 
 import withStyles from "@material-ui/core/styles/withStyles";
-import LoginForm from "../components/LoginForm";
+import RegisterForm from "../components/RegisterForm";
 import Grid from "@material-ui/core/Grid/Grid";
 import Typography from "@material-ui/core/Typography/Typography";
 
@@ -40,7 +40,7 @@ const Login = ({
                 >
                     Sign Up
                 </Typography>
-                <LoginForm
+                <RegisterForm
                     onClick={handleSignUp}
                 />
             </Grid>

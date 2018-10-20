@@ -59,8 +59,6 @@ export default compose(
         handleChange: ({ setIndex, history }) => (value) => {
             setIndex(value);
             history.push(navigation[value].path);
-            console.log(history);
-
         },
     }),
     withStyles(styles),
