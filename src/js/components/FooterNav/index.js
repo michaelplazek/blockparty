@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import PropTypes from 'prop-types';
-import { compose, withHandlers, withState } from 'recompose';
+import { compose, withHandlers, withState, lifecycle } from 'recompose';
 import mapper from "../../utils/connect";
-
 import { footerNavigation as navigation } from '../../config/navigation';
+
+import { setNavHeight as setNavHeightAction } from "../../actions/app";
+
 import AppBar from "@material-ui/core/AppBar/AppBar";
 import Tabs from "@material-ui/core/Tabs/Tabs";
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -19,25 +21,75 @@ const styles = () => ({
    }
 });
 
-const FooterNavBase = ({ classes, handleChange, index, history }) => (
-        <AppBar
-            className={classes.root}
-            position="static"
-            color="default"
-        >
-            <Tabs
-                value={index}
-                onChange={(_, value) => handleChange(value)}
-                indicatorColor="primary"
-                textColor="primary"
-                fullWidth={true}
-            >
-                {navigation.map(item =>
-                    <Tab icon={item.icon} label={item.label} key={item.index}/>
-                )}
-            </Tabs>
-        </AppBar>
-);
+class FooterNavBase extends Component{
+	constructor(props){
+		super(props);
+
+		this.saveRef = (ref) => this.containerNode = ref;
+		this.state = {
+			index: 0,
+			width: 0,
+			height: 0,
+		};
+
+		this.handleChange = this.handleChange.bind(this);
+	}
+
+	measure() {
+		const {clientWidth, clientHeight} = this.containerNode;
+		this.props.setNavHeight(clientHeight);
+		this.setState({
+			width: clientWidth,
+			height: clientHeight,
+		})
+	}
+
+	componentDidMount() {
+		this.measure();
+	};
+
+	componentDidUpdate(prevProps, prevState, snapshot) {
+		this.measure()
+	}
+
+	shouldComponentUpdate(nextProps, nextState, nextContext) {
+		return (
+			this.state.width !== nextState.width ||
+			this.state.height !== nextState.height
+		)
+	}
+
+	handleChange(value){
+		this.setState({ index: value});
+		this.props.history.push(navigation[value].path);
+	};
+
+	render(){
+		return(
+			<div
+				className={this.props.classes.root}
+				ref={this.saveRef}
+			>
+			<AppBar
+				position="static"
+				color="default"
+			>
+				<Tabs
+					value={this.state.index}
+					onChange={(_, value) => this.handleChange(value)}
+					indicatorColor="primary"
+					textColor="primary"
+					fullWidth={true}
+				>
+					{navigation.map(item =>
+						<Tab icon={item.icon} label={item.label} key={item.index}/>
+					)}
+				</Tabs>
+			</AppBar>
+			</div>
+		)
+	}
+}
 
 FooterNavBase.propTypes = {
     items: PropTypes.array,
@@ -48,18 +100,11 @@ const propMap = {
 };
 
 const actionMap = {
-
+	setNavHeight: setNavHeightAction,
 };
 
 export default compose(
     mapper(propMap, actionMap),
     withRouter,
-    withState('index', 'setIndex', 0),
-    withHandlers({
-        handleChange: ({ setIndex, history }) => (value) => {
-            setIndex(value);
-            history.push(navigation[value].path);
-        },
-    }),
     withStyles(styles),
 )(FooterNavBase);

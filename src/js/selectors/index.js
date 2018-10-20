@@ -27,3 +27,6 @@ export const selectLayer = state => state.layers.layer;
 // SESSION
 export const selectIsLoggedIn = state => state.session.loggedIn;
 export const selectSessionLoaded = state => state.session.sessionLoaded;
+
+// APP
+export const selectNavHeight = state => state.app.navigationBarHeight;

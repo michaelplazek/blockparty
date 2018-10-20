@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { compose, lifecycle } from 'recompose';
 import mapper from "../utils/connect";
 
-import { selectPostsForDisplay} from "../selectors";
+import { selectNavHeight, selectPostsForDisplay } from "../selectors";
 import { loadPosts as loadPostsAction } from "../actions/posts";
 
 import GoogleMapsWrapper from "../components/GoogleMaps/GoogleMapsWrapper";
@@ -35,14 +35,15 @@ class Market extends Component {
 		render() {
 			return (
 				<div style={{ position: 'relative', bottom: 0 }}>
-					<GoogleMapsWrapper height={this.state.height}/>
+					<GoogleMapsWrapper height={this.state.height - (this.props.navHeight || 0)}/>
 				</div>
 			)
 		}
 };
 
 const propMap = {
-    posts: selectPostsForDisplay,
+	posts: selectPostsForDisplay,
+	navHeight: selectNavHeight,
 };
 
 const actionMap = {

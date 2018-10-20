@@ -17,3 +17,5 @@ export const REGISTER_USER = 'REGISTER_USER';
 export const USER_FROM_TOKEN = 'USER_FROM_TOKEN';
 export const SESSION_LOAD = 'SESSION_LOAD';
 
+export const LOAD_NAV_HEIGHT = 'LOAD_NAV_HEIGHT';
+
