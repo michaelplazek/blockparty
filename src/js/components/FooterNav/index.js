@@ -16,28 +16,27 @@ const styles = () => ({
        width: '100%',
        bottom: 0,
        position: 'fixed',
-       background: '#CCC',
    }
 });
 
-const FooterNavBase = ({ classes, handleChange, index }) => (
-    <AppBar
-        className={classes.root}
-        position="static"
-        color="default"
-    >
-        <Tabs
-            value={index}
-            onChange={(_, value) => handleChange(value)}
-            indicatorColor="primary"
-            textColor="primary"
-            fullWidth={true}
+const FooterNavBase = ({ classes, handleChange, index, history }) => (
+        <AppBar
+            className={classes.root}
+            position="static"
+            color="default"
         >
-            {navigation.map(item =>
-                <Tab icon={item.icon} label={item.label} key={item.index}/>
-            )}
-        </Tabs>
-    </AppBar>
+            <Tabs
+                value={index}
+                onChange={(_, value) => handleChange(value)}
+                indicatorColor="primary"
+                textColor="primary"
+                fullWidth={true}
+            >
+                {navigation.map(item =>
+                    <Tab icon={item.icon} label={item.label} key={item.index}/>
+                )}
+            </Tabs>
+        </AppBar>
 );
 
 FooterNavBase.propTypes = {
@@ -59,7 +58,9 @@ export default compose(
     withHandlers({
         handleChange: ({ setIndex, history }) => (value) => {
             setIndex(value);
-            history.push(navigation[value].path)
+            history.push(navigation[value].path);
+            console.log(history);
+
         },
     }),
     withStyles(styles),

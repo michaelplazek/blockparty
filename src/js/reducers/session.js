@@ -1,22 +1,39 @@
 import { stateReducer } from "./utils";
-import find from 'lodash/find';
-import { LOAD_POSTS, LOAD_POST_DETAILS } from "../actions";
-import { DEFAULT_POST } from "../constants/posts";
+import {
+    LOG_IN,
+    LOG_OUT,
+    REGISTER_USER,
+    USER_FROM_TOKEN,
+    SESSION_LOAD,
+} from "../actions";
 
 const initialState = {
-    posts: [],
-    post: DEFAULT_POST,
-    postsLoaded: false,
-    postLoaded: false,
+    loggedIn: false,
+    email: '',
+    error: '',
+    sessionLoaded: false,
 };
 
 const handlers = {
-    [LOAD_SESSION]: (state, action) => ({
-        posts: action.data,
+    [LOG_IN]: (state, action) => ({
+        email: action.data.user.email,
+        error: '',
+        loggedIn: true,
     }),
-    [UNLOAD_SESSION]: (state, action) => ({
-        post: state.posts.find(x => x._id === action.id),
+    [REGISTER_USER]: (state, action) => ({
+        email: action.data.user.email,
+        error: '',
+        loggedIn: true,
     }),
+    [USER_FROM_TOKEN]: (state, action) => ({
+        email: action.data.user.email,
+        error: '',
+        loggedIn: true,
+    }),
+    [SESSION_LOAD]: () => ({
+        sessionLoaded: true,
+    }),
+    [LOG_OUT]: () => ({ ...initialState }),
 };
 
 export default stateReducer(initialState, handlers);
