@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import PropTypes from 'prop-types';
-import { compose, withHandlers, withState, lifecycle } from 'recompose';
+import { compose } from 'recompose';
 import mapper from "../../utils/connect";
 import { footerNavigation as navigation } from '../../config/navigation';
 
