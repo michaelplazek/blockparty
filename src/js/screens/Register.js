@@ -1,5 +1,6 @@
 import React from 'react';
 import { compose, withHandlers } from 'recompose';
+import { withRouter } from 'react-router';
 
 import withStyles from "@material-ui/core/styles/withStyles";
 import RegisterForm from "../components/RegisterForm";
@@ -9,6 +10,7 @@ import Typography from "@material-ui/core/Typography/Typography";
 import { validateInput } from "../utils/login";
 import { registerUser } from "../actions/session";
 import mapper from "../utils/connect";
+import Button from "@material-ui/core/Button/Button";
 
 const styles = theme => ({
     root: {
@@ -18,35 +20,38 @@ const styles = theme => ({
     }
 });
 
-const Login = ({
-   handleSignUp,
-   classes,
+const Register = ({
+    handleSignUp,
+    classes,
+    history,
 }) => (
-    <Grid
-        className={classes.root}
-        container
-        justify='center'
-        direction='column'
-    >
-        <Grid item>
-            <Grid
-                container
-                direction='column'
-                justify='center'
-            >
-                <Typography
-                    align='center'
-                    variant='display1'
+    <Grid style={{ background:'white' }}>
+        <Button onClick={() => history.goBack()}>Back to login</Button>
+        <Grid
+            className={classes.root}
+            container
+            justify='center'
+            direction='column'
+        >
+            <Grid item>
+                <Grid
+                    container
+                    direction='column'
+                    justify='center'
                 >
-                    Sign Up
-                </Typography>
-                <RegisterForm
-                    onClick={handleSignUp}
-                />
+                    <Typography
+                        align='center'
+                        variant='display1'
+                    >
+                        Sign Up
+                    </Typography>
+                    <RegisterForm
+                        onClick={handleSignUp}
+                    />
+                </Grid>
             </Grid>
         </Grid>
     </Grid>
-
 );
 
 const propMap = {
@@ -59,6 +64,7 @@ const actionMap = {
 
 export default compose(
     withStyles(styles),
+    withRouter,
     mapper(propMap, actionMap),
     withHandlers({
         handleSignUp: ({ registerUser, history }) => (email, password) => {
@@ -67,4 +73,4 @@ export default compose(
             }
         },
     }),
-)(Login);
+)(Register);
