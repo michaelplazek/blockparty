@@ -46,7 +46,7 @@ export const loadUserFromToken = () => dispatch => {
 
     // fetch user from token
     fetchToken(token).then(response => {
-        if (!response.error) {
+        if (response) {
             setSession(response.token);
             dispatch({ type: USER_FROM_TOKEN, data: response });
         } else {
@@ -55,7 +55,7 @@ export const loadUserFromToken = () => dispatch => {
     });
 };
 
-export const logoutUser = () => dispatch => {
+export const logOutUser = () => dispatch => {
     sendData('users/logout', undefined, 'POST').then(() => {
         removeSession();
         dispatch({ type: LOG_OUT });

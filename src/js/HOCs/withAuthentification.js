@@ -1,36 +1,38 @@
 import React from 'react'
 import { compose, lifecycle } from 'recompose';
 
-import Login from "../screens/Login";
 import mapper from "../utils/connect";
 import { selectIsLoggedIn } from "../selectors";
+import { loadUserFromToken as loadUserFromTokenAction } from "../actions/session";
+import { Redirect, withRouter } from "react-router";
 
 export default (ProtectedRoute) => {
-    const AuthHOC = (props) => (
-        !props.loggedIn ? <Login/> : <ProtectedRoute {...props} />
-    );
-
+    const AuthHOC = (props) => {
+        console.log(props);
+        const location = props.history.location.pathname;
+        const shouldRedirect = !(location === '/login' || location === '/register');
+        return shouldRedirect && !props.loggedIn ? <Redirect to='/login'/> : <ProtectedRoute {...props} />
+    };
 
     const propMap = {
         loggedIn: selectIsLoggedIn,
     };
 
     const actionMap = {
-
+        loadUserFromToken: loadUserFromTokenAction,
     };
 
     return compose(
         mapper(propMap, actionMap),
-        // lifecycle({
-        //     componentDidMount() {
-        //         if (window.performance) {
-        //             if (performance.navigation.type === 1) {
-        //                 alert( "This page is reloaded" );
-        //             } else {
-        //                 alert( "This page is not reloaded");
-        //             }
-        //         }
-        //     }
-        // })
+        withRouter,
+        lifecycle({
+            componentDidMount() {
+                if (window.performance) {
+                    if (performance.navigation.type === 1) {
+                        this.props.loadUserFromToken();
+                    }
+                }
+            }
+        })
     )(AuthHOC)
 };

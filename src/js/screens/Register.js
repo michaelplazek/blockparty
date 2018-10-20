@@ -1,6 +1,5 @@
 import React from 'react';
 import { compose, withHandlers } from 'recompose';
-import { withRouter } from 'react-router-dom'
 
 import withStyles from "@material-ui/core/styles/withStyles";
 import LoginForm from "../components/LoginForm";
@@ -8,7 +7,7 @@ import Grid from "@material-ui/core/Grid/Grid";
 import Typography from "@material-ui/core/Typography/Typography";
 
 import { validateInput } from "../utils/login";
-import { logInUser } from "../actions/session";
+import { registerUser } from "../actions/session";
 import mapper from "../utils/connect";
 
 const styles = theme => ({
@@ -20,10 +19,8 @@ const styles = theme => ({
 });
 
 const Login = ({
-    handleLogIn,
-    handleSignUp,
-    classes,
-    history,
+   handleSignUp,
+   classes,
 }) => (
     <Grid
         className={classes.root}
@@ -31,9 +28,7 @@ const Login = ({
         justify='center'
         direction='column'
     >
-        <Grid
-            item
-        >
+        <Grid item>
             <Grid
                 container
                 direction='column'
@@ -43,15 +38,12 @@ const Login = ({
                     align='center'
                     variant='display1'
                 >
-                    Login In
+                    Sign Up
                 </Typography>
                 <LoginForm
-                    onClick={handleLogIn}
+                    onClick={handleSignUp}
                 />
             </Grid>
-        </Grid>
-        <Grid>
-            <button onClick={() => history.push('/register')}>Sign up</button>
         </Grid>
     </Grid>
 
@@ -62,17 +54,16 @@ const propMap = {
 };
 
 const actionMap = {
-    logInUser,
+    registerUser,
 };
 
 export default compose(
     withStyles(styles),
-    withRouter,
     mapper(propMap, actionMap),
     withHandlers({
-        handleLogIn: ({ logInUser, history }) => (email, password) => {
+        handleSignUp: ({ registerUser, history }) => (email, password) => {
             if (validateInput(email, password)) {
-                logInUser(email, password);
+                registerUser(email, password);
                 history.push('/');
             }
         },

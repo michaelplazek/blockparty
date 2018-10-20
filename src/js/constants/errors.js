@@ -1,3 +1,1 @@
-export default [
-    'User not found.',
-]
+export const TOKEN_ERROR = "Failed to fetch token.";
