@@ -18,4 +18,5 @@ export const USER_FROM_TOKEN = 'USER_FROM_TOKEN';
 export const SESSION_LOAD = 'SESSION_LOAD';
 
 export const LOAD_NAV_HEIGHT = 'LOAD_NAV_HEIGHT';
+export const LOAD_HEADER_HEIGHT = 'LOAD_HEADER_HEIGHT';
 

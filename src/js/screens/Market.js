@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { compose, lifecycle } from 'recompose';
 import mapper from "../utils/connect";
 
-import { selectNavHeight, selectPostsForDisplay } from "../selectors";
+import { selectHeaderHeight, selectNavHeight, selectPostsForDisplay } from "../selectors";
 import { loadPosts as loadPostsAction } from "../actions/posts";
 
 import GoogleMapsWrapper from "../components/GoogleMaps/GoogleMapsWrapper";
+import PageHeader from "../components/PageHeader";
 
 class Market extends Component {
 	constructor(props){
@@ -34,8 +35,9 @@ class Market extends Component {
 
 		render() {
 			return (
-				<div style={{ position: 'relative', bottom: 0 }}>
-					<GoogleMapsWrapper height={this.state.height - (this.props.navHeight || 0)}/>
+				<div>
+					<PageHeader/>
+					<GoogleMapsWrapper height={this.state.height - this.props.navHeight - this.props.headerHeight}/>
 				</div>
 			)
 		}
@@ -44,6 +46,7 @@ class Market extends Component {
 const propMap = {
 	posts: selectPostsForDisplay,
 	navHeight: selectNavHeight,
+	headerHeight: selectHeaderHeight,
 };
 
 const actionMap = {

@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 
 import PropTypes from 'prop-types';
 import { compose } from 'recompose';
+import { withRouter } from 'react-router-dom'
+
 import mapper from "../../utils/connect";
 import { footerNavigation as navigation } from '../../config/navigation';
-
 import { setNavHeight as setNavHeightAction } from "../../actions/app";
 
 import AppBar from "@material-ui/core/AppBar/AppBar";
 import Tabs from "@material-ui/core/Tabs/Tabs";
 import withStyles from "@material-ui/core/styles/withStyles";
-import { withRouter } from 'react-router-dom'
 import Tab from "@material-ui/core/Tab/Tab";
 
 const styles = () => ({
@@ -62,7 +62,6 @@ class FooterNavBase extends Component{
 
 	handleChange(value){
 		this.setState({ index: value });
-		console.log(this.state.index);
 		this.props.history.push(navigation[value].path);
 	};
 

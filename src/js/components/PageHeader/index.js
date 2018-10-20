@@ -1,5 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { compose } from 'recompose';
+
+import mapper from "../../utils/connect";
+import { setHeaderHeight as setHeaderHeightAction } from "../../actions/app";
+
 import AppBar from "@material-ui/core/AppBar/AppBar";
 import Toolbar from "@material-ui/core/Toolbar/Toolbar";
 import Input from "@material-ui/core/Input/Input";
@@ -7,90 +12,98 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import {fade} from "@material-ui/core/styles/colorManipulator";
 import SearchIcon from '@material-ui/icons/Search';
 import FilterListIcon from '@material-ui/icons/FilterList'
+import Button from "@material-ui/core/Button/Button";
+import Typography from "@material-ui/core/Typography/Typography";
+import IconButton from "@material-ui/core/IconButton/IconButton";
+import MenuIcon from '@material-ui/icons/Menu';
 
-const styles = theme => ({
-    root: {
-        width: '100%',
-    },
-    grow: {
-        flexGrow: 1,
-    },
-    search: {
-        position: 'relative',
-        borderRadius: theme.shape.borderRadius,
-        backgroundColor: fade(theme.palette.common.white, 0.15),
-        '&:hover': {
-            backgroundColor: fade(theme.palette.common.white, 0.25),
-        },
-        marginLeft: 0,
-        width: '100%',
-        [theme.breakpoints.up('sm')]: {
-            marginLeft: theme.spacing.unit,
-            width: 'auto',
-        },
-    },
-    searchIcon: {
-        width: theme.spacing.unit * 9,
-        height: '100%',
-        position: 'absolute',
-        pointerEvents: 'none',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    inputRoot: {
-        color: 'inherit',
-        width: '100%',
-    },
-    inputInput: {
-        paddingTop: theme.spacing.unit,
-        paddingRight: theme.spacing.unit,
-        paddingBottom: theme.spacing.unit,
-        paddingLeft: theme.spacing.unit * 10,
-        transition: theme.transitions.create('width'),
-        width: '100%',
-        [theme.breakpoints.up('sm')]: {
-            width: 120,
-            '&:focus': {
-                width: 200,
-            },
-        },
-    },
-    filter: {
-        margin: '4px 0px 0px 10px'
+
+const styles = {
+	root: {
+		flexGrow: 1,
+	},
+	grow: {
+		flexGrow: 1,
+	},
+	menuButton: {
+		marginLeft: -12,
+		marginRight: 20,
+	},
+};
+
+class PageHeader extends Component{
+    constructor(props){
+        super(props);
+
+			this.saveRef = (ref) => this.containerNode = ref;
+			this.state = {
+				width: 0,
+				height: 0,
+			};
     }
-});
 
-const PageHeader = ({ title, actionItems, classes }) => (
-    <AppBar position='relative'>
-        <Toolbar>
-            <div className={classes.search}>
-                <div className={classes.searchIcon}>
-                    <SearchIcon />
-                </div>
-                <Input
-                    placeholder="Search…"
-                    disableUnderline
-                    classes={{
-                        root: classes.inputRoot,
-                        input: classes.inputInput,
-                    }}
-                />
-            </div>
-            <div className={classes.filter}>
-                <FilterListIcon />
-            </div>
-        </Toolbar>
-    </AppBar>
-);
+	measure() {
+		const {clientWidth, clientHeight} = this.containerNode;
+		this.props.setHeaderHeight(clientHeight);
+		this.setState({
+			width: clientWidth,
+			height: clientHeight,
+		})
+	}
+
+	componentDidMount() {
+		this.measure();
+	};
+
+	componentDidUpdate(prevProps, prevState, snapshot) {
+		this.measure()
+	}
+
+	shouldComponentUpdate(nextProps, nextState, nextContext) {
+		return (
+			this.state.width !== nextState.width ||
+			this.state.height !== nextState.height
+		)
+	}
+
+    render(){
+        return(
+          <div className={this.props.classes.root} ref={this.saveRef}>
+						<AppBar position="static">
+							<Toolbar>
+								<IconButton className={this.props.classes.menuButton} color="inherit" aria-label="Menu">
+									<FilterListIcon />
+								</IconButton>
+								<Typography color="inherit" className={this.props.classes.grow}>
+									Filter
+								</Typography>
+								<Button color="inherit">Go to Chart View</Button>
+							</Toolbar>
+						</AppBar>
+          </div>
+        )
+    }
+}
 
 PageHeader.propTypes = {
-    title: PropTypes.string.isRequired,
+    title: PropTypes.string,
     actionItems: PropTypes.array,
 };
 
 PageHeader.defaultProps = {
-    actionItems: [],
+	actionItems: [],
+	title: '',
 };
 
-export default withStyles(styles)(PageHeader);
+const propMap = {
+
+};
+
+const actionMap = {
+	setHeaderHeight: setHeaderHeightAction,
+};
+
+export default compose(
+	withStyles(styles),
+	mapper(propMap, actionMap),
+)(PageHeader);

@@ -30,3 +30,4 @@ export const selectSessionLoaded = state => state.session.sessionLoaded;
 
 // APP
 export const selectNavHeight = state => state.app.navigationBarHeight;
+export const selectHeaderHeight = state => state.app.headerHeight;

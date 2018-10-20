@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { compose, withProps } from "recompose"
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
 
+
 class GoogleMapsWrapper extends Component{
 	constructor(props){
 		super(props);
@@ -37,6 +38,7 @@ class GoogleMapsWrapper extends Component{
 		<GoogleMap
 			defaultZoom={this.state.zoom}
 			defaultCenter={{ lat: this.state.currentLocation.lat, lng: this.state.currentLocation.lng }}
+			defaultOptions={{mapTypeControl: false, streetViewControl: false}}
 		>
 			{ <Marker position={{ lat: 40.564714, lng: -105.090650 }} />}
 		</GoogleMap>
