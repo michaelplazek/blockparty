@@ -63,8 +63,7 @@ export default compose(
     withHandlers({
         handleSignUp: ({ registerUser, history }) => (email, password) => {
             if (validateInput(email, password)) {
-                registerUser(email, password);
-                history.push('/');
+                registerUser(email, password, history);
             }
         },
     }),

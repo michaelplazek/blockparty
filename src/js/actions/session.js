@@ -5,6 +5,7 @@ import {
     LOG_OUT,
     REGISTER_USER,
     USER_FROM_TOKEN,
+    SESSION_LOAD,
 } from "./index";
 
 const setSession = token =>
@@ -16,7 +17,7 @@ export const getSession = () =>
 const removeSession = () =>
     window.sessionStorage.removeItem('session');
 
-export const logInUser = (email, password) => dispatch => {
+export const logInUser = (email, password, history) => dispatch => {
     const user = {
       email,
       password: md5(md5(password)),
@@ -26,9 +27,11 @@ export const logInUser = (email, password) => dispatch => {
             setSession(response.token);
             dispatch({ type: LOG_IN, data: response });
         })
+        .then(() => dispatch({ type: SESSION_LOAD }))
+        .then(() => history.push('/'))
 };
 
-export const registerUser = (email, password) => dispatch => {
+export const registerUser = (email, password, history) => dispatch => {
     const user = {
         email,
         password: md5(md5(password)),
@@ -38,6 +41,8 @@ export const registerUser = (email, password) => dispatch => {
             setSession(response.token);
             dispatch({ type: REGISTER_USER, data: response });
         })
+        .then(() => dispatch({ type: SESSION_LOAD }))
+        .then(() => history.push('/'))
 };
 
 export const loadUserFromToken = () => dispatch => {
@@ -45,14 +50,16 @@ export const loadUserFromToken = () => dispatch => {
     if(!token || token === '') return 0;
 
     // fetch user from token
-    fetchToken(token).then(response => {
-        if (response) {
-            setSession(response.token);
-            dispatch({ type: USER_FROM_TOKEN, data: response });
-        } else {
-            removeSession();
-        }
-    });
+    fetchToken(token)
+        .then(response => {
+            if (response) {
+                setSession(response.token);
+                dispatch({ type: USER_FROM_TOKEN, data: response });
+            } else {
+                removeSession();
+            }
+        })
+        .then(() => dispatch({ type: SESSION_LOAD }))
 };
 
 export const logOutUser = () => dispatch => {

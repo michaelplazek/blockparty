@@ -1,24 +1,14 @@
 import React from 'react';
-import { compose, lifecycle } from 'recompose';
-import { hot, setConfig } from 'react-hot-loader'
+import { compose } from 'recompose';
 
-import {
-    BrowserRouter as Router, Route,
-} from 'react-router-dom';
-import { withRouter, Switch } from 'react-router';
-
-import mapper from "./utils/connect";
-import { loadUserFromToken as loadUserFromTokenAction } from "./actions/session";
+import { Route } from 'react-router-dom';
+import { withRouter } from 'react-router';
 
 import FooterNav from "./components/FooterNav";
-import withStyles from "@material-ui/core/styles/withStyles";
-import ProtectedRoutes from "./ProtectedRoutes";
-import UnprotectedRoutes from "./UnprotectedRoutes";
 import routes from "./config/routes";
-import ProtectedRoute from "./ProtectedRoute";
 import withAuthentification from "./HOCs/withAuthentification";
 
-const App = () => (
+const Routes = () => (
     <div>
         {routes.map(route =>
             <Route
@@ -35,9 +25,6 @@ const App = () => (
 );
 
 export default compose(
-    // mapper(propMap, actionMap),
     withRouter,
-    // hot(module),
-    // withStyles(styles),
     withAuthentification,
-)(App);
+)(Routes);
