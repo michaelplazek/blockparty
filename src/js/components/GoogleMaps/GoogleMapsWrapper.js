@@ -9,7 +9,7 @@ class GoogleMapsWrapper extends Component{
 		super(props);
 
 		this.state = {
-			zoom: 12,
+			zoom: 10,
 			currentLocation: {
 				lat: 40.564714,
 				lng: -105.090650
@@ -57,7 +57,7 @@ GoogleMapsWrapper.propTypes = {
 };
 
 GoogleMapsWrapper.defaultProps = {
-	zoom: 13,
+	zoom: 10,
 	initialCenter: {
 		lat: 40.564714,
 		lng: -105.090650

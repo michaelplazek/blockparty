@@ -12,7 +12,9 @@ export const selectPostsForDisplay = createSelector(
 );
 export const selectMapMarkers = createSelector(
 	selectPosts,
-	posts => posts.map(post => ({ lat: post.lat, lng: post.lng }))
+	posts => posts.map(post => (
+		{ lat: post.lat, lng: post.lng, id: post.id })
+	)
 );
 
 // POST
