@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
+import get from 'lodash/get';
 
 import PropTypes from 'prop-types';
 import { compose } from 'recompose';
 import { withRouter } from 'react-router-dom'
 
 import mapper from "../../utils/connect";
-import { footerNavigation as navigation } from '../../config/navigation';
 import { setNavHeight as setNavHeightAction } from "../../actions/app";
+import { footerNavigation as navigation } from '../../config/navigation';
 
 import AppBar from "@material-ui/core/AppBar/AppBar";
 import Tabs from "@material-ui/core/Tabs/Tabs";
@@ -27,12 +28,18 @@ class FooterNavBase extends Component{
 
 		this.saveRef = (ref) => this.containerNode = ref;
 		this.state = {
-			index: 0,
+			index: this.getIndexFromPath(),
 			width: 0,
 			height: 0,
 		};
 
 		this.handleChange = this.handleChange.bind(this);
+		this.getIndexFromPath = this.getIndexFromPath.bind(this);
+	}
+
+	getIndexFromPath() {
+		const { pathname } = this.props.history.location;
+		return get(navigation.find(item => item.path === pathname), 'index');
 	}
 
 	measure() {
