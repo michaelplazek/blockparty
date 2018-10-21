@@ -25,11 +25,11 @@ const Dashboard = ({ logOut, setLayerOpen }) => (
 		/>
 		<Tile
 			title='Posts'
-			count={2}
+			count={0}
 		/>
 		<Tile
 			title='Bids'
-			count={1}
+			count={0}
 		/>
 	</div>
 );
