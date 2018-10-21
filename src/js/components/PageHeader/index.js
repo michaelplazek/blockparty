@@ -73,7 +73,7 @@ class PageHeader extends Component{
           <div className={this.props.classes.root} ref={this.saveRef}>
 						<AppBar position="static">
 							<Toolbar>
-								<IconButton className={this.props.classes.menuButton} color="inherit" aria-label="Menu">
+								<IconButton onClick={this.props.leftHandAction} className={this.props.classes.menuButton} color="inherit" aria-label="Menu">
 									{this.props.leftHandIcon}
 								</IconButton>
 								<Typography align='left' variant='button' color="inherit" className={this.props.classes.grow}>
@@ -83,7 +83,7 @@ class PageHeader extends Component{
 									{this.props.rightHandIcon}
 								</IconButton>
 								{this.props.rightHandButton &&
-								<Button color="inherit">{this.props.rightHandButton}</Button>
+								<Button onClick={this.props.rightHandAction} color="inherit">{this.props.rightHandButton}</Button>
 								}
 							</Toolbar>
 						</AppBar>

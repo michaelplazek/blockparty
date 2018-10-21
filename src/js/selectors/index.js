@@ -29,6 +29,7 @@ export const selectTimestamp = state => state.posts.post.timestamp;
 
 // LAYERS
 export const selectLayer = state => state.layers.layer;
+export const selectLayerOpen = state => state.layers.open;
 
 // SESSION
 export const selectIsLoggedIn = state => state.session.loggedIn;
@@ -37,3 +38,8 @@ export const selectSessionLoaded = state => state.session.sessionLoaded;
 // APP
 export const selectNavHeight = state => state.app.navigationBarHeight;
 export const selectHeaderHeight = state => state.app.headerHeight;
+export const selectWindowHeight = state => state.app.windowHeight;
+export const selectWindowWidth = state => state.app.windowWidth;
+
+// FILTERS
+export const selectDistanceAway = state => state.filters.distanceAway;
