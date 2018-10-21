@@ -26,6 +26,11 @@ export const selectLocation = state => state.posts.post.location;
 export const selectMessage = state => state.posts.post.message;
 export const selectTimestamp = state => state.posts.post.timestamp;
 
+// TEMPORARY POST
+export const selectPostCoin = state => state.post.coin;
+export const selectPostVolume = state => state.post.volume;
+export const selectPostPrice = state => state.post.price;
+
 
 // LAYERS
 export const selectLayer = state => state.layers.layer;
@@ -34,6 +39,7 @@ export const selectLayerOpen = state => state.layers.open;
 // SESSION
 export const selectIsLoggedIn = state => state.session.loggedIn;
 export const selectSessionLoaded = state => state.session.sessionLoaded;
+export const selectUsername = state => state.session.username;
 
 // APP
 export const selectNavHeight = state => state.app.navigationBarHeight;

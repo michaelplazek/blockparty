@@ -10,7 +10,7 @@ import { setLayerOpen as setLayerOpenAction } from "../actions/layers";
 import PageHeader from "../components/PageHeader";
 import AddCircle from '@material-ui/icons/AddCircle'
 import MailIcon from '@material-ui/icons/Mail';
-import CreatePost from "../components/Flyout/CreatePost";
+import CreatePost from "../components/Flyout/CreatePost/index";
 import withWindowSize from "../HOCs/withWindowSize";
 
 const Dashboard = ({ logOut, setLayerOpen }) => (
