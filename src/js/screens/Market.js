@@ -2,12 +2,18 @@ import React, { Component } from 'react';
 import { compose, lifecycle } from 'recompose';
 import mapper from "../utils/connect";
 
-import { selectHeaderHeight, selectMapMarkers, selectNavHeight, selectPostsForDisplay } from "../selectors";
+import {
+	selectHeaderHeight,
+	selectMapMarkers,
+	selectNavHeight,
+	selectPostsForDisplay
+} from "../selectors";
 import { loadPosts as loadPostsAction } from "../actions/posts";
 import { setLayerOpen as setLayerOpenAction } from '../actions/layers';
 
 import FilterListIcon from '@material-ui/icons/FilterList'
 
+import Subheader from "../components/Subheader";
 import GoogleMapsWrapper from "../components/GoogleMaps/GoogleMapsWrapper";
 import PageHeader from "../components/PageHeader";
 import FilterMap from "../components/Flyout/FilterMap";
@@ -30,6 +36,8 @@ class Market extends Component {
 						leftHandAction={() => this.props.setLayerOpen(true)}
 						leftHandIcon={<FilterListIcon />}
 						rightHandButton='Go to chart view'
+						showSubheader={true}
+						subheader={<Subheader />}
 					/>
 					<GoogleMapsWrapper markers={markers} height={windowHeight - navHeight - headerHeight}/>
 				</div>

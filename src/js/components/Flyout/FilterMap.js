@@ -9,6 +9,7 @@ import {
 	setFilterCoin as setFilterCoinAction,
 	setFilter as setFilterAction
 } from "../../actions/filter";
+import { setLayerOpen as setLayerOpenAction } from "../../actions/layers";
 import coins from '../../constants/coins';
 import Flyout from './';
 
@@ -48,7 +49,7 @@ const FilterMap = ({
 				<br/>
 				<TextField
 					id='distance'
-					label='Distance'
+					label='Distance Away'
 					value={distance}
 					onChange={({ target }) => setFilterDistance(target.value)}
 					margin="dense"
@@ -75,14 +76,16 @@ const propMap = {
 const actionMap = {
 	setFilterDistance: setFilterDistanceAction,
 	setFilterCoin: setFilterCoinAction,
-	setFilter: setFilterAction
+	setFilter: setFilterAction,
+	setLayerOpen: setLayerOpenAction
 };
 
 export default compose(
 	mapper(propMap, actionMap),
 	withHandlers({
-		handleSubmit: ({ setFilter }) => () => {
+		handleSubmit: ({ setFilter, setLayerOpen }) => () => {
 			setFilter();
+			setLayerOpen(false);
 		}
 	}),
 	withStyles(styles)
