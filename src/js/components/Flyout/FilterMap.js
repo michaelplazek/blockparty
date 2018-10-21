@@ -21,7 +21,7 @@ const styles = () => ({
 	}
 });
 
-const FilterFlyout = ({ classes, distance }) => (
+const FilterMap = ({ classes, distance }) => (
 	<Flyout>
 		<Grid className={classes.root}>
 			<FormControl margin='dense' fullWidth={true}>
@@ -65,4 +65,4 @@ const actionMap = {
 export default compose(
 	mapper(propMap, actionMap),
 	withStyles(styles)
-)(FilterFlyout);
+)(FilterMap);

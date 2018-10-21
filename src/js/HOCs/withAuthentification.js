@@ -8,6 +8,11 @@ import { selectIsLoggedIn, selectSessionLoaded } from "../selectors";
 
 import Loading from "../components/Loading";
 
+/**
+ * This HOC provides the routing and authentication for user sessions.
+ * @param ProtectedRoute
+ * @returns {*}
+ */
 export default (ProtectedRoute) => {
     const AuthHOC = (props) => {
         const path = props.history.location.pathname;

@@ -43,7 +43,7 @@ class GoogleMapsWrapper extends Component{
 			defaultCenter={{ lat: this.state.currentLocation.lat, lng: this.state.currentLocation.lng }}
 			defaultOptions={{mapTypeControl: false, streetViewControl: false}}
 		>
-			{markers.map(item => <Marker key={`${item.lat}-${item.lng}`} position={{ lat: parseFloat(item.lat), lng: parseFloat(item.lng) }} /> )}
+			{markers.map(item => <Marker key={item.id} position={{ lat: parseFloat(item.lat), lng: parseFloat(item.lng) }} /> )}
 		</GoogleMap>
 		)
 	}
