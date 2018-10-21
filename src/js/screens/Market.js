@@ -5,6 +5,8 @@ import mapper from "../utils/connect";
 import { selectHeaderHeight, selectNavHeight, selectPostsForDisplay } from "../selectors";
 import { loadPosts as loadPostsAction } from "../actions/posts";
 
+import FilterListIcon from '@material-ui/icons/FilterList'
+
 import GoogleMapsWrapper from "../components/GoogleMaps/GoogleMapsWrapper";
 import PageHeader from "../components/PageHeader";
 
@@ -36,12 +38,16 @@ class Market extends Component {
 		render() {
 			return (
 				<div>
-					<PageHeader/>
+					<PageHeader
+						leftHandLabel='Filter'
+						leftHandIcon={<FilterListIcon />}
+						rightHandButton='Go to chart view'
+					/>
 					<GoogleMapsWrapper height={this.state.height - this.props.navHeight - this.props.headerHeight}/>
 				</div>
 			)
 		}
-};
+}
 
 const propMap = {
 	posts: selectPostsForDisplay,

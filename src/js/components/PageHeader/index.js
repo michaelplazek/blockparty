@@ -5,6 +5,7 @@ import { compose } from 'recompose';
 import mapper from "../../utils/connect";
 import { setHeaderHeight as setHeaderHeightAction } from "../../actions/app";
 
+import Grid from "@material-ui/core/Grid/Grid"
 import AppBar from "@material-ui/core/AppBar/AppBar";
 import Toolbar from "@material-ui/core/Toolbar/Toolbar";
 import Input from "@material-ui/core/Input/Input";
@@ -16,6 +17,7 @@ import Button from "@material-ui/core/Button/Button";
 import Typography from "@material-ui/core/Typography/Typography";
 import IconButton from "@material-ui/core/IconButton/IconButton";
 import MenuIcon from '@material-ui/icons/Menu';
+
 
 
 const styles = {
@@ -72,12 +74,17 @@ class PageHeader extends Component{
 						<AppBar position="static">
 							<Toolbar>
 								<IconButton className={this.props.classes.menuButton} color="inherit" aria-label="Menu">
-									<FilterListIcon />
+									{this.props.leftHandIcon}
 								</IconButton>
-								<Typography color="inherit" className={this.props.classes.grow}>
-									Filter
+								<Typography align='left' variant='button' color="inherit" className={this.props.classes.grow}>
+									{this.props.leftHandLabel}
 								</Typography>
-								<Button color="inherit">Go to Chart View</Button>
+								<IconButton className={this.props.classes.menuButton} color="inherit">
+									{this.props.rightHandIcon}
+								</IconButton>
+								{this.props.rightHandButton &&
+								<Button color="inherit">{this.props.rightHandButton}</Button>
+								}
 							</Toolbar>
 						</AppBar>
           </div>
@@ -86,13 +93,23 @@ class PageHeader extends Component{
 }
 
 PageHeader.propTypes = {
-    title: PropTypes.string,
-    actionItems: PropTypes.array,
+	leftHandLabel: PropTypes.string,
+	rightHandLabel: PropTypes.string,
+	leftHandIcon: PropTypes.node,
+	leftHandAction: PropTypes.func,
+	rightHandAction: PropTypes.func,
+	rightHandIcon: PropTypes.node,
+	rightHandButton: PropTypes.string,
 };
 
 PageHeader.defaultProps = {
-	actionItems: [],
-	title: '',
+	rightHandLabel: '',
+	leftHandLabel: '',
+	rightHandButton: '',
+	leftHandIcon: undefined,
+	rightHandIcon: undefined,
+	leftHandAction: () => {},
+	rightHandAction: () => {},
 };
 
 const propMap = {
