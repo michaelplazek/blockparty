@@ -9,7 +9,7 @@ class GoogleMapsWrapper extends Component{
 		super(props);
 
 		this.state = {
-			zoom: 8,
+			zoom: 12,
 			currentLocation: {
 				lat: 40.564714,
 				lng: -105.090650
@@ -34,13 +34,16 @@ class GoogleMapsWrapper extends Component{
 	}
 
 	render(){
+
+		const { markers } = this.props;
+
 		return (
 		<GoogleMap
 			defaultZoom={this.state.zoom}
 			defaultCenter={{ lat: this.state.currentLocation.lat, lng: this.state.currentLocation.lng }}
 			defaultOptions={{mapTypeControl: false, streetViewControl: false}}
 		>
-			{ <Marker position={{ lat: 40.564714, lng: -105.090650 }} />}
+			{markers.map(item => <Marker key={`${item.lat}-${item.lng}`} position={{ lat: parseFloat(item.lat), lng: parseFloat(item.lng) }} /> )}
 		</GoogleMap>
 		)
 	}
@@ -50,6 +53,7 @@ GoogleMapsWrapper.propTypes = {
 	centerAroundCurrentLocation: PropTypes.bool,
 	zoom: PropTypes.number,
 	initialCenter: PropTypes.object,
+	markers: PropTypes.array,
 };
 
 GoogleMapsWrapper.defaultProps = {
@@ -59,6 +63,7 @@ GoogleMapsWrapper.defaultProps = {
 		lng: -105.090650
 	},
 	centerAroundCurrentLocation: true,
+	markers: [],
 };
 
 export default compose(

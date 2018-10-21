@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { compose, lifecycle } from 'recompose';
 import mapper from "../utils/connect";
 
-import { selectHeaderHeight, selectNavHeight, selectPostsForDisplay } from "../selectors";
+import { selectHeaderHeight, selectMapMarkers, selectNavHeight, selectPostsForDisplay } from "../selectors";
 import { loadPosts as loadPostsAction } from "../actions/posts";
 
 import FilterListIcon from '@material-ui/icons/FilterList'
@@ -36,6 +36,9 @@ class Market extends Component {
 	}
 
 		render() {
+
+		const { markers, navHeight, headerHeight } = this.props;
+
 			return (
 				<div>
 					<PageHeader
@@ -43,7 +46,7 @@ class Market extends Component {
 						leftHandIcon={<FilterListIcon />}
 						rightHandButton='Go to chart view'
 					/>
-					<GoogleMapsWrapper height={this.state.height - this.props.navHeight - this.props.headerHeight}/>
+					<GoogleMapsWrapper markers={markers} height={this.state.height - navHeight - headerHeight}/>
 				</div>
 			)
 		}
@@ -51,6 +54,7 @@ class Market extends Component {
 
 const propMap = {
 	posts: selectPostsForDisplay,
+	markers: selectMapMarkers,
 	navHeight: selectNavHeight,
 	headerHeight: selectHeaderHeight,
 };

@@ -10,6 +10,10 @@ export const selectPostsForDisplay = createSelector(
         timestamp: moment(item.timestamp).format('MMM D'),
     }))
 );
+export const selectMapMarkers = createSelector(
+	selectPosts,
+	posts => posts.map(post => ({ lat: post.lat, lng: post.lng }))
+);
 
 // POST
 export const selectPost = state => state.posts.post;

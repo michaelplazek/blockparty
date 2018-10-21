@@ -11,18 +11,19 @@ const styles = () => ({
 	root: {
 		margin: '30px 60px 30px 60px',
 		padding: '20px',
+		cursor: 'pointer',
 	}
 });
 
-const Tile = ({ classes, title, count}) => (
-	<div>
+const Tile = ({ classes, title, count, onClick }) => (
+	<div onClick={onClick}>
 		<Paper className={classes.root} elevation={1}>
-			<Grid container justify='space-between' direction='row'>
+			<Grid container justify='space-between' direction='row' onClick={() => {}}>
 				<Grid item>
 					<Typography variant='title'>{title}</Typography>
 				</Grid>
 				<Grid item>
-					<Typography color='textSecondary' variant='subtitle'>{count}</Typography>
+					<Typography color='textSecondary' variant='subheading'>{count}</Typography>
 				</Grid>
 			</Grid>
 		</Paper>
@@ -30,8 +31,14 @@ const Tile = ({ classes, title, count}) => (
 );
 
 Tile.propTypes = {
-	title: PropTypes.string,
+	title: PropTypes.string.isRequired,
 	count: PropTypes.number,
+	onClick: PropTypes.func,
+};
+
+Tile.defaultProp = {
+	count: 0,
+	onClick: () => {},
 };
 
 export default compose(
