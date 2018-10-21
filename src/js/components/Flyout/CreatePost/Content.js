@@ -67,7 +67,7 @@ const CreatePostContent = ({
 			<Grid container direction='column'>
 				<Typography>Type: {coin}</Typography>
 				<Typography>Volume: {volume}</Typography>
-				<Typography>Type: {price}</Typography>
+				<Typography>Price: {price}</Typography>
 			</Grid>
 		)
 	}
