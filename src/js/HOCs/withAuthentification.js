@@ -13,7 +13,6 @@ export default (ProtectedRoute) => {
         const path = props.history.location.pathname;
         const shouldRedirect = !(path === '/login' || path === '/register');
 
-        console.log(getSession());
         if (!props.sessionLoaded && getSession()){
             return (<Loading />);
         } else {

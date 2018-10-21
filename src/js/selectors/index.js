@@ -10,6 +10,12 @@ export const selectPostsForDisplay = createSelector(
         timestamp: moment(item.timestamp).format('MMM D'),
     }))
 );
+export const selectMapMarkers = createSelector(
+	selectPosts,
+	posts => posts.map(post => (
+		{ lat: post.lat, lng: post.lng, id: post.id })
+	)
+);
 
 // POST
 export const selectPost = state => state.posts.post;
@@ -23,7 +29,17 @@ export const selectTimestamp = state => state.posts.post.timestamp;
 
 // LAYERS
 export const selectLayer = state => state.layers.layer;
+export const selectLayerOpen = state => state.layers.open;
 
 // SESSION
 export const selectIsLoggedIn = state => state.session.loggedIn;
 export const selectSessionLoaded = state => state.session.sessionLoaded;
+
+// APP
+export const selectNavHeight = state => state.app.navigationBarHeight;
+export const selectHeaderHeight = state => state.app.headerHeight;
+export const selectWindowHeight = state => state.app.windowHeight;
+export const selectWindowWidth = state => state.app.windowWidth;
+
+// FILTERS
+export const selectDistanceAway = state => state.filters.distanceAway;

@@ -8,14 +8,17 @@ import Button from "@material-ui/core/Button/Button";
 
 const styles = theme => ({
     root:{
-      padding: '40px'
+      padding: '10px 40px 10px 40px'
     },
+    submitButton: {
+        marginTop: '10px'
+    }
 });
 
 const LoginForm = ({
-    email,
+    username,
     password,
-    setEmail,
+    setUsername,
     setPassword,
     onClick,
     handleSubmit,
@@ -29,11 +32,11 @@ const LoginForm = ({
                 direction='column'
             >
                 <TextField
-                    id='email-field'
-                    label='Email'
-                    value={email}
-                    onChange={({ target }) => setEmail(target.value)}
-                    margin="normal"
+                    id='username-field'
+                    label='Username'
+                    value={username}
+                    onChange={({ target }) => setUsername(target.value)}
+                    margin="dense"
                     variant="outlined"
                 />
                 <TextField
@@ -41,21 +44,29 @@ const LoginForm = ({
                     label='Password'
                     value={password}
                     onChange={({ target }) => setPassword(target.value)}
-                    margin="normal"
+                    margin="dense"
                     variant="outlined"
                 />
-                <Button onClick={handleSubmit}>Submit</Button>
+                <br/>
+                <Button
+                    className='submitButton'
+                    variant='raised'
+                    color='primary'
+                    onClick={handleSubmit}
+                >
+                    Submit
+                </Button>
             </Grid>
         </form>
 );
 
 export default compose(
     withStyles(styles),
-    withState('email', 'setEmail', ''),
+    withState('username', 'setUsername', ''),
     withState('password', 'setPassword', ''),
     withHandlers({
-        handleSubmit: ({ onClick, email, password }) => () => {
-            onClick(email, password)
+        handleSubmit: ({ onClick, username, password }) => () => {
+            onClick(username, password)
         },
     }),
 )(LoginForm);
