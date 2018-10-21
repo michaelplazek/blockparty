@@ -42,8 +42,22 @@ const styles = theme => ({
 	},
 });
 
-const Index = ({ classes, onSubmit, activeIndex, handleBack, handleNext }) => (
-	<Flyout size={8}>
+const Index = ({
+	classes,
+	onSubmit,
+	activeIndex,
+	setActiveIndex,
+	handleBack,
+	handleNext,
+	resetPost
+}) => (
+	<Flyout
+		onClose={() => {
+			resetPost();
+			setActiveIndex(0);
+		}}
+		size={8}
+	>
 		<Grid className={classes.root}>
 			<Stepper activeStep={activeIndex} orientation="vertical">
 				{STEPS.map((step, index) => {

@@ -1,5 +1,7 @@
 import React from 'react';
 import { compose } from 'recompose';
+import PropTypes from 'prop-types';
+
 import withStyles from "@material-ui/core/styles/withStyles";
 import mapper from "../../utils/connect";
 import { selectLayerOpen, selectWindowHeight, selectWindowWidth } from "../../selectors";
@@ -17,9 +19,10 @@ const styles = () => ({
 	}
 });
 
-const Flyout = ({ classes, height, width, children, open, setLayerOpen, size }) => (
+const Flyout = ({ classes, height, width, children, open, setLayerOpen, size, onClose }) => (
 	<Modal
 		open={open}
+		onClose={onClose}
 		onBackdropClick={() => setLayerOpen(false)}
 	>
 		<Slide direction="right" in={open} mountOnEnter unmountOnExit>
@@ -32,6 +35,14 @@ const Flyout = ({ classes, height, width, children, open, setLayerOpen, size }) 
 		</Slide>
 	</Modal>
 );
+
+Flyout.propTypes = {
+	onClose: PropTypes.func,
+};
+
+Flyout.defaultProps = {
+	onClose: () => {}
+};
 
 const propMap = {
 	height: selectWindowHeight,
