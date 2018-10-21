@@ -7,9 +7,9 @@ import app from './app';
 import filters from './filters';
 
 export default combineReducers({
+	app,
 	posts,
 	layers,
 	session,
-	app,
 	filters,
 })

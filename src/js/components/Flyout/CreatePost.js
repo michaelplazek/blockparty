@@ -1,10 +1,8 @@
 import React from 'react';
-import { compose } from 'recompose';
+import { compose, withHandlers } from 'recompose';
 import withStyles from "@material-ui/core/styles/withStyles";
 import mapper from "../../utils/connect";
 
-import { selectDistanceAway } from "../../selectors";
-import { setDistance as setDistanceAction } from "../../actions/filter";
 import coins from '../../constants/coins';
 import Flyout from './';
 
@@ -21,7 +19,7 @@ const styles = () => ({
 	}
 });
 
-const FilterFlyout = ({ classes, distance }) => (
+const FilterMap = ({ classes, onSubmit }) => (
 	<Flyout>
 		<Grid className={classes.root}>
 			<FormControl margin='dense' fullWidth={true}>
@@ -36,18 +34,28 @@ const FilterFlyout = ({ classes, distance }) => (
 				</Select>
 				<br/>
 				<TextField
-					id='distance'
-					label='Distance'
-					value={distance}
+					id='volume'
+					label='Volume'
+					value='2'
+					onChange={() => {}}
+					margin="dense"
+					variant="standard"
+				/>
+				<br/>
+				<TextField
+					id='price'
+					label='Price'
+					value='$4,567'
 					onChange={() => {}}
 					margin="dense"
 					variant="standard"
 				/>
 				<br/>
 				<Button
+					onClick={onSubmit}
 					variant='contained'
 				>
-					Filter
+					Create
 				</Button>
 			</FormControl>
 		</Grid>
@@ -55,14 +63,17 @@ const FilterFlyout = ({ classes, distance }) => (
 );
 
 const propMap = {
-	distance: selectDistanceAway
 };
 
 const actionMap = {
-	setDistance: setDistanceAction
 };
 
 export default compose(
 	mapper(propMap, actionMap),
-	withStyles(styles)
-)(FilterFlyout);
+	withStyles(styles),
+	withHandlers({
+		onSubmit: () => () => {
+
+		},
+	})
+)(FilterMap);

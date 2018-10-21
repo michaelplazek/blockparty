@@ -5,13 +5,19 @@ import mapper from "../utils/connect";
 import Tile from '../components/Tile';
 
 import { logOutUser as logOutUserAction } from "../actions/session";
+import { setLayerOpen as setLayerOpenAction } from "../actions/layers";
+
 import PageHeader from "../components/PageHeader";
 import AddCircle from '@material-ui/icons/AddCircle'
 import MailIcon from '@material-ui/icons/Mail';
+import CreatePost from "../components/Flyout/CreatePost";
+import withWindowSize from "../HOCs/withWindowSize";
 
-const Dashboard = ({ logOut }) => (
+const Dashboard = ({ logOut, setLayerOpen }) => (
 	<div>
+		<CreatePost />
 		<PageHeader
+			leftHandAction={() => setLayerOpen(true)}
 			leftHandLabel='Post'
 			leftHandIcon={<AddCircle />}
 			rightHandLabel='Inbox'
@@ -34,8 +40,10 @@ const propMap = {
 
 const actionMap = {
   logOut: logOutUserAction,
+	setLayerOpen: setLayerOpenAction
 };
 
 export default compose(
     mapper(propMap, actionMap),
+	withWindowSize,
 )(Dashboard);

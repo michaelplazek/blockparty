@@ -1,5 +1,5 @@
 import { stateReducer } from "./utils";
-import {LOAD_NAV_HEIGHT, LOAD_HEADER_HEIGHT, LOAD_WINDOW_HEIGHT, LOAD_WINDOW_WIDTH} from "../actions";
+import { LOAD_NAV_HEIGHT, LOAD_HEADER_HEIGHT, LOAD_WINDOW_HEIGHT, LOAD_WINDOW_WIDTH } from "../actions";
 
 const initialState = {
 	navigationBarHeight: 0,
