@@ -16,7 +16,7 @@ import {
  * @returns {*}
  */
 export default (Component) => {
-	const WindowSizeHOC = (props) => {
+	const DimensionsHOC = (props) => {
 		return <Component {...props} />
 	};
 
@@ -47,5 +47,5 @@ export default (Component) => {
 				window.removeEventListener('resize', this.props.updateWindowDimensions);
 			},
 		})
-	)(WindowSizeHOC)
+	)(DimensionsHOC)
 };

@@ -11,7 +11,7 @@ import FilterListIcon from '@material-ui/icons/FilterList'
 import GoogleMapsWrapper from "../components/GoogleMaps/GoogleMapsWrapper";
 import PageHeader from "../components/PageHeader";
 import FilterMap from "../components/Flyout/FilterMap";
-import withWindowSize from "../HOCs/withWindowSize";
+import withDimensions from "../HOCs/withDimensions";
 
 class Market extends Component {
 	constructor(props) {
@@ -51,7 +51,7 @@ const actionMap = {
 
 export default compose(
     mapper(propMap, actionMap),
-    withWindowSize,
+    withDimensions,
     lifecycle({
         componentWillMount() {
             const { loadPosts } = this.props;

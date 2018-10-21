@@ -11,7 +11,7 @@ import PageHeader from "../components/PageHeader";
 import AddCircle from '@material-ui/icons/AddCircle'
 import MailIcon from '@material-ui/icons/Mail';
 import CreatePost from "../components/Flyout/CreatePost/index";
-import withWindowSize from "../HOCs/withWindowSize";
+import withDimensions from "../HOCs/withDimensions";
 
 const Dashboard = ({ logOut, setLayerOpen }) => (
 	<div>
@@ -45,5 +45,5 @@ const actionMap = {
 
 export default compose(
     mapper(propMap, actionMap),
-	withWindowSize,
+	withDimensions,
 )(Dashboard);

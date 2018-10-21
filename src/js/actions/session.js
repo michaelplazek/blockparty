@@ -17,9 +17,9 @@ export const getSession = () =>
 const removeSession = () =>
     window.sessionStorage.removeItem('session');
 
-export const logInUser = (email, password, history) => dispatch => {
+export const logInUser = (username, password, history) => dispatch => {
     const user = {
-      email,
+			username,
       password: md5(md5(password)),
     };
     sendData('users/login', user, 'POST')
@@ -31,10 +31,10 @@ export const logInUser = (email, password, history) => dispatch => {
         .then(() => history.push('/'))
 };
 
-export const registerUser = (email, password, history) => dispatch => {
+export const registerUser = (username, password, history) => dispatch => {
     const user = {
-        email,
-        password: md5(md5(password)),
+			username,
+      password: md5(md5(password)),
     };
     sendData('users/signup', user, 'POST')
         .then(response => {

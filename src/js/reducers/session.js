@@ -9,24 +9,24 @@ import {
 
 const initialState = {
     loggedIn: false,
-    email: '',
+    username: '',
     error: '',
     sessionLoaded: false,
 };
 
 const handlers = {
     [LOG_IN]: (state, action) => ({
-        email: action.data.user.email,
+        username: action.data.user.username,
         error: '',
         loggedIn: true,
     }),
     [REGISTER_USER]: (state, action) => ({
-        email: action.data.user.email,
+        username: action.data.user.username,
         error: '',
         loggedIn: true,
     }),
     [USER_FROM_TOKEN]: (state, action) => ({
-        email: action.data.user.email,
+        username: action.data.user.username,
         error: '',
         loggedIn: true,
     }),

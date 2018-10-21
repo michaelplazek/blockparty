@@ -17,7 +17,7 @@ const styles = () => ({
 	}
 });
 
-const Flyout = ({ classes, height, width, children, open, setLayerOpen }) => (
+const Flyout = ({ classes, height, width, children, open, setLayerOpen, size }) => (
 	<Modal
 		open={open}
 		onBackdropClick={() => setLayerOpen(false)}
@@ -25,7 +25,7 @@ const Flyout = ({ classes, height, width, children, open, setLayerOpen }) => (
 		<Slide direction="right" in={open} mountOnEnter unmountOnExit>
 			<div
 				className={classes.root}
-				style={{ height: height, width: `${width - width/3}px` }}
+				style={{ height: height, width: `${width - width/size}px` }}
 			>
 				{children}
 			</div>

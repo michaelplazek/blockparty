@@ -22,7 +22,7 @@ const styles = () => ({
 });
 
 const FilterMap = ({ classes, distance }) => (
-	<Flyout>
+	<Flyout size={3}>
 		<Grid className={classes.root}>
 			<FormControl margin='dense' fullWidth={true}>
 				<InputLabel>Coin Type</InputLabel>
