@@ -4,15 +4,12 @@ import mapper from "../utils/connect";
 
 import Tile from '../components/Tile';
 
-import { logOutUser as logOutUserAction } from "../actions/session";
 import { setLayerOpen as setLayerOpenAction } from "../actions/layers";
 
 import PageHeader from "../components/PageHeader";
-import AddCircle from '@material-ui/icons/AddCircle'
 import MailIcon from '@material-ui/icons/Mail';
 import CreatePost from "../components/Flyout/CreatePost/index";
 import withDimensions from "../HOCs/withDimensions";
-import IconButton from "@material-ui/core/IconButton/IconButton";
 import Button from "@material-ui/core/Button/Button";
 import withStyles from "@material-ui/core/styles/withStyles";
 
@@ -25,13 +22,11 @@ const styles = () => ({
 	}
 });
 
-const Dashboard = ({ logOut, setLayerOpen, classes }) => (
+const Dashboard = ({ setLayerOpen, classes }) => (
 	<div>
 		<CreatePost />
 		<PageHeader
-			// leftHandAction={() => setLayerOpen(true)}
 			leftHandLabel='Dashboard'
-			// leftHandIcon={<AddCircle />}
 			rightHandLabel='Inbox'
       rightHandIcon={<MailIcon />}
 		/>
@@ -60,7 +55,6 @@ const propMap = {
 };
 
 const actionMap = {
-  logOut: logOutUserAction,
 	setLayerOpen: setLayerOpenAction
 };
 
