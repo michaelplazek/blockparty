@@ -32,7 +32,6 @@ class Market extends Component {
 				<div>
 					<FilterMap />
 					<PageHeader
-						leftHandLabel='Filter'
 						leftHandAction={() => this.props.setLayerOpen(true)}
 						leftHandIcon={<FilterListIcon />}
 						rightHandButton='Go to chart view'

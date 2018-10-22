@@ -65,10 +65,17 @@ class PageHeader extends Component{
           <div className={this.props.classes.root} ref={this.saveRef}>
 						<AppBar position="static">
 							<Toolbar>
-								<IconButton onClick={this.props.leftHandAction} className={this.props.classes.menuButton} color="inherit" aria-label="Menu">
-									{this.props.leftHandIcon}
-								</IconButton>
-								<Typography align='left' variant='button' color="inherit" className={this.props.classes.grow}>
+								{this.props.leftHandIcon &&
+									<IconButton
+										onClick={this.props.leftHandAction}
+										className={this.props.classes.menuButton}
+										color="inherit"
+										aria-label="Menu"
+									>
+										{this.props.leftHandIcon}
+									</IconButton>
+								}
+								<Typography align='left' variant='headline' color="inherit" className={this.props.classes.grow}>
 									{this.props.leftHandLabel}
 								</Typography>
 								<IconButton className={this.props.classes.menuButton} color="inherit">
@@ -99,10 +106,10 @@ PageHeader.propTypes = {
 
 PageHeader.defaultProps = {
 	rightHandLabel: '',
-	leftHandLabel: '',
+	leftHandLabel: null,
 	rightHandButton: '',
-	leftHandIcon: undefined,
-	rightHandIcon: undefined,
+	leftHandIcon: null,
+	rightHandIcon: null,
 	leftHandAction: () => {},
 	rightHandAction: () => {},
 	showSubheader: false,
