@@ -1,3 +1,5 @@
 # Cash For Cypto
 
-To run: `npm start`
+## Setup
+Start the (API)[https://github.com/michaelplazek/cash-for-crypto-api]
+then run `npm start`
