@@ -88,9 +88,9 @@ export default compose(
     withRouter,
     mapper(propMap, actionMap),
     withHandlers({
-        handleLogIn: ({ logInUser, history }) => (email, password) => {
-            if (validateInput(email, password)) {
-                logInUser(email, password, history);
+        handleLogIn: ({ logInUser, history }) => (username, password) => {
+            if (validateInput(username, password)) {
+                logInUser(username, password, history);
             }
         },
     }),

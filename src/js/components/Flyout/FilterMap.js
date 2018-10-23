@@ -1,10 +1,15 @@
 import React from 'react';
-import { compose } from 'recompose';
+import { compose, withHandlers } from 'recompose';
 import withStyles from "@material-ui/core/styles/withStyles";
 import mapper from "../../utils/connect";
 
-import { selectDistanceAway } from "../../selectors";
-import { setDistance as setDistanceAction } from "../../actions/filter";
+import { selectFilter, selectFilterCoin, selectFilterDistance } from "../../selectors";
+import {
+	setFilterDistance as setFilterDistanceAction,
+	setFilterCoin as setFilterCoinAction,
+	setFilter as setFilterAction
+} from "../../actions/filter";
+import { setLayerOpen as setLayerOpenAction } from "../../actions/layers";
 import coins from '../../constants/coins';
 import Flyout from './';
 
@@ -21,31 +26,39 @@ const styles = () => ({
 	}
 });
 
-const FilterMap = ({ classes, distance }) => (
-	<Flyout>
+const FilterMap = ({
+	classes,
+	distance,
+	coin,
+	setFilterDistance,
+	setFilterCoin,
+	handleSubmit
+}) => (
+	<Flyout size={3}>
 		<Grid className={classes.root}>
 			<FormControl margin='dense' fullWidth={true}>
 				<InputLabel>Coin Type</InputLabel>
 				<Select
 					variant='outlined'
 					native
-					value='ADD VALUE'
-					onChange={() => {}}
+					value={coin}
+					onChange={({ target }) => setFilterCoin(target.value)}
 				>
-					{coins.map(coin => <option key={coin} value={coin}>{coin}</option>)}
+					{coins.map(item => <option key={item} value={item}>{item}</option>)}
 				</Select>
 				<br/>
 				<TextField
 					id='distance'
-					label='Distance'
+					label='Distance Away'
 					value={distance}
-					onChange={() => {}}
+					onChange={({ target }) => setFilterDistance(target.value)}
 					margin="dense"
 					variant="standard"
 				/>
 				<br/>
 				<Button
 					variant='contained'
+					onClick={handleSubmit}
 				>
 					Filter
 				</Button>
@@ -55,14 +68,25 @@ const FilterMap = ({ classes, distance }) => (
 );
 
 const propMap = {
-	distance: selectDistanceAway
+	distance: selectFilterDistance,
+	coin: selectFilterCoin,
+	filter: selectFilter
 };
 
 const actionMap = {
-	setDistance: setDistanceAction
+	setFilterDistance: setFilterDistanceAction,
+	setFilterCoin: setFilterCoinAction,
+	setFilter: setFilterAction,
+	setLayerOpen: setLayerOpenAction
 };
 
 export default compose(
 	mapper(propMap, actionMap),
+	withHandlers({
+		handleSubmit: ({ setFilter, setLayerOpen }) => () => {
+			setFilter();
+			setLayerOpen(false);
+		}
+	}),
 	withStyles(styles)
 )(FilterMap);

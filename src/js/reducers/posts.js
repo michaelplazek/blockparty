@@ -18,6 +18,7 @@ const handlers = {
 	}),
 	[CREATE_POST]: (state, action) => ({
 		post: action.data,
+		postLoaded: true
 	}),
 };
 

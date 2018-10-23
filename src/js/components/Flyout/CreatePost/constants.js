@@ -1,6 +1,6 @@
 export const STEPS = [
 	'Select type of coin',
-	'Enter amount',
+	'Enter volume',
 	'Enter price in USD',
 	'Confirm',
 ];

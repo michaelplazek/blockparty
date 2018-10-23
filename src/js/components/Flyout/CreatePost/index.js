@@ -3,14 +3,9 @@ import { compose, withHandlers, withState } from 'recompose';
 import withStyles from "@material-ui/core/styles/withStyles";
 import mapper from "../../../utils/connect";
 
-import coins from '../../../constants/coins';
 import Flyout from '../index';
 
 import Grid from "@material-ui/core/Grid/Grid";
-import FormControl from "@material-ui/core/FormControl/FormControl";
-import InputLabel from "@material-ui/core/InputLabel/InputLabel";
-import Select from "@material-ui/core/Select/Select";
-import TextField from "@material-ui/core/TextField/TextField";
 import Button from "@material-ui/core/Button/Button";
 import Stepper from "@material-ui/core/Stepper/Stepper";
 import { STEPS } from "./constants";
@@ -42,8 +37,22 @@ const styles = theme => ({
 	},
 });
 
-const Index = ({ classes, onSubmit, activeIndex, handleBack, handleNext }) => (
-	<Flyout>
+const Index = ({
+	classes,
+	onSubmit,
+	activeIndex,
+	setActiveIndex,
+	handleBack,
+	handleNext,
+	resetPost
+}) => (
+	<Flyout
+		onClose={() => {
+			resetPost();
+			setActiveIndex(0);
+		}}
+		size={8}
+	>
 		<Grid className={classes.root}>
 			<Stepper activeStep={activeIndex} orientation="vertical">
 				{STEPS.map((step, index) => {

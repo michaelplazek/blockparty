@@ -5,20 +5,12 @@ import { compose } from 'recompose';
 import mapper from "../../utils/connect";
 import { setHeaderHeight as setHeaderHeightAction } from "../../actions/app";
 
-import Grid from "@material-ui/core/Grid/Grid"
 import AppBar from "@material-ui/core/AppBar/AppBar";
 import Toolbar from "@material-ui/core/Toolbar/Toolbar";
-import Input from "@material-ui/core/Input/Input";
 import withStyles from "@material-ui/core/styles/withStyles";
-import {fade} from "@material-ui/core/styles/colorManipulator";
-import SearchIcon from '@material-ui/icons/Search';
-import FilterListIcon from '@material-ui/icons/FilterList'
 import Button from "@material-ui/core/Button/Button";
 import Typography from "@material-ui/core/Typography/Typography";
 import IconButton from "@material-ui/core/IconButton/IconButton";
-import MenuIcon from '@material-ui/icons/Menu';
-
-
 
 const styles = {
 	root: {
@@ -73,10 +65,17 @@ class PageHeader extends Component{
           <div className={this.props.classes.root} ref={this.saveRef}>
 						<AppBar position="static">
 							<Toolbar>
-								<IconButton onClick={this.props.leftHandAction} className={this.props.classes.menuButton} color="inherit" aria-label="Menu">
-									{this.props.leftHandIcon}
-								</IconButton>
-								<Typography align='left' variant='button' color="inherit" className={this.props.classes.grow}>
+								{this.props.leftHandIcon &&
+									<IconButton
+										onClick={this.props.leftHandAction}
+										className={this.props.classes.menuButton}
+										color="inherit"
+										aria-label="Menu"
+									>
+										{this.props.leftHandIcon}
+									</IconButton>
+								}
+								<Typography align='left' variant='headline' color="inherit" className={this.props.classes.grow}>
 									{this.props.leftHandLabel}
 								</Typography>
 								<IconButton className={this.props.classes.menuButton} color="inherit">
@@ -87,7 +86,8 @@ class PageHeader extends Component{
 								}
 							</Toolbar>
 						</AppBar>
-          </div>
+						{this.props.showSubheader && this.props.subheader}
+					</div>
         )
     }
 }
@@ -100,16 +100,20 @@ PageHeader.propTypes = {
 	rightHandAction: PropTypes.func,
 	rightHandIcon: PropTypes.node,
 	rightHandButton: PropTypes.string,
+	showSubheader: PropTypes.bool,
+	subheader: PropTypes.node,
 };
 
 PageHeader.defaultProps = {
 	rightHandLabel: '',
-	leftHandLabel: '',
+	leftHandLabel: null,
 	rightHandButton: '',
-	leftHandIcon: undefined,
-	rightHandIcon: undefined,
+	leftHandIcon: null,
+	rightHandIcon: null,
 	leftHandAction: () => {},
 	rightHandAction: () => {},
+	showSubheader: false,
+	subheader: null,
 };
 
 const propMap = {

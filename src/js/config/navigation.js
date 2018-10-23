@@ -15,7 +15,7 @@ export const footerNavigation = [
         icon: <Dashboard />,
     },
     {
-        path: '/post',
+        path: '/account',
         label: 'Account',
         index: 2,
         icon: <User />,

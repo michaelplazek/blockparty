@@ -13,7 +13,7 @@ export const selectPostsForDisplay = createSelector(
 export const selectMapMarkers = createSelector(
 	selectPosts,
 	posts => posts.map(post => (
-		{ lat: post.lat, lng: post.lng, id: post.id })
+		{ lat: post.lat, lng: post.lng, id: post._id })
 	)
 );
 
@@ -48,4 +48,6 @@ export const selectWindowHeight = state => state.app.windowHeight;
 export const selectWindowWidth = state => state.app.windowWidth;
 
 // FILTERS
-export const selectDistanceAway = state => state.filters.distanceAway;
+export const selectFilterDistance = state => state.filters.distanceAway;
+export const selectFilterCoin = state => state.filters.coin;
+export const selectFilter = state => state.filters.filter;

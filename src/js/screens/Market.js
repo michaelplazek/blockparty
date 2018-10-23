@@ -2,16 +2,22 @@ import React, { Component } from 'react';
 import { compose, lifecycle } from 'recompose';
 import mapper from "../utils/connect";
 
-import { selectHeaderHeight, selectMapMarkers, selectNavHeight, selectPostsForDisplay } from "../selectors";
+import {
+	selectHeaderHeight,
+	selectMapMarkers,
+	selectNavHeight,
+	selectPostsForDisplay
+} from "../selectors";
 import { loadPosts as loadPostsAction } from "../actions/posts";
 import { setLayerOpen as setLayerOpenAction } from '../actions/layers';
 
 import FilterListIcon from '@material-ui/icons/FilterList'
 
+import Subheader from "../components/Subheader";
 import GoogleMapsWrapper from "../components/GoogleMaps/GoogleMapsWrapper";
 import PageHeader from "../components/PageHeader";
 import FilterMap from "../components/Flyout/FilterMap";
-import withWindowSize from "../HOCs/withWindowSize";
+import withDimensions from "../HOCs/withDimensions";
 
 class Market extends Component {
 	constructor(props) {
@@ -26,10 +32,11 @@ class Market extends Component {
 				<div>
 					<FilterMap />
 					<PageHeader
-						leftHandLabel='Filter'
 						leftHandAction={() => this.props.setLayerOpen(true)}
 						leftHandIcon={<FilterListIcon />}
 						rightHandButton='Go to chart view'
+						showSubheader={true}
+						subheader={<Subheader />}
 					/>
 					<GoogleMapsWrapper markers={markers} height={windowHeight - navHeight - headerHeight}/>
 				</div>
@@ -51,7 +58,7 @@ const actionMap = {
 
 export default compose(
     mapper(propMap, actionMap),
-    withWindowSize,
+    withDimensions,
     lifecycle({
         componentWillMount() {
             const { loadPosts } = this.props;

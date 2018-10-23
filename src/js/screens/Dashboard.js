@@ -4,33 +4,49 @@ import mapper from "../utils/connect";
 
 import Tile from '../components/Tile';
 
-import { logOutUser as logOutUserAction } from "../actions/session";
 import { setLayerOpen as setLayerOpenAction } from "../actions/layers";
 
 import PageHeader from "../components/PageHeader";
-import AddCircle from '@material-ui/icons/AddCircle'
 import MailIcon from '@material-ui/icons/Mail';
 import CreatePost from "../components/Flyout/CreatePost/index";
-import withWindowSize from "../HOCs/withWindowSize";
+import withDimensions from "../HOCs/withDimensions";
+import Button from "@material-ui/core/Button/Button";
+import withStyles from "@material-ui/core/styles/withStyles";
 
-const Dashboard = ({ logOut, setLayerOpen }) => (
+const styles = () => ({
+	createButton: {
+		position: 'absolute',
+		bottom: '8em',
+		right: '2em',
+
+	}
+});
+
+const Dashboard = ({ setLayerOpen, classes }) => (
 	<div>
 		<CreatePost />
 		<PageHeader
-			leftHandAction={() => setLayerOpen(true)}
-			leftHandLabel='Post'
-			leftHandIcon={<AddCircle />}
+			leftHandLabel='Dashboard'
 			rightHandLabel='Inbox'
       rightHandIcon={<MailIcon />}
 		/>
 		<Tile
 			title='Posts'
-			count={2}
+			count={0}
 		/>
 		<Tile
 			title='Bids'
-			count={1}
+			count={0}
 		/>
+		<div>
+			<Button
+				className={classes.createButton}
+				variant='extendedFab'
+				onClick={() => setLayerOpen(true)}
+			>
+				Create a new post
+			</Button>
+		</div>
 	</div>
 );
 
@@ -39,11 +55,11 @@ const propMap = {
 };
 
 const actionMap = {
-  logOut: logOutUserAction,
 	setLayerOpen: setLayerOpenAction
 };
 
 export default compose(
-    mapper(propMap, actionMap),
-	withWindowSize,
+	mapper(propMap, actionMap),
+	withStyles(styles),
+	withDimensions,
 )(Dashboard);
