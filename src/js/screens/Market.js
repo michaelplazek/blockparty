@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { compose, lifecycle } from 'recompose';
+import { withRouter } from 'react-router';
 import mapper from "../utils/connect";
 
 import {
@@ -58,7 +59,13 @@ const actionMap = {
 
 export default compose(
     mapper(propMap, actionMap),
+    withRouter,
     withDimensions,
+    withHandlers({
+			handleMarkerClick: ({ history }) => (marker) => {
+				history.push(`/post?${marker.id}`);
+			},
+		}),
     lifecycle({
         componentWillMount() {
             const { loadPosts } = this.props;

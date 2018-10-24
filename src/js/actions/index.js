@@ -2,7 +2,7 @@
 // POSTS
 export const LOAD_POSTS = 'LOAD_POSTS';
 export const UNLOAD_POSTS = 'UNLOAD_POSTS';
-export const LOAD_POST = 'LOAD_POSTS';
+export const LOAD_POST = 'LOAD_POST';
 export const UNLOAD_POST = 'UNLOAD_POST';
 
 // POST

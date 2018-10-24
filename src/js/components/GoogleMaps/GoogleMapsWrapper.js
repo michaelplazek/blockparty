@@ -76,6 +76,6 @@ export default compose(
 		}
 	}),
 	withScriptjs,
-	withGoogleMap
+	withGoogleMap,
 )(GoogleMapsWrapper);
 

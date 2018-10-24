@@ -12,6 +12,19 @@ const initialState = {
 const handlers = {
 	[LOAD_POSTS]: (state, action) => ({
 		posts: action.data,
+		postsLoaded: true
+	}),
+	[UNLOAD_POSTS]: () => ({
+		posts: initialState.posts,
+		postsLoaded: false
+	}),
+	[LOAD_POSTS]: (state, action) => ({
+		post: action.data,
+		postLoaded: true
+	}),
+	[UNLOAD_POST]: () => ({
+		post: initialState.post,
+		postLoaded: false
 	}),
 	[LOAD_POST_DETAILS]: (state, action) => ({
 		post: state.posts.find(x => x._id === action.id),
