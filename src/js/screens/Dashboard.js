@@ -8,7 +8,7 @@ import { setLayerOpen as setLayerOpenAction } from "../actions/layers";
 
 import PageHeader from "../components/PageHeader";
 import MailIcon from '@material-ui/icons/Mail';
-import CreatePost from "../components/Flyout/CreatePost/index";
+import CreateAsk from "../components/Flyout/CreateAsk/index";
 import withDimensions from "../HOCs/withDimensions";
 import Button from "@material-ui/core/Button/Button";
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -24,14 +24,14 @@ const styles = () => ({
 
 const Dashboard = ({ setLayerOpen, classes }) => (
 	<div>
-		<CreatePost />
+		<CreateAsk />
 		<PageHeader
 			leftHandLabel='Dashboard'
 			rightHandLabel='Inbox'
       rightHandIcon={<MailIcon />}
 		/>
 		<Tile
-			title='Posts'
+			title='Asks'
 			count={0}
 		/>
 		<Tile
@@ -44,7 +44,7 @@ const Dashboard = ({ setLayerOpen, classes }) => (
 				variant='extendedFab'
 				onClick={() => setLayerOpen(true)}
 			>
-				Create a new post
+				Create a new ask
 			</Button>
 		</div>
 	</div>

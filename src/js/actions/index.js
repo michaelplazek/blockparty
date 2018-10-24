@@ -1,21 +1,21 @@
 
-// POSTS
-export const LOAD_POSTS = 'LOAD_POSTS';
-export const UNLOAD_POSTS = 'UNLOAD_POSTS';
-export const LOAD_POST = 'LOAD_POSTS';
-export const UNLOAD_POST = 'UNLOAD_POST';
+// ASKS
+export const LOAD_ASKS = 'LOAD_ASKS';
+export const UNLOAD_ASKS = 'UNLOAD_ASKS';
+export const LOAD_ASK = 'LOAD_ASK';
+export const UNLOAD_ASK = 'UNLOAD_ASK';
 
-// POST
-export const LOAD_POST_DETAILS = 'LOAD_POST_DETAILS';
+// ASK
+export const LOAD_ASK_FROM_ASKS = 'LOAD_ASK_FROM_ASKS';
 
-export const CREATE_POST = 'ADD_POST';
-export const DELETE_POST = 'DELETE_POST';
-export const UPDATE_POST = 'UPDATE_POST';
+export const CREATE_ASK = 'ADD_ASK';
+export const DELETE_ASK = 'DELETE_ASK';
+export const UPDATE_ASK = 'UPDATE_ASK';
 
-export const SET_POST_COIN = 'SET_POST_COIN';
-export const SET_POST_VOLUME = 'SET_POST_VOLUME';
-export const SET_POST_PRICE = 'SET_POST_PRICE';
-export const RESET_POST = 'RESET_POST';
+export const SET_ASK_COIN = 'SET_ASK_COIN';
+export const SET_ASK_VOLUME = 'SET_ASK_VOLUME';
+export const SET_ASK_PRICE = 'SET_ASK_PRICE';
+export const RESET_ASK = 'RESET_ASK';
 
 // LAYERS
 export const SET_LAYER = 'SET_LAYER';
@@ -37,4 +37,5 @@ export const LOAD_WINDOW_WIDTH = 'LOAD_WINDOW_WIDTH';
 // FILTERS
 export const SET_FILTER_DISTANCE = 'SET_FILTER_DISTANCE';
 export const SET_FILTER_COIN = 'SET_FILTER_COIN';
+export const SET_FILTER_TYPE = 'SET_FILTER_TYPE';
 export const SET_FILTER = 'SET_FILTER';

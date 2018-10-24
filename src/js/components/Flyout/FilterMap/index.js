@@ -1,17 +1,19 @@
 import React from 'react';
 import { compose, withHandlers } from 'recompose';
 import withStyles from "@material-ui/core/styles/withStyles";
-import mapper from "../../utils/connect";
+import mapper from "../../../utils/connect";
 
-import { selectFilter, selectFilterCoin, selectFilterDistance } from "../../selectors";
+import { selectFilter, selectFilterCoin, selectFilterDistance } from "../../../selectors/index";
 import {
 	setFilterDistance as setFilterDistanceAction,
 	setFilterCoin as setFilterCoinAction,
+	setFilterType as setFilterTypeAction,
 	setFilter as setFilterAction
-} from "../../actions/filter";
-import { setLayerOpen as setLayerOpenAction } from "../../actions/layers";
-import coins from '../../constants/coins';
-import Flyout from './';
+} from "../../../actions/filters";
+import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
+import coins from '../../../constants/coins';
+import { types } from '../../../constants/filters';
+import Flyout from '../index';
 
 import Grid from "@material-ui/core/Grid/Grid";
 import FormControl from "@material-ui/core/FormControl/FormControl";
@@ -19,6 +21,7 @@ import InputLabel from "@material-ui/core/InputLabel/InputLabel";
 import Select from "@material-ui/core/Select/Select";
 import TextField from "@material-ui/core/TextField/TextField";
 import Button from "@material-ui/core/Button/Button";
+import {selectFilterType} from "../../../selectors";
 
 const styles = () => ({
 	root: {
@@ -32,12 +35,26 @@ const FilterMap = ({
 	coin,
 	setFilterDistance,
 	setFilterCoin,
-	handleSubmit
+	setFilterType,
+	handleSubmit,
+	type,
 }) => (
 	<Flyout size={3}>
 		<Grid className={classes.root}>
 			<FormControl margin='dense' fullWidth={true}>
-				<InputLabel>Coin Type</InputLabel>
+				<InputLabel>Type</InputLabel>
+				<Select
+					variant='outlined'
+					native
+					value={type}
+					onChange={({ target }) => setFilterType(target.value)}
+				>
+					{types.map(item => <option key={item} value={item}>{item}</option>)}
+				</Select>
+			</FormControl>
+			<br/>
+			<FormControl margin='dense' fullWidth={true}>
+				<InputLabel>Coin</InputLabel>
 				<Select
 					variant='outlined'
 					native
@@ -70,12 +87,14 @@ const FilterMap = ({
 const propMap = {
 	distance: selectFilterDistance,
 	coin: selectFilterCoin,
+	type: selectFilterType,
 	filter: selectFilter
 };
 
 const actionMap = {
 	setFilterDistance: setFilterDistanceAction,
 	setFilterCoin: setFilterCoinAction,
+	setFilterType: setFilterTypeAction,
 	setFilter: setFilterAction,
 	setLayerOpen: setLayerOpenAction
 };

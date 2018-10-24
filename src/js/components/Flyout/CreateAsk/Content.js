@@ -7,22 +7,22 @@ import coins from "../../../constants/coins";
 import TextField from "@material-ui/core/TextField/TextField";
 import Typography from "@material-ui/core/Typography/Typography";
 import Grid from "@material-ui/core/Grid/Grid";
-import { selectPostCoin, selectPostPrice, selectPostVolume } from "../../../selectors";
+import { selectAskCoin, selectAskPrice, selectAskVolume } from "../../../selectors";
 import mapper from "../../../utils/connect";
 import {
-	setPostCoin as setPostCoinAction,
-	setPostPrice as setPostPriceAction,
-	setPostVolume as setPostVolumeAction,
-} from "../../../actions/post";
+	setAskCoin as setAskCoinAction,
+	setAskPrice as setAskPriceAction,
+	setAskVolume as setAskVolumeAction,
+} from "../../../actions/ask";
 
-const CreatePostContent = ({
+const CreateAskContent = ({
 	index,
 	coin,
 	volume,
 	price,
-	setPostCoin,
-	setPostPrice,
-	setPostVolume,
+	setAskCoin,
+	setAskPrice,
+	setAskVolume,
 }) => {
 	switch(index) {
 		case 0:
@@ -32,7 +32,7 @@ const CreatePostContent = ({
 						variant='outlined'
 						native
 						value={coin}
-						onChange={({target}) => setPostCoin(target.value)}
+						onChange={({target}) => setAskCoin(target.value)}
 					>
 						{coins.map(coin => <option key={coin} value={coin}>{coin}</option>)}
 					</Select>
@@ -44,7 +44,7 @@ const CreatePostContent = ({
 					<TextField
 						id='volume'
 						value={volume}
-						onChange={({target}) => setPostVolume(target.value)}
+						onChange={({target}) => setAskVolume(target.value)}
 						margin="dense"
 						variant="standard"
 					/>
@@ -56,7 +56,7 @@ const CreatePostContent = ({
 					<TextField
 						id='price'
 						value={price}
-						onChange={({target}) => setPostPrice(target.value)}
+						onChange={({target}) => setAskPrice(target.value)}
 						margin="dense"
 						variant="standard"
 					/>
@@ -74,17 +74,17 @@ const CreatePostContent = ({
 };
 
 const propMap = {
-	coin: selectPostCoin,
-	volume: selectPostVolume,
-	price: selectPostPrice,
+	coin: selectAskCoin,
+	volume: selectAskVolume,
+	price: selectAskPrice,
 };
 
 const actionMap = {
-	setPostCoin: setPostCoinAction,
-	setPostVolume: setPostVolumeAction,
-	setPostPrice: setPostPriceAction,
+	setAskCoin: setAskCoinAction,
+	setAskVolume: setAskVolumeAction,
+	setAskPrice: setAskPriceAction,
 };
 
 export default compose(
 	mapper(propMap, actionMap),
-)(CreatePostContent);
+)(CreateAskContent);

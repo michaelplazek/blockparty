@@ -5,7 +5,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import Chip from "@material-ui/core/Chip/Chip";
 
 import { setLayerOpen as setLayerOpenAction } from "../../actions/layers";
-import {selectFilter, selectFilterCoin, selectFilterDistance} from "../../selectors";
+import {selectFilter} from "../../selectors";
 import mapper from "../../utils/connect";
 
 const styles = theme => ({
@@ -24,7 +24,15 @@ const Subheader = ({ classes, filter, setLayerOpen }) => (
 			color='primary'
 			clickable={true}
 			onClick={() => setLayerOpen(true)}
-			label={`Type: ${filter.coin}`}
+			label={`Type: ${filter.type}`}
+			className={classes.chip}
+			variant="outlined"
+		/>
+		<Chip
+			color='primary'
+			clickable={true}
+			onClick={() => setLayerOpen(true)}
+			label={`Coin: ${filter.coin}`}
 			className={classes.chip}
 			variant="outlined"
 		/>

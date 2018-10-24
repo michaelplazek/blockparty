@@ -1,4 +1,4 @@
-export const DEFAULT_POST = {
+export const DEFAULT_ASK = {
     "_id": {
         "$oid": "0"
     },

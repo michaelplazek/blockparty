@@ -1,5 +1,5 @@
 import Market from "../screens/Market";
-import Post from "../screens/Post";
+import Ask from "../screens/Ask";
 import AboutUs from "../screens/AboutUs";
 import Details from '../screens/Details';
 import Dashboard from '../screens/Dashboard';
@@ -16,10 +16,10 @@ export const protectedRoutes = [
         index: 0
     },
     {
-        path: '/post',
+        path: '/ask',
         exact: false,
         protected: true,
-        component: Post,
+        component: Ask,
         index: 1
     },
     {
