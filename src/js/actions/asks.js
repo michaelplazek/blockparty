@@ -9,7 +9,7 @@ import {
 import { sendData } from '../api/utils'
 
 export const loadAsks = () => dispatch =>
-    sendData('posts').then(response => {
+    sendData('asks').then(response => {
         dispatch({ type: LOAD_ASKS, data: response })
     });
 
@@ -29,6 +29,6 @@ export const loadAskFromAsks = id => dispatch =>
     dispatch({ type: LOAD_ASK_FROM_ASKS, id });
 
 export const createAsk = ask => dispatch =>
-	sendData('posts', ask, 'POST').then(response => {
+	sendData('asks', ask, 'POST').then(response => {
 		dispatch({ type: CREATE_ASK, data: response });
 	});

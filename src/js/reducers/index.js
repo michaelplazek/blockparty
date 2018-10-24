@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 
-import posts from './asks';
+import asks from './asks';
 import layers from './layers';
 import session from './session';
 import app from './app';
@@ -9,7 +9,7 @@ import ask from './ask';
 
 export default combineReducers({
 	app,
-	posts,
+	asks,
 	layers,
 	session,
 	filters,

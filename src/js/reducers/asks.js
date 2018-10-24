@@ -10,35 +10,35 @@ import {
 import { DEFAULT_ASK } from "../constants/ask";
 
 const initialState = {
-    posts: [],
+    asks: [],
     ask: DEFAULT_ASK,
-    postsLoaded: false,
-    postLoaded: false,
+    asksLoaded: false,
+    askLoaded: false,
 };
 
 const handlers = {
 	[LOAD_ASKS]: (state, action) => ({
-		posts: action.data,
-		postsLoaded: true
+		asks: action.data,
+		asksLoaded: true
 	}),
 	[UNLOAD_ASKS]: () => ({
-		posts: initialState.posts,
-		postsLoaded: false
+		asks: initialState.asks,
+		asksLoaded: false
 	}),
 	[LOAD_ASK]: (state, action) => ({
 		ask: action.data,
-		postLoaded: true
+		askLoaded: true
 	}),
 	[UNLOAD_ASK]: () => ({
 		ask: initialState.ask,
-		postLoaded: false
+		askLoaded: false
 	}),
 	[LOAD_ASK_FROM_ASKS]: (state, action) => ({
-		ask: state.posts.find(x => x._id === action.id),
+		ask: state.asks.find(x => x._id === action.id),
 	}),
 	[CREATE_ASK]: (state, action) => ({
 		ask: action.data,
-		postLoaded: true
+		askLoaded: true
 	}),
 };
 

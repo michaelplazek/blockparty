@@ -17,7 +17,7 @@ import FilterListIcon from '@material-ui/icons/FilterList'
 import Subheader from "../components/Subheader";
 import GoogleMapsWrapper from "../components/GoogleMaps/GoogleMapsWrapper";
 import PageHeader from "../components/PageHeader";
-import FilterMap from "../components/Flyout/FilterMap";
+import FilterMap from "../components/Flyout/FilterMap/index";
 import withDimensions from "../HOCs/withDimensions";
 
 class Market extends Component {
@@ -56,7 +56,7 @@ class Market extends Component {
 }
 
 const propMap = {
-	posts: selectAsksForDisplay,
+	asks: selectAsksForDisplay,
 	markers: selectMapMarkers,
 	navHeight: selectNavHeight,
 	headerHeight: selectHeaderHeight,
