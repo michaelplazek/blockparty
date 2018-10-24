@@ -6,13 +6,26 @@ import {selectAsk, selectNavHeight, selectWindowHeight} from "../selectors";
 import Grid from "@material-ui/core/Grid/Grid";
 import Button from "@material-ui/core/Button/Button";
 import GoogleMapsWrapper from "../components/GoogleMaps/GoogleMapsWrapper";
+import Typography from "@material-ui/core/Typography/Typography";
+import FormControl from "@material-ui/core/FormControl/FormControl";
+import InputLabel from "@material-ui/core/InputLabel/InputLabel";
+import Select from "@material-ui/core/Select/Select";
+import coins from "../constants/coins";
+import TextField from "@material-ui/core/TextField/TextField";
+import withStyles from "@material-ui/core/styles/withStyles";
 
+const styles = () => ({
+	body: {
+		marginTop: '10px'
+	}
+});
 
 const Ask = ({
 	ask,
 	history,
 	windowHeight,
-	footerHeight
+	footerHeight,
+	classes
 }) => (
     <div>
 			<Grid>
@@ -21,6 +34,17 @@ const Ask = ({
 				>
 					Go Back
 				</Button>
+				<Grid
+					container
+					justify='center'
+				>
+					<Grid
+						item
+						className={classes.body}
+					>
+						<Typography variant='display2'>{ask.volume} {ask.coin}</Typography>
+					</Grid>
+				</Grid>
 				<GoogleMapsWrapper
 					markers={[{ id: ask._id, lat: ask.lat, lng: ask.lng }]}
 					height={windowHeight/2 - footerHeight}
@@ -31,6 +55,7 @@ const Ask = ({
 					markersClickable={false}
 					zoom={13}
 					locationFromBottom={footerHeight}
+					border='1px #ccc solid'
 				/>
 			</Grid>
 			<Grid>
@@ -51,5 +76,6 @@ const actionMap = {
 
 export default compose(
 	withRouter,
+	withStyles(styles),
 	mapper(propMap, actionMap),
 )(Ask);
