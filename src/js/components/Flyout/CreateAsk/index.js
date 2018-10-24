@@ -37,7 +37,7 @@ const styles = theme => ({
 	},
 });
 
-const Index = ({
+const CreateAsk = ({
 	classes,
 	onSubmit,
 	activeIndex,
@@ -159,4 +159,4 @@ export default compose(
 			}
 		},
 	})
-)(Index);
+)(CreateAsk);
