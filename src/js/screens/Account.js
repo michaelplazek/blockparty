@@ -10,7 +10,7 @@ import { setLayerOpen as setLayerOpenAction } from "../actions/layers";
 import PageHeader from "../components/PageHeader";
 import AddCircle from '@material-ui/icons/AddCircle'
 import MailIcon from '@material-ui/icons/Mail';
-import CreatePost from "../components/Flyout/CreatePost/index";
+import CreateAsk from "../components/Flyout/CreateAsk/index";
 import withDimensions from "../HOCs/withDimensions";
 import IconButton from "@material-ui/core/IconButton/IconButton";
 import Button from "@material-ui/core/Button/Button";
@@ -33,7 +33,7 @@ const styles = theme => ({
 
 const Account = ({ logOut, classes, height, username }) => (
 	<div>
-		<CreatePost />
+		<CreateAsk />
 		<PageHeader
 			leftHandLabel='Account'
 			rightHandButton='Log Out'

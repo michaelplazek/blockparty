@@ -1,35 +1,35 @@
 import { createSelector } from 'reselect';
 import moment from 'moment';
 
-// POSTS
-export const selectPosts = state => state.posts.posts;
-export const selectPostsForDisplay = createSelector(
-    selectPosts,
+// ASKS
+export const selectAsks = state => state.posts.posts;
+export const selectAsksForDisplay = createSelector(
+    selectAsks,
     posts => posts.map(item => ({
         ...item,
         timestamp: moment(item.timestamp).format('MMM D'),
     }))
 );
 export const selectMapMarkers = createSelector(
-	selectPosts,
-	posts => posts.map(post => (
-		{ lat: post.lat, lng: post.lng, id: post._id })
+	selectAsks,
+	posts => posts.map(ask => (
+		{ lat: ask.lat, lng: ask.lng, id: ask._id })
 	)
 );
 
-// POST
-export const selectPost = state => state.posts.post;
-export const selectId = state => state.posts.post._id;
-export const selectAmount = state => state.posts.post.amount;
-export const selectContactInfo = state => state.posts.post.contact;
-export const selectLocation = state => state.posts.post.location;
-export const selectMessage = state => state.posts.post.message;
-export const selectTimestamp = state => state.posts.post.timestamp;
+// ASK
+export const selectAsk = state => state.posts.ask;
+export const selectId = state => state.posts.ask._id;
+export const selectAmount = state => state.posts.ask.amount;
+export const selectContactInfo = state => state.posts.ask.contact;
+export const selectLocation = state => state.posts.ask.location;
+export const selectMessage = state => state.posts.ask.message;
+export const selectTimestamp = state => state.posts.ask.timestamp;
 
-// TEMPORARY POST
-export const selectPostCoin = state => state.post.coin;
-export const selectPostVolume = state => state.post.volume;
-export const selectPostPrice = state => state.post.price;
+// TEMPORARY ASK
+export const selectAskCoin = state => state.ask.coin;
+export const selectAskVolume = state => state.ask.volume;
+export const selectAskPrice = state => state.ask.price;
 
 
 // LAYERS

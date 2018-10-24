@@ -16,10 +16,10 @@ import Content from "./Content";
 import Paper from "@material-ui/core/Paper/Paper";
 import Typography from "@material-ui/core/Typography/Typography";
 
-import {selectPostCoin, selectPostPrice, selectPostVolume, selectUsername} from "../../../selectors";
-import { createPost as createPostAction } from "../../../actions/posts";
+import {selectAskCoin, selectAskPrice, selectAskVolume, selectUsername} from "../../../selectors";
+import { createAsk as createAskAction } from "../../../actions/asks";
 import {setLayerOpen as setLayerOpenAction} from "../../../actions/layers";
-import {resetPost as resetPostAction} from "../../../actions/post";
+import {resetAsk as resetAskAction} from "../../../actions/ask";
 
 const styles = theme => ({
 	root: {
@@ -44,11 +44,11 @@ const Index = ({
 	setActiveIndex,
 	handleBack,
 	handleNext,
-	resetPost
+	resetAsk
 }) => (
 	<Flyout
 		onClose={() => {
-			resetPost();
+			resetAsk();
 			setActiveIndex(0);
 		}}
 		size={8}
@@ -87,7 +87,7 @@ const Index = ({
 			</Stepper>
 			{activeIndex === STEPS.length && (
 				<Paper square elevation={0} className={classes.resetContainer}>
-					<Typography>Post successfully created.</Typography>
+					<Typography>Ask successfully created.</Typography>
 				</Paper>
 			)}
 		</Grid>
@@ -95,16 +95,16 @@ const Index = ({
 );
 
 const propMap = {
-	coin: selectPostCoin,
-	volume: selectPostVolume,
-	price: selectPostPrice,
+	coin: selectAskCoin,
+	volume: selectAskVolume,
+	price: selectAskPrice,
 	username: selectUsername
 };
 
 const actionMap = {
-	createPost: createPostAction,
+	createAsk: createAskAction,
 	setLayerOpen: setLayerOpenAction,
-	resetPost: resetPostAction
+	resetAsk: resetAskAction
 };
 
 export default compose(
@@ -117,9 +117,9 @@ export default compose(
 			volume,
 			price,
 			username,
-			createPost,
+			createAsk,
 			setLayerOpen,
-			resetPost,
+			resetAsk,
 			setActiveIndex
 		}) => () => {
 
@@ -129,7 +129,7 @@ export default compose(
 				navigator.geolocation.getCurrentPosition((pos) => {
 					coords = pos.coords;
 
-					const post = {
+					const ask = {
 						coin,
 						volume,
 						price,
@@ -138,12 +138,12 @@ export default compose(
 						lng: coords.longitude,
 					};
 
-					createPost(post);
+					createAsk(ask);
 					setTimeout(() => {
 						setLayerOpen(false);
 						setActiveIndex(0);
 					}, 1500);
-					resetPost();
+					resetAsk();
 				})
 			}
 		},

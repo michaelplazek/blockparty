@@ -1,5 +1,5 @@
 import { stateReducer } from "./utils";
-import { SET_POST_COIN, SET_POST_VOLUME, SET_POST_PRICE, RESET_POST } from "../actions";
+import { SET_ASK_COIN, SET_ASK_VOLUME, SET_ASK_PRICE, RESET_ASK } from "../actions";
 
 const initialState = {
 	coin: 'BTC',
@@ -8,16 +8,16 @@ const initialState = {
 };
 
 const handlers = {
-	[SET_POST_COIN]: (state, action) => ({
+	[SET_ASK_COIN]: (state, action) => ({
 		coin: action.data,
 	}),
-	[SET_POST_VOLUME]: (state, action) => ({
+	[SET_ASK_VOLUME]: (state, action) => ({
 		volume: action.data,
 	}),
-	[SET_POST_PRICE]: (state, action) => ({
+	[SET_ASK_PRICE]: (state, action) => ({
 		price: action.data,
 	}),
-	[RESET_POST]: () => ({ ...initialState }),
+	[RESET_ASK]: () => ({ ...initialState }),
 };
 
 export default stateReducer(initialState, handlers);

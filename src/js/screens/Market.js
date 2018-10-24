@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { compose, lifecycle } from 'recompose';
+import { compose, lifecycle, withHandlers } from 'recompose';
 import { withRouter } from 'react-router';
 import mapper from "../utils/connect";
 
@@ -7,9 +7,9 @@ import {
 	selectHeaderHeight,
 	selectMapMarkers,
 	selectNavHeight,
-	selectPostsForDisplay
+	selectAsksForDisplay
 } from "../selectors";
-import { loadPosts as loadPostsAction } from "../actions/posts";
+import {loadAskFromAsks as loadAskFromAsksAction, loadAsks as loadAsksAction} from "../actions/asks";
 import { setLayerOpen as setLayerOpenAction } from '../actions/layers';
 
 import FilterListIcon from '@material-ui/icons/FilterList'
@@ -27,7 +27,13 @@ class Market extends Component {
 
 		render() {
 
-		const { markers, navHeight, headerHeight, windowHeight } = this.props;
+		const {
+			markers,
+			navHeight,
+			headerHeight,
+			windowHeight,
+			handleMarkerClick
+		} = this.props;
 
 			return (
 				<div>
@@ -39,22 +45,27 @@ class Market extends Component {
 						showSubheader={true}
 						subheader={<Subheader />}
 					/>
-					<GoogleMapsWrapper markers={markers} height={windowHeight - navHeight - headerHeight}/>
+					<GoogleMapsWrapper
+						markers={markers}
+						onMarkerClick={handleMarkerClick}
+						height={windowHeight - navHeight - headerHeight}
+					/>
 				</div>
 			)
 		}
 }
 
 const propMap = {
-	posts: selectPostsForDisplay,
+	posts: selectAsksForDisplay,
 	markers: selectMapMarkers,
 	navHeight: selectNavHeight,
 	headerHeight: selectHeaderHeight,
 };
 
 const actionMap = {
-	loadPosts: loadPostsAction,
+	loadAsks: loadAsksAction,
 	setLayerOpen: setLayerOpenAction,
+	loadAskFromAsks: loadAskFromAsksAction
 };
 
 export default compose(
@@ -62,14 +73,16 @@ export default compose(
     withRouter,
     withDimensions,
     withHandlers({
-			handleMarkerClick: ({ history }) => (marker) => {
-				history.push(`/post?${marker.id}`);
+			handleMarkerClick: ({ history, loadAskFromAsks }) => (marker) => {
+				const { id } = marker;
+				loadAskFromAsks(id);
+				history.push(`/ask?${id}`);
 			},
 		}),
     lifecycle({
         componentWillMount() {
-            const { loadPosts } = this.props;
-            loadPosts();
+            const { loadAsks } = this.props;
+            loadAsks();
         }
     }),
 )(Market);

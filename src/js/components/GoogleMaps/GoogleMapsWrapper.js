@@ -35,7 +35,7 @@ class GoogleMapsWrapper extends Component{
 
 	render(){
 
-		const { markers } = this.props;
+		const { markers, onMarkerClick } = this.props;
 
 		return (
 		<GoogleMap
@@ -43,7 +43,18 @@ class GoogleMapsWrapper extends Component{
 			defaultCenter={{ lat: this.state.currentLocation.lat, lng: this.state.currentLocation.lng }}
 			defaultOptions={{mapTypeControl: false, streetViewControl: false}}
 		>
-			{markers.map(item => <Marker key={item.id} position={{ lat: parseFloat(item.lat), lng: parseFloat(item.lng) }} /> )}
+			{
+				markers.map(item =>
+					<Marker
+						key={item.id}
+						position={{
+							lat: parseFloat(item.lat),
+							lng: parseFloat(item.lng)
+						}}
+						onClick={() => onMarkerClick(item)}
+					/>
+				)
+			}
 		</GoogleMap>
 		)
 	}
@@ -54,6 +65,7 @@ GoogleMapsWrapper.propTypes = {
 	zoom: PropTypes.number,
 	initialCenter: PropTypes.object,
 	markers: PropTypes.array,
+	onMarkerClick: PropTypes.func,
 };
 
 GoogleMapsWrapper.defaultProps = {
@@ -64,6 +76,7 @@ GoogleMapsWrapper.defaultProps = {
 	},
 	centerAroundCurrentLocation: true,
 	markers: [],
+	onMarkerClick: () => {}
 };
 
 export default compose(
