@@ -30,6 +30,7 @@ const Ask = ({
 					draggable={false}
 					markersClickable={false}
 					zoom={13}
+					locationFromBottom={footerHeight}
 				/>
 			</Grid>
 			<Grid>

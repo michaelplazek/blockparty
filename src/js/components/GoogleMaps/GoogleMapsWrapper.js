@@ -71,7 +71,8 @@ GoogleMapsWrapper.propTypes = {
 	movable: PropTypes.string,
 	zoomable: PropTypes.bool,
 	draggable: PropTypes.bool,
-	markersClickable: PropTypes.bool
+	markersClickable: PropTypes.bool,
+	locationFromBottom: PropTypes.number
 };
 
 GoogleMapsWrapper.defaultProps = {
@@ -86,7 +87,8 @@ GoogleMapsWrapper.defaultProps = {
 	movable: 'greedy',
 	zoomable: true,
 	draggable: true,
-	markersClickable: true
+	markersClickable: true,
+	locationFromBottom: 0
 };
 
 export default compose(
@@ -94,7 +96,7 @@ export default compose(
 		return {
 			googleMapURL: `https://maps.googleapis.com/maps/api/js?key=AIzaSyBnLziZFF5VLvovFkHPEulNisGPllCJitE&v=3.exp&libraries=geometry,drawing,places`,
 			loadingElement: <div style={{ height: `100%` }} />,
-			containerElement: <div style={{ height: props.height, width: '100%' }} />,
+			containerElement: <div style={{ position: 'absolute', bottom: props.locationFromBottom, height: props.height, width: '100%' }} />,
 			mapElement: <div style={{ height: props.height, width: '100%'}} />
 		}
 	}),
