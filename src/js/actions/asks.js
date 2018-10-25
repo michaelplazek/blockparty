@@ -6,18 +6,18 @@ import {
 	UNLOAD_ASK,
 	UNLOAD_ASKS,
 } from "./index";
-import { sendData } from '../api/utils'
+import {wrappedFetch, wrappedFetchWithParams} from '../api/utils'
 
 export const loadAsks = () => dispatch =>
-    sendData('asks').then(response => {
+    wrappedFetch('asks').then(response => {
         dispatch({ type: LOAD_ASKS, data: response })
     });
 
 export const unloadAsks = () => dispatch =>
 	dispatch({ type: UNLOAD_ASKS });
 
-export const loadAsk = () => dispatch =>
-	sendData('ask').then(response => {
+export const loadAsk = id => dispatch =>
+	wrappedFetchWithParams('ask', undefined, 'GET', `id=${id}`).then(response => {
 		dispatch({ type: LOAD_ASK, data: response })
 	});
 
@@ -29,6 +29,6 @@ export const loadAskFromAsks = id => dispatch =>
     dispatch({ type: LOAD_ASK_FROM_ASKS, id });
 
 export const createAsk = ask => dispatch =>
-	sendData('asks', ask, 'POST').then(response => {
+	wrappedFetch('asks', ask, 'POST').then(response => {
 		dispatch({ type: CREATE_ASK, data: response });
 	});

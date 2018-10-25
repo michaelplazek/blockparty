@@ -40,7 +40,7 @@ class GoogleMapsWrapper extends Component{
 		return (
 		<GoogleMap
 			defaultZoom={this.state.zoom}
-			defaultCenter={{ lat: this.state.currentLocation.lat, lng: this.state.currentLocation.lng }}
+			defaultCenter={{ lat: parseFloat(this.state.currentLocation.lat), lng: parseFloat(this.state.currentLocation.lng) }}
 			defaultOptions={{draggable: draggable, mapTypeControl: false, streetViewControl: false, zoomControl: zoomable, fullscreenControl: false}}
 			gestureHandling={movable}
 		>

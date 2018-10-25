@@ -1,8 +1,9 @@
 import React from 'react';
-import { compose } from 'recompose'
+import { compose, lifecycle } from 'recompose'
 import { withRouter } from 'react-router';
 import mapper from "../utils/connect";
 import {selectAsk, selectNavHeight, selectWindowHeight} from "../selectors";
+import { loadAsk as loadAskAction } from '../actions/asks'
 import Grid from "@material-ui/core/Grid/Grid";
 import Button from "@material-ui/core/Button/Button";
 import GoogleMapsWrapper from "../components/GoogleMaps/GoogleMapsWrapper";
@@ -71,11 +72,20 @@ const propMap = {
 };
 
 const actionMap = {
-
+	loadAsk: loadAskAction
 };
 
 export default compose(
 	withRouter,
 	withStyles(styles),
 	mapper(propMap, actionMap),
+	lifecycle({
+		componentDidMount() {
+			console.log(this.props);
+			const { search } = this.props.location;
+			const id = search.substr(1);
+			console.log(id);
+			this.props.loadAsk(id);
+		}
+	})
 )(Ask);
