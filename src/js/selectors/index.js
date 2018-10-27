@@ -3,6 +3,8 @@ import compose from "lodash/fp/compose";
 import fpMap from "lodash/fp/map";
 import filter from "lodash/fp/filter";
 import moment from "moment";
+import numeral from 'numeral';
+import {USD} from "../constants/currency";
 
 // FILTERS
 export const selectFilterDistance = state => state.filters.distanceAway;
@@ -45,7 +47,6 @@ export const selectBidsForDisplay = createSelector(selectBids, bids =>
 // BID
 export const selectBid = state => state.bids.bid;
 export const selectBidId = state => state.bids.bid._id;
-export const selectBidAmount = state => state.bids.bid.amount;
 export const selectBidTimestamp = state => state.bids.bid.timestamp;
 
 // ASK
@@ -58,6 +59,10 @@ export const selectAskTimestamp = state => state.asks.ask.timestamp;
 export const selectAskCoin = state => state.ask.coin;
 export const selectAskVolume = state => state.ask.volume;
 export const selectAskPrice = state => state.ask.price;
+export const selectFormattedAskPrice = createSelector(
+	selectAskPrice,
+	price => numeral(price).format(USD)
+);
 export const selectAskLatitude = state => state.ask.lat;
 export const selectAskLongitude = state => state.ask.lng;
 export const selectAskUseCurrentLocation = state =>
@@ -67,6 +72,10 @@ export const selectAskUseCurrentLocation = state =>
 export const selectBidCoin = state => state.bid.coin;
 export const selectBidVolume = state => state.bid.volume;
 export const selectBidPrice = state => state.bid.price;
+export const selectFormattedBidPrice = createSelector(
+	selectBidPrice,
+	price => numeral(price).format(USD)
+);
 export const selectBidLatitude = state => state.bid.lat;
 export const selectBidLongitude = state => state.bid.lng;
 export const selectBidUseCurrentLocation = state =>

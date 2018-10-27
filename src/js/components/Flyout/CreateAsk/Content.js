@@ -8,13 +8,13 @@ import TextField from "@material-ui/core/TextField/TextField";
 import Typography from "@material-ui/core/Typography/Typography";
 import Grid from "@material-ui/core/Grid/Grid";
 import {
-  selectAskCoin,
-  selectAskLatitude,
-  selectAskLongitude,
-  selectAskPrice,
-  selectAskUseCurrentLocation,
-  selectAskVolume,
-  selectWindowWidth
+	selectAskCoin,
+	selectAskLatitude,
+	selectAskLongitude,
+	selectAskPrice,
+	selectAskUseCurrentLocation,
+	selectAskVolume, selectFormattedAskPrice,
+	selectWindowWidth
 } from "../../../selectors";
 import mapper from "../../../utils/connect";
 import { getIsLocationSet } from "../../../utils/location";
@@ -136,7 +136,7 @@ const CreateAskContent = ({
 const propMap = {
   coin: selectAskCoin,
   volume: selectAskVolume,
-  price: selectAskPrice,
+  price: selectFormattedAskPrice,
   lat: selectAskLatitude,
   lng: selectAskLongitude,
   width: selectWindowWidth,

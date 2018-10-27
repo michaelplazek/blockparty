@@ -38,13 +38,14 @@ const FilterMap = ({
   classes,
   distance,
   coin,
+	setLayerOpen,
   setFilterDistance,
   setFilterCoin,
   setFilterType,
   handleSubmit,
   type
 }) => (
-  <Flyout size={3}>
+  <Flyout onClose={() => setLayerOpen(false)} size={3}>
     <Grid className={classes.root}>
       <FormControl margin="dense" fullWidth={true}>
         <InputLabel>Type</InputLabel>
