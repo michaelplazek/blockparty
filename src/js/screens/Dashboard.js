@@ -1,5 +1,5 @@
 import React from "react";
-import { compose, withState } from "recompose";
+import { compose, withState, lifecycle } from "recompose";
 import mapper from "../utils/connect";
 
 import Tile from "../components/Tile";
@@ -8,6 +8,7 @@ import {
   setLayer as setLayerAction,
   setLayerOpen as setLayerOpenAction
 } from "../actions/layers";
+import { loadMyAsks as loadMyAsksAction } from "../actions/asks";
 
 import PageHeader from "../components/PageHeader";
 import MailIcon from "@material-ui/icons/Mail";
@@ -18,7 +19,7 @@ import CreateBid from "../components/Flyout/CreateBid/index";
 import withDimensions from "../HOCs/withDimensions";
 import Button from "@material-ui/core/Button/Button";
 import withStyles from "@material-ui/core/styles/withStyles";
-import { selectLayer } from "../selectors";
+import {selectLayer, selectUserId} from "../selectors";
 import IconButton from "@material-ui/core/IconButton/IconButton";
 import Icon from '@material-ui/core/Icon';
 import Grow from "@material-ui/core/Grow/Grow";
@@ -112,17 +113,25 @@ const Dashboard = ({ setLayerOpen, setLayer, classes, layer, showButtons, setSho
 );
 
 const propMap = {
-  layer: selectLayer
+  layer: selectLayer,
+	userId: selectUserId
 };
 
 const actionMap = {
   setLayer: setLayerAction,
-  setLayerOpen: setLayerOpenAction
+  setLayerOpen: setLayerOpenAction,
+	loadMyAsks: loadMyAsksAction
 };
 
 export default compose(
   mapper(propMap, actionMap),
   withState('showButtons', 'setShowButtons', false),
   withStyles(styles),
-  withDimensions
+  withDimensions,
+	lifecycle({
+		componentDidMount() {
+			const { loadMyAsks, userId } = this.props;
+			loadMyAsks(userId);
+		}
+	}),
 )(Dashboard);

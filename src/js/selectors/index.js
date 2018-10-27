@@ -66,6 +66,7 @@ export const selectLayerOpen = state => state.layers.open;
 export const selectIsLoggedIn = state => state.session.loggedIn;
 export const selectSessionLoaded = state => state.session.sessionLoaded;
 export const selectUsername = state => state.session.username;
+export const selectUserId = state => state.session.userId;
 
 // APP
 export const selectNavHeight = state => state.app.navigationBarHeight;

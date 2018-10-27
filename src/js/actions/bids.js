@@ -15,7 +15,7 @@ export const loadBids = () => dispatch =>
 export const unloadBids = () => dispatch => dispatch({ type: UNLOAD_BIDS });
 
 export const loadBid = id => dispatch =>
-  wrappedFetchWithParams("bid", undefined, "GET", `id=${id}`).then(response => {
+  wrappedFetchWithParams("bid", undefined, "GET", `?id=${id}`).then(response => {
     dispatch({ type: LOAD_BID, data: response });
   });
 

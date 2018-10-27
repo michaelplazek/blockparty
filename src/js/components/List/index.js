@@ -5,7 +5,7 @@ import { compose, withHandlers } from "recompose";
 import ListItem from "./ListItem";
 import Placeholder from "./Placeholder";
 import List from "@material-ui/core/List/List";
-import { loadAskFromAsks } from "../../actions/asks";
+// import { loadAskFromAsks } from "../../actions/asks";
 import mapper from "../../utils/connect";
 
 const ListBase = ({ items, loadAskFromAsks }) => (
@@ -15,7 +15,7 @@ const ListBase = ({ items, loadAskFromAsks }) => (
         {items.map(item => (
           <ListItem
             item={item}
-            onClick={loadAskFromAsks}
+            // onClick={loadAskFromAsks}
             path="/details"
             key={item._id}
           />
@@ -33,7 +33,7 @@ ListBase.propTypes = {
 const propMap = {};
 
 const actionMap = {
-  loadAskFromAsks: loadAskFromAsks
+  // loadAskFromAsks: loadAskFromAsks
 };
 
 export default compose(mapper(propMap, actionMap))(ListBase);

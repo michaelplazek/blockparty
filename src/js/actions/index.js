@@ -1,5 +1,6 @@
 // ASKS
 export const LOAD_ASKS = "LOAD_ASKS";
+export const LOAD_MY_ASKS = "LOAD_MY_ASKS";
 export const UNLOAD_ASKS = "UNLOAD_ASKS";
 export const LOAD_ASK = "LOAD_ASK";
 export const UNLOAD_ASK = "UNLOAD_ASK";
@@ -15,7 +16,6 @@ export const UNLOAD_BID = "UNLOAD_BID";
 export const CREATE_BID = "CREATE_BID";
 
 // TEMPORARY ASK
-export const LOAD_ASK_FROM_ASKS = "LOAD_ASK_FROM_ASKS";
 export const SET_ASK_COIN = "SET_ASK_COIN";
 export const SET_ASK_VOLUME = "SET_ASK_VOLUME";
 export const SET_ASK_PRICE = "SET_ASK_PRICE";
