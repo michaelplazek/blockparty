@@ -46,6 +46,9 @@ export const selectAskTimestamp = state => state.asks.ask.timestamp;
 export const selectAskCoin = state => state.ask.coin;
 export const selectAskVolume = state => state.ask.volume;
 export const selectAskPrice = state => state.ask.price;
+export const selectAskLatitude = state => state.ask.lat;
+export const selectAskLongitude = state => state.ask.lng;
+export const selectAskUseCurrentLocation = state => state.ask.useCurrentLocation;
 
 // TEMPORARY BID
 export const selectBidCoin = state => state.bid.coin;

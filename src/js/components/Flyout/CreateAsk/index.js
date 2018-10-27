@@ -17,10 +17,12 @@ import Paper from "@material-ui/core/Paper/Paper";
 import Typography from "@material-ui/core/Typography/Typography";
 
 import {
-  selectAskCoin,
-  selectAskPrice,
-  selectAskVolume,
-  selectUsername
+	selectAskCoin,
+  selectAskLatitude,
+  selectAskLongitude,
+	selectAskPrice,
+	selectAskVolume,
+	selectUsername
 } from "../../../selectors";
 import { createAsk as createAskAction } from "../../../actions/asks";
 import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
@@ -103,6 +105,8 @@ const propMap = {
   coin: selectAskCoin,
   volume: selectAskVolume,
   price: selectAskPrice,
+  lat: selectAskLatitude,
+  lng: selectAskLongitude,
   username: selectUsername
 };
 
@@ -121,35 +125,29 @@ export default compose(
       coin,
       volume,
       price,
+			lat,
+			lng,
       username,
       createAsk,
       setLayerOpen,
       resetAsk,
       setActiveIndex
     }) => () => {
-      let coords;
-      // TODO: handle cases where user doesnt allow location tracking
-      if (navigator && navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(pos => {
-          coords = pos.coords;
+			const ask = {
+				coin,
+				volume,
+				price,
+				owner: username,
+				lat,
+				lng
+			};
 
-          const ask = {
-            coin,
-            volume,
-            price,
-            owner: username,
-            lat: coords.latitude,
-            lng: coords.longitude
-          };
-
-          createAsk(ask);
-          setTimeout(() => {
-            setLayerOpen(false);
-            setActiveIndex(0);
-          }, 1500);
-          resetAsk();
-        });
-      }
+			createAsk(ask);
+			setTimeout(() => {
+				setLayerOpen(false);
+				setActiveIndex(0);
+			}, 1500);
+			resetAsk();
     }
   }),
   withHandlers({

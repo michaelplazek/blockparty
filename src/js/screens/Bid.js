@@ -90,7 +90,6 @@ export default compose(
   mapper(propMap, actionMap),
   lifecycle({
     componentDidMount() {
-      console.log(this.props);
       const { search } = this.props.location;
       const id = search.substr(1);
       console.log(id);
