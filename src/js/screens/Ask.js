@@ -97,7 +97,6 @@ export default compose(
     componentDidMount() {
       const { search } = this.props.location;
       const id = search.substr(1);
-      console.log(id);
       this.props.loadAsk(id);
     }
   })
