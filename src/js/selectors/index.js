@@ -1,22 +1,30 @@
 import { createSelector } from "reselect";
+import compose from 'lodash/fp/compose';
+import fpMap from 'lodash/fp/map';
+import filter from 'lodash/fp/filter';
 import moment from "moment";
+
+// FILTERS
+export const selectFilterDistance = state => state.filters.distanceAway;
+export const selectFilterCoin = state => state.filters.coin;
+export const selectFilterType = state => state.filters.type;
+export const selectFilter = state => state.filters.filter;
 
 // ASKS
 export const selectAsks = state => state.asks.asks;
-export const selectAsksForDisplay = createSelector(selectAsks, asks =>
-  asks.map(item => ({
+export const selectAsksForDisplay = createSelector(
+  selectAsks,
+  asks => asks.map(item => ({
     ...item,
     timestamp: moment(item.timestamp).format("MMM D")
   }))
 );
-export const selectMapMarkers = createSelector(selectAsks, asks =>
-  asks.map(ask => ({ lat: ask.lat, lng: ask.lng, id: ask._id }))
-);
 
 // BIDS
 export const selectBids = state => state.bids.bids;
-export const selectBidsForDisplay = createSelector(selectAsks, asks =>
-  asks.map(item => ({
+export const selectBidsForDisplay = createSelector(
+  selectBids,
+  bids => bids.map(item => ({
     ...item,
     timestamp: moment(item.timestamp).format("MMM D")
   }))
@@ -59,8 +67,13 @@ export const selectHeaderHeight = state => state.app.headerHeight;
 export const selectWindowHeight = state => state.app.windowHeight;
 export const selectWindowWidth = state => state.app.windowWidth;
 
-// FILTERS
-export const selectFilterDistance = state => state.filters.distanceAway;
-export const selectFilterCoin = state => state.filters.coin;
-export const selectFilterType = state => state.filters.type;
-export const selectFilter = state => state.filters.filter;
+// MISC
+export const selectMapMarkers = createSelector(
+	selectAsks,
+	selectBids,
+	selectFilterType,
+	(asks, bids, type) =>{
+		const items = type === 'ASK' ? asks : bids;
+		return fpMap(ask => ({ lat: ask.lat, lng: ask.lng, id: ask._id }))(items);
+	}
+);
