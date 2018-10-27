@@ -1,5 +1,5 @@
 import React from "react";
-import { compose } from "recompose";
+import {compose, withHandlers} from "recompose";
 
 import FormControl from "@material-ui/core/FormControl/FormControl";
 import Select from "@material-ui/core/Select/Select";
@@ -8,22 +8,37 @@ import TextField from "@material-ui/core/TextField/TextField";
 import Typography from "@material-ui/core/Typography/Typography";
 import Grid from "@material-ui/core/Grid/Grid";
 import {
-  selectBidCoin,
-  selectBidPrice,
-  selectBidVolume
+	selectBidCoin,
+	selectBidLatitude,
+	selectBidLongitude,
+	selectBidPrice,
+	selectBidUseCurrentLocation,
+	selectBidVolume, selectWindowWidth
 } from "../../../selectors";
 import mapper from "../../../utils/connect";
 import {
-  setBidCoin as setBidCoinAction,
-  setBidPrice as setBidPriceAction,
-  setBidVolume as setBidVolumeAction
+	setBidCoin as setBidCoinAction,
+  setBidLatitude as setBidLatitudeAction,
+  setBidLongitude as setBidLongitudeAction,
+	setBidPrice as setBidPriceAction,
+  setBidUseCurrentLocation as setBidUseCurrentLocationAction,
+	setBidVolume as setBidVolumeAction
 } from "../../../actions/createBid";
+import FormControlLabel from "@material-ui/core/FormControlLabel/FormControlLabel";
+import Switch from "@material-ui/core/Switch/Switch";
+import LocationSelector from "../../LocationSelector";
 
 const CreateAskContent = ({
   index,
   coin,
   volume,
   price,
+	lat,
+	lng,
+	width,
+  useCurrentLocation,
+  handleDrag,
+  handleToggle,
   setBidCoin,
   setBidPrice,
   setBidVolume
@@ -70,7 +85,33 @@ const CreateAskContent = ({
           />
         </FormControl>
       );
-    case 3:
+		case 3:
+			return (
+				<div>
+					<FormControl margin="dense" fullWidth={true}>
+						<FormControlLabel
+							control={
+								<Switch
+									checked={useCurrentLocation}
+									onChange={handleToggle}
+									value="location"
+								/>
+							}
+							label="Use current location"
+						/>
+					</FormControl>
+					{!useCurrentLocation &&
+					<LocationSelector
+						markers={[{ id: 0, lat, lng }]}
+						height='12em'
+						width={`${width - width / 9}px`}
+						position='relative'
+						onDrag={coords => handleDrag(coords)}
+					/>
+					}
+				</div>
+			);
+    case 4:
       return (
         <Grid container direction="column">
           <Typography>Type: {coin}</Typography>
@@ -84,13 +125,38 @@ const CreateAskContent = ({
 const propMap = {
   coin: selectBidCoin,
   volume: selectBidVolume,
-  price: selectBidPrice
+  price: selectBidPrice,
+  lat: selectBidLatitude,
+  lng: selectBidLongitude,
+  useCurrentLocation: selectBidUseCurrentLocation,
+	width: selectWindowWidth
 };
 
 const actionMap = {
   setBidCoin: setBidCoinAction,
   setBidVolume: setBidVolumeAction,
-  setBidPrice: setBidPriceAction
+  setBidPrice: setBidPriceAction,
+  setBidLatitude: setBidLatitudeAction,
+  setBidLongitude: setBidLongitudeAction,
+  setUseCurrentLocation: setBidUseCurrentLocationAction
 };
 
-export default compose(mapper(propMap, actionMap))(CreateAskContent);
+export default compose(
+  mapper(propMap, actionMap),
+	withHandlers({
+		handleToggle: ({ useCurrentLocation, setUseCurrentLocation, setBidLatitude, setBidLongitude }) => () => {
+			setUseCurrentLocation(!useCurrentLocation);
+			if (navigator && navigator.geolocation && !useCurrentLocation) {
+				navigator.geolocation.getCurrentPosition(pos => {
+					const coords = pos.coords;
+					setBidLatitude(coords.latitude);
+					setBidLongitude(coords.longitude);
+				});
+			}
+		},
+		handleDrag: ({ setBidLatitude, setBidLongitude }) => (item) => {
+			setBidLatitude(item.latLng.lat());
+			setBidLongitude(item.latLng.lng());
+		}
+	}),
+)(CreateAskContent);

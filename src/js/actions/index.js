@@ -28,6 +28,9 @@ export const RESET_ASK = "RESET_ASK";
 export const SET_BID_COIN = "SET_BID_COIN";
 export const SET_BID_VOLUME = "SET_BID_VOLUME";
 export const SET_BID_PRICE = "SET_BID_PRICE";
+export const SET_BID_LATITUDE = "SET_BID_LATITUDE";
+export const SET_BID_LONGITUDE = "SET_BID_LONGITUDE";
+export const SET_BID_USE_CURRENT_LOCATION = 'SET_BID_USE_CURRENT_LOCATION';
 export const RESET_BID = "RESET_BID";
 
 // LAYERS

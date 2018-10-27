@@ -54,6 +54,9 @@ export const selectAskUseCurrentLocation = state => state.ask.useCurrentLocation
 export const selectBidCoin = state => state.bid.coin;
 export const selectBidVolume = state => state.bid.volume;
 export const selectBidPrice = state => state.bid.price;
+export const selectBidLatitude = state => state.bid.lat;
+export const selectBidLongitude = state => state.bid.lng;
+export const selectBidUseCurrentLocation = state => state.bid.useCurrentLocation;
 
 // LAYERS
 export const selectLayer = state => state.layers.layer;

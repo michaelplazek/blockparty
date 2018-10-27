@@ -17,10 +17,12 @@ import Paper from "@material-ui/core/Paper/Paper";
 import Typography from "@material-ui/core/Typography/Typography";
 
 import {
-  selectBidCoin,
-  selectBidPrice,
-  selectBidVolume,
-  selectUsername
+	selectBidCoin,
+	selectBidLatitude,
+	selectBidLongitude,
+	selectBidPrice,
+	selectBidVolume,
+	selectUsername
 } from "../../../selectors";
 import { createBid as createBidAction } from "../../../actions/bids";
 import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
@@ -103,6 +105,8 @@ const propMap = {
   coin: selectBidCoin,
   volume: selectBidVolume,
   price: selectBidPrice,
+  lat: selectBidLatitude,
+  lng: selectBidLongitude,
   username: selectUsername
 };
 
@@ -121,35 +125,29 @@ export default compose(
       coin,
       volume,
       price,
+      lat,
+      lng,
       username,
       createBid,
       setLayerOpen,
       resetBid,
       setActiveIndex
     }) => () => {
-      let coords;
-      // TODO: handle cases where user doesnt allow location tracking
-      if (navigator && navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(pos => {
-          coords = pos.coords;
+			const bid = {
+				coin,
+				volume,
+				price,
+				owner: username,
+				lat,
+				lng
+			};
 
-          const bid = {
-            coin,
-            volume,
-            price,
-            owner: username,
-            lat: coords.latitude,
-            lng: coords.longitude
-          };
-
-          createBid(bid);
-          setTimeout(() => {
-            setLayerOpen(false);
-            setActiveIndex(0);
-          }, 1500);
-          resetBid();
-        });
-      }
+			createBid(bid);
+			setTimeout(() => {
+				setLayerOpen(false);
+				setActiveIndex(0);
+			}, 1500);
+			resetBid();
     }
   }),
   withHandlers({
