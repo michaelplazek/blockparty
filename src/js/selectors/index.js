@@ -12,6 +12,13 @@ export const selectFilter = state => state.filters.filter;
 
 // ASKS
 export const selectAsks = state => state.asks.asks;
+export const selectMyAsks = state => state.asks.myAsks;
+export const selectMyAsksLoaded = state => state.asks.myAsksLoaded;
+export const selectNumberOfMyAsks = createSelector(
+	selectMyAsksLoaded,
+	selectMyAsks,
+	(loaded, asks) => loaded ? asks.length : 0
+);
 export const selectAsksForDisplay = createSelector(
   selectAsks,
   asks => asks.map(item => ({
@@ -22,6 +29,13 @@ export const selectAsksForDisplay = createSelector(
 
 // BIDS
 export const selectBids = state => state.bids.bids;
+export const selectMyBids = state => state.bids.myBids;
+export const selectMyBidsLoaded = state => state.bids.myBidsLoaded;
+export const selectNumberOfMyBids = createSelector(
+	selectMyBidsLoaded,
+	selectMyBids,
+	(loaded, bids) => loaded ? bids.length : 0
+);
 export const selectBidsForDisplay = createSelector(
   selectBids,
   bids => bids.map(item => ({

@@ -18,13 +18,13 @@ import Typography from "@material-ui/core/Typography/Typography";
 
 import {
 	selectAskCoin,
-  selectAskLatitude,
-  selectAskLongitude,
+	selectAskLatitude,
+	selectAskLongitude,
 	selectAskPrice,
-	selectAskVolume,
+	selectAskVolume, selectUserId,
 	selectUsername
 } from "../../../selectors";
-import { createAsk as createAskAction } from "../../../actions/asks";
+import { createAsk as createAskAction, loadMyAsks as loadMyAsksAction } from "../../../actions/asks";
 import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
 import { resetAsk as resetAskAction } from "../../../actions/createAsk";
 
@@ -107,11 +107,13 @@ const propMap = {
   price: selectAskPrice,
   lat: selectAskLatitude,
   lng: selectAskLongitude,
-  username: selectUsername
+  username: selectUsername,
+	userId: selectUserId
 };
 
 const actionMap = {
   createAsk: createAskAction,
+	loadMyAsks: loadMyAsksAction,
   setLayerOpen: setLayerOpenAction,
   resetAsk: resetAskAction
 };
@@ -122,6 +124,7 @@ export default compose(
   withState("activeIndex", "setActiveIndex", 0),
   withHandlers({
     handleSubmit: ({
+			userId,
       coin,
       volume,
       price,
@@ -129,6 +132,7 @@ export default compose(
 			lng,
       username,
       createAsk,
+			loadMyAsks,
       setLayerOpen,
       resetAsk,
       setActiveIndex
@@ -142,7 +146,7 @@ export default compose(
 				lng
 			};
 
-			createAsk(ask);
+			createAsk(ask).then(() => loadMyAsks(userId));
 			setTimeout(() => {
 				setLayerOpen(false);
 				setActiveIndex(0);

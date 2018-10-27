@@ -28,6 +28,7 @@ export const loadAsk = id => dispatch =>
 export const unloadAsk = () => dispatch => dispatch({ type: UNLOAD_ASK });
 
 export const createAsk = ask => dispatch =>
-  wrappedFetch("asks", ask, "POST").then(response => {
-    dispatch({ type: CREATE_ASK, data: response });
-  });
+  wrappedFetch("asks", ask, "POST")
+    .then(response => {
+      dispatch({ type: CREATE_ASK, data: response });
+    });

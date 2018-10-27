@@ -4,12 +4,13 @@ export const LOAD_MY_ASKS = "LOAD_MY_ASKS";
 export const UNLOAD_ASKS = "UNLOAD_ASKS";
 export const LOAD_ASK = "LOAD_ASK";
 export const UNLOAD_ASK = "UNLOAD_ASK";
-export const CREATE_ASK = "ADD_ASK";
+export const CREATE_ASK = "CREATE_ASK";
 export const DELETE_ASK = "DELETE_ASK";
 export const UPDATE_ASK = "UPDATE_ASK";
 
 // BIDS
 export const LOAD_BIDS = "LOAD_BIDS";
+export const LOAD_MY_BIDS = 'LOAD_MY_BIDS';
 export const UNLOAD_BIDS = "UNLOAD_BIDS";
 export const LOAD_BID = "LOAD_BID";
 export const UNLOAD_BID = "UNLOAD_BID";

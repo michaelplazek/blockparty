@@ -21,10 +21,10 @@ import {
 	selectBidLatitude,
 	selectBidLongitude,
 	selectBidPrice,
-	selectBidVolume,
+	selectBidVolume, selectUserId,
 	selectUsername
 } from "../../../selectors";
-import { createBid as createBidAction } from "../../../actions/bids";
+import { createBid as createBidAction, loadMyBids as loadMyBidsAction } from "../../../actions/bids";
 import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
 import { resetBid as resetBidAction } from "../../../actions/createBid";
 
@@ -107,11 +107,13 @@ const propMap = {
   price: selectBidPrice,
   lat: selectBidLatitude,
   lng: selectBidLongitude,
-  username: selectUsername
+  username: selectUsername,
+	userId: selectUserId
 };
 
 const actionMap = {
   createBid: createBidAction,
+	loadMyBids: loadMyBidsAction,
   setLayerOpen: setLayerOpenAction,
   resetBid: resetBidAction
 };
@@ -122,6 +124,7 @@ export default compose(
   withState("activeIndex", "setActiveIndex", 0),
   withHandlers({
     handleSubmit: ({
+			userId,
       coin,
       volume,
       price,
@@ -129,6 +132,7 @@ export default compose(
       lng,
       username,
       createBid,
+			loadMyBids,
       setLayerOpen,
       resetBid,
       setActiveIndex
@@ -142,7 +146,7 @@ export default compose(
 				lng
 			};
 
-			createBid(bid);
+			createBid(bid).then(() => loadMyBids(userId));
 			setTimeout(() => {
 				setLayerOpen(false);
 				setActiveIndex(0);
