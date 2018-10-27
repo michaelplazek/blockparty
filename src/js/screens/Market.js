@@ -75,7 +75,7 @@ export default compose(
     withHandlers({
 			handleMarkerClick: ({ history, loadAskFromAsks }) => (marker) => {
 				const { id } = marker;
-				loadAskFromAsks(id);
+				// loadAskFromAsks(id);
 				history.push(`/ask?${id}`);
 			},
 		}),

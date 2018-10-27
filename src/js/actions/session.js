@@ -1,5 +1,5 @@
 import md5 from 'md5';
-import { fetchToken, sendData } from '../api/utils'
+import { fetchToken, wrappedFetch } from '../api/utils'
 import {
     LOG_IN,
     LOG_OUT,
@@ -22,7 +22,7 @@ export const logInUser = (username, password, history) => dispatch => {
 			username,
       password: md5(md5(password)),
     };
-    sendData('users/login', user, 'POST')
+    wrappedFetch('users/login', user, 'POST')
         .then(response => {
             setSession(response.token);
             dispatch({ type: LOG_IN, data: response });
@@ -36,7 +36,7 @@ export const registerUser = (username, password, history) => dispatch => {
 			username,
       password: md5(md5(password)),
     };
-    sendData('users/signup', user, 'POST')
+    wrappedFetch('users/signup', user, 'POST')
         .then(response => {
             setSession(response.token);
             dispatch({ type: REGISTER_USER, data: response });
@@ -63,7 +63,7 @@ export const loadUserFromToken = () => dispatch => {
 };
 
 export const logOutUser = () => dispatch => {
-    sendData('users/logout', undefined, 'POST').then(() => {
+    wrappedFetch('users/logout', undefined, 'POST').then(() => {
         removeSession();
         dispatch({ type: LOG_OUT });
     });
