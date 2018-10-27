@@ -1,5 +1,6 @@
 import Market from "../screens/Market";
 import Ask from "../screens/Ask";
+import Bid from "../screens/Bid";
 import AboutUs from "../screens/AboutUs";
 import Details from '../screens/Details';
 import Dashboard from '../screens/Dashboard';
@@ -50,6 +51,13 @@ export const protectedRoutes = [
 		component: Account,
 		index: 5
 	},
+	{
+		path: '/bid',
+		exact: false,
+		protected: true,
+		component: Bid,
+		index: 6
+	},
 ];
 
 export const unprotectedRoutes = [
@@ -58,14 +66,14 @@ export const unprotectedRoutes = [
         exact: false,
         protected: false,
         component: Register,
-        index: 6
+        index: 7
     },
     {
         path: '/login',
         exact: false,
         protected: false,
         component: Login,
-        index: 7
+        index: 8
     },
 ];
 

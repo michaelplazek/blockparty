@@ -17,14 +17,27 @@ export const selectMapMarkers = createSelector(
 	)
 );
 
+// BIDS
+export const selectBids = state => state.bids.bids;
+export const selectBidsForDisplay = createSelector(
+	selectAsks,
+	asks => asks.map(item => ({
+		...item,
+		timestamp: moment(item.timestamp).format('MMM D'),
+	}))
+);
+
+// BID
+export const selectBid = state => state.bids.bid;
+export const selectBidId = state => state.bids.bid._id;
+export const selectBidAmount = state => state.bids.bid.amount;
+export const selectBidTimestamp = state => state.bids.bid.timestamp;
+
 // ASK
 export const selectAsk = state => state.asks.ask;
-export const selectId = state => state.asks.ask._id;
-export const selectAmount = state => state.asks.ask.amount;
-export const selectContactInfo = state => state.asks.ask.contact;
-export const selectLocation = state => state.asks.ask.location;
-export const selectMessage = state => state.asks.ask.message;
-export const selectTimestamp = state => state.asks.ask.timestamp;
+export const selectAskId = state => state.asks.ask._id;
+export const selectAskAmount = state => state.asks.ask.amount;
+export const selectAskTimestamp = state => state.asks.ask.timestamp;
 
 // TEMPORARY ASK
 export const selectAskCoin = state => state.ask.coin;

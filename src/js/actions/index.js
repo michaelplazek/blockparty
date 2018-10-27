@@ -4,11 +4,18 @@ export const LOAD_ASKS = 'LOAD_ASKS';
 export const UNLOAD_ASKS = 'UNLOAD_ASKS';
 export const LOAD_ASK = 'LOAD_ASK';
 export const UNLOAD_ASK = 'UNLOAD_ASK';
+export const CREATE_ASK = 'ADD_ASK';
+
+// BIDS
+export const LOAD_BIDS = 'LOAD_BIDS';
+export const UNLOAD_BIDS = 'UNLOAD_BIDS';
+export const LOAD_BID = 'LOAD_BID';
+export const UNLOAD_BID = 'UNLOAD_BID';
+export const CREATE_BID = 'CREATE_BID';
 
 // ASK
 export const LOAD_ASK_FROM_ASKS = 'LOAD_ASK_FROM_ASKS';
 
-export const CREATE_ASK = 'ADD_ASK';
 export const DELETE_ASK = 'DELETE_ASK';
 export const UPDATE_ASK = 'UPDATE_ASK';
 
@@ -39,3 +46,5 @@ export const SET_FILTER_DISTANCE = 'SET_FILTER_DISTANCE';
 export const SET_FILTER_COIN = 'SET_FILTER_COIN';
 export const SET_FILTER_TYPE = 'SET_FILTER_TYPE';
 export const SET_FILTER = 'SET_FILTER';
+
+

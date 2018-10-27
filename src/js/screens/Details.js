@@ -4,7 +4,6 @@ import { compose } from 'recompose';
 import Grid from "@material-ui/core/Grid/Grid";
 import Typography from "@material-ui/core/Typography/Typography";
 import mapper from "../utils/connect";
-import {selectAmount, selectContactInfo, selectLocation, selectMessage, selectAsk} from "../selectors";
 import withStyles from "@material-ui/core/styles/withStyles";
 
 const styles = {
@@ -62,7 +61,6 @@ const Details = ({
 );
 
 const propMap = {
-    ask: selectAsk
 };
 
 const actionMap = {
