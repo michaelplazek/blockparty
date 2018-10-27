@@ -7,12 +7,12 @@ import {
   selectHeaderHeight,
   selectMapMarkers,
   selectNavHeight,
-  selectAsksForDisplay
+  selectAsksForDisplay,
+  selectBidsForDisplay,
+  selectFilterType
 } from "../selectors";
-import {
-  loadAskFromAsks as loadAskFromAsksAction,
-  loadAsks as loadAsksAction
-} from "../actions/asks";
+import { loadAsks as loadAsksAction } from "../actions/asks";
+import { loadBids as loadBidsAction } from "../actions/bids";
 import { setLayerOpen as setLayerOpenAction } from "../actions/layers";
 
 import FilterListIcon from "@material-ui/icons/FilterList";
@@ -59,15 +59,17 @@ class Market extends Component {
 
 const propMap = {
   asks: selectAsksForDisplay,
+  bids: selectBidsForDisplay,
   markers: selectMapMarkers,
   navHeight: selectNavHeight,
-  headerHeight: selectHeaderHeight
+  headerHeight: selectHeaderHeight,
+  type: selectFilterType
 };
 
 const actionMap = {
   loadAsks: loadAsksAction,
-  setLayerOpen: setLayerOpenAction,
-  loadAskFromAsks: loadAskFromAsksAction
+  loadBids: loadBidsAction,
+  setLayerOpen: setLayerOpenAction
 };
 
 export default compose(
@@ -75,16 +77,17 @@ export default compose(
   withRouter,
   withDimensions,
   withHandlers({
-    handleMarkerClick: ({ history, loadAskFromAsks }) => marker => {
+    handleMarkerClick: ({ history, type }) => marker => {
       const { id } = marker;
-      // loadAskFromAsks(id);
-      history.push(`/ask?${id}`);
+      const url = type === "ASK" ? "/ask" : "/bid";
+      history.push(`${url}?${id}`);
     }
   }),
   lifecycle({
     componentWillMount() {
-      const { loadAsks } = this.props;
+      const { loadAsks, loadBids } = this.props;
       loadAsks();
+      loadBids();
     }
   })
 )(Market);

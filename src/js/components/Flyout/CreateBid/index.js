@@ -18,11 +18,17 @@ import Typography from "@material-ui/core/Typography/Typography";
 
 import {
   selectBidCoin,
+  selectBidLatitude,
+  selectBidLongitude,
   selectBidPrice,
   selectBidVolume,
+  selectUserId,
   selectUsername
 } from "../../../selectors";
-import { createBid as createBidAction } from "../../../actions/bids";
+import {
+  createBid as createBidAction,
+  loadMyBids as loadMyBidsAction
+} from "../../../actions/bids";
 import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
 import { resetBid as resetBidAction } from "../../../actions/createBid";
 
@@ -103,11 +109,15 @@ const propMap = {
   coin: selectBidCoin,
   volume: selectBidVolume,
   price: selectBidPrice,
-  username: selectUsername
+  lat: selectBidLatitude,
+  lng: selectBidLongitude,
+  username: selectUsername,
+  userId: selectUserId
 };
 
 const actionMap = {
   createBid: createBidAction,
+  loadMyBids: loadMyBidsAction,
   setLayerOpen: setLayerOpenAction,
   resetBid: resetBidAction
 };
@@ -118,38 +128,34 @@ export default compose(
   withState("activeIndex", "setActiveIndex", 0),
   withHandlers({
     handleSubmit: ({
+      userId,
       coin,
       volume,
       price,
+      lat,
+      lng,
       username,
       createBid,
+      loadMyBids,
       setLayerOpen,
       resetBid,
       setActiveIndex
     }) => () => {
-      let coords;
-      // TODO: handle cases where user doesnt allow location tracking
-      if (navigator && navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(pos => {
-          coords = pos.coords;
+      const bid = {
+        coin,
+        volume,
+        price,
+        owner: username,
+        lat,
+        lng
+      };
 
-          const bid = {
-            coin,
-            volume,
-            price,
-            owner: username,
-            lat: coords.latitude,
-            lng: coords.longitude
-          };
-
-          createBid(bid);
-          setTimeout(() => {
-            setLayerOpen(false);
-            setActiveIndex(0);
-          }, 1500);
-          resetBid();
-        });
-      }
+      createBid(bid).then(() => loadMyBids(userId));
+      setTimeout(() => {
+        setLayerOpen(false);
+        setActiveIndex(0);
+      }, 1500);
+      resetBid();
     }
   }),
   withHandlers({

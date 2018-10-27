@@ -44,7 +44,9 @@ class GoogleMapsWrapper extends Component {
       movable,
       zoomable,
       draggable,
-      markersClickable
+      markersClickable,
+      markersDraggable,
+      onMarkerDrag
     } = this.props;
 
     return (
@@ -72,6 +74,8 @@ class GoogleMapsWrapper extends Component {
             }}
             onClick={() => onMarkerClick(item)}
             defaultClickable={markersClickable}
+            draggable={markersDraggable}
+            onDrag={item => onMarkerDrag(item)}
           />
         ))}
       </GoogleMap>
@@ -81,7 +85,9 @@ class GoogleMapsWrapper extends Component {
 
 GoogleMapsWrapper.propTypes = {
   centerAroundCurrentLocation: PropTypes.bool,
-  zoom: PropTypes.number,
+  zoom: PropTypes.number.isRequired,
+  position: PropTypes.string.isRequired,
+  width: PropTypes.string.isRequired,
   initialCenter: PropTypes.object,
   markers: PropTypes.array,
   onMarkerClick: PropTypes.func,
@@ -90,11 +96,15 @@ GoogleMapsWrapper.propTypes = {
   draggable: PropTypes.bool,
   markersClickable: PropTypes.bool,
   locationFromBottom: PropTypes.number,
-  border: PropTypes.string
+  border: PropTypes.string,
+  markersDraggable: PropTypes.bool,
+  onMarkerDrag: PropTypes.func
 };
 
 GoogleMapsWrapper.defaultProps = {
   zoom: 10,
+  position: "absolute",
+  width: "100%",
   initialCenter: {
     lat: 40.564714,
     lng: -105.09065
@@ -106,8 +116,10 @@ GoogleMapsWrapper.defaultProps = {
   zoomable: true,
   draggable: true,
   markersClickable: true,
+  markersDraggable: false,
   locationFromBottom: 0,
-  border: ""
+  border: "",
+  onMarkerDrag: () => {}
 };
 
 export default compose(
@@ -118,11 +130,11 @@ export default compose(
       containerElement: (
         <div
           style={{
-            position: "absolute",
+            position: props.position,
             bottom: props.locationFromBottom,
             height: props.height,
             border: props.border,
-            width: "100%"
+            width: props.width
           }}
         />
       ),

@@ -2,17 +2,12 @@ import React from "react";
 import { compose, lifecycle } from "recompose";
 import { withRouter } from "react-router";
 import mapper from "../utils/connect";
-import { selectAsk, selectNavHeight, selectWindowHeight } from "../selectors";
-import { loadAsk as loadAskAction } from "../actions/asks";
+import { selectBid, selectNavHeight, selectWindowHeight } from "../selectors";
+import { loadBid as loadBidAction } from "../actions/bids";
 import Grid from "@material-ui/core/Grid/Grid";
 import Button from "@material-ui/core/Button/Button";
 import GoogleMapsWrapper from "../components/GoogleMaps/GoogleMapsWrapper";
 import Typography from "@material-ui/core/Typography/Typography";
-import FormControl from "@material-ui/core/FormControl/FormControl";
-import InputLabel from "@material-ui/core/InputLabel/InputLabel";
-import Select from "@material-ui/core/Select/Select";
-import coins from "../constants/coins";
-import TextField from "@material-ui/core/TextField/TextField";
 import Slider from "@material-ui/lab/Slider";
 
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -31,14 +26,14 @@ const styles = () => ({
   }
 });
 
-const Bid = ({ ask, history, windowHeight, footerHeight, classes }) => (
+const Bid = ({ bid, history, windowHeight, footerHeight, classes }) => (
   <div>
     <Grid>
       <Button onClick={() => history.goBack()}>Go Back</Button>
       <div className={classes.root}>
         <Grid item className={classes.body}>
           <Typography variant="display2">
-            {ask.volume} {ask.coin}
+            {bid.volume} {bid.coin}
           </Typography>
         </Grid>
         <div className={classes.slider}>
@@ -63,9 +58,9 @@ const Bid = ({ ask, history, windowHeight, footerHeight, classes }) => (
         <Typography variant="display1">Fort Collins</Typography>
       </div>
       <GoogleMapsWrapper
-        markers={[{ id: ask._id, lat: ask.lat, lng: ask.lng }]}
+        markers={[{ id: bid._id, lat: bid.lat, lng: bid.lng }]}
         height={windowHeight / 2 - footerHeight}
-        initialCenter={{ lat: ask.lat, lng: ask.lng }}
+        initialCenter={{ lat: bid.lat, lng: bid.lng }}
         movable="none"
         zoomable={false}
         draggable={false}
@@ -80,13 +75,13 @@ const Bid = ({ ask, history, windowHeight, footerHeight, classes }) => (
 );
 
 const propMap = {
-  ask: selectAsk,
+  bid: selectBid,
   windowHeight: selectWindowHeight,
   footerHeight: selectNavHeight
 };
 
 const actionMap = {
-  loadAsk: loadAskAction
+  loadBid: loadBidAction
 };
 
 export default compose(
@@ -95,11 +90,10 @@ export default compose(
   mapper(propMap, actionMap),
   lifecycle({
     componentDidMount() {
-      console.log(this.props);
       const { search } = this.props.location;
       const id = search.substr(1);
       console.log(id);
-      this.props.loadAsk(id);
+      this.props.loadBid(id);
     }
   })
 )(Bid);

@@ -10,6 +10,7 @@ import {
 const initialState = {
   loggedIn: false,
   username: "",
+  userId: 0,
   error: "",
   sessionLoaded: false
 };
@@ -17,16 +18,19 @@ const initialState = {
 const handlers = {
   [LOG_IN]: (state, action) => ({
     username: action.data.user.username,
+    userId: action.data.user._id,
     error: "",
     loggedIn: true
   }),
   [REGISTER_USER]: (state, action) => ({
     username: action.data.user.username,
+    userId: action.data.user._id,
     error: "",
     loggedIn: true
   }),
   [USER_FROM_TOKEN]: (state, action) => ({
     username: action.data.user.username,
+    userId: action.data.user._id,
     error: "",
     loggedIn: true
   }),

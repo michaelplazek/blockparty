@@ -38,7 +38,7 @@ export const wrappedFetchWithParams = (
   type = "GET",
   params = ""
 ) => {
-  const newUrl = `${BASE_URL}/${url}?${params}`;
+  const newUrl = `${BASE_URL}/${url}${params}`;
   const token = getSession();
   const promise =
     type !== "GET"
