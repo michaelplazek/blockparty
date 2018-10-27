@@ -7,9 +7,9 @@ const initialState = {
 };
 
 const handlers = {
-    [SET_LAYER]: (_, action) => ({
-        layer: action.data,
-    }),
+	[SET_LAYER]: (_, action) => ({
+			layer: action.data,
+	}),
 	[OPEN_LAYER]: (_, action) => ({
 		open: action.data,
 	}),

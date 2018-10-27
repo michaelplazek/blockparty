@@ -5,7 +5,8 @@ import layers from './layers';
 import session from './session';
 import app from './app';
 import filters from './filters';
-import ask from './ask';
+import ask from './createAsk';
+import bid from './createBid';
 import bids from './bids';
 
 export default combineReducers({
@@ -16,4 +17,5 @@ export default combineReducers({
 	session,
 	filters,
 	ask,
+	bid,
 })

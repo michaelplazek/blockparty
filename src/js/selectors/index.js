@@ -44,6 +44,11 @@ export const selectAskCoin = state => state.ask.coin;
 export const selectAskVolume = state => state.ask.volume;
 export const selectAskPrice = state => state.ask.price;
 
+// TEMPORARY BID
+export const selectBidCoin = state => state.bid.coin;
+export const selectBidVolume = state => state.bid.volume;
+export const selectBidPrice = state => state.bid.price;
+
 // LAYERS
 export const selectLayer = state => state.layers.layer;
 export const selectLayerOpen = state => state.layers.open;

@@ -9,4 +9,5 @@ export const DEFAULT_BID = {
 	},
 	"price": 0,
 	"amount": 0,
+	"isBid": true,
 };

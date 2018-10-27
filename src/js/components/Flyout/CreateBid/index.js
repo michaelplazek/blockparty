@@ -16,10 +16,15 @@ import Content from "./Content";
 import Paper from "@material-ui/core/Paper/Paper";
 import Typography from "@material-ui/core/Typography/Typography";
 
-import {selectAskCoin, selectAskPrice, selectAskVolume, selectUsername} from "../../../selectors";
-import { createAsk as createAskAction } from "../../../actions/asks";
+import {
+	selectBidCoin,
+	selectBidPrice,
+	selectBidVolume,
+	selectUsername
+} from "../../../selectors";
+import { createBid as createBidAction } from "../../../actions/bids";
 import {setLayerOpen as setLayerOpenAction} from "../../../actions/layers";
-import {resetAsk as resetAskAction} from "../../../actions/createAsk";
+import {resetBid as resetBidAction} from "../../../actions/createBid";
 
 const styles = theme => ({
 	root: {
@@ -37,18 +42,18 @@ const styles = theme => ({
 	},
 });
 
-const CreateAsk = ({
-	classes,
-	onSubmit,
-	activeIndex,
-	setActiveIndex,
-	handleBack,
-	handleNext,
-	resetAsk
-}) => (
+const CreateBid = ({
+										 classes,
+										 onSubmit,
+										 activeIndex,
+										 setActiveIndex,
+										 handleBack,
+										 handleNext,
+										 resetBid
+									 }) => (
 	<Flyout
 		onClose={() => {
-			resetAsk();
+			resetBid();
 			setActiveIndex(0);
 		}}
 		size={8}
@@ -87,7 +92,7 @@ const CreateAsk = ({
 			</Stepper>
 			{activeIndex === STEPS.length && (
 				<Paper square elevation={0} className={classes.resetContainer}>
-					<Typography>Ask successfully created.</Typography>
+					<Typography>Bid successfully created.</Typography>
 				</Paper>
 			)}
 		</Grid>
@@ -95,16 +100,16 @@ const CreateAsk = ({
 );
 
 const propMap = {
-	coin: selectAskCoin,
-	volume: selectAskVolume,
-	price: selectAskPrice,
+	coin: selectBidCoin,
+	volume: selectBidVolume,
+	price: selectBidPrice,
 	username: selectUsername
 };
 
 const actionMap = {
-	createAsk: createAskAction,
+	createBid: createBidAction,
 	setLayerOpen: setLayerOpenAction,
-	resetAsk: resetAskAction
+	resetBid: resetBidAction
 };
 
 export default compose(
@@ -113,15 +118,15 @@ export default compose(
 	withState('activeIndex', 'setActiveIndex', 0),
 	withHandlers({
 		handleSubmit: ({
-			coin,
-			volume,
-			price,
-			username,
-			createAsk,
-			setLayerOpen,
-			resetAsk,
-			setActiveIndex
-		}) => () => {
+										 coin,
+										 volume,
+										 price,
+										 username,
+										 createBid,
+										 setLayerOpen,
+										 resetBid,
+										 setActiveIndex
+									 }) => () => {
 
 			let coords;
 			// TODO: handle cases where user doesnt allow location tracking
@@ -129,7 +134,7 @@ export default compose(
 				navigator.geolocation.getCurrentPosition((pos) => {
 					coords = pos.coords;
 
-					const ask = {
+					const bid = {
 						coin,
 						volume,
 						price,
@@ -138,12 +143,12 @@ export default compose(
 						lng: coords.longitude,
 					};
 
-					createAsk(ask);
+					createBid(bid);
 					setTimeout(() => {
 						setLayerOpen(false);
 						setActiveIndex(0);
 					}, 1500);
-					resetAsk();
+					resetBid();
 				})
 			}
 		},
@@ -159,4 +164,4 @@ export default compose(
 			}
 		},
 	})
-)(CreateAsk);
+)(CreateBid);

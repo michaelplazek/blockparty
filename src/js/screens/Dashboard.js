@@ -4,27 +4,39 @@ import mapper from "../utils/connect";
 
 import Tile from '../components/Tile';
 
-import { setLayerOpen as setLayerOpenAction } from "../actions/layers";
+import {setLayer as setLayerAction, setLayerOpen as setLayerOpenAction} from "../actions/layers";
 
 import PageHeader from "../components/PageHeader";
 import MailIcon from '@material-ui/icons/Mail';
 import CreateAsk from "../components/Flyout/CreateAsk/index";
+import CreateBid from "../components/Flyout/CreateBid/index";
+
 import withDimensions from "../HOCs/withDimensions";
 import Button from "@material-ui/core/Button/Button";
 import withStyles from "@material-ui/core/styles/withStyles";
+import {selectLayer} from "../selectors";
 
 const styles = () => ({
-	createButton: {
+	createAskButton: {
 		position: 'absolute',
 		bottom: '8em',
 		right: '2em',
-
+	},
+	createBidButton: {
+		position: 'absolute',
+		bottom: '12em',
+		right: '2em',
 	}
 });
 
-const Dashboard = ({ setLayerOpen, classes }) => (
+const Dashboard = ({ setLayerOpen, setLayer, classes, layer }) => (
 	<div>
-		<CreateAsk />
+		{layer === 'CREATE_ASK' &&
+			<CreateAsk />
+		}
+		{layer === "CREATE_BID" &&
+			<CreateBid />
+		}
 		<PageHeader
 			leftHandLabel='Dashboard'
 			rightHandLabel='Inbox'
@@ -40,9 +52,22 @@ const Dashboard = ({ setLayerOpen, classes }) => (
 		/>
 		<div>
 			<Button
-				className={classes.createButton}
+				className={classes.createBidButton}
 				variant='extendedFab'
-				onClick={() => setLayerOpen(true)}
+				onClick={() => {
+					setLayer('CREATE_BID');
+					setLayerOpen(true)
+				}}
+			>
+				Create a new bid
+			</Button>
+			<Button
+				className={classes.createAskButton}
+				variant='extendedFab'
+				onClick={() => {
+					setLayer('CREATE_ASK');
+					setLayerOpen(true)
+				}}
 			>
 				Create a new ask
 			</Button>
@@ -51,10 +76,11 @@ const Dashboard = ({ setLayerOpen, classes }) => (
 );
 
 const propMap = {
-
+	layer: selectLayer
 };
 
 const actionMap = {
+	setLayer: setLayerAction,
 	setLayerOpen: setLayerOpenAction
 };
 

@@ -9,4 +9,5 @@ export const DEFAULT_ASK = {
     },
     "price": 0,
     "amount": 0,
+  "isBid": false,
 };
