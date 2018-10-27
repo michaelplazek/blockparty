@@ -17,14 +17,14 @@ import Paper from "@material-ui/core/Paper/Paper";
 import Typography from "@material-ui/core/Typography/Typography";
 
 import {
-  selectAskCoin,
-  selectAskPrice,
-  selectAskVolume,
+  selectBidCoin,
+  selectBidPrice,
+  selectBidVolume,
   selectUsername
 } from "../../../selectors";
-import { createAsk as createAskAction } from "../../../actions/asks";
+import { createBid as createBidAction } from "../../../actions/bids";
 import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
-import { resetAsk as resetAskAction } from "../../../actions/createAsk";
+import { resetBid as resetBidAction } from "../../../actions/createBid";
 
 const styles = theme => ({
   root: {
@@ -42,18 +42,18 @@ const styles = theme => ({
   }
 });
 
-const CreateAsk = ({
+const CreateBid = ({
   classes,
   onSubmit,
   activeIndex,
   setActiveIndex,
   handleBack,
   handleNext,
-  resetAsk
+  resetBid
 }) => (
   <Flyout
     onClose={() => {
-      resetAsk();
+      resetBid();
       setActiveIndex(0);
     }}
     size={8}
@@ -92,7 +92,7 @@ const CreateAsk = ({
       </Stepper>
       {activeIndex === STEPS.length && (
         <Paper square elevation={0} className={classes.resetContainer}>
-          <Typography>Ask successfully created.</Typography>
+          <Typography>Bid successfully created.</Typography>
         </Paper>
       )}
     </Grid>
@@ -100,16 +100,16 @@ const CreateAsk = ({
 );
 
 const propMap = {
-  coin: selectAskCoin,
-  volume: selectAskVolume,
-  price: selectAskPrice,
+  coin: selectBidCoin,
+  volume: selectBidVolume,
+  price: selectBidPrice,
   username: selectUsername
 };
 
 const actionMap = {
-  createAsk: createAskAction,
+  createBid: createBidAction,
   setLayerOpen: setLayerOpenAction,
-  resetAsk: resetAskAction
+  resetBid: resetBidAction
 };
 
 export default compose(
@@ -122,9 +122,9 @@ export default compose(
       volume,
       price,
       username,
-      createAsk,
+      createBid,
       setLayerOpen,
-      resetAsk,
+      resetBid,
       setActiveIndex
     }) => () => {
       let coords;
@@ -133,7 +133,7 @@ export default compose(
         navigator.geolocation.getCurrentPosition(pos => {
           coords = pos.coords;
 
-          const ask = {
+          const bid = {
             coin,
             volume,
             price,
@@ -142,12 +142,12 @@ export default compose(
             lng: coords.longitude
           };
 
-          createAsk(ask);
+          createBid(bid);
           setTimeout(() => {
             setLayerOpen(false);
             setActiveIndex(0);
           }, 1500);
-          resetAsk();
+          resetBid();
         });
       }
     }
@@ -163,4 +163,4 @@ export default compose(
       }
     }
   })
-)(CreateAsk);
+)(CreateBid);

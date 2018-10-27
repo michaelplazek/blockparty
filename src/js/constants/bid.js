@@ -1,4 +1,4 @@
-export const DEFAULT_ASK = {
+export const DEFAULT_BID = {
   _id: {
     $oid: "0"
   },
@@ -9,5 +9,5 @@ export const DEFAULT_ASK = {
   },
   price: 0,
   amount: 0,
-  isBid: false
+  isBid: true
 };

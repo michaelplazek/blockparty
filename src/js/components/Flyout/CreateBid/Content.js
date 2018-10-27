@@ -8,25 +8,25 @@ import TextField from "@material-ui/core/TextField/TextField";
 import Typography from "@material-ui/core/Typography/Typography";
 import Grid from "@material-ui/core/Grid/Grid";
 import {
-  selectAskCoin,
-  selectAskPrice,
-  selectAskVolume
+  selectBidCoin,
+  selectBidPrice,
+  selectBidVolume
 } from "../../../selectors";
 import mapper from "../../../utils/connect";
 import {
-  setAskCoin as setAskCoinAction,
-  setAskPrice as setAskPriceAction,
-  setAskVolume as setAskVolumeAction
-} from "../../../actions/createAsk";
+  setBidCoin as setBidCoinAction,
+  setBidPrice as setBidPriceAction,
+  setBidVolume as setBidVolumeAction
+} from "../../../actions/createBid";
 
 const CreateAskContent = ({
   index,
   coin,
   volume,
   price,
-  setAskCoin,
-  setAskPrice,
-  setAskVolume
+  setBidCoin,
+  setBidPrice,
+  setBidVolume
 }) => {
   switch (index) {
     case 0:
@@ -36,7 +36,7 @@ const CreateAskContent = ({
             variant="outlined"
             native
             value={coin}
-            onChange={({ target }) => setAskCoin(target.value)}
+            onChange={({ target }) => setBidCoin(target.value)}
           >
             {coins.map(coin => (
               <option key={coin} value={coin}>
@@ -52,7 +52,7 @@ const CreateAskContent = ({
           <TextField
             id="volume"
             value={volume}
-            onChange={({ target }) => setAskVolume(target.value)}
+            onChange={({ target }) => setBidVolume(target.value)}
             margin="dense"
             variant="standard"
           />
@@ -64,7 +64,7 @@ const CreateAskContent = ({
           <TextField
             id="price"
             value={price}
-            onChange={({ target }) => setAskPrice(target.value)}
+            onChange={({ target }) => setBidPrice(target.value)}
             margin="dense"
             variant="standard"
           />
@@ -82,15 +82,15 @@ const CreateAskContent = ({
 };
 
 const propMap = {
-  coin: selectAskCoin,
-  volume: selectAskVolume,
-  price: selectAskPrice
+  coin: selectBidCoin,
+  volume: selectBidVolume,
+  price: selectBidPrice
 };
 
 const actionMap = {
-  setAskCoin: setAskCoinAction,
-  setAskVolume: setAskVolumeAction,
-  setAskPrice: setAskPriceAction
+  setBidCoin: setBidCoinAction,
+  setBidVolume: setBidVolumeAction,
+  setBidPrice: setBidPriceAction
 };
 
 export default compose(mapper(propMap, actionMap))(CreateAskContent);

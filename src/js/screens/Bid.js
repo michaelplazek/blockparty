@@ -31,7 +31,7 @@ const styles = () => ({
   }
 });
 
-const Ask = ({ ask, history, windowHeight, footerHeight, classes }) => (
+const Bid = ({ ask, history, windowHeight, footerHeight, classes }) => (
   <div>
     <Grid>
       <Button onClick={() => history.goBack()}>Go Back</Button>
@@ -102,4 +102,4 @@ export default compose(
       this.props.loadAsk(id);
     }
   })
-)(Ask);
+)(Bid);

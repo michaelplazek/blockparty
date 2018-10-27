@@ -1,12 +1,12 @@
-import React from 'react'
-import { compose, lifecycle, withHandlers } from 'recompose';
+import React from "react";
+import { compose, lifecycle, withHandlers } from "recompose";
 
 import mapper from "../utils/connect";
 import { selectWindowHeight, selectWindowWidth } from "../selectors";
 
 import {
-	setWindowHeight as setWindowHeightAction,
-	setWindowWidth as setWindowWidthAction,
+  setWindowHeight as setWindowHeightAction,
+  setWindowWidth as setWindowWidthAction
 } from "../actions/app";
 
 /**
@@ -15,37 +15,37 @@ import {
  * @param Component
  * @returns {*}
  */
-export default (Component) => {
-	const DimensionsHOC = (props) => {
-		return <Component {...props} />
-	};
+export default Component => {
+  const DimensionsHOC = props => {
+    return <Component {...props} />;
+  };
 
-	const propMap = {
-		windowHeight: selectWindowHeight,
-		windowWidth: selectWindowWidth
-	};
+  const propMap = {
+    windowHeight: selectWindowHeight,
+    windowWidth: selectWindowWidth
+  };
 
-	const actionMap = {
-		setWindowHeight: setWindowHeightAction,
-		setWindowWidth: setWindowWidthAction,
-	};
+  const actionMap = {
+    setWindowHeight: setWindowHeightAction,
+    setWindowWidth: setWindowWidthAction
+  };
 
-	return compose(
-		mapper(propMap, actionMap),
-		withHandlers({
-			updateWindowDimensions: ({ setWindowHeight, setWindowWidth }) => () => {
-				setWindowHeight(window.innerHeight);
-				setWindowWidth(window.innerWidth);
-			}
-		}),
-		lifecycle({
-			componentDidMount() {
-				this.props.updateWindowDimensions();
-				window.addEventListener('resize', this.props.updateWindowDimensions);
-			},
-			componentWillUnmount() {
-				window.removeEventListener('resize', this.props.updateWindowDimensions);
-			},
-		})
-	)(DimensionsHOC)
+  return compose(
+    mapper(propMap, actionMap),
+    withHandlers({
+      updateWindowDimensions: ({ setWindowHeight, setWindowWidth }) => () => {
+        setWindowHeight(window.innerHeight);
+        setWindowWidth(window.innerWidth);
+      }
+    }),
+    lifecycle({
+      componentDidMount() {
+        this.props.updateWindowDimensions();
+        window.addEventListener("resize", this.props.updateWindowDimensions);
+      },
+      componentWillUnmount() {
+        window.removeEventListener("resize", this.props.updateWindowDimensions);
+      }
+    })
+  )(DimensionsHOC);
 };

@@ -1,5 +1,1 @@
-export default [
-	'BTC',
-	'LTC',
-	'ETH',
-];
+export default ["BTC", "LTC", "ETH"];

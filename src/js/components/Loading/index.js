@@ -1,9 +1,5 @@
-import React from 'react';
+import React from "react";
 
-const Loading = () => (
-    <div>
-        Loading session...
-    </div>
-);
+const Loading = () => <div>Loading session...</div>;
 
 export default Loading;
