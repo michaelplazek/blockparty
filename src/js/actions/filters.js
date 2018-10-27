@@ -1,13 +1,17 @@
-import { SET_FILTER_DISTANCE, SET_FILTER_COIN, SET_FILTER, SET_FILTER_TYPE } from "./";
+import {
+  SET_FILTER_DISTANCE,
+  SET_FILTER_COIN,
+  SET_FILTER,
+  SET_FILTER_TYPE
+} from "./";
 
 export const setFilterDistance = data => dispatch =>
-	dispatch({ type: SET_FILTER_DISTANCE, data });
+  dispatch({ type: SET_FILTER_DISTANCE, data });
 
 export const setFilterCoin = data => dispatch =>
-	dispatch({ type: SET_FILTER_COIN, data });
+  dispatch({ type: SET_FILTER_COIN, data });
 
 export const setFilterType = data => dispatch =>
-	dispatch({ type: SET_FILTER_TYPE, data });
+  dispatch({ type: SET_FILTER_TYPE, data });
 
-export const setFilter = () => dispatch =>
-	dispatch({ type: SET_FILTER });
+export const setFilter = () => dispatch => dispatch({ type: SET_FILTER });

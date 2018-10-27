@@ -1,30 +1,25 @@
-import { createSelector } from 'reselect';
-import moment from 'moment';
+import { createSelector } from "reselect";
+import moment from "moment";
 
 // ASKS
 export const selectAsks = state => state.asks.asks;
-export const selectAsksForDisplay = createSelector(
-    selectAsks,
-    asks => asks.map(item => ({
-        ...item,
-        timestamp: moment(item.timestamp).format('MMM D'),
-    }))
+export const selectAsksForDisplay = createSelector(selectAsks, asks =>
+  asks.map(item => ({
+    ...item,
+    timestamp: moment(item.timestamp).format("MMM D")
+  }))
 );
-export const selectMapMarkers = createSelector(
-	selectAsks,
-	asks => asks.map(ask => (
-		{ lat: ask.lat, lng: ask.lng, id: ask._id })
-	)
+export const selectMapMarkers = createSelector(selectAsks, asks =>
+  asks.map(ask => ({ lat: ask.lat, lng: ask.lng, id: ask._id }))
 );
 
 // BIDS
 export const selectBids = state => state.bids.bids;
-export const selectBidsForDisplay = createSelector(
-	selectAsks,
-	asks => asks.map(item => ({
-		...item,
-		timestamp: moment(item.timestamp).format('MMM D'),
-	}))
+export const selectBidsForDisplay = createSelector(selectAsks, asks =>
+  asks.map(item => ({
+    ...item,
+    timestamp: moment(item.timestamp).format("MMM D")
+  }))
 );
 
 // BID
