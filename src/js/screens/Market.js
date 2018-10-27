@@ -4,18 +4,15 @@ import { withRouter } from "react-router";
 import mapper from "../utils/connect";
 
 import {
-	selectHeaderHeight,
-	selectMapMarkers,
-	selectNavHeight,
-	selectAsksForDisplay,
-	selectBidsForDisplay, selectFilterType
+  selectHeaderHeight,
+  selectMapMarkers,
+  selectNavHeight,
+  selectAsksForDisplay,
+  selectBidsForDisplay,
+  selectFilterType
 } from "../selectors";
-import {
-  loadAsks as loadAsksAction,
-} from "../actions/asks";
-import {
-  loadBids as loadBidsAction
-} from '../actions/bids';
+import { loadAsks as loadAsksAction } from "../actions/asks";
+import { loadBids as loadBidsAction } from "../actions/bids";
 import { setLayerOpen as setLayerOpenAction } from "../actions/layers";
 
 import FilterListIcon from "@material-ui/icons/FilterList";
@@ -66,13 +63,13 @@ const propMap = {
   markers: selectMapMarkers,
   navHeight: selectNavHeight,
   headerHeight: selectHeaderHeight,
-  type: selectFilterType,
+  type: selectFilterType
 };
 
 const actionMap = {
   loadAsks: loadAsksAction,
-	loadBids: loadBidsAction,
-	setLayerOpen: setLayerOpenAction,
+  loadBids: loadBidsAction,
+  setLayerOpen: setLayerOpenAction
 };
 
 export default compose(
@@ -82,7 +79,7 @@ export default compose(
   withHandlers({
     handleMarkerClick: ({ history, type }) => marker => {
       const { id } = marker;
-      const url = type === 'ASK' ? '/ask' : '/bid';
+      const url = type === "ASK" ? "/ask" : "/bid";
       history.push(`${url}?${id}`);
     }
   }),

@@ -17,14 +17,18 @@ import Paper from "@material-ui/core/Paper/Paper";
 import Typography from "@material-ui/core/Typography/Typography";
 
 import {
-	selectAskCoin,
-	selectAskLatitude,
-	selectAskLongitude,
-	selectAskPrice,
-	selectAskVolume, selectUserId,
-	selectUsername
+  selectAskCoin,
+  selectAskLatitude,
+  selectAskLongitude,
+  selectAskPrice,
+  selectAskVolume,
+  selectUserId,
+  selectUsername
 } from "../../../selectors";
-import { createAsk as createAskAction, loadMyAsks as loadMyAsksAction } from "../../../actions/asks";
+import {
+  createAsk as createAskAction,
+  loadMyAsks as loadMyAsksAction
+} from "../../../actions/asks";
 import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
 import { resetAsk as resetAskAction } from "../../../actions/createAsk";
 
@@ -108,12 +112,12 @@ const propMap = {
   lat: selectAskLatitude,
   lng: selectAskLongitude,
   username: selectUsername,
-	userId: selectUserId
+  userId: selectUserId
 };
 
 const actionMap = {
   createAsk: createAskAction,
-	loadMyAsks: loadMyAsksAction,
+  loadMyAsks: loadMyAsksAction,
   setLayerOpen: setLayerOpenAction,
   resetAsk: resetAskAction
 };
@@ -124,34 +128,34 @@ export default compose(
   withState("activeIndex", "setActiveIndex", 0),
   withHandlers({
     handleSubmit: ({
-			userId,
+      userId,
       coin,
       volume,
       price,
-			lat,
-			lng,
+      lat,
+      lng,
       username,
       createAsk,
-			loadMyAsks,
+      loadMyAsks,
       setLayerOpen,
       resetAsk,
       setActiveIndex
     }) => () => {
-			const ask = {
-				coin,
-				volume,
-				price,
-				owner: username,
-				lat,
-				lng
-			};
+      const ask = {
+        coin,
+        volume,
+        price,
+        owner: username,
+        lat,
+        lng
+      };
 
-			createAsk(ask).then(() => loadMyAsks(userId));
-			setTimeout(() => {
-				setLayerOpen(false);
-				setActiveIndex(0);
-			}, 1500);
-			resetAsk();
+      createAsk(ask).then(() => loadMyAsks(userId));
+      setTimeout(() => {
+        setLayerOpen(false);
+        setActiveIndex(0);
+      }, 1500);
+      resetAsk();
     }
   }),
   withHandlers({

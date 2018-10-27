@@ -8,19 +8,23 @@ import TextField from "@material-ui/core/TextField/TextField";
 import Typography from "@material-ui/core/Typography/Typography";
 import Grid from "@material-ui/core/Grid/Grid";
 import {
-	selectAskCoin, selectAskLatitude, selectAskLongitude,
-	selectAskPrice, selectAskUseCurrentLocation,
-	selectAskVolume, selectWindowWidth
+  selectAskCoin,
+  selectAskLatitude,
+  selectAskLongitude,
+  selectAskPrice,
+  selectAskUseCurrentLocation,
+  selectAskVolume,
+  selectWindowWidth
 } from "../../../selectors";
 import mapper from "../../../utils/connect";
 import { getIsLocationSet } from "../../../utils/location";
 import {
-	setAskCoin as setAskCoinAction,
-	setAskPrice as setAskPriceAction,
-	setAskVolume as setAskVolumeAction,
-	setAskLatitude as setAskLatitudeAction,
-	setAskLongitude as setAskLongitudeAction,
-	setAskUseCurrentLocation as setAskUseCurrentLocationAction
+  setAskCoin as setAskCoinAction,
+  setAskPrice as setAskPriceAction,
+  setAskVolume as setAskVolumeAction,
+  setAskLatitude as setAskLatitudeAction,
+  setAskLongitude as setAskLongitudeAction,
+  setAskUseCurrentLocation as setAskUseCurrentLocationAction
 } from "../../../actions/createAsk";
 import FormControlLabel from "@material-ui/core/FormControlLabel/FormControlLabel";
 import Switch from "@material-ui/core/Switch/Switch";
@@ -28,20 +32,20 @@ import LocationSelector from "../../LocationSelector";
 
 const CreateAskContent = ({
   index,
-	checked,
-	toggle,
+  checked,
+  toggle,
   coin,
   volume,
   price,
-	width,
-	lat,
-	lng,
+  width,
+  lat,
+  lng,
   setAskCoin,
   setAskPrice,
   setAskVolume,
-	handleDrag,
-	useCurrentLocation,
-	handleToggle
+  handleDrag,
+  useCurrentLocation,
+  handleToggle
 }) => {
   switch (index) {
     case 0:
@@ -85,32 +89,32 @@ const CreateAskContent = ({
           />
         </FormControl>
       );
-		case 3:
-			return (
-				<div>
-				<FormControl margin="dense" fullWidth={true}>
-					<FormControlLabel
-						control={
-							<Switch
-								checked={useCurrentLocation}
-								onChange={handleToggle}
-								value="location"
-							/>
-						}
-						label="Use current location"
-					/>
-				</FormControl>
-				{!useCurrentLocation &&
-				<LocationSelector
-					markers={[{ id: 0, lat, lng }]}
-					height='12em'
-					width={`${width - width / 9}px`}
-					position='relative'
-					onDrag={coords => handleDrag(coords)}
-				/>
-				}
-				</div>
-			);
+    case 3:
+      return (
+        <div>
+          <FormControl margin="dense" fullWidth={true}>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={useCurrentLocation}
+                  onChange={handleToggle}
+                  value="location"
+                />
+              }
+              label="Use current location"
+            />
+          </FormControl>
+          {!useCurrentLocation && (
+            <LocationSelector
+              markers={[{ id: 0, lat, lng }]}
+              height="12em"
+              width={`${width - width / 9}px`}
+              position="relative"
+              onDrag={coords => handleDrag(coords)}
+            />
+          )}
+        </div>
+      );
     case 4:
       return (
         <Grid container direction="column">
@@ -126,37 +130,42 @@ const propMap = {
   coin: selectAskCoin,
   volume: selectAskVolume,
   price: selectAskPrice,
-	lat: selectAskLatitude,
-	lng: selectAskLongitude,
-	width: selectWindowWidth,
-	useCurrentLocation: selectAskUseCurrentLocation
+  lat: selectAskLatitude,
+  lng: selectAskLongitude,
+  width: selectWindowWidth,
+  useCurrentLocation: selectAskUseCurrentLocation
 };
 
 const actionMap = {
   setAskCoin: setAskCoinAction,
   setAskVolume: setAskVolumeAction,
   setAskPrice: setAskPriceAction,
-	setAskLatitude: setAskLatitudeAction,
-	setAskLongitude: setAskLongitudeAction,
-	setUseCurrentLocation: setAskUseCurrentLocationAction
+  setAskLatitude: setAskLatitudeAction,
+  setAskLongitude: setAskLongitudeAction,
+  setUseCurrentLocation: setAskUseCurrentLocationAction
 };
 
 export default compose(
   mapper(propMap, actionMap),
-	withHandlers({
-		handleToggle: ({ useCurrentLocation, setUseCurrentLocation, setAskLatitude, setAskLongitude }) => () => {
-			setUseCurrentLocation(!useCurrentLocation);
-			if (navigator && navigator.geolocation && !useCurrentLocation) {
-				navigator.geolocation.getCurrentPosition(pos => {
-					const coords = pos.coords;
-					setAskLatitude(coords.latitude);
-					setAskLongitude(coords.longitude);
-				});
-			}
-		},
-		handleDrag: ({ setAskLatitude, setAskLongitude }) => (item) => {
-			setAskLatitude(item.latLng.lat());
-			setAskLongitude(item.latLng.lng());
-		}
-	}),
+  withHandlers({
+    handleToggle: ({
+      useCurrentLocation,
+      setUseCurrentLocation,
+      setAskLatitude,
+      setAskLongitude
+    }) => () => {
+      setUseCurrentLocation(!useCurrentLocation);
+      if (navigator && navigator.geolocation && !useCurrentLocation) {
+        navigator.geolocation.getCurrentPosition(pos => {
+          const coords = pos.coords;
+          setAskLatitude(coords.latitude);
+          setAskLongitude(coords.longitude);
+        });
+      }
+    },
+    handleDrag: ({ setAskLatitude, setAskLongitude }) => item => {
+      setAskLatitude(item.latLng.lat());
+      setAskLongitude(item.latLng.lng());
+    }
+  })
 )(CreateAskContent);

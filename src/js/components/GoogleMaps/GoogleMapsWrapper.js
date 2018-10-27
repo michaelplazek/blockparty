@@ -46,7 +46,7 @@ class GoogleMapsWrapper extends Component {
       draggable,
       markersClickable,
       markersDraggable,
-      onMarkerDrag,
+      onMarkerDrag
     } = this.props;
 
     return (
@@ -74,7 +74,7 @@ class GoogleMapsWrapper extends Component {
             }}
             onClick={() => onMarkerClick(item)}
             defaultClickable={markersClickable}
-						draggable={markersDraggable}
+            draggable={markersDraggable}
             onDrag={item => onMarkerDrag(item)}
           />
         ))}
@@ -86,8 +86,8 @@ class GoogleMapsWrapper extends Component {
 GoogleMapsWrapper.propTypes = {
   centerAroundCurrentLocation: PropTypes.bool,
   zoom: PropTypes.number.isRequired,
-	position: PropTypes.string.isRequired,
-	width: PropTypes.string.isRequired,
+  position: PropTypes.string.isRequired,
+  width: PropTypes.string.isRequired,
   initialCenter: PropTypes.object,
   markers: PropTypes.array,
   onMarkerClick: PropTypes.func,
@@ -98,13 +98,13 @@ GoogleMapsWrapper.propTypes = {
   locationFromBottom: PropTypes.number,
   border: PropTypes.string,
   markersDraggable: PropTypes.bool,
-  onMarkerDrag: PropTypes.func,
+  onMarkerDrag: PropTypes.func
 };
 
 GoogleMapsWrapper.defaultProps = {
   zoom: 10,
-	position: 'absolute',
-	width: '100%',
+  position: "absolute",
+  width: "100%",
   initialCenter: {
     lat: 40.564714,
     lng: -105.09065
@@ -134,7 +134,7 @@ export default compose(
             bottom: props.locationFromBottom,
             height: props.height,
             border: props.border,
-            width: props.width,
+            width: props.width
           }}
         />
       ),

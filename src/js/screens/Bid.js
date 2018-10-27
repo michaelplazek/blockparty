@@ -2,7 +2,7 @@ import React from "react";
 import { compose, lifecycle } from "recompose";
 import { withRouter } from "react-router";
 import mapper from "../utils/connect";
-import {selectBid, selectNavHeight, selectWindowHeight} from "../selectors";
+import { selectBid, selectNavHeight, selectWindowHeight } from "../selectors";
 import { loadBid as loadBidAction } from "../actions/bids";
 import Grid from "@material-ui/core/Grid/Grid";
 import Button from "@material-ui/core/Button/Button";
@@ -75,7 +75,7 @@ const Bid = ({ bid, history, windowHeight, footerHeight, classes }) => (
 );
 
 const propMap = {
-	bid: selectBid,
+  bid: selectBid,
   windowHeight: selectWindowHeight,
   footerHeight: selectNavHeight
 };

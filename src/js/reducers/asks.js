@@ -2,7 +2,7 @@ import { stateReducer } from "./utils";
 import {
   LOAD_ASKS,
   LOAD_ASK,
-	LOAD_MY_ASKS,
+  LOAD_MY_ASKS,
   CREATE_ASK,
   UNLOAD_ASK,
   UNLOAD_ASKS
@@ -15,7 +15,7 @@ const initialState = {
   asksLoaded: false,
   askLoaded: false,
   myAsks: [],
-	myAsksLoaded: false,
+  myAsksLoaded: false
 };
 
 const handlers = {
@@ -35,10 +35,10 @@ const handlers = {
     ask: initialState.ask,
     askLoaded: false
   }),
-	[LOAD_MY_ASKS]: (state, action) => ({
-		myAsks: action.data,
-		myAsksLoaded: true
-	}),
+  [LOAD_MY_ASKS]: (state, action) => ({
+    myAsks: action.data,
+    myAsksLoaded: true
+  }),
   [CREATE_ASK]: (state, action) => ({
     ask: action.data,
     askLoaded: true

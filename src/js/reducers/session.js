@@ -24,13 +24,13 @@ const handlers = {
   }),
   [REGISTER_USER]: (state, action) => ({
     username: action.data.user.username,
-		userId: action.data.user._id,
+    userId: action.data.user._id,
     error: "",
     loggedIn: true
   }),
   [USER_FROM_TOKEN]: (state, action) => ({
     username: action.data.user.username,
-		userId: action.data.user._id,
+    userId: action.data.user._id,
     error: "",
     loggedIn: true
   }),
