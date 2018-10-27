@@ -28,6 +28,7 @@ import {
 import FormControlLabel from "@material-ui/core/FormControlLabel/FormControlLabel";
 import Switch from "@material-ui/core/Switch/Switch";
 import LocationSelector from "../../LocationSelector";
+import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
 
 const CreateAskContent = ({
   index,
@@ -71,6 +72,9 @@ const CreateAskContent = ({
             onChange={({ target }) => setBidVolume(target.value)}
             margin="dense"
             variant="standard"
+						InputProps={{
+							endAdornment: <InputAdornment position="start">{coin}</InputAdornment>,
+						}}
           />
         </FormControl>
       );
@@ -83,6 +87,9 @@ const CreateAskContent = ({
             onChange={({ target }) => setBidPrice(target.value)}
             margin="dense"
             variant="standard"
+						InputProps={{
+							endAdornment: <InputAdornment position="start">{`/${coin}`}</InputAdornment>,
+						}}
           />
         </FormControl>
       );

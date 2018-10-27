@@ -55,12 +55,14 @@ const CreateBid = ({
   setActiveIndex,
   handleBack,
   handleNext,
-  resetBid
+  resetBid,
+	setLayerOpen
 }) => (
   <Flyout
     onClose={() => {
       resetBid();
       setActiveIndex(0);
+      setLayerOpen(false)
     }}
     size={8}
   >

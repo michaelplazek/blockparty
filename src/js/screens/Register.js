@@ -7,7 +7,7 @@ import RegisterForm from "../components/RegisterForm";
 import Grid from "@material-ui/core/Grid/Grid";
 import Typography from "@material-ui/core/Typography/Typography";
 
-import { validateInput } from "../utils/login";
+import { validateInput } from "../utils/validate";
 import { registerUser } from "../actions/session";
 import mapper from "../utils/connect";
 import Button from "@material-ui/core/Button/Button";
@@ -52,8 +52,8 @@ export default compose(
   withRouter,
   mapper(propMap, actionMap),
   withHandlers({
-    handleSignUp: ({ registerUser, history }) => (username, password) => {
-      if (validateInput(username, password)) {
+    handleSignUp: ({ registerUser, history }) => (username, password, confirmPassword) => {
+      if (validateInput(username, password, confirmPassword)) {
         registerUser(username, password, history);
       }
     }

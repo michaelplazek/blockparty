@@ -44,6 +44,7 @@ const RegisterForm = ({
       <br />
       <TextField
         id="password-field"
+				type="password"
         label="Password"
         value={password}
         onChange={({ target }) => setPassword(target.value)}
@@ -52,6 +53,7 @@ const RegisterForm = ({
       />
       <TextField
         id="password-field-confirm"
+				type="password"
         label="Confirm password"
         value={passwordConfirm}
         onChange={({ target }) => setPasswordConfirm(target.value)}
@@ -78,11 +80,7 @@ export default compose(
   withState("passwordConfirm", "setPasswordConfirm", ""),
   withHandlers({
     handleSubmit: ({ onClick, username, password, passwordConfirm }) => () => {
-      if (password === passwordConfirm) {
-        onClick(username, password);
-      } else {
-        console.log("Passwords do not match.");
-      }
+			onClick(username, password, passwordConfirm);
     }
   })
 )(RegisterForm);

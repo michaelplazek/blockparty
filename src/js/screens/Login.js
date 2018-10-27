@@ -7,7 +7,7 @@ import LoginForm from "../components/LoginForm";
 import Grid from "@material-ui/core/Grid/Grid";
 import Typography from "@material-ui/core/Typography/Typography";
 
-import { validateInput } from "../utils/login";
+import { validateInput } from "../utils/validate";
 import { logInUser } from "../actions/session";
 import mapper from "../utils/connect";
 import Button from "@material-ui/core/Button/Button";
