@@ -17,7 +17,7 @@ const styles = theme => ({
     borderBottom: "1px #CCC solid",
   },
   chip: {
-    margin: theme.spacing.unit
+    margin: "8px 3px 8px 3px"
   },
 	menuButton: {
 		marginRight: 8
