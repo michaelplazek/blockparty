@@ -79,22 +79,46 @@ const Ask = ({
             <br />
             <List>
               <ListItem divider={true}>
-                <ListItemText>Location</ListItemText>
-                <ListItemText>
-                  {ask.lat},{ask.lng}
-                </ListItemText>
+								<Grid container justify='space-between'>
+                  <Grid item>
+                    <ListItemText>Location</ListItemText>
+                  </Grid>
+                  <Grid item>
+                    <ListItemText>
+                      {ask.lat.toFixed(6)},{ask.lng.toFixed(6)}
+                    </ListItemText>
+                  </Grid>
+                </Grid>
               </ListItem>
               <ListItem divider={true}>
-                <ListItemText>Price</ListItemText>
-                <ListItemText>{ask.price}</ListItemText>
+								<Grid container justify='space-between'>
+                  <Grid item>
+                    <ListItemText>Price</ListItemText>
+                  </Grid>
+                  <Grid item>
+                    <ListItemText>{ask.price}</ListItemText>
+                  </Grid>
+                </Grid>
               </ListItem>
               <ListItem divider={true}>
-                <ListItemText>Seller</ListItemText>
-                <ListItemText>{ask._id}</ListItemText>
+								<Grid container justify='space-between'>
+                  <Grid item>
+                    <ListItemText>Seller</ListItemText>
+                  </Grid>
+                  <Grid item>
+                    <ListItemText>{ask._id}</ListItemText>
+                  </Grid>
+                </Grid>
               </ListItem>
               <ListItem divider={true}>
-                <ListItemText>Last Updated</ListItemText>
-                <ListItemText>{ask.timestamp}</ListItemText>
+								<Grid container justify='space-between'>
+                  <Grid item>
+                    <ListItemText>Last Updated</ListItemText>
+                  </Grid>
+                  <Grid item>
+                    <ListItemText>{ask.timestamp}</ListItemText>
+                  </Grid>
+                </Grid>
               </ListItem>
             </List>
           </div>

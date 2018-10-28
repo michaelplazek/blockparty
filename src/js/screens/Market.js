@@ -16,7 +16,7 @@ import { loadBids as loadBidsAction } from "../actions/bids";
 import { loadCurrentLocation as loadCurrentLocationAction } from "../actions/session";
 import { setLayerOpen as setLayerOpenAction } from "../actions/layers";
 
-import FilterListIcon from "@material-ui/icons/FilterList";
+
 
 import Subheader from "../components/Subheader";
 import GoogleMapsWrapper from "../components/GoogleMaps/GoogleMapsWrapper";
@@ -43,7 +43,6 @@ class Market extends Component {
         <FilterMap />
         <PageHeader
           leftHandAction={() => this.props.setLayerOpen(true)}
-          leftHandIcon={<FilterListIcon />}
           rightHandButton="Go to chart view"
           showSubheader={true}
           subheader={<Subheader />}

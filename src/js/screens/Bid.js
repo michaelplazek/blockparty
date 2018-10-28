@@ -70,22 +70,46 @@ const Bid = ({ bid, history, windowHeight, footerHeight, classes, loaded }) => (
             <br />
             <List>
               <ListItem divider={true}>
-                <ListItemText>Location</ListItemText>
-                <ListItemText>
-                  {bid.lat},{bid.lng}
-                </ListItemText>
+                <Grid container justify='space-between'>
+                  <Grid item>
+                  <ListItemText>Location</ListItemText>
+                  </Grid>
+                  <Grid item>
+                  <ListItemText>
+                    {bid.lat.toFixed(6)},{bid.lng.toFixed(6)}
+                  </ListItemText>
+                  </Grid>
+                </Grid>
               </ListItem>
               <ListItem divider={true}>
-                <ListItemText>Price</ListItemText>
-                <ListItemText>{bid.price}</ListItemText>
+								<Grid container justify='space-between'>
+                  <Grid item>
+                    <ListItemText>Price</ListItemText>
+                  </Grid>
+                  <Grid item>
+                    <ListItemText>{bid.price}</ListItemText>
+                  </Grid>
+                </Grid>
               </ListItem>
               <ListItem divider={true}>
-                <ListItemText>Buyer</ListItemText>
-                <ListItemText>{bid._id}</ListItemText>
+								<Grid container justify='space-between'>
+                  <Grid item>
+                    <ListItemText>Buyer</ListItemText>
+                  </Grid>
+                  <Grid item>
+                    <ListItemText>{bid._id}</ListItemText>
+                  </Grid>
+                </Grid>
               </ListItem>
               <ListItem divider={true}>
-                <ListItemText>Last Updated</ListItemText>
-                <ListItemText>{bid.timestamp}</ListItemText>
+								<Grid container justify='space-between'>
+                  <Grid item>
+                   <ListItemText>Last Updated</ListItemText>
+                  </Grid>
+                  <Grid item>
+                    <ListItemText>{bid.timestamp}</ListItemText>
+                  </Grid>
+                </Grid>
               </ListItem>
             </List>
           </div>

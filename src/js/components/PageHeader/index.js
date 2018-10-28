@@ -19,10 +19,6 @@ const styles = {
   grow: {
     flexGrow: 1
   },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20
-  }
 };
 
 class PageHeader extends Component {
@@ -65,16 +61,6 @@ class PageHeader extends Component {
       <div className={this.props.classes.root} ref={this.saveRef}>
         <AppBar position="static">
           <Toolbar>
-            {this.props.leftHandIcon && (
-              <IconButton
-                onClick={this.props.leftHandAction}
-                className={this.props.classes.menuButton}
-                color="inherit"
-                aria-label="Menu"
-              >
-                {this.props.leftHandIcon}
-              </IconButton>
-            )}
             <Typography
               align="left"
               variant="headline"
