@@ -1,13 +1,5 @@
 import React from "react";
-import { compose, lifecycle } from "recompose";
-import { Redirect, withRouter } from "react-router";
-
-import {
-	getSession,
-	loadUserFromToken as loadUserFromTokenAction
-} from "../actions/session";
-import mapper from "../utils/connect";
-import { selectIsLoggedIn, selectSessionLoaded } from "../selectors";
+import { compose } from "recompose";
 
 import Loading from "../components/Loading";
 
@@ -18,7 +10,6 @@ import Loading from "../components/Loading";
  */
 export default Component => {
 	const LoaderHOC = (props) => {
-		console.log(props);
 		return props.loaded ? <Component  {...props} /> : "Loading..."
 	};
 	return compose(
