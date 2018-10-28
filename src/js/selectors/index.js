@@ -5,6 +5,8 @@ import filter from "lodash/fp/filter";
 import moment from "moment";
 import numeral from 'numeral';
 import {USD} from "../constants/currency";
+import { getDistance } from 'geolib';
+import {getMilesFromMeters} from "../utils/location";
 
 // FILTERS
 export const selectFilterDistance = state => state.filters.distanceAway;
@@ -90,6 +92,7 @@ export const selectIsLoggedIn = state => state.session.loggedIn;
 export const selectSessionLoaded = state => state.session.sessionLoaded;
 export const selectUsername = state => state.session.username;
 export const selectUserId = state => state.session.userId;
+export const selectCurrentLocation = state => state.session.location;
 
 // APP
 export const selectNavHeight = state => state.app.navigationBarHeight;
@@ -102,8 +105,22 @@ export const selectMapMarkers = createSelector(
   selectAsks,
   selectBids,
   selectFilterType,
-  (asks, bids, type) => {
+  selectFilterCoin,
+  selectFilterDistance,
+  selectCurrentLocation,
+  (asks, bids, type, coin, filterDistance, currentLocation) => {
     const items = type === "ASK" ? asks : bids;
-    return fpMap(ask => ({ lat: ask.lat, lng: ask.lng, id: ask._id }))(items);
+    return compose(
+			fpMap(ask => ({ lat: ask.lat, lng: ask.lng, id: ask._id })),
+			filter(ask => {
+				const distance = getDistance(
+					{ latitude: ask.lat, longitude: ask.lng },
+					{ latitude: currentLocation.lat, longitude: currentLocation.lng }
+				);
+				const distanceInMiles = getMilesFromMeters(distance);
+				return distanceInMiles < filterDistance;
+			}),
+			filter(ask => ask.coin === coin)
+		)(items);
   }
 );

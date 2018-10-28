@@ -4,7 +4,8 @@ import {
   LOG_OUT,
   REGISTER_USER,
   USER_FROM_TOKEN,
-  SESSION_LOAD
+  SESSION_LOAD,
+	CURRENT_LOCATION_LOAD
 } from "../actions";
 
 const initialState = {
@@ -12,7 +13,11 @@ const initialState = {
   username: "",
   userId: 0,
   error: "",
-  sessionLoaded: false
+  sessionLoaded: false,
+	location: {
+  	lat: 40.564714,
+		lng: -105.09065
+	}
 };
 
 const handlers = {
@@ -22,6 +27,15 @@ const handlers = {
     error: "",
     loggedIn: true
   }),
+	[CURRENT_LOCATION_LOAD]: (state, action) => {
+  	console.log(action);
+  	return {
+			location: {
+				lat: action.data.latitude,
+					lng: action.data.longitude
+			}
+		}
+	},
   [REGISTER_USER]: (state, action) => ({
     username: action.data.user.username,
     userId: action.data.user._id,

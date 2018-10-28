@@ -17,7 +17,7 @@ import {
 	selectWindowWidth
 } from "../../../selectors";
 import mapper from "../../../utils/connect";
-import { getIsLocationSet } from "../../../utils/location";
+import { isLocationSet } from "../../../utils/location";
 import {
   setAskCoin as setAskCoinAction,
   setAskPrice as setAskPriceAction,

@@ -13,6 +13,7 @@ import {
 } from "../selectors";
 import { loadAsks as loadAsksAction } from "../actions/asks";
 import { loadBids as loadBidsAction } from "../actions/bids";
+import { loadCurrentLocation as loadCurrentLocationAction } from "../actions/session";
 import { setLayerOpen as setLayerOpenAction } from "../actions/layers";
 
 import FilterListIcon from "@material-ui/icons/FilterList";
@@ -69,7 +70,8 @@ const propMap = {
 const actionMap = {
   loadAsks: loadAsksAction,
   loadBids: loadBidsAction,
-  setLayerOpen: setLayerOpenAction
+  setLayerOpen: setLayerOpenAction,
+  loadCurrentLocation: loadCurrentLocationAction
 };
 
 export default compose(
@@ -85,7 +87,8 @@ export default compose(
   }),
   lifecycle({
     componentWillMount() {
-      const { loadAsks, loadBids } = this.props;
+      const { loadAsks, loadBids, loadCurrentLocation } = this.props;
+      loadCurrentLocation();
       loadAsks();
       loadBids();
     }
