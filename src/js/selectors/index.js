@@ -16,6 +16,7 @@ export const selectFilter = state => state.filters.filter;
 
 // ASKS
 export const selectAsks = state => state.asks.asks;
+export const selectAskLoaded = state => state.asks.askLoaded;
 export const selectMyAsks = state => state.asks.myAsks;
 export const selectMyAsksLoaded = state => state.asks.myAsksLoaded;
 export const selectNumberOfMyAsks = createSelector(
@@ -32,6 +33,7 @@ export const selectAsksForDisplay = createSelector(selectAsks, asks =>
 
 // BIDS
 export const selectBids = state => state.bids.bids;
+export const selectBidLoaded = state => state.bids.bidLoaded;
 export const selectMyBids = state => state.bids.myBids;
 export const selectMyBidsLoaded = state => state.bids.myBidsLoaded;
 export const selectNumberOfMyBids = createSelector(
