@@ -37,4 +37,4 @@ export const createAsk = ask => dispatch =>
   });
 
 export const deleteAsk = id =>
-	wrappedFetchWithParams("ask", undefined, "DELETE", `/${id}`);
+  wrappedFetchWithParams("ask", undefined, "DELETE", `/${id}`);

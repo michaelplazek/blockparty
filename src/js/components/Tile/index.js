@@ -16,7 +16,15 @@ const styles = () => ({
   }
 });
 
-const Tile = ({ classes, title, count, onClick, children, clicked, setClicked }) => (
+const Tile = ({
+  classes,
+  title,
+  count,
+  onClick,
+  children,
+  clicked,
+  setClicked
+}) => (
   <div onClick={() => setClicked(!clicked)}>
     <Paper className={classes.root} elevation={1}>
       <Grid
@@ -34,15 +42,15 @@ const Tile = ({ classes, title, count, onClick, children, clicked, setClicked })
           </Typography>
         </Grid>
       </Grid>
-			{/*<Slide*/}
-				{/*direction='down'*/}
-				{/*in={clicked}*/}
-			{/*>*/}
-				{/*<div>*/}
-      		{/*{children}*/}
-				{/*</div>*/}
-			{/*</Slide>*/}
-			{children}
+      {/*<Slide*/}
+      {/*direction='down'*/}
+      {/*in={clicked}*/}
+      {/*>*/}
+      {/*<div>*/}
+      {/*{children}*/}
+      {/*</div>*/}
+      {/*</Slide>*/}
+      {children}
     </Paper>
   </div>
 );
@@ -59,6 +67,6 @@ Tile.defaultProp = {
 };
 
 export default compose(
-	withStyles(styles),
-	withState('clicked', 'setClicked', false)
+  withStyles(styles),
+  withState("clicked", "setClicked", false)
 )(Tile);

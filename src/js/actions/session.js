@@ -1,12 +1,12 @@
 import md5 from "md5";
 import { fetchToken, wrappedFetch } from "../api/utils";
 import {
-	LOG_IN,
-	LOG_OUT,
-	REGISTER_USER,
-	USER_FROM_TOKEN,
-	SESSION_LOAD,
-	CURRENT_LOCATION_LOAD
+  LOG_IN,
+  LOG_OUT,
+  REGISTER_USER,
+  USER_FROM_TOKEN,
+  SESSION_LOAD,
+  CURRENT_LOCATION_LOAD
 } from "./index";
 
 const setSession = token => window.sessionStorage.setItem("session", token);
@@ -61,9 +61,9 @@ export const loadUserFromToken = () => dispatch => {
 };
 
 export const loadCurrentLocation = () => dispatch =>
-	navigator.geolocation.getCurrentPosition(pos => {
-		dispatch({ type: CURRENT_LOCATION_LOAD, data: pos.coords });
-	});
+  navigator.geolocation.getCurrentPosition(pos => {
+    dispatch({ type: CURRENT_LOCATION_LOAD, data: pos.coords });
+  });
 
 export const logOutUser = () => dispatch => {
   wrappedFetch("users/logout", undefined, "POST").then(() => {

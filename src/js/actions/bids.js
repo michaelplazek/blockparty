@@ -37,4 +37,4 @@ export const createBid = bid => dispatch =>
   });
 
 export const deleteBid = id =>
-	wrappedFetchWithParams("bid", undefined, "DELETE", `/${id}`);
+  wrappedFetchWithParams("bid", undefined, "DELETE", `/${id}`);

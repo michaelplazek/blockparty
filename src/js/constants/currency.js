@@ -1,1 +1,1 @@
-export const USD = '$0,0[.]00';
+export const USD = "$0,0[.]00";
