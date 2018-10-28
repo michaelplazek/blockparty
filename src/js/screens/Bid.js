@@ -72,7 +72,10 @@ const Bid = ({ bid, history, windowHeight, footerHeight, classes, loaded }) => (
               <ListItem divider={true}>
                 <Grid container justify='space-between'>
                   <Grid item>
-                  <ListItemText>Location</ListItemText>
+										<ListItemText
+											disableTypography
+											primary={<Typography type="subheading">Location</Typography>}
+										/>
                   </Grid>
                   <Grid item>
                   <ListItemText>
@@ -84,7 +87,10 @@ const Bid = ({ bid, history, windowHeight, footerHeight, classes, loaded }) => (
               <ListItem divider={true}>
 								<Grid container justify='space-between'>
                   <Grid item>
-                    <ListItemText>Price</ListItemText>
+										<ListItemText
+											disableTypography
+											primary={<Typography type="subheading">Price</Typography>}
+										/>
                   </Grid>
                   <Grid item>
                     <ListItemText>{bid.price}</ListItemText>
@@ -94,7 +100,10 @@ const Bid = ({ bid, history, windowHeight, footerHeight, classes, loaded }) => (
               <ListItem divider={true}>
 								<Grid container justify='space-between'>
                   <Grid item>
-                    <ListItemText>Buyer</ListItemText>
+										<ListItemText
+											disableTypography
+											primary={<Typography type="subheading">Buyer</Typography>}
+										/>
                   </Grid>
                   <Grid item>
                     <ListItemText>{bid._id}</ListItemText>
@@ -104,7 +113,10 @@ const Bid = ({ bid, history, windowHeight, footerHeight, classes, loaded }) => (
               <ListItem divider={true}>
 								<Grid container justify='space-between'>
                   <Grid item>
-                   <ListItemText>Last Updated</ListItemText>
+										<ListItemText
+											disableTypography
+											primary={<Typography type="subheading">Last Updated</Typography>}
+										/>
                   </Grid>
                   <Grid item>
                     <ListItemText>{bid.timestamp}</ListItemText>

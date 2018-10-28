@@ -81,7 +81,10 @@ const Ask = ({
               <ListItem divider={true}>
 								<Grid container justify='space-between'>
                   <Grid item>
-                    <ListItemText>Location</ListItemText>
+                    <ListItemText
+											disableTypography
+											primary={<Typography type="subheading">Location</Typography>}
+                    />
                   </Grid>
                   <Grid item>
                     <ListItemText>
@@ -93,7 +96,10 @@ const Ask = ({
               <ListItem divider={true}>
 								<Grid container justify='space-between'>
                   <Grid item>
-                    <ListItemText>Price</ListItemText>
+										<ListItemText
+											disableTypography
+											primary={<Typography type="subheading">Price</Typography>}
+										/>
                   </Grid>
                   <Grid item>
                     <ListItemText>{ask.price}</ListItemText>
@@ -103,7 +109,10 @@ const Ask = ({
               <ListItem divider={true}>
 								<Grid container justify='space-between'>
                   <Grid item>
-                    <ListItemText>Seller</ListItemText>
+										<ListItemText
+											disableTypography
+											primary={<Typography type="subheading">Seller</Typography>}
+										/>
                   </Grid>
                   <Grid item>
                     <ListItemText>{ask._id}</ListItemText>
@@ -113,7 +122,10 @@ const Ask = ({
               <ListItem divider={true}>
 								<Grid container justify='space-between'>
                   <Grid item>
-                    <ListItemText>Last Updated</ListItemText>
+										<ListItemText
+											disableTypography
+											primary={<Typography type="subheading">Last Updated</Typography>}
+										/>
                   </Grid>
                   <Grid item>
                     <ListItemText>{ask.timestamp}</ListItemText>
