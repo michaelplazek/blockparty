@@ -38,7 +38,7 @@ const FilterMap = ({
   classes,
   distance,
   coin,
-	setLayerOpen,
+  setLayerOpen,
   setFilterDistance,
   setFilterCoin,
   setFilterType,
@@ -85,9 +85,9 @@ const FilterMap = ({
           onChange={({ target }) => setFilterDistance(target.value)}
           margin="dense"
           variant="standard"
-					InputProps={{
-						endAdornment: <InputAdornment position="start">mi</InputAdornment>,
-					}}
+          InputProps={{
+            endAdornment: <InputAdornment position="start">mi</InputAdornment>
+          }}
         />
         <br />
         <Button variant="contained" onClick={handleSubmit}>

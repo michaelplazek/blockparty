@@ -35,3 +35,6 @@ export const createBid = bid => dispatch =>
   wrappedFetch("bids", bid, "POST").then(response => {
     dispatch({ type: CREATE_BID, data: response });
   });
+
+export const deleteBid = id =>
+  wrappedFetchWithParams("bid", undefined, "DELETE", `/${id}`);

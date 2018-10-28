@@ -52,7 +52,11 @@ export default compose(
   withRouter,
   mapper(propMap, actionMap),
   withHandlers({
-    handleSignUp: ({ registerUser, history }) => (username, password, confirmPassword) => {
+    handleSignUp: ({ registerUser, history }) => (
+      username,
+      password,
+      confirmPassword
+    ) => {
       if (validateInput(username, password, confirmPassword)) {
         registerUser(username, password, history);
       }

@@ -8,13 +8,14 @@ import TextField from "@material-ui/core/TextField/TextField";
 import Typography from "@material-ui/core/Typography/Typography";
 import Grid from "@material-ui/core/Grid/Grid";
 import {
-	selectAskCoin,
-	selectAskLatitude,
-	selectAskLongitude,
-	selectAskPrice,
-	selectAskUseCurrentLocation,
-	selectAskVolume, selectFormattedAskPrice,
-	selectWindowWidth
+  selectAskCoin,
+  selectAskLatitude,
+  selectAskLongitude,
+  selectAskPrice,
+  selectAskUseCurrentLocation,
+  selectAskVolume,
+  selectFormattedAskPrice,
+  selectWindowWidth
 } from "../../../selectors";
 import mapper from "../../../utils/connect";
 import { isLocationSet } from "../../../utils/location";
@@ -75,9 +76,11 @@ const CreateAskContent = ({
             onChange={({ target }) => setAskVolume(target.value)}
             margin="dense"
             variant="standard"
-						InputProps={{
-							endAdornment: <InputAdornment position="start">{coin}</InputAdornment>,
-						}}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="start">{coin}</InputAdornment>
+              )
+            }}
           />
         </FormControl>
       );
@@ -90,9 +93,11 @@ const CreateAskContent = ({
             onChange={({ target }) => setAskPrice(target.value)}
             margin="dense"
             variant="standard"
-						InputProps={{
-							endAdornment: <InputAdornment position="start">{`/${coin}`}</InputAdornment>,
-						}}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="start">{`/${coin}`}</InputAdornment>
+              )
+            }}
           />
         </FormControl>
       );

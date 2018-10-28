@@ -51,10 +51,7 @@ const Flyout = ({
         className={classes.root}
         style={{ height: height, width: `${width - width / size}px` }}
       >
-        <div
-          className={classes.closeButton}
-          onClick={onClose}
-        >
+        <div className={classes.closeButton} onClick={onClose}>
           <Close />
         </div>
         {children}
