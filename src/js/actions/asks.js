@@ -35,3 +35,6 @@ export const createAsk = ask => dispatch =>
   wrappedFetch("asks", ask, "POST").then(response => {
     dispatch({ type: CREATE_ASK, data: response });
   });
+
+export const deleteAsk = id =>
+	wrappedFetchWithParams("ask", undefined, "DELETE", `/${id}`);

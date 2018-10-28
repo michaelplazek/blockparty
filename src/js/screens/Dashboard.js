@@ -9,7 +9,7 @@ import {
   setLayer as setLayerAction,
   setLayerOpen as setLayerOpenAction
 } from "../actions/layers";
-import { loadMyAsks as loadMyAsksAction } from "../actions/asks";
+import {loadAsk as loadAskAction, loadMyAsks as loadMyAsksAction} from "../actions/asks";
 import { loadMyBids as loadMyBidsAction } from "../actions/bids";
 
 import PageHeader from "../components/PageHeader";
@@ -17,6 +17,7 @@ import MailIcon from "@material-ui/icons/Mail";
 import AddIcon from "@material-ui/icons/Add";
 import CreateAsk from "../components/Flyout/CreateAsk/index";
 import CreateBid from "../components/Flyout/CreateBid/index";
+import DeleteAsk from "../components/Flyout/DeleteAsk"
 
 import withDimensions from "../HOCs/withDimensions";
 import Button from "@material-ui/core/Button/Button";
@@ -70,11 +71,13 @@ const Dashboard = ({
   numberOfBids,
   numberOfAsks,
   myBids,
-  myAsks
+  myAsks,
+	loadAsk,
 }) => (
   <div>
     {layer === "CREATE_ASK" && <CreateAsk />}
     {layer === "CREATE_BID" && <CreateBid />}
+		{layer === "DELETE_ASK" && <DeleteAsk />}
     <PageHeader
       leftHandLabel="Dashboard"
       rightHandLabel="Inbox"
@@ -86,6 +89,11 @@ const Dashboard = ({
 				type={item.coin}
 				volume={item.volume}
 				key={item._id}
+				onClick={() => {
+					loadAsk(item._id);
+					setLayer("DELETE_ASK");
+					setLayerOpen(true);
+				}}
       />)}
     </Tile>
     <Tile title="Bids" count={numberOfBids} >
@@ -94,6 +102,10 @@ const Dashboard = ({
 				type={item.coin}
 				volume={item.volume}
 				key={item._id}
+				onClick={() => {
+					setLayer("DELETE_ASK");
+					setLayerOpen(true);
+				}}
 			/>)}
 		</Tile>
     <div>
@@ -157,7 +169,8 @@ const actionMap = {
   setLayer: setLayerAction,
   setLayerOpen: setLayerOpenAction,
   loadMyAsks: loadMyAsksAction,
-  loadMyBids: loadMyBidsAction
+  loadMyBids: loadMyBidsAction,
+	loadAsk: loadAskAction
 };
 
 export default compose(
@@ -170,6 +183,11 @@ export default compose(
       const { loadMyAsks, loadMyBids, userId } = this.props;
       loadMyAsks(userId);
       loadMyBids(userId);
-    }
+    },
+		componentDidUpdate() {
+			const { loadMyAsks, loadMyBids, userId } = this.props;
+			loadMyAsks(userId);
+			loadMyBids(userId);
+		}
   })
 )(Dashboard);

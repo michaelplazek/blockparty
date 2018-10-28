@@ -31,7 +31,7 @@ const Tile = ({ classes, type, age, onClick, volume }) => (
 		<Paper className={classes.root} elevation={1}>
 			<Grid
 				container
-				justify="start"
+				justify="flex-start"
 				direction="row"
 				onClick={() => {}}
 			>
@@ -59,11 +59,10 @@ const Tile = ({ classes, type, age, onClick, volume }) => (
 );
 
 Tile.propTypes = {
-	onClick: PropTypes.func
+	onClick: PropTypes.func.isRequired
 };
 
 Tile.defaultProp = {
-	onClick: () => {}
 };
 
 export default compose(withStyles(styles))(Tile);

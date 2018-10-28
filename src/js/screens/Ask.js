@@ -106,12 +106,12 @@ const Ask = ({ ask, history, windowHeight, windowWidth, footerHeight, classes, l
 							</ListItem>
 						</List>
 					</div>
-					<GoogleMapDetails
-						marker={{ id: ask._id, lat: ask.lat, lng: ask.lng }}
-						height={windowHeight/4}
-						locationFromBottom={footerHeight}
-						zoomable={false}
-					/>
+					{/*<GoogleMapDetails*/}
+						{/*marker={{ id: ask._id, lat: ask.lat, lng: ask.lng }}*/}
+						{/*height={`${windowHeight/4}px`}*/}
+						{/*locationFromBottom={footerHeight}*/}
+						{/*zoomable={false}*/}
+					{/*/>*/}
 					<Button
 						className={classes.buttons}
 						variant="extendedFab"

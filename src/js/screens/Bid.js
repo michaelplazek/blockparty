@@ -111,12 +111,12 @@ const Bid = ({ bid, history, windowHeight, footerHeight, classes, loaded }) => (
 						</ListItem>
 					</List>
 				</div>
-				<GoogleMapDetails
-					marker={{ id: bid._id, lat: bid.lat, lng: bid.lng }}
-					height={windowHeight/4}
-					locationFromBottom={footerHeight}
-					zoomable={false}
-				/>
+				{/*<GoogleMapDetails*/}
+					{/*marker={{ id: bid._id, lat: bid.lat, lng: bid.lng }}*/}
+					{/*height={`${windowHeight/4}px`}*/}
+					{/*locationFromBottom={footerHeight}*/}
+					{/*zoomable={false}*/}
+				{/*/>*/}
 				<Button
 					className={classes.buttons}
 					variant="extendedFab"
