@@ -18,6 +18,7 @@ export const selectFilter = state => state.filters.filter;
 export const selectAsks = state => state.asks.asks;
 export const selectAskLoaded = state => state.asks.askLoaded;
 export const selectMyAsks = state => state.asks.myAsks;
+export const selectAsksLoaded = state => state.asks.asksLoaded;
 export const selectMyAsksLoaded = state => state.asks.myAsksLoaded;
 export const selectNumberOfMyAsks = createSelector(
   selectMyAsksLoaded,
@@ -35,6 +36,7 @@ export const selectAsksForDisplay = createSelector(selectAsks, asks =>
 export const selectBids = state => state.bids.bids;
 export const selectBidLoaded = state => state.bids.bidLoaded;
 export const selectMyBids = state => state.bids.myBids;
+export const selectBidsLoaded = state => state.bids.bidsLoaded;
 export const selectMyBidsLoaded = state => state.bids.myBidsLoaded;
 export const selectNumberOfMyBids = createSelector(
   selectMyBidsLoaded,
@@ -123,4 +125,17 @@ export const selectMapMarkers = createSelector(
       filter(ask => ask.coin === coin)
     )(items);
   }
+);
+export const selectMarketLoaded = createSelector(
+  selectAsksLoaded,
+  selectBidsLoaded,
+  selectFilterType,
+  (asksLoaded, bidsLoaded, type) =>
+		(asksLoaded && type === "ASK") || (bidsLoaded && type === "BID")
+);
+
+export const selectDashboardLoaded = createSelector(
+	selectMyAsksLoaded,
+	selectMyBidsLoaded,
+	(asksLoaded, bidsLoaded) => asksLoaded && bidsLoaded
 );
