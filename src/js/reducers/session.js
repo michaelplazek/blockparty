@@ -27,15 +27,12 @@ const handlers = {
     error: "",
     loggedIn: true
   }),
-	[CURRENT_LOCATION_LOAD]: (state, action) => {
-  	console.log(action);
-  	return {
+	[CURRENT_LOCATION_LOAD]: (state, action) => ({
 			location: {
 				lat: action.data.latitude,
 					lng: action.data.longitude
 			}
-		}
-	},
+		}),
   [REGISTER_USER]: (state, action) => ({
     username: action.data.user.username,
     userId: action.data.user._id,
