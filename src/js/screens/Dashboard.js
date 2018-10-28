@@ -94,7 +94,6 @@ const Dashboard = ({
           volume={item.volume}
           key={item._id}
           onClick={() => {
-            unloadAsk();
             loadAsk(item._id);
             setLayer("DELETE_ASK");
             setLayerOpen(true);

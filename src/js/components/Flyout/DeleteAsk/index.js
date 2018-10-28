@@ -58,8 +58,8 @@ const DeleteAsk = ({
       style={{
         position: "absolute",
         top: `${windowHeight / 3}px`,
-        left: "10%",
-        right: "10%",
+        left: "20%",
+        right: "20%",
         display: "flex",
         justifyContent: "center"
       }}
