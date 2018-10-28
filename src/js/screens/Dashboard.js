@@ -10,7 +10,7 @@ import {
   setLayerOpen as setLayerOpenAction
 } from "../actions/layers";
 import {loadAsk as loadAskAction, loadMyAsks as loadMyAsksAction} from "../actions/asks";
-import { loadMyBids as loadMyBidsAction } from "../actions/bids";
+import { loadBid as loadBidAction, loadMyBids as loadMyBidsAction } from "../actions/bids";
 
 import PageHeader from "../components/PageHeader";
 import MailIcon from "@material-ui/icons/Mail";
@@ -18,6 +18,7 @@ import AddIcon from "@material-ui/icons/Add";
 import CreateAsk from "../components/Flyout/CreateAsk/index";
 import CreateBid from "../components/Flyout/CreateBid/index";
 import DeleteAsk from "../components/Flyout/DeleteAsk"
+import DeleteBid from "../components/Flyout/DeleteBid"
 
 import withDimensions from "../HOCs/withDimensions";
 import Button from "@material-ui/core/Button/Button";
@@ -73,11 +74,13 @@ const Dashboard = ({
   myBids,
   myAsks,
 	loadAsk,
+	loadBid,
 }) => (
   <div>
     {layer === "CREATE_ASK" && <CreateAsk />}
     {layer === "CREATE_BID" && <CreateBid />}
 		{layer === "DELETE_ASK" && <DeleteAsk />}
+		{layer === "DELETE_BID" && <DeleteBid />}
     <PageHeader
       leftHandLabel="Dashboard"
       rightHandLabel="Inbox"
@@ -103,7 +106,8 @@ const Dashboard = ({
 				volume={item.volume}
 				key={item._id}
 				onClick={() => {
-					setLayer("DELETE_ASK");
+					loadBid(item._id);
+					setLayer("DELETE_BID");
 					setLayerOpen(true);
 				}}
 			/>)}
@@ -170,7 +174,8 @@ const actionMap = {
   setLayerOpen: setLayerOpenAction,
   loadMyAsks: loadMyAsksAction,
   loadMyBids: loadMyBidsAction,
-	loadAsk: loadAskAction
+	loadAsk: loadAskAction,
+	loadBid: loadBidAction
 };
 
 export default compose(
@@ -184,10 +189,14 @@ export default compose(
       loadMyAsks(userId);
       loadMyBids(userId);
     },
-		componentDidUpdate() {
-			const { loadMyAsks, loadMyBids, userId } = this.props;
-			loadMyAsks(userId);
-			loadMyBids(userId);
-		}
+		// componentDidUpdate(prevProps) {
+		// 	const { loadMyAsks, loadMyBids, userId } = this.props;
+		// 	console.log(prevProps);
+		// 	console.log(this.props);
+		// 	if (prevProps.number !== this.props) {
+		// 		loadMyAsks(userId);
+		// 		loadMyBids(userId);
+		// 	}
+		// }
   })
 )(Dashboard);
