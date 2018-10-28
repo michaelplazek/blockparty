@@ -22,24 +22,17 @@ class GoogleMapDetails extends Component {
 	}
 
 	componentDidMount() {
-		if (this.props.centerAroundCurrentLocation) {
-			if (navigator && navigator.geolocation) {
-				navigator.geolocation.getCurrentPosition(pos => {
-					const coords = pos.coords;
-					this.setState({
-						currentLocation: {
-							lat: coords.latitude,
-							lng: coords.longitude
-						}
-					});
-				});
+		this.setState({
+			currentLocation: {
+				lat: this.props.marker.lat,
+				lng: this.props.marker.lng
 			}
-		}
+		});
 	}
 
 	render() {
 		const {
-			markers,
+			marker,
 			onMarkerClick,
 			movable,
 			zoomable,
@@ -65,19 +58,17 @@ class GoogleMapDetails extends Component {
 				}}
 				gestureHandling={movable}
 			>
-				{markers.map(item => (
 					<Marker
-						key={item.id}
+						key={marker.id}
 						position={{
-							lat: parseFloat(item.lat),
-							lng: parseFloat(item.lng)
+							lat: parseFloat(marker.lat),
+							lng: parseFloat(marker.lng)
 						}}
-						onClick={() => onMarkerClick(item)}
+						onClick={() => onMarkerClick(marker)}
 						defaultClickable={markersClickable}
 						draggable={markersDraggable}
-						onDrag={item => onMarkerDrag(item)}
+						onDrag={marker => onMarkerDrag(marker)}
 					/>
-				))}
 			</GoogleMap>
 		);
 	}
@@ -88,7 +79,7 @@ GoogleMapDetails.propTypes = {
 	zoom: PropTypes.number.isRequired,
 	width: PropTypes.string.isRequired,
 	initialCenter: PropTypes.object,
-	markers: PropTypes.array,
+	marker: PropTypes.object,
 	onMarkerClick: PropTypes.func,
 	movable: PropTypes.string,
 	zoomable: PropTypes.bool,
@@ -131,13 +122,12 @@ export default compose(
 					style={{
 						position: 'absolute',
 						bottom: props.locationFromBottom,
-
 						border: props.border,
 						width: '100%'
 					}}
 				/>
 			),
-			mapElement: <div style={{ height: props.height, width: "100%" }} />
+			mapElement: <div style={{ height: `${props.height}px`, width: "100%" }} />
 		};
 	}),
 	withScriptjs,

@@ -30,7 +30,7 @@ import GoogleMapDetails from "../components/GoogleMaps/GoogleMapDetails";
 const styles = () => ({
 	root: {
 		textAlign: "center",
-		marginTop: "60px"
+		marginTop: "40px"
 	},
 	body: {
 		marginTop: "10px"
@@ -112,7 +112,7 @@ const Bid = ({ bid, history, windowHeight, footerHeight, classes, loaded }) => (
 					</List>
 				</div>
 				<GoogleMapDetails
-					markers={[{ id: bid._id, lat: bid.lat, lng: bid.lng }]}
+					marker={{ id: bid._id, lat: bid.lat, lng: bid.lng }}
 					height={windowHeight/4}
 					locationFromBottom={footerHeight}
 					zoomable={false}

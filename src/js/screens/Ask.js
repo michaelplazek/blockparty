@@ -25,7 +25,7 @@ import GoogleMapDetails from "../components/GoogleMaps/GoogleMapDetails";
 const styles = () => ({
   root: {
     textAlign: "center",
-    marginTop: "60px"
+    marginTop: "40px"
   },
   body: {
     marginTop: "10px"
@@ -107,7 +107,7 @@ const Ask = ({ ask, history, windowHeight, windowWidth, footerHeight, classes, l
 						</List>
 					</div>
 					<GoogleMapDetails
-						markers={[{ id: ask._id, lat: ask.lat, lng: ask.lng }]}
+						marker={{ id: ask._id, lat: ask.lat, lng: ask.lng }}
 						height={windowHeight/4}
 						locationFromBottom={footerHeight}
 						zoomable={false}
