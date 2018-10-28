@@ -12,7 +12,6 @@ const styles = () => ({
   root: {
     margin: "30px 60px 30px 60px",
     padding: "20px",
-    cursor: "pointer"
   }
 });
 
@@ -25,7 +24,7 @@ const Tile = ({
   clicked,
   setClicked
 }) => (
-  <div onClick={() => setClicked(!clicked)}>
+  <div>
     <Paper className={classes.root} elevation={1}>
       <Grid
         container
@@ -63,7 +62,6 @@ Tile.propTypes = {
 
 Tile.defaultProp = {
   count: 0,
-  onClick: () => {}
 };
 
 export default compose(
