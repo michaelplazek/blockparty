@@ -4,25 +4,24 @@ import { withRouter } from "react-router";
 import mapper from "../utils/connect";
 
 import {
-  selectHeaderHeight,
-  selectMapMarkers,
-  selectNavHeight,
-  selectAsksForDisplay,
-  selectBidsForDisplay,
-  selectFilterType
+	selectHeaderHeight,
+	selectMapMarkers,
+	selectNavHeight,
+	selectAsksForDisplay,
+	selectBidsForDisplay,
+	selectFilterType, selectMyAsksLoaded, selectMarketLoaded
 } from "../selectors";
 import { loadAsks as loadAsksAction } from "../actions/asks";
 import { loadBids as loadBidsAction } from "../actions/bids";
 import { loadCurrentLocation as loadCurrentLocationAction } from "../actions/session";
 import { setLayerOpen as setLayerOpenAction } from "../actions/layers";
 
-
-
 import Subheader from "../components/Subheader";
 import GoogleMapsWrapper from "../components/GoogleMaps/GoogleMapsWrapper";
 import PageHeader from "../components/PageHeader";
 import FilterMap from "../components/Flyout/FilterMap/index";
 import withDimensions from "../HOCs/withDimensions";
+import withLoader from "../HOCs/withLoader";
 
 class Market extends Component {
   constructor(props) {
@@ -63,7 +62,8 @@ const propMap = {
   markers: selectMapMarkers,
   navHeight: selectNavHeight,
   headerHeight: selectHeaderHeight,
-  type: selectFilterType
+  type: selectFilterType,
+	loaded: selectMarketLoaded // for withLoader
 };
 
 const actionMap = {
@@ -91,5 +91,6 @@ export default compose(
       loadAsks();
       loadBids();
     }
-  })
+  }),
+	withLoader,
 )(Market);

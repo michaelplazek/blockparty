@@ -17,7 +17,7 @@ const styles = theme => ({
     borderBottom: "1px #CCC solid",
   },
   chip: {
-    margin: theme.spacing.unit
+    margin: "8px 3px 8px 3px"
   },
 	menuButton: {
 		marginRight: 8
@@ -32,7 +32,6 @@ const Subheader = ({ classes, filter, setLayerOpen }) => (
     <Grid container justify='space-between'>
       <Grid item>
       <Chip
-        color="primary"
         clickable={true}
         onClick={() => setLayerOpen(true)}
         label={`Type: ${filter.type}`}
@@ -40,7 +39,6 @@ const Subheader = ({ classes, filter, setLayerOpen }) => (
         variant="outlined"
       />
       <Chip
-        color="primary"
         clickable={true}
         onClick={() => setLayerOpen(true)}
         label={`Coin: ${filter.coin}`}
@@ -48,7 +46,6 @@ const Subheader = ({ classes, filter, setLayerOpen }) => (
         variant="outlined"
       />
       <Chip
-        color="primary"
         clickable={true}
         onClick={() => setLayerOpen(true)}
         label={`Distance: ${filter.distanceAway}`}
@@ -60,7 +57,6 @@ const Subheader = ({ classes, filter, setLayerOpen }) => (
         <IconButton
           onClick={() => setLayerOpen(true)}
           className={classes.menuButton}
-          color="primary"
           aria-label="Menu"
         >
           <FilterListIcon />

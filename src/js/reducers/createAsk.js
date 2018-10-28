@@ -11,8 +11,8 @@ import {
 
 const initialState = {
   coin: "BTC",
-  volume: 0,
-  price: 0,
+  volume: 0.0001,
+  price: 1,
   lat: 40.564714,
   lng: -105.09065,
   useCurrentLocation: false

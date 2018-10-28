@@ -32,14 +32,16 @@ import withDimensions from "../HOCs/withDimensions";
 import Button from "@material-ui/core/Button/Button";
 import withStyles from "@material-ui/core/styles/withStyles";
 import {
-  selectLayer,
-  selectMyAsks,
-  selectMyBids,
-  selectNumberOfMyAsks,
-  selectNumberOfMyBids,
-  selectUserId
+	selectDashboardLoaded,
+	selectLayer,
+	selectMyAsks,
+	selectMyBids,
+	selectNumberOfMyAsks,
+	selectNumberOfMyBids,
+	selectUserId
 } from "../selectors";
 import Grow from "@material-ui/core/Grow/Grow";
+import withLoader from "../HOCs/withLoader";
 
 const styles = () => ({
   addButton: {
@@ -170,7 +172,8 @@ const propMap = {
   myBids: selectMyBids,
   myAsks: selectMyAsks,
   numberOfBids: selectNumberOfMyBids,
-  numberOfAsks: selectNumberOfMyAsks
+  numberOfAsks: selectNumberOfMyAsks,
+	loaded: selectDashboardLoaded,
 };
 
 const actionMap = {
@@ -195,5 +198,6 @@ export default compose(
       loadMyAsks(userId);
       loadMyBids(userId);
     }
-  })
+  }),
+	withLoader,
 )(Dashboard);
