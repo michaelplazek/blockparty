@@ -1,23 +1,24 @@
 import React from "react";
-import { Currency, Dashboard, User } from "grommet-icons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faDollarSign, faTachometerAlt, faUser } from '@fortawesome/free-solid-svg-icons'
 
 export const footerNavigation = [
   {
     path: "/",
     label: "Market",
     index: 0,
-    icon: <Currency />
+    icon: <FontAwesomeIcon icon={faDollarSign} />
   },
   {
     path: "/dashboard",
     label: "Dashboard",
     index: 1,
-    icon: <Dashboard />
+    icon:  <FontAwesomeIcon icon={faTachometerAlt} />
   },
   {
     path: "/account",
     label: "Account",
     index: 2,
-    icon: <User />
+    icon:  <FontAwesomeIcon icon={faUser} />
   }
 ];

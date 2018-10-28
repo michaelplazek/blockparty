@@ -13,7 +13,8 @@ import { setLayerOpen as setLayerOpenAction } from "../../actions/layers";
 
 import Modal from "@material-ui/core/Modal/Modal";
 import Slide from "@material-ui/core/Slide/Slide";
-import { Close } from "grommet-icons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faTimes} from '@fortawesome/free-solid-svg-icons'
 
 const styles = () => ({
   root: {
@@ -52,7 +53,7 @@ const Flyout = ({
         style={{ height: height, width: `${width - width / size}px` }}
       >
         <div className={classes.closeButton} onClick={onClose}>
-          <Close />
+					<FontAwesomeIcon icon={faTimes} />
         </div>
         {children}
       </div>
