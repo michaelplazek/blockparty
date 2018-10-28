@@ -53,6 +53,9 @@ class FooterNavBase extends Component {
 
   componentDidMount() {
     this.measure();
+    this.setState({
+			index: this.getIndexFromPath(),
+    })
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
