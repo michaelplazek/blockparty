@@ -3,6 +3,10 @@ import compose from "lodash/fp/compose";
 import fpMap from "lodash/fp/map";
 import filter from "lodash/fp/filter";
 import moment from "moment";
+import numeral from 'numeral';
+import {USD} from "../constants/currency";
+import { getDistance } from 'geolib';
+import {getMilesFromMeters} from "../utils/location";
 
 // FILTERS
 export const selectFilterDistance = state => state.filters.distanceAway;
@@ -12,6 +16,7 @@ export const selectFilter = state => state.filters.filter;
 
 // ASKS
 export const selectAsks = state => state.asks.asks;
+export const selectAskLoaded = state => state.asks.askLoaded;
 export const selectMyAsks = state => state.asks.myAsks;
 export const selectMyAsksLoaded = state => state.asks.myAsksLoaded;
 export const selectNumberOfMyAsks = createSelector(
@@ -28,6 +33,7 @@ export const selectAsksForDisplay = createSelector(selectAsks, asks =>
 
 // BIDS
 export const selectBids = state => state.bids.bids;
+export const selectBidLoaded = state => state.bids.bidLoaded;
 export const selectMyBids = state => state.bids.myBids;
 export const selectMyBidsLoaded = state => state.bids.myBidsLoaded;
 export const selectNumberOfMyBids = createSelector(
@@ -45,7 +51,6 @@ export const selectBidsForDisplay = createSelector(selectBids, bids =>
 // BID
 export const selectBid = state => state.bids.bid;
 export const selectBidId = state => state.bids.bid._id;
-export const selectBidAmount = state => state.bids.bid.amount;
 export const selectBidTimestamp = state => state.bids.bid.timestamp;
 
 // ASK
@@ -58,6 +63,10 @@ export const selectAskTimestamp = state => state.asks.ask.timestamp;
 export const selectAskCoin = state => state.ask.coin;
 export const selectAskVolume = state => state.ask.volume;
 export const selectAskPrice = state => state.ask.price;
+export const selectFormattedAskPrice = createSelector(
+	selectAskPrice,
+	price => numeral(price).format(USD)
+);
 export const selectAskLatitude = state => state.ask.lat;
 export const selectAskLongitude = state => state.ask.lng;
 export const selectAskUseCurrentLocation = state =>
@@ -67,6 +76,10 @@ export const selectAskUseCurrentLocation = state =>
 export const selectBidCoin = state => state.bid.coin;
 export const selectBidVolume = state => state.bid.volume;
 export const selectBidPrice = state => state.bid.price;
+export const selectFormattedBidPrice = createSelector(
+	selectBidPrice,
+	price => numeral(price).format(USD)
+);
 export const selectBidLatitude = state => state.bid.lat;
 export const selectBidLongitude = state => state.bid.lng;
 export const selectBidUseCurrentLocation = state =>
@@ -81,6 +94,7 @@ export const selectIsLoggedIn = state => state.session.loggedIn;
 export const selectSessionLoaded = state => state.session.sessionLoaded;
 export const selectUsername = state => state.session.username;
 export const selectUserId = state => state.session.userId;
+export const selectCurrentLocation = state => state.session.location;
 
 // APP
 export const selectNavHeight = state => state.app.navigationBarHeight;
@@ -93,8 +107,22 @@ export const selectMapMarkers = createSelector(
   selectAsks,
   selectBids,
   selectFilterType,
-  (asks, bids, type) => {
+  selectFilterCoin,
+  selectFilterDistance,
+  selectCurrentLocation,
+  (asks, bids, type, coin, filterDistance, currentLocation) => {
     const items = type === "ASK" ? asks : bids;
-    return fpMap(ask => ({ lat: ask.lat, lng: ask.lng, id: ask._id }))(items);
+    return compose(
+			fpMap(ask => ({ lat: ask.lat, lng: ask.lng, id: ask._id })),
+			filter(ask => {
+				const distance = getDistance(
+					{ latitude: ask.lat, longitude: ask.lng },
+					{ latitude: currentLocation.lat, longitude: currentLocation.lng }
+				);
+				const distanceInMiles = getMilesFromMeters(distance);
+				return distanceInMiles < filterDistance;
+			}),
+			filter(ask => ask.coin === coin)
+		)(items);
   }
 );

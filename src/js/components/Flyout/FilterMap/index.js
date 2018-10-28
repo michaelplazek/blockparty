@@ -26,6 +26,7 @@ import Select from "@material-ui/core/Select/Select";
 import TextField from "@material-ui/core/TextField/TextField";
 import Button from "@material-ui/core/Button/Button";
 import { selectFilterType } from "../../../selectors";
+import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
 
 const styles = () => ({
   root: {
@@ -37,13 +38,14 @@ const FilterMap = ({
   classes,
   distance,
   coin,
+	setLayerOpen,
   setFilterDistance,
   setFilterCoin,
   setFilterType,
   handleSubmit,
   type
 }) => (
-  <Flyout size={3}>
+  <Flyout onClose={() => setLayerOpen(false)} size={3}>
     <Grid className={classes.root}>
       <FormControl margin="dense" fullWidth={true}>
         <InputLabel>Type</InputLabel>
@@ -83,6 +85,9 @@ const FilterMap = ({
           onChange={({ target }) => setFilterDistance(target.value)}
           margin="dense"
           variant="standard"
+					InputProps={{
+						endAdornment: <InputAdornment position="start">mi</InputAdornment>,
+					}}
         />
         <br />
         <Button variant="contained" onClick={handleSubmit}>

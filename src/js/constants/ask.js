@@ -8,6 +8,6 @@ export const DEFAULT_ASK = {
     $date: ""
   },
   price: 0,
-  amount: 0,
+  volume: 0,
   isBid: false
 };

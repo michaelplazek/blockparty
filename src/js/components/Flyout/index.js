@@ -53,7 +53,7 @@ const Flyout = ({
       >
         <div
           className={classes.closeButton}
-          onClick={() => setLayerOpen(false)}
+          onClick={onClose}
         >
           <Close />
         </div>

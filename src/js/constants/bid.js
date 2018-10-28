@@ -8,6 +8,6 @@ export const DEFAULT_BID = {
     $date: ""
   },
   price: 0,
-  amount: 0,
+  volume: 0,
   isBid: true
 };
