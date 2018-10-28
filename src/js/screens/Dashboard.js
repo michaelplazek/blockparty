@@ -3,6 +3,7 @@ import { compose, withState, lifecycle } from "recompose";
 import mapper from "../utils/connect";
 
 import Tile from "../components/Tile";
+import ListTile from "../components/ListTile";
 
 import {
   setLayer as setLayerAction,
@@ -21,10 +22,10 @@ import withDimensions from "../HOCs/withDimensions";
 import Button from "@material-ui/core/Button/Button";
 import withStyles from "@material-ui/core/styles/withStyles";
 import {
-  selectLayer,
-  selectNumberOfMyAsks,
-  selectNumberOfMyBids,
-  selectUserId
+	selectLayer, selectMyAsks, selectMyBids,
+	selectNumberOfMyAsks,
+	selectNumberOfMyBids,
+	selectUserId
 } from "../selectors";
 import IconButton from "@material-ui/core/IconButton/IconButton";
 import Icon from "@material-ui/core/Icon";
@@ -67,7 +68,9 @@ const Dashboard = ({
   showButtons,
   setShowButtons,
   numberOfBids,
-  numberOfAsks
+  numberOfAsks,
+  myBids,
+  myAsks
 }) => (
   <div>
     {layer === "CREATE_ASK" && <CreateAsk />}
@@ -77,8 +80,22 @@ const Dashboard = ({
       rightHandLabel="Inbox"
       rightHandIcon={<MailIcon />}
     />
-    <Tile title="Asks" count={numberOfAsks} />
-    <Tile title="Bids" count={numberOfBids} />
+    <Tile title="Asks" count={numberOfAsks} >
+      {myAsks.map(item => <ListTile
+        age={item.timestamp}
+				type={item.coin}
+				volume={item.volume}
+				key={item._id}
+      />)}
+    </Tile>
+    <Tile title="Bids" count={numberOfBids} >
+			{myBids.map(item => <ListTile
+				age={item.timestamp}
+				type={item.coin}
+				volume={item.volume}
+				key={item._id}
+			/>)}
+		</Tile>
     <div>
       {showButtons && (
         <Grow in={showButtons}>
@@ -130,6 +147,8 @@ const Dashboard = ({
 const propMap = {
   layer: selectLayer,
   userId: selectUserId,
+  myBids: selectMyBids,
+  myAsks: selectMyAsks,
   numberOfBids: selectNumberOfMyBids,
   numberOfAsks: selectNumberOfMyAsks
 };

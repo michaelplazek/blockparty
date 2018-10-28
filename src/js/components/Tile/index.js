@@ -1,11 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { compose, lifecycle } from "recompose";
+import { compose, lifecycle, withState } from "recompose";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Paper from "@material-ui/core/Paper/Paper";
 import Typography from "@material-ui/core/Typography/Typography";
 import Grid from "@material-ui/core/Grid/Grid";
+import Slide from "@material-ui/core/Slide/Slide";
 
 const styles = () => ({
   root: {
@@ -15,8 +16,8 @@ const styles = () => ({
   }
 });
 
-const Tile = ({ classes, title, count, onClick }) => (
-  <div onClick={onClick}>
+const Tile = ({ classes, title, count, onClick, children, clicked, setClicked }) => (
+  <div onClick={() => setClicked(!clicked)}>
     <Paper className={classes.root} elevation={1}>
       <Grid
         container
@@ -33,6 +34,15 @@ const Tile = ({ classes, title, count, onClick }) => (
           </Typography>
         </Grid>
       </Grid>
+			{/*<Slide*/}
+				{/*direction='down'*/}
+				{/*in={clicked}*/}
+			{/*>*/}
+				{/*<div>*/}
+      		{/*{children}*/}
+				{/*</div>*/}
+			{/*</Slide>*/}
+			{children}
     </Paper>
   </div>
 );
@@ -48,4 +58,7 @@ Tile.defaultProp = {
   onClick: () => {}
 };
 
-export default compose(withStyles(styles))(Tile);
+export default compose(
+	withStyles(styles),
+	withState('clicked', 'setClicked', false)
+)(Tile);
