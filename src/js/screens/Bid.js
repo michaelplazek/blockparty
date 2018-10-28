@@ -25,6 +25,7 @@ import List from "@material-ui/core/List/List";
 import ListItem from "@material-ui/core/ListItem/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText/ListItemText";
+import GoogleMapDetails from "../components/GoogleMaps/GoogleMapDetails";
 
 const styles = () => ({
 	root: {
@@ -40,7 +41,7 @@ const styles = () => ({
 	},
 	buttons: {
 		position: "absolute",
-		bottom: "8em",
+		bottom: "7em",
 		right: "2em"
 	},
 });
@@ -110,7 +111,12 @@ const Bid = ({ bid, history, windowHeight, footerHeight, classes, loaded }) => (
 						</ListItem>
 					</List>
 				</div>
-
+				<GoogleMapDetails
+					markers={[{ id: bid._id, lat: bid.lat, lng: bid.lng }]}
+					height={windowHeight/4}
+					locationFromBottom={footerHeight}
+					zoomable={false}
+				/>
 				<Button
 					className={classes.buttons}
 					variant="extendedFab"

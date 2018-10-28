@@ -2,7 +2,7 @@ import React from "react";
 import { compose, lifecycle } from "recompose";
 import { withRouter } from "react-router";
 import mapper from "../utils/connect";
-import {selectAsk, selectAskLoaded, selectNavHeight, selectWindowHeight} from "../selectors";
+import {selectAsk, selectAskLoaded, selectNavHeight, selectWindowHeight, selectWindowWidth} from "../selectors";
 import { loadAsk as loadAskAction } from "../actions/asks";
 import Grid from "@material-ui/core/Grid/Grid";
 import Button from "@material-ui/core/Button/Button";
@@ -20,6 +20,7 @@ import List from "@material-ui/core/List/List";
 import ListItem from "@material-ui/core/ListItem/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText/ListItemText";
+import GoogleMapDetails from "../components/GoogleMaps/GoogleMapDetails";
 
 const styles = () => ({
   root: {
@@ -35,12 +36,12 @@ const styles = () => ({
   },
 	buttons: {
 		position: "absolute",
-		bottom: "8em",
+		bottom: "7em",
 		right: "2em"
 	},
 });
 
-const Ask = ({ ask, history, windowHeight, footerHeight, classes, loaded }) => (
+const Ask = ({ ask, history, windowHeight, windowWidth, footerHeight, classes, loaded }) => (
 	<div>
 		{loaded &&
 			<div>
@@ -105,6 +106,12 @@ const Ask = ({ ask, history, windowHeight, footerHeight, classes, loaded }) => (
 							</ListItem>
 						</List>
 					</div>
+					<GoogleMapDetails
+						markers={[{ id: ask._id, lat: ask.lat, lng: ask.lng }]}
+						height={windowHeight/4}
+						locationFromBottom={footerHeight}
+						zoomable={false}
+					/>
 					<Button
 						className={classes.buttons}
 						variant="extendedFab"
@@ -123,6 +130,7 @@ const Ask = ({ ask, history, windowHeight, footerHeight, classes, loaded }) => (
 const propMap = {
   ask: selectAsk,
   windowHeight: selectWindowHeight,
+	width: selectWindowWidth,
   footerHeight: selectNavHeight,
 	loaded: selectAskLoaded,
 };
