@@ -140,3 +140,14 @@ export const selectDashboardLoaded = createSelector(
 	selectMyBidsLoaded,
 	(asksLoaded, bidsLoaded) => asksLoaded && bidsLoaded
 );
+
+// DEPTH CHART
+export const selectChartData = state => ([
+  {price: 6365, bid: 60, ask: null},
+  {price: 6426, bid: 24, ask: null},
+  {price: 6490, bid: 1, ask: null},
+  {price: 6500, bid: 0, ask: 0}, // mid market point
+  {price: 6540, bid: null, ask: 4},
+  {price: 6600, bid: null, ask: 27},
+  {price: 6666, bid: null, ask: 48},
+]);
