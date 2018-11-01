@@ -3,14 +3,17 @@ import {
   LOAD_NAV_HEIGHT,
   LOAD_HEADER_HEIGHT,
   LOAD_WINDOW_HEIGHT,
-  LOAD_WINDOW_WIDTH
+  LOAD_WINDOW_WIDTH,
+  SET_MARKET_VIEW,
 } from "../actions";
+import { MAP } from "../constants/app";
 
 const initialState = {
   navigationBarHeight: 0,
   headerHeight: 0,
   windowHeight: 0,
-  windowWidth: 0
+  windowWidth: 0,
+  marketView: MAP,
 };
 
 const handlers = {
@@ -25,6 +28,9 @@ const handlers = {
   }),
   [LOAD_WINDOW_WIDTH]: (_, action) => ({
     windowWidth: action.data
+  }),
+  [SET_MARKET_VIEW]: (_, action) => ({
+    marketView: action.data
   })
 };
 

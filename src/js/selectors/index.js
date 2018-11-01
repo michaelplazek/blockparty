@@ -101,6 +101,7 @@ export const selectNavHeight = state => state.app.navigationBarHeight;
 export const selectHeaderHeight = state => state.app.headerHeight;
 export const selectWindowHeight = state => state.app.windowHeight;
 export const selectWindowWidth = state => state.app.windowWidth;
+export const selectMarketView = state => state.app.marketView;
 
 // MISC
 export const selectMapMarkers = createSelector(

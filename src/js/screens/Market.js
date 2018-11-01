@@ -9,7 +9,9 @@ import {
 	selectNavHeight,
 	selectAsksForDisplay,
 	selectBidsForDisplay,
-	selectFilterType, selectMyAsksLoaded, selectMarketLoaded
+	selectFilterType,
+  selectMyAsksLoaded,
+  selectMarketLoaded
 } from "../selectors";
 import { loadAsks as loadAsksAction } from "../actions/asks";
 import { loadBids as loadBidsAction } from "../actions/bids";
@@ -22,6 +24,8 @@ import PageHeader from "../components/PageHeader";
 import FilterMap from "../components/Flyout/FilterMap/index";
 import withDimensions from "../HOCs/withDimensions";
 import withLoader from "../HOCs/withLoader";
+import { setMarketView as setMarketViewAction } from "../actions/app";
+import {CHART} from "../constants/app";
 
 class Market extends Component {
   constructor(props) {
@@ -34,7 +38,8 @@ class Market extends Component {
       navHeight,
       headerHeight,
       windowHeight,
-      handleMarkerClick
+      handleMarkerClick,
+      handleMarketView
     } = this.props;
 
     return (
@@ -42,6 +47,7 @@ class Market extends Component {
         <FilterMap />
         <PageHeader
           leftHandAction={() => this.props.setLayerOpen(true)}
+          rightHandAction={handleMarketView}
           rightHandButton="Go to chart view"
           showSubheader={true}
           subheader={<Subheader />}
@@ -70,7 +76,8 @@ const actionMap = {
   loadAsks: loadAsksAction,
   loadBids: loadBidsAction,
   setLayerOpen: setLayerOpenAction,
-  loadCurrentLocation: loadCurrentLocationAction
+  loadCurrentLocation: loadCurrentLocationAction,
+  setMarketView: setMarketViewAction
 };
 
 export default compose(
@@ -82,7 +89,11 @@ export default compose(
       const { id } = marker;
       const url = type === "ASK" ? "/ask" : "/bid";
       history.push(`${url}?${id}`);
-    }
+    },
+    handleMarketView: ({ history, setMarketView }) => () => {
+      setMarketView(CHART);
+      history.push('/analysis');
+    },
   }),
   lifecycle({
     componentWillMount() {
