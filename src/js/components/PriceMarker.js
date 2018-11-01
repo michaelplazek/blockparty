@@ -1,7 +1,6 @@
 import React from "react";
 import { compose, lifecycle } from "recompose";
 import numeral from 'numeral';
-import withStyles from "@material-ui/core/styles/withStyles";
 import Typography from "@material-ui/core/Typography/Typography";
 import {USD} from "../constants/currency";
 import Grid from "@material-ui/core/Grid/Grid";
@@ -14,6 +13,7 @@ const PriceMarker = ({ classes, price, top }) => (
     style={{
       position: 'absolute',
       top: `${top}px`,
+      zIndex: 1000
     }}
   >
     <Grid item>

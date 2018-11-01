@@ -312,8 +312,6 @@ export const selectChartData = createSelector(
       bid: 0,
       ask: 0
     };
-    const result = bids.concat(midPoint).concat(asks);
-    console.log(result);
-    return result;
+    return bids.concat(midPoint).concat(asks);
   }
 );

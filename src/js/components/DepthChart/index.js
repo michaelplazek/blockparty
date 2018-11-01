@@ -1,32 +1,59 @@
 import React from "react";
 import { compose, withHandlers } from 'recompose';
+import numeral from 'numeral';
 
 import PropTypes from "prop-types";
 import {Area, AreaChart, XAxis, YAxis} from "recharts";
 import {ASK_COLOR, BID_COLOR} from "../../constants/colors";
+import {USD} from "../../constants/currency";
 
+const XTick = ({ payload, x, y, fill }) => {
+  return <text
+    x={x}
+    y={y}
+    fontSize='11'
+    fontFamily='sans-serif'
+    fill={fill}
+    textAnchor="middle">{numeral(payload.value).format(USD)}</text>
+};
+
+const YTick = ({ payload, x, y, fill }) => {
+  return <text
+    x={x}
+    y={y}
+    fontSize='11'
+    fontFamily='sans-serif'
+    fill={fill}
+    textAnchor="middle">{payload.value}</text>
+};
 
 const DepthChart = ({
   height,
   width,
   data,
 }) => (
-  <div>
+  <div style={{ zIndex: 500 }}>
     <AreaChart width={width} height={height} data={data}>
       <XAxis
         dataKey='price'
         interval='preserveStartEnd'
-        tickMargin={10}
+        tickMargin={20}
+        minTickGap={13}
+        tick={<XTick />}
       />
       <YAxis
         mirror={true}
+        tickMargin={15}
         orientation='left'
         yAxisId='left'
+        tick={<YTick />}
       />
       <YAxis
         mirror={true}
+        tickMargin={15}
         orientation='right'
         yAxisId='right'
+        tick={<YTick />}
       />
       <defs>
         <linearGradient id="bidId" x1="0" y1="0" x2="0" y2="1">
