@@ -2,7 +2,7 @@ import React from "react";
 import { compose, lifecycle } from "recompose";
 import numeral from 'numeral';
 import Typography from "@material-ui/core/Typography/Typography";
-import {USD} from "../constants/currency";
+import {USD} from "../../constants/currency";
 import Grid from "@material-ui/core/Grid/Grid";
 
 

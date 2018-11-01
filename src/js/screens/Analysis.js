@@ -7,7 +7,7 @@ import PageHeader from "../components/PageHeader";
 import withAuthentification from "../HOCs/withAuthentification";
 import {
   selectAsksForDisplay,
-  selectBidsForDisplay, selectChartData, selectFilterType,
+  selectBidsForDisplay, selectChartData, selectFilterType, selectHasData,
   selectHeaderHeight,
   selectMapMarkers, selectMarketLoaded, selectMidPoint,
   selectNavHeight, selectWindowHeight, selectWindowWidth
@@ -20,7 +20,8 @@ import {setMarketView as setMarketViewAction} from "../actions/app";
 import {MAP} from "../constants/app";
 import DepthChart from "../components/DepthChart";
 import ChartHeader from "../components/ChartHeader";
-import PriceMarker from "../components/PriceMarker";
+import PriceMarker from "../components/DepthChart/PriceMarker";
+import Placeholder from "../components/DepthChart/Placeholder";
 
 const Analysis = ({
   handleMarketView,
@@ -30,6 +31,7 @@ const Analysis = ({
   windowWidth,
   windowHeight,
   midMarketPrice,
+  hasData,
 }) => (
   <div>
     <PageHeader
@@ -38,15 +40,25 @@ const Analysis = ({
       showSubheader={true}
       subheader={<ChartHeader />}
     />
-    <PriceMarker
-      price={midMarketPrice}
-      top={headerHeight + 50}
-    />
-    <DepthChart
-      data={chartData}
-      height={windowHeight - navHeight - headerHeight}
-      width={windowWidth}
-    />
+    {hasData &&
+    <div>
+      <PriceMarker
+        price={midMarketPrice}
+        top={headerHeight + 50}
+      />
+      <DepthChart
+        data={chartData}
+        height={windowHeight - navHeight - headerHeight}
+        width={windowWidth}
+      />
+    </div>
+    }
+    {!hasData &&
+      <Placeholder
+        label='No Data'
+        top={headerHeight + 50}
+      />
+    }
 
   </div>
 );
@@ -62,7 +74,8 @@ const propMap = {
   type: selectFilterType,
   loaded: selectMarketLoaded, // for withLoader
   chartData: selectChartData,
-  midMarketPrice: selectMidPoint
+  midMarketPrice: selectMidPoint,
+  hasData: selectHasData,
 };
 
 const actionMap = {

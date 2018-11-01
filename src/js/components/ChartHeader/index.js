@@ -3,7 +3,6 @@ import { compose } from "recompose";
 
 import withStyles from "@material-ui/core/styles/withStyles";
 
-import { setLayerOpen as setLayerOpenAction } from "../../actions/layers";
 import {selectFilterCoin} from "../../selectors";
 import mapper from "../../utils/connect";
 import InputLabel from "@material-ui/core/InputLabel/InputLabel";
@@ -11,6 +10,7 @@ import Select from "@material-ui/core/Select/Select";
 import coins from "../../constants/coins";
 
 import FormControl from "@material-ui/core/FormControl/FormControl";
+import {setFilterCoin} from "../../actions/filters";
 
 const styles = theme => ({
   root: {
@@ -23,7 +23,7 @@ const styles = theme => ({
   }
 });
 
-const ChartHeader = ({ classes, coin, setLayerOpen }) => (
+const ChartHeader = ({ classes, coin, setFilterCoin }) => (
   <div className={classes.root}>
     <FormControl
       margin='dense'
@@ -34,7 +34,7 @@ const ChartHeader = ({ classes, coin, setLayerOpen }) => (
       <Select
         native
         value={coin}
-        onChange={({ target }) => {}}
+        onChange={({ target }) => {setFilterCoin(target.value)}}
       >
         {coins.map(item => (
           <option key={item} value={item}>
@@ -51,7 +51,7 @@ const propMap = {
 };
 
 const actionMap = {
-  setLayerOpen: setLayerOpenAction
+  setFilterCoin
 };
 
 export default compose(

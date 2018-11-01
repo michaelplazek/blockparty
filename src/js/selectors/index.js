@@ -161,44 +161,64 @@ export const selectOrderedAsks = createSelector(
 
 export const selectPriceAscOrderedBids = createSelector(
   selectBids,
-  compose(
+  selectFilterCoin,
+  (bids, coin) => compose(
     fpMap(item => item.price),
-    orderBy('price', 'asc')
-  )
+    orderBy('price', 'asc'),
+    filter(item => item.coin === coin)
+  )(bids)
 );
 
 export const selectPriceAscOrderedAsks = createSelector(
   selectAsks,
-  compose(
+  selectFilterCoin,
+  (asks, coin) => compose(
     fpMap(item => item.price),
-    orderBy('price', 'asc')
-  )
+    orderBy('price', 'asc'),
+    filter(item => item.coin === coin)
+  )(asks)
+);
+
+export const selectHasData = createSelector(
+  selectPriceAscOrderedBids,
+  selectPriceAscOrderedAsks,
+  (bids, asks) => (bids.length > 0 && asks.length > 0)
 );
 
 export const selectPriceDescOrderedBids = createSelector(
   selectBids,
-  compose(
+  selectFilterCoin,
+  (bids, coin) => compose(
     fpMap(item => item.price),
-    orderBy('price', 'desc')
-  )
+    orderBy('price', 'desc'),
+    filter(item => item.coin === coin)
+  )(bids)
 );
 
 export const selectPriceDescOrderedAsks = createSelector(
   selectAsks,
-  compose(
+  selectFilterCoin,
+  (asks, coin) => compose(
     fpMap(item => item.price),
-    orderBy('price', 'desc')
-  )
+    orderBy('price', 'desc'),
+    filter(item => item.coin === coin)
+  )(asks)
 );
 
 // Divide the asks and bids into equal number of bins, so that the
 // center remains in the center of the chart
+// TODO: find a better way to handle edge cases than hasData
 const selectBidPriceRange = createSelector(
   selectPriceAscOrderedBids,
-  bids => {
+  selectHasData,
+  (bids, hasData) => {
+    if(!hasData) return [];
+
     const low = Math.floor(head(bids));
-    const high = Math.floor(last(bids));
-    const step = (high - low)/NUMBER_OF_BINS;
+    let high = Math.floor(last(bids));
+    const difference = high - low;
+    const step = (difference > 0) ? difference/NUMBER_OF_BINS : 1/NUMBER_OF_BINS;
+    high = (difference > 0) ? high : low + 1;
 
     let range = [];
     let price = low;
@@ -212,10 +232,15 @@ const selectBidPriceRange = createSelector(
 
 const selectAskPriceRange = createSelector(
   selectPriceAscOrderedAsks,
-  asks => {
+  selectHasData,
+  (asks, hasData) => {
+    if(!hasData) return [];
+
     const low = Math.floor(head(asks));
-    const high = Math.floor(last(asks));
-    const step = (high - low)/NUMBER_OF_BINS;
+    let high = Math.floor(last(asks));
+    const difference = high - low;
+    const step = (difference > 0) ? difference/NUMBER_OF_BINS : 1/NUMBER_OF_BINS;
+    high = (difference > 0) ? high : low + 1;
 
     let range = [];
     let price = low;
@@ -256,17 +281,26 @@ const selectRoundedMidPoint = createSelector(
 
 // Do the actual mapping into the needed object
 const selectBidData = createSelector(
+  selectPriceAscOrderedBids,
   selectDescBidPriceRange,
   selectBids,
-  (range, bids) => {
+  (prices, range, bids) => {
     let data = [];
     let total = 0;
+    const difference = (head(prices) - last(prices));
+
     range.map((item, index) => {
       if (index === range.length - 1) return;
 
       const high = item.price;
       const low = range[index + 1].price;
-      total += binify(low, high, bids);
+
+      if(difference !== 0) {
+        total += binify(low, high, bids);
+      } else {
+        total = binify(low, high, bids);
+      }
+
       data.push({
         price: high,
         bid: total,
@@ -279,18 +313,25 @@ const selectBidData = createSelector(
 );
 
 const selectAskData = createSelector(
+  selectPriceAscOrderedAsks,
   selectAskPriceRange,
   selectAsks,
-  (range, asks) => {
+  (prices, range, asks) => {
     let data = [];
     let total = 0;
+    const difference = (head(prices) - last(prices));
     range.map((item, index) => {
       if (index === range.length - 1) return;
 
       const low = item.price;
       const high = range[index + 1].price;
 
-      total += binify(low, high, asks);
+      if(difference !== 0) {
+        total += binify(low, high, asks);
+      } else {
+        total = binify(low, high, asks);
+      }
+
       data.push({
         price: high,
         bid: null,
