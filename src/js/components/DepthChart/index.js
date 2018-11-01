@@ -2,7 +2,7 @@ import React from "react";
 import { compose, withHandlers } from 'recompose';
 
 import PropTypes from "prop-types";
-import {Area, AreaChart, CartesianGrid, Legend, Line, LineChart, Tooltip, XAxis, YAxis} from "recharts";
+import {Area, AreaChart, XAxis, YAxis} from "recharts";
 import {ASK_COLOR, BID_COLOR} from "../../constants/colors";
 
 
@@ -31,11 +31,11 @@ const DepthChart = ({
       <defs>
         <linearGradient id="bidId" x1="0" y1="0" x2="0" y2="1">
           <stop offset="5%" stopColor={BID_COLOR} stopOpacity={0.8}/>
-          <stop offset="95%" stopColor={BID_COLOR} stopOpacity={0.2}/>
+          <stop offset="95%" stopColor={BID_COLOR} stopOpacity={0.4}/>
         </linearGradient>
         <linearGradient id="askId" x1="0" y1="0" x2="0" y2="1">
           <stop offset="5%" stopColor={ASK_COLOR} stopOpacity={0.8}/>
-          <stop offset="95%" stopColor={ASK_COLOR} stopOpacity={0.2}/>
+          <stop offset="95%" stopColor={ASK_COLOR} stopOpacity={0.4}/>
         </linearGradient>
       </defs>
       <Area

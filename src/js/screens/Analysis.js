@@ -1,5 +1,5 @@
 import React from "react";
-import { compose, withHandlers } from 'recompose';
+import { compose, withHandlers, lifecycle } from 'recompose';
 import { withRouter } from "react-router";
 import mapper from "../utils/connect";
 
@@ -70,6 +70,12 @@ export default compose(
   mapper(propMap, actionMap),
   withAuthentification,
   withRouter,
+  lifecycle({
+    componentDidMount() {
+      this.props.loadAsks();
+      this.props.loadBids();
+    }
+  }),
   withHandlers({
     handleMarketView: ({ history, setMarketView }) => () => {
       setMarketView(MAP);

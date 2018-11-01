@@ -1,4 +1,5 @@
 import { stateReducer } from "./utils";
+import numeral from 'numeral';
 import {
   SET_BID_COIN,
   SET_BID_VOLUME,
@@ -26,7 +27,7 @@ const handlers = {
     volume: action.data
   }),
   [SET_BID_PRICE]: (state, action) => ({
-    price: action.data
+    price: numeral(action.data).value()
   }),
   [SET_BID_LATITUDE]: (state, action) => ({
     lat: action.data

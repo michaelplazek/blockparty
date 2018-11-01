@@ -1,18 +1,13 @@
 import React from "react";
-import { compose, lifecycle } from "recompose";
+import { compose } from "recompose";
 
 import withStyles from "@material-ui/core/styles/withStyles";
-import Chip from "@material-ui/core/Chip/Chip";
 
 import { setLayerOpen as setLayerOpenAction } from "../../actions/layers";
-import {selectFilter, selectFilterCoin} from "../../selectors";
+import {selectFilterCoin} from "../../selectors";
 import mapper from "../../utils/connect";
-import IconButton from "@material-ui/core/IconButton/IconButton";
-import FilterListIcon from "@material-ui/icons/FilterList";
-import Grid from "@material-ui/core/Grid/Grid";
 import InputLabel from "@material-ui/core/InputLabel/InputLabel";
 import Select from "@material-ui/core/Select/Select";
-import {types} from "../../constants/filters";
 import coins from "../../constants/coins";
 
 import FormControl from "@material-ui/core/FormControl/FormControl";

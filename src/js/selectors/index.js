@@ -1,12 +1,19 @@
 import { createSelector } from "reselect";
 import compose from "lodash/fp/compose";
 import fpMap from "lodash/fp/map";
+import get from 'lodash/fp/get';
 import filter from "lodash/fp/filter";
 import moment from "moment";
 import numeral from "numeral";
 import { USD } from "../constants/currency";
 import { getDistance } from "geolib";
 import { getMilesFromMeters } from "../utils/location";
+import orderBy from 'lodash/fp/orderBy';
+import head from 'lodash/head';
+import last from 'lodash/last';
+import {binify} from "./utils";
+
+const NUMBER_OF_BINS = 100;
 
 // FILTERS
 export const selectFilterDistance = state => state.filters.distanceAway;
@@ -142,12 +149,168 @@ export const selectDashboardLoaded = createSelector(
 );
 
 // DEPTH CHART
-export const selectChartData = state => ([
-  {price: 6365, bid: 60, ask: null},
-  {price: 6426, bid: 24, ask: null},
-  {price: 6490, bid: 1, ask: null},
-  {price: 6500, bid: 0, ask: 0}, // mid market point
-  {price: 6540, bid: null, ask: 4},
-  {price: 6600, bid: null, ask: 27},
-  {price: 6666, bid: null, ask: 48},
-]);
+export const selectOrderedBids = createSelector(
+  selectBids,
+  orderBy('price', 'desc')
+);
+
+export const selectOrderedAsks = createSelector(
+  selectAsks,
+  orderBy('price', 'desc')
+);
+
+export const selectPriceAscOrderedBids = createSelector(
+  selectBids,
+  compose(
+    fpMap(item => item.price),
+    orderBy('price', 'asc')
+  )
+);
+
+export const selectPriceAscOrderedAsks = createSelector(
+  selectAsks,
+  compose(
+    fpMap(item => item.price),
+    orderBy('price', 'asc')
+  )
+);
+
+export const selectPriceDescOrderedBids = createSelector(
+  selectBids,
+  compose(
+    fpMap(item => item.price),
+    orderBy('price', 'desc')
+  )
+);
+
+export const selectPriceDescOrderedAsks = createSelector(
+  selectAsks,
+  compose(
+    fpMap(item => item.price),
+    orderBy('price', 'desc')
+  )
+);
+
+// Divide the asks and bids into equal number of bins, so that the
+// center remains in the center of the chart
+const selectBidPriceRange = createSelector(
+  selectPriceAscOrderedBids,
+  bids => {
+    const low = Math.floor(head(bids));
+    const high = Math.floor(last(bids));
+    const step = (high - low)/NUMBER_OF_BINS;
+
+    let range = [];
+    let price = low;
+    while(price <= high) {
+      price += step;
+      range.push({ price: Math.floor(price) });
+    }
+    return range;
+  }
+);
+
+const selectAskPriceRange = createSelector(
+  selectPriceAscOrderedAsks,
+  asks => {
+    const low = Math.floor(head(asks));
+    const high = Math.floor(last(asks));
+    const step = (high - low)/NUMBER_OF_BINS;
+
+    let range = [];
+    let price = low;
+    while(price <= high) {
+      range.push({ price: Math.floor(price) });
+      price += step;
+    }
+    return range;
+  }
+);
+
+export const selectDescAskPriceRange = createSelector(
+  selectAskPriceRange,
+  orderBy('price', 'desc')
+);
+
+export const selectDescBidPriceRange = createSelector(
+  selectBidPriceRange,
+  orderBy('price', 'desc')
+);
+
+const selectMidPoint = createSelector(
+  selectBidPriceRange,
+  selectAskPriceRange,
+  (bids, asks) => {
+    const highBid = get('price')(last(bids));
+    const lowAsk = get('price')(head(asks));
+    return (lowAsk + highBid)/2;
+  }
+);
+
+const selectRoundedMidPoint = createSelector(
+  selectMidPoint,
+  point => Math.floor(point)
+);
+
+// Do the actual mapping into the needed object
+const selectBidData = createSelector(
+  selectDescBidPriceRange,
+  selectBids,
+  (range, bids) => {
+    let data = [];
+    let total = 0;
+    range.map((item, index) => {
+      if (index === range.length - 1) return;
+
+      const high = item.price;
+      const low = range[index + 1].price;
+      total += binify(low, high, bids);
+      data.push({
+        price: high,
+        bid: total,
+        ask: null,
+      })
+    });
+
+    return orderBy('price', 'asc')(data);
+  }
+);
+
+const selectAskData = createSelector(
+  selectAskPriceRange,
+  selectAsks,
+  (range, asks) => {
+    let data = [];
+    let total = 0;
+    range.map((item, index) => {
+      if (index === range.length - 1) return;
+
+      const low = item.price;
+      const high = range[index + 1].price;
+
+      total += binify(low, high, asks);
+      data.push({
+        price: high,
+        bid: null,
+        ask: total,
+      })
+    });
+
+    return orderBy('price', 'asc')(data);
+  }
+);
+
+export const selectChartData = createSelector(
+  selectBidData,
+  selectAskData,
+  selectRoundedMidPoint,
+  (bids, asks, mid) => {
+    const midPoint = {
+      price: mid,
+      bid: 0,
+      ask: 0
+    };
+
+    return bids.concat(midPoint).concat(asks);
+  }
+);
