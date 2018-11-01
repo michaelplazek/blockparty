@@ -7,6 +7,7 @@ import Dashboard from "../screens/Dashboard";
 import Login from "../screens/Login";
 import Register from "../screens/Register";
 import Account from "../screens/Account";
+import Analysis from "../screens/Analysis";
 
 export const protectedRoutes = [
   {
@@ -57,6 +58,13 @@ export const protectedRoutes = [
     protected: true,
     component: Bid,
     index: 6
+  },
+  {
+    path: "/analysis",
+    exact: false,
+    protected: true,
+    component: Analysis,
+    index: 7
   }
 ];
 
@@ -66,14 +74,14 @@ export const unprotectedRoutes = [
     exact: false,
     protected: false,
     component: Register,
-    index: 7
+    index: 8
   },
   {
     path: "/login",
     exact: false,
     protected: false,
     component: Login,
-    index: 8
+    index: 9
   }
 ];
 

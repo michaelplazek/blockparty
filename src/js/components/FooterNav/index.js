@@ -13,6 +13,8 @@ import AppBar from "@material-ui/core/AppBar/AppBar";
 import Tabs from "@material-ui/core/Tabs/Tabs";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Tab from "@material-ui/core/Tab/Tab";
+import {selectMarketView} from "../../selectors";
+import {MAP} from "../../constants/app";
 
 const styles = () => ({
   root: {
@@ -71,8 +73,15 @@ class FooterNavBase extends Component {
   }
 
   handleChange(value) {
+    const { view } = this.props;
+    let { path } = navigation[value];
+
+    if(value === 0) {
+      path = (view === MAP) ? '/' : '/analysis'
+    }
+
     this.setState({ index: value });
-    this.props.history.push(navigation[value].path);
+    this.props.history.push(path);
   }
 
   render() {
@@ -100,7 +109,9 @@ FooterNavBase.propTypes = {
   items: PropTypes.array
 };
 
-const propMap = {};
+const propMap = {
+  view: selectMarketView
+};
 
 const actionMap = {
   setNavHeight: setNavHeightAction

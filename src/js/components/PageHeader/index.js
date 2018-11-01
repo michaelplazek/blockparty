@@ -61,6 +61,11 @@ class PageHeader extends Component {
       <div className={this.props.classes.root} ref={this.saveRef}>
         <AppBar position="static">
           <Toolbar>
+            {this.props.leftHandButton && (
+              <Button onClick={this.props.leftHandAction} color="inherit">
+                {this.props.leftHandButton}
+              </Button>
+            )}
             <Typography
               align="left"
               variant="headline"
@@ -93,6 +98,7 @@ PageHeader.propTypes = {
   rightHandLabel: PropTypes.string,
   leftHandIcon: PropTypes.node,
   leftHandAction: PropTypes.func,
+  leftHandButton: PropTypes.string,
   rightHandAction: PropTypes.func,
   rightHandIcon: PropTypes.node,
   rightHandButton: PropTypes.string,
