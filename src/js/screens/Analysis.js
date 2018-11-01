@@ -22,6 +22,7 @@ import DepthChart from "../components/DepthChart";
 import ChartHeader from "../components/ChartHeader";
 import PriceMarker from "../components/DepthChart/PriceMarker";
 import Placeholder from "../components/DepthChart/Placeholder";
+import withDimensions from "../HOCs/withDimensions";
 
 const Analysis = ({
   handleMarketView,
@@ -89,6 +90,7 @@ const actionMap = {
 export default compose(
   mapper(propMap, actionMap),
   withAuthentification,
+  withDimensions,
   withRouter,
   lifecycle({
     componentDidMount() {
