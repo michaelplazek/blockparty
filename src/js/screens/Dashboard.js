@@ -35,7 +35,7 @@ import {
 	selectDashboardLoaded,
 	selectLayer,
 	selectMyAsks,
-	selectMyBids,
+	selectMyBids, selectNavHeight,
 	selectNumberOfMyAsks,
 	selectNumberOfMyBids,
 	selectUserId
@@ -44,16 +44,7 @@ import Grow from "@material-ui/core/Grow/Grow";
 import withLoader from "../HOCs/withLoader";
 
 const styles = () => ({
-  addButton: {
-    position: "absolute",
-    bottom: "8em",
-    right: "2em"
-  },
   buttonContainer: {
-    position: "absolute",
-    bottom: "8em",
-    right: "2em",
-    // textAlign: "vertical",
     display: "flex",
     flexDirection: "column"
   },
@@ -76,7 +67,8 @@ const Dashboard = ({
   loadAsk,
   loadBid,
   unloadAsk,
-  unloadBid
+  unloadBid,
+  footerHeight
 }) => (
   <div>
     {layer === "CREATE_ASK" && <CreateAsk />}
@@ -118,11 +110,19 @@ const Dashboard = ({
         />
       ))}
     </Tile>
-    <div>
+    <div
+			style={{
+        position: 'fixed',
+        right: '2em',
+        bottom: `${footerHeight + 20}px`,
+			}}
+    >
       {showButtons && (
-        <Grow in={showButtons}>
+        <Grow
+          in={showButtons}
+        >
           <div
-            className={classes.buttonContainer}
+						className={classes.buttonContainer}
             onMouseLeave={() => setTimeout(() => setShowButtons(false), 1000)}
             onMouseOver={() => setShowButtons(true)}
           >
@@ -152,7 +152,7 @@ const Dashboard = ({
 
       {!showButtons && (
         <Button
-          className={classes.addButton}
+					className={classes.buttonContainer}
           color="primary"
           variant="fab"
           onClick={() => {
@@ -174,6 +174,7 @@ const propMap = {
   numberOfBids: selectNumberOfMyBids,
   numberOfAsks: selectNumberOfMyAsks,
 	loaded: selectDashboardLoaded,
+  footerHeight: selectNavHeight
 };
 
 const actionMap = {
