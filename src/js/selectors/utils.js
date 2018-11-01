@@ -4,7 +4,9 @@ export const binify = (low, high, items) => {
   items.forEach(item => {
     const price = item.price;
     if (price <= high && price >= low) {
-      total++;
+
+      // TODO: remove once new posts are created
+      total += parseFloat(item.volume);
     }
   });
 

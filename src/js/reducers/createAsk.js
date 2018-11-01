@@ -24,7 +24,7 @@ const handlers = {
     coin: action.data
   }),
   [SET_ASK_VOLUME]: (state, action) => ({
-    volume: action.data
+    volume: parseFloat(action.data)
   }),
   [SET_ASK_PRICE]: (state, action) => ({
     price: numeral(action.data).value()

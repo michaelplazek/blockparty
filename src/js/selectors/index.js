@@ -223,6 +223,8 @@ const selectAskPriceRange = createSelector(
       range.push({ price: Math.floor(price) });
       price += step;
     }
+
+    range.push({ price: Math.floor(price) });
     return range;
   }
 );
@@ -310,7 +312,8 @@ export const selectChartData = createSelector(
       bid: 0,
       ask: 0
     };
-
-    return bids.concat(midPoint).concat(asks);
+    const result = bids.concat(midPoint).concat(asks);
+    console.log(result);
+    return result;
   }
 );
