@@ -9,7 +9,7 @@ import {
   selectAsksForDisplay,
   selectBidsForDisplay, selectChartData, selectFilterType,
   selectHeaderHeight,
-  selectMapMarkers, selectMarketLoaded,
+  selectMapMarkers, selectMarketLoaded, selectMidPoint,
   selectNavHeight, selectWindowHeight, selectWindowWidth
 } from "../selectors";
 import {loadAsks as loadAsksAction} from "../actions/asks";
@@ -20,6 +20,7 @@ import {setMarketView as setMarketViewAction} from "../actions/app";
 import {MAP} from "../constants/app";
 import DepthChart from "../components/DepthChart";
 import ChartHeader from "../components/ChartHeader";
+import PriceMarker from "../components/PriceMarker";
 
 const Analysis = ({
   handleMarketView,
@@ -27,7 +28,8 @@ const Analysis = ({
   headerHeight,
   navHeight,
   windowWidth,
-  windowHeight
+  windowHeight,
+  midMarketPrice,
 }) => (
   <div>
     <PageHeader
@@ -35,6 +37,10 @@ const Analysis = ({
       leftHandAction={handleMarketView}
       showSubheader={true}
       subheader={<ChartHeader />}
+    />
+    <PriceMarker
+      price={midMarketPrice}
+      top={headerHeight + 50}
     />
     <DepthChart
       data={chartData}
@@ -55,7 +61,8 @@ const propMap = {
   windowWidth: selectWindowWidth,
   type: selectFilterType,
   loaded: selectMarketLoaded, // for withLoader
-  chartData: selectChartData
+  chartData: selectChartData,
+  midMarketPrice: selectMidPoint
 };
 
 const actionMap = {

@@ -237,13 +237,13 @@ export const selectDescBidPriceRange = createSelector(
   orderBy('price', 'desc')
 );
 
-const selectMidPoint = createSelector(
+export const selectMidPoint = createSelector(
   selectBidPriceRange,
   selectAskPriceRange,
   (bids, asks) => {
     const highBid = get('price')(last(bids));
     const lowAsk = get('price')(head(asks));
-    return (lowAsk + highBid)/2;
+    return ((lowAsk + highBid)/2).toFixed(3);
   }
 );
 
