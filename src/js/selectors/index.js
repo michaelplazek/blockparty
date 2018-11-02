@@ -19,7 +19,12 @@ const NUMBER_OF_BINS = 100;
 export const selectFilterDistance = state => state.filters.distanceAway;
 export const selectFilterCoin = state => state.filters.coin;
 export const selectFilterType = state => state.filters.type;
+export const selectFilterPrice = state => state.filters.price;
 export const selectFilter = state => state.filters.filter;
+export const selectFormattedFilterPrice = createSelector(
+  selectFilterPrice,
+  price => numeral(price).format(USD)
+);
 
 // ASKS
 export const selectAsks = state => state.asks.asks;

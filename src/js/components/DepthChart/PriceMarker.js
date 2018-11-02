@@ -6,7 +6,7 @@ import {USD} from "../../constants/currency";
 import Grid from "@material-ui/core/Grid/Grid";
 
 
-const PriceMarker = ({ classes, price, top }) => (
+const PriceMarker = ({ classes, price, subheading, top }) => (
   <Grid
     container
     justify='center'
@@ -29,7 +29,7 @@ const PriceMarker = ({ classes, price, top }) => (
         </Grid>
         <Grid item>
           <Typography variant='caption'>
-            Mid Market Price
+            {subheading}
           </Typography>
         </Grid>
       </Grid>

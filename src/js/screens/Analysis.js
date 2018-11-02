@@ -11,7 +11,7 @@ import PageHeader from "../components/PageHeader";
 import withAuthentification from "../HOCs/withAuthentification";
 import {
   selectAsksForDisplay,
-  selectBidsForDisplay, selectChartData, selectFilterType, selectHasData,
+  selectBidsForDisplay, selectChartData, selectFilterPrice, selectFilterType, selectFormattedFilterPrice, selectHasData,
   selectHeaderHeight,
   selectMapMarkers, selectMarketLoaded, selectMidPoint,
   selectNavHeight, selectWindowHeight, selectWindowWidth
@@ -30,6 +30,7 @@ import withDimensions from "../HOCs/withDimensions";
 import Button from "@material-ui/core/Button/Button";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Grow from "@material-ui/core/Grow/Grow";
+import {setFilterPrice} from "../actions/filters";
 
 const styles = () => ({
   actionButton: {
@@ -49,6 +50,8 @@ const Analysis = ({
   hasData,
   handleTouch,
   touched,
+  subheading,
+  price
 }) => (
   <div>
     <PageHeader
@@ -60,7 +63,8 @@ const Analysis = ({
     {hasData &&
     <div>
       <PriceMarker
-        price={midMarketPrice}
+        price={touched ? price : midMarketPrice}
+        subheading={subheading}
         top={headerHeight + 50}
       />
       <DepthChart
@@ -111,6 +115,7 @@ const propMap = {
   chartData: selectChartData,
   midMarketPrice: selectMidPoint,
   hasData: selectHasData,
+  price: selectFormattedFilterPrice
 };
 
 const actionMap = {
@@ -118,7 +123,8 @@ const actionMap = {
   loadBids: loadBidsAction,
   setLayerOpen: setLayerOpenAction,
   loadCurrentLocation: loadCurrentLocationAction,
-  setMarketView: setMarketViewAction
+  setMarketView: setMarketViewAction,
+  setFilterPrice
 };
 
 export default compose(
@@ -128,6 +134,7 @@ export default compose(
   withRouter,
   withStyles(styles),
   withState('touched', 'setTouched', false),
+  withState('subheading', 'setSubheading', 'Mid Market Price'),
   lifecycle({
     componentDidMount() {
       this.props.loadAsks();
@@ -139,11 +146,16 @@ export default compose(
       setMarketView(MAP);
       history.push('/');
     },
-    handleTouch: ({ setTouched }) => ({ activePayload }) => {
+    handleTouch: ({ setTouched, setFilterPrice, setSubheading }) => ({ activePayload }) => {
       if (!activePayload) return;
-      setTouched(true);
       const payload = get('payload')(activePayload[0]);
-      // console.log(payload);
+      const { price } = payload;
+      const type = (!payload.bid) ? 'asks' : 'bids';
+      const total = (!payload.bid) ? payload.ask : payload.bid;
+      const message = `${total} ${type} available`;
+      setFilterPrice(price);
+      setSubheading(message);
+      setTouched(true);
     },
   }),
 )(Analysis);
