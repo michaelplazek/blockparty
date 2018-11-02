@@ -1,5 +1,5 @@
 import React from "react";
-import { compose, withState, withHandlers } from "recompose";
+import { compose, withHandlers } from "recompose";
 
 import FormControl from "@material-ui/core/FormControl/FormControl";
 import Select from "@material-ui/core/Select/Select";
@@ -11,14 +11,12 @@ import {
   selectAskCoin,
   selectAskLatitude,
   selectAskLongitude,
-  selectAskPrice,
   selectAskUseCurrentLocation,
   selectAskVolume,
   selectFormattedAskPrice,
   selectWindowWidth
 } from "../../../selectors";
 import mapper from "../../../utils/connect";
-import { isLocationSet } from "../../../utils/location";
 import {
   setAskCoin as setAskCoinAction,
   setAskPrice as setAskPriceAction,
@@ -118,6 +116,7 @@ const CreateAskContent = ({
           </FormControl>
           {!useCurrentLocation && (
             <LocationSelector
+              showLabels={false}
               markers={[{ id: 0, lat, lng }]}
               height="12em"
               width={`${width - width / 9}px`}

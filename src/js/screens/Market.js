@@ -10,7 +10,6 @@ import {
   selectAsksForDisplay,
   selectBidsForDisplay,
   selectFilterType,
-  selectMyAsksLoaded,
   selectMarketLoaded
 } from "../selectors";
 import { loadAsks as loadAsksAction } from "../actions/asks";
@@ -53,6 +52,7 @@ class Market extends Component {
           subheader={<Subheader />}
         />
         <GoogleMapsWrapper
+          showLabels={true}
           markers={markers}
           onMarkerClick={handleMarkerClick}
           height={windowHeight - navHeight - headerHeight}

@@ -2,7 +2,14 @@ import React from "react";
 import { compose } from "recompose";
 import GoogleMapsWrapper from "../GoogleMaps/GoogleMapsWrapper";
 
-const LocationSelector = ({ markers, height, onDrag, width, position }) => (
+const LocationSelector = ({
+                            markers,
+                            height,
+                            onDrag,
+                            width,
+                            position,
+                            showLabels
+}) => (
   <div>
     <GoogleMapsWrapper
       markers={markers}
@@ -11,6 +18,7 @@ const LocationSelector = ({ markers, height, onDrag, width, position }) => (
       position={position}
       onMarkerDrag={onDrag}
       markersDraggable={true}
+      showLabels={showLabels}
     />
   </div>
 );

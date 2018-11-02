@@ -13,7 +13,6 @@ import {
   selectAsksForDisplay,
   selectBidsForDisplay,
   selectChartData, selectFilterCoin,
-  selectFilterPrice,
   selectFilterType,
   selectFormattedFilterPrice,
   selectHasData,

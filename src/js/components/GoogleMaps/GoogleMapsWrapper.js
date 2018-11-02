@@ -52,7 +52,8 @@ class GoogleMapsWrapper extends Component {
       draggable,
       markersClickable,
       markersDraggable,
-      onMarkerDrag
+      onMarkerDrag,
+      showLabels
     } = this.props;
 
     return (
@@ -72,7 +73,7 @@ class GoogleMapsWrapper extends Component {
         }}
         gestureHandling={movable}
       >
-        {markers.map(item => (
+        {showLabels && markers.map(item => (
           <InfoWindow
             options={{
               pixelOffset: new google.maps.Size(0,-45)
@@ -145,7 +146,8 @@ GoogleMapsWrapper.propTypes = {
   locationFromBottom: PropTypes.number,
   border: PropTypes.string,
   markersDraggable: PropTypes.bool,
-  onMarkerDrag: PropTypes.func
+  onMarkerDrag: PropTypes.func,
+  showLabels: PropTypes.bool,
 };
 
 GoogleMapsWrapper.defaultProps = {
@@ -166,7 +168,8 @@ GoogleMapsWrapper.defaultProps = {
   markersDraggable: false,
   locationFromBottom: 0,
   border: "",
-  onMarkerDrag: () => {}
+  onMarkerDrag: () => {},
+  showLabels: false
 };
 
 export default compose(
