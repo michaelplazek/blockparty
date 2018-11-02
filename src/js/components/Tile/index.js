@@ -11,7 +11,7 @@ import Slide from "@material-ui/core/Slide/Slide";
 const styles = () => ({
   root: {
     margin: "30px 60px 30px 60px",
-    padding: "20px",
+    padding: "20px"
   }
 });
 
@@ -61,7 +61,7 @@ Tile.propTypes = {
 };
 
 Tile.defaultProp = {
-  count: 0,
+  count: 0
 };
 
 export default compose(

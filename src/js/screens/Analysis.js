@@ -1,27 +1,36 @@
 import React from "react";
-import { compose, withHandlers, withState, lifecycle } from 'recompose';
+import { compose, withHandlers, withState, lifecycle } from "recompose";
 import { withRouter } from "react-router";
-import get from'lodash/fp/get';
+import get from "lodash/fp/get";
 import mapper from "../utils/connect";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faList} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faList } from "@fortawesome/free-solid-svg-icons";
 
 import PageHeader from "../components/PageHeader";
 import withAuthentification from "../HOCs/withAuthentification";
 import {
   selectAsksForDisplay,
-  selectBidsForDisplay, selectChartData, selectFilterPrice, selectFilterType, selectFormattedFilterPrice, selectHasData,
+  selectBidsForDisplay,
+  selectChartData,
+  selectFilterPrice,
+  selectFilterType,
+  selectFormattedFilterPrice,
+  selectHasData,
   selectHeaderHeight,
-  selectMapMarkers, selectMarketLoaded, selectMidPoint,
-  selectNavHeight, selectWindowHeight, selectWindowWidth
+  selectMapMarkers,
+  selectMarketLoaded,
+  selectMidPoint,
+  selectNavHeight,
+  selectWindowHeight,
+  selectWindowWidth
 } from "../selectors";
-import {loadAsks as loadAsksAction} from "../actions/asks";
-import {loadBids as loadBidsAction} from "../actions/bids";
-import {setLayerOpen as setLayerOpenAction} from "../actions/layers";
-import {loadCurrentLocation as loadCurrentLocationAction} from "../actions/session";
-import {setMarketView as setMarketViewAction} from "../actions/app";
-import {MAP} from "../constants/app";
+import { loadAsks as loadAsksAction } from "../actions/asks";
+import { loadBids as loadBidsAction } from "../actions/bids";
+import { setLayerOpen as setLayerOpenAction } from "../actions/layers";
+import { loadCurrentLocation as loadCurrentLocationAction } from "../actions/session";
+import { setMarketView as setMarketViewAction } from "../actions/app";
+import { MAP } from "../constants/app";
 import DepthChart from "../components/DepthChart";
 import ChartHeader from "../components/ChartHeader";
 import PriceMarker from "../components/DepthChart/PriceMarker";
@@ -30,12 +39,11 @@ import withDimensions from "../HOCs/withDimensions";
 import Button from "@material-ui/core/Button/Button";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Grow from "@material-ui/core/Grow/Grow";
-import {setFilterPrice} from "../actions/filters";
+import { setFilterPrice } from "../actions/filters";
 
 const styles = () => ({
   actionButton: {
-    position: 'fixed',
-
+    position: "fixed"
   }
 });
 
@@ -56,50 +64,42 @@ const Analysis = ({
 }) => (
   <div>
     <PageHeader
-      leftHandButton='Go to map view'
+      leftHandButton="Go to map view"
       leftHandAction={handleMarketView}
       showSubheader={true}
       subheader={<ChartHeader onSelect={handleSelect} />}
     />
-    {hasData &&
-    <div>
-      <PriceMarker
-        price={touched ? price : midMarketPrice}
-        subheading={subheading}
-        top={headerHeight + 50}
-      />
-      <DepthChart
-        data={chartData}
-        height={windowHeight - navHeight - headerHeight}
-        width={windowWidth}
-        handleTouch={handleTouch}
-      />
-    </div>
-    }
-    {!hasData &&
-      <Placeholder
-        label='No Data'
-        top={headerHeight + 50}
-      />
-    }
-    {touched &&
-    <Grow in={touched}>
-      <div
-        style={{
-        position: 'fixed',
-        right: '2em',
-        bottom: `${navHeight + 60}px`,
-      }}
-      >
-        <Button
-          variant='fab'
-        >
-          <FontAwesomeIcon icon={faList} />
-        </Button>
+    {hasData && (
+      <div>
+        <PriceMarker
+          price={touched ? price : midMarketPrice}
+          subheading={subheading}
+          top={headerHeight + 50}
+        />
+        <DepthChart
+          data={chartData}
+          height={windowHeight - navHeight - headerHeight}
+          width={windowWidth}
+          handleTouch={handleTouch}
+        />
       </div>
-    </Grow>
-    }
-
+    )}
+    {!hasData && <Placeholder label="No Data" top={headerHeight + 50} />}
+    {touched && (
+      <Grow in={touched}>
+        <div
+          style={{
+            position: "fixed",
+            right: "2em",
+            bottom: `${navHeight + 60}px`
+          }}
+        >
+          <Button variant="fab">
+            <FontAwesomeIcon icon={faList} />
+          </Button>
+        </div>
+      </Grow>
+    )}
   </div>
 );
 
@@ -134,8 +134,8 @@ export default compose(
   withDimensions,
   withRouter,
   withStyles(styles),
-  withState('touched', 'setTouched', false),
-  withState('subheading', 'setSubheading', 'Mid Market Price'),
+  withState("touched", "setTouched", false),
+  withState("subheading", "setSubheading", "Mid Market Price"),
   lifecycle({
     componentDidMount() {
       this.props.loadAsks();
@@ -145,14 +145,16 @@ export default compose(
   withHandlers({
     handleMarketView: ({ history, setMarketView }) => () => {
       setMarketView(MAP);
-      history.push('/');
+      history.push("/");
     },
-    handleTouch: ({ setTouched, setFilterPrice, setSubheading }) => ({ activePayload }) => {
+    handleTouch: ({ setTouched, setFilterPrice, setSubheading }) => ({
+      activePayload
+    }) => {
       if (!activePayload) return;
-      const payload = get('payload')(activePayload[0]);
+      const payload = get("payload")(activePayload[0]);
       const { price } = payload;
-      const type = (!payload.bid) ? 'asks' : 'bids';
-      const total = (!payload.bid) ? payload.ask : payload.bid;
+      const type = !payload.bid ? "asks" : "bids";
+      const total = !payload.bid ? payload.ask : payload.bid;
       const message = `${total} ${type} available`;
       setFilterPrice(price);
       setSubheading(message);
@@ -160,7 +162,7 @@ export default compose(
     },
     handleSelect: ({ setTouched, setSubheading }) => () => {
       setTouched(false);
-      setSubheading('Mid Market Price');
+      setSubheading("Mid Market Price");
     }
-  }),
+  })
 )(Analysis);

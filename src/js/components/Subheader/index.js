@@ -14,44 +14,42 @@ import Grid from "@material-ui/core/Grid/Grid";
 const styles = theme => ({
   root: {
     height: "50px",
-    borderBottom: "1px #CCC solid",
+    borderBottom: "1px #CCC solid"
   },
   chip: {
     margin: "8px 3px 8px 3px"
   },
-	menuButton: {
-		marginRight: 8
-	},
-  filterButton: {
-
-  }
+  menuButton: {
+    marginRight: 8
+  },
+  filterButton: {}
 });
 
 const Subheader = ({ classes, filter, setLayerOpen }) => (
   <div className={classes.root}>
-    <Grid container justify='space-between'>
+    <Grid container justify="space-between">
       <Grid item>
-      <Chip
-        clickable={true}
-        onClick={() => setLayerOpen(true)}
-        label={`Type: ${filter.type}`}
-        className={classes.chip}
-        variant="outlined"
-      />
-      <Chip
-        clickable={true}
-        onClick={() => setLayerOpen(true)}
-        label={`Coin: ${filter.coin}`}
-        className={classes.chip}
-        variant="outlined"
-      />
-      <Chip
-        clickable={true}
-        onClick={() => setLayerOpen(true)}
-        label={`Distance: ${filter.distanceAway}`}
-        className={classes.chip}
-        variant="outlined"
-      />
+        <Chip
+          clickable={true}
+          onClick={() => setLayerOpen(true)}
+          label={`Type: ${filter.type}`}
+          className={classes.chip}
+          variant="outlined"
+        />
+        <Chip
+          clickable={true}
+          onClick={() => setLayerOpen(true)}
+          label={`Coin: ${filter.coin}`}
+          className={classes.chip}
+          variant="outlined"
+        />
+        <Chip
+          clickable={true}
+          onClick={() => setLayerOpen(true)}
+          label={`Distance: ${filter.distanceAway}`}
+          className={classes.chip}
+          variant="outlined"
+        />
       </Grid>
       <Grid item className={classes.filterButton}>
         <IconButton

@@ -1,2 +1,2 @@
-export const MAP = 'MAP';
-export const CHART = 'CHART';
+export const MAP = "MAP";
+export const CHART = "CHART";

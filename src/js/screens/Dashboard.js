@@ -32,13 +32,14 @@ import withDimensions from "../HOCs/withDimensions";
 import Button from "@material-ui/core/Button/Button";
 import withStyles from "@material-ui/core/styles/withStyles";
 import {
-	selectDashboardLoaded,
-	selectLayer,
-	selectMyAsks,
-	selectMyBids, selectNavHeight,
-	selectNumberOfMyAsks,
-	selectNumberOfMyBids,
-	selectUserId
+  selectDashboardLoaded,
+  selectLayer,
+  selectMyAsks,
+  selectMyBids,
+  selectNavHeight,
+  selectNumberOfMyAsks,
+  selectNumberOfMyBids,
+  selectUserId
 } from "../selectors";
 import Grow from "@material-ui/core/Grow/Grow";
 import withLoader from "../HOCs/withLoader";
@@ -111,18 +112,16 @@ const Dashboard = ({
       ))}
     </Tile>
     <div
-			style={{
-        position: 'fixed',
-        right: '2em',
-        bottom: `${footerHeight + 20}px`,
-			}}
+      style={{
+        position: "fixed",
+        right: "2em",
+        bottom: `${footerHeight + 20}px`
+      }}
     >
       {showButtons && (
-        <Grow
-          in={showButtons}
-        >
+        <Grow in={showButtons}>
           <div
-						className={classes.buttonContainer}
+            className={classes.buttonContainer}
             onMouseLeave={() => setTimeout(() => setShowButtons(false), 1000)}
             onMouseOver={() => setShowButtons(true)}
           >
@@ -152,7 +151,7 @@ const Dashboard = ({
 
       {!showButtons && (
         <Button
-					className={classes.buttonContainer}
+          className={classes.buttonContainer}
           color="primary"
           variant="fab"
           onClick={() => {
@@ -173,7 +172,7 @@ const propMap = {
   myAsks: selectMyAsks,
   numberOfBids: selectNumberOfMyBids,
   numberOfAsks: selectNumberOfMyAsks,
-	loaded: selectDashboardLoaded,
+  loaded: selectDashboardLoaded,
   footerHeight: selectNavHeight
 };
 
@@ -200,5 +199,5 @@ export default compose(
       loadMyBids(userId);
     }
   }),
-	withLoader,
+  withLoader
 )(Dashboard);

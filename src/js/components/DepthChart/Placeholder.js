@@ -3,32 +3,24 @@ import { compose } from "recompose";
 import Typography from "@material-ui/core/Typography/Typography";
 import Grid from "@material-ui/core/Grid/Grid";
 
-
 const Placeholder = ({ classes, label, top }) => (
   <Grid
     container
-    justify='center'
+    justify="center"
     style={{
-      position: 'absolute',
+      position: "absolute",
       top: `${top}px`,
       zIndex: 1000
     }}
   >
     <Grid item>
-      <Grid
-        container
-        direction='column'
-        alignItems='center'
-      >
+      <Grid container direction="column" alignItems="center">
         <Grid item>
-          <Typography variant='display1'>
-            {label}
-          </Typography>
+          <Typography variant="display1">{label}</Typography>
         </Grid>
       </Grid>
     </Grid>
   </Grid>
 );
 
-export default compose(
-)(Placeholder);
+export default compose()(Placeholder);

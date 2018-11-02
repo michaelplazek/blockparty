@@ -4,12 +4,12 @@ import { withRouter } from "react-router";
 import mapper from "../utils/connect";
 
 import {
-	selectHeaderHeight,
-	selectMapMarkers,
-	selectNavHeight,
-	selectAsksForDisplay,
-	selectBidsForDisplay,
-	selectFilterType,
+  selectHeaderHeight,
+  selectMapMarkers,
+  selectNavHeight,
+  selectAsksForDisplay,
+  selectBidsForDisplay,
+  selectFilterType,
   selectMyAsksLoaded,
   selectMarketLoaded
 } from "../selectors";
@@ -25,7 +25,7 @@ import FilterMap from "../components/Flyout/FilterMap/index";
 import withDimensions from "../HOCs/withDimensions";
 import withLoader from "../HOCs/withLoader";
 import { setMarketView as setMarketViewAction } from "../actions/app";
-import {CHART} from "../constants/app";
+import { CHART } from "../constants/app";
 
 class Market extends Component {
   constructor(props) {
@@ -69,7 +69,7 @@ const propMap = {
   navHeight: selectNavHeight,
   headerHeight: selectHeaderHeight,
   type: selectFilterType,
-	loaded: selectMarketLoaded // for withLoader
+  loaded: selectMarketLoaded // for withLoader
 };
 
 const actionMap = {
@@ -92,8 +92,8 @@ export default compose(
     },
     handleMarketView: ({ history, setMarketView }) => () => {
       setMarketView(CHART);
-      history.push('/analysis');
-    },
+      history.push("/analysis");
+    }
   }),
   lifecycle({
     componentWillMount() {
@@ -103,5 +103,5 @@ export default compose(
       loadBids();
     }
   }),
-	withLoader,
+  withLoader
 )(Market);

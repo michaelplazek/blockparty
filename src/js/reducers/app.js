@@ -4,7 +4,7 @@ import {
   LOAD_HEADER_HEIGHT,
   LOAD_WINDOW_HEIGHT,
   LOAD_WINDOW_WIDTH,
-  SET_MARKET_VIEW,
+  SET_MARKET_VIEW
 } from "../actions";
 import { MAP } from "../constants/app";
 
@@ -13,7 +13,7 @@ const initialState = {
   headerHeight: 0,
   windowHeight: 0,
   windowWidth: 0,
-  marketView: MAP,
+  marketView: MAP
 };
 
 const handlers = {

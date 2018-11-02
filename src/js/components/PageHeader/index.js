@@ -18,7 +18,7 @@ const styles = {
   },
   grow: {
     flexGrow: 1
-  },
+  }
 };
 
 class PageHeader extends Component {

@@ -35,7 +35,7 @@ const handlers = {
   }),
   [SET_FILTER_PRICE]: (_, action) => ({
     price: action.data
-  }),
+  })
 };
 
 export default stateReducer(initialState, handlers);
