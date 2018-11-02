@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import numeral from 'numeral';
+import numeral from "numeral";
 import { compose, withProps } from "recompose";
 import {
   withScriptjs,
@@ -12,7 +12,7 @@ import {
 import { smallIconMap } from "../../constants/coin-icons";
 import Typography from "@material-ui/core/Typography/Typography";
 import Grid from "@material-ui/core/Grid/Grid";
-import {USD} from "../../constants/currency";
+import { USD } from "../../constants/currency";
 
 class GoogleMapsWrapper extends Component {
   constructor(props) {
@@ -73,45 +73,52 @@ class GoogleMapsWrapper extends Component {
         }}
         gestureHandling={movable}
       >
-        {showLabels && markers.map(item => (
-          <InfoWindow
-            options={{
-              pixelOffset: new google.maps.Size(0,-45)
-            }}
-            position={{
-              lat: parseFloat(item.lat),
-              lng: parseFloat(item.lng)
-            }}
-          >
-            <div
-              onClick={() => onMarkerClick(item)}
-              style={{ cursor: 'pointer' }}
+        {showLabels &&
+          markers.map(item => (
+            <InfoWindow
+              options={{
+                pixelOffset: new google.maps.Size(0, -45)
+              }}
+              position={{
+                lat: parseFloat(item.lat),
+                lng: parseFloat(item.lng)
+              }}
             >
-              <Grid container direction='column'>
-                <Grid item>
-                  <Grid container direction='row'>
-                    <Grid item style={{ margin: '4px 4px 0px 0px' }}>
-                      {smallIconMap[item.coin]}
-                    </Grid>
-                    <Grid item>
-                      <Grid container direction='row'>
-                        <Grid item>
-                          <Typography variant='subheading'>{item.volume}</Typography>
-                        </Grid>
-                        <Grid item style={{ margin: '4px 0px 0px 4px' }}>
-                          <Typography variant='subtitle1'>{item.coin}</Typography>
+              <div
+                onClick={() => onMarkerClick(item)}
+                style={{ cursor: "pointer" }}
+              >
+                <Grid container direction="column">
+                  <Grid item>
+                    <Grid container direction="row">
+                      <Grid item style={{ margin: "4px 4px 0px 0px" }}>
+                        {smallIconMap[item.coin]}
+                      </Grid>
+                      <Grid item>
+                        <Grid container direction="row">
+                          <Grid item>
+                            <Typography variant="subheading">
+                              {item.volume}
+                            </Typography>
+                          </Grid>
+                          <Grid item style={{ margin: "4px 0px 0px 4px" }}>
+                            <Typography variant="subtitle1">
+                              {item.coin}
+                            </Typography>
+                          </Grid>
                         </Grid>
                       </Grid>
                     </Grid>
                   </Grid>
+                  <Grid item>
+                    <Typography variant="caption">
+                      at {numeral(item.price).format(USD)}/{item.coin}
+                    </Typography>
+                  </Grid>
                 </Grid>
-                <Grid item>
-                  <Typography variant='caption'>at {numeral(item.price).format(USD)}/{item.coin}</Typography>
-                </Grid>
-              </Grid>
-            </div>
-          </InfoWindow>
-        ))}
+              </div>
+            </InfoWindow>
+          ))}
 
         {markers.map(item => (
           <Marker
@@ -147,7 +154,7 @@ GoogleMapsWrapper.propTypes = {
   border: PropTypes.string,
   markersDraggable: PropTypes.bool,
   onMarkerDrag: PropTypes.func,
-  showLabels: PropTypes.bool,
+  showLabels: PropTypes.bool
 };
 
 GoogleMapsWrapper.defaultProps = {

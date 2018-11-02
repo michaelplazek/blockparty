@@ -129,7 +129,7 @@ export const selectMapMarkers = createSelector(
       fpMap(ask => ({
         lat: ask.lat,
         lng: ask.lng,
-        id: ask._id ,
+        id: ask._id,
         price: ask.price,
         volume: ask.volume,
         coin: ask.coin

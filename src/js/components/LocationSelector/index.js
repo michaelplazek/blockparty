@@ -3,12 +3,12 @@ import { compose } from "recompose";
 import GoogleMapsWrapper from "../GoogleMaps/GoogleMapsWrapper";
 
 const LocationSelector = ({
-                            markers,
-                            height,
-                            onDrag,
-                            width,
-                            position,
-                            showLabels
+  markers,
+  height,
+  onDrag,
+  width,
+  position,
+  showLabels
 }) => (
   <div>
     <GoogleMapsWrapper

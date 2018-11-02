@@ -12,7 +12,8 @@ import withAuthentification from "../HOCs/withAuthentification";
 import {
   selectAsksForDisplay,
   selectBidsForDisplay,
-  selectChartData, selectFilterCoin,
+  selectChartData,
+  selectFilterCoin,
   selectFilterType,
   selectFormattedFilterPrice,
   selectHasData,
