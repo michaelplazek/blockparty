@@ -6,7 +6,5 @@ export const binify = (low, high, items) => {
       total += item.volume;
     }
   });
-
-  console.log(`total = ${total}`);
   return total;
 };
