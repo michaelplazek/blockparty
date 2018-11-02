@@ -40,7 +40,7 @@ const styles = () => ({
     margin: "20px 60px 20px 60px"
   },
   buttons: {
-    position: "absolute",
+    position: "fixed",
     bottom: "7em",
     right: "2em"
   }
@@ -70,27 +70,29 @@ const Bid = ({ bid, history, windowHeight, footerHeight, classes, loaded }) => (
             <br />
             <List>
               <ListItem divider={true}>
-                <Grid container justify='space-between'>
+                <Grid container justify="space-between">
                   <Grid item>
-										<ListItemText
-											disableTypography
-											primary={<Typography type="subheading">Location</Typography>}
-										/>
+                    <ListItemText
+                      disableTypography
+                      primary={
+                        <Typography type="subheading">Location</Typography>
+                      }
+                    />
                   </Grid>
                   <Grid item>
-                  <ListItemText>
-                    {bid.lat.toFixed(6)},{bid.lng.toFixed(6)}
-                  </ListItemText>
+                    <ListItemText>
+                      {bid.lat.toFixed(6)},{bid.lng.toFixed(6)}
+                    </ListItemText>
                   </Grid>
                 </Grid>
               </ListItem>
               <ListItem divider={true}>
-								<Grid container justify='space-between'>
+                <Grid container justify="space-between">
                   <Grid item>
-										<ListItemText
-											disableTypography
-											primary={<Typography type="subheading">Price</Typography>}
-										/>
+                    <ListItemText
+                      disableTypography
+                      primary={<Typography type="subheading">Price</Typography>}
+                    />
                   </Grid>
                   <Grid item>
                     <ListItemText>{bid.price}</ListItemText>
@@ -98,12 +100,12 @@ const Bid = ({ bid, history, windowHeight, footerHeight, classes, loaded }) => (
                 </Grid>
               </ListItem>
               <ListItem divider={true}>
-								<Grid container justify='space-between'>
+                <Grid container justify="space-between">
                   <Grid item>
-										<ListItemText
-											disableTypography
-											primary={<Typography type="subheading">Buyer</Typography>}
-										/>
+                    <ListItemText
+                      disableTypography
+                      primary={<Typography type="subheading">Buyer</Typography>}
+                    />
                   </Grid>
                   <Grid item>
                     <ListItemText>{bid._id}</ListItemText>
@@ -111,12 +113,14 @@ const Bid = ({ bid, history, windowHeight, footerHeight, classes, loaded }) => (
                 </Grid>
               </ListItem>
               <ListItem divider={true}>
-								<Grid container justify='space-between'>
+                <Grid container justify="space-between">
                   <Grid item>
-										<ListItemText
-											disableTypography
-											primary={<Typography type="subheading">Last Updated</Typography>}
-										/>
+                    <ListItemText
+                      disableTypography
+                      primary={
+                        <Typography type="subheading">Last Updated</Typography>
+                      }
+                    />
                   </Grid>
                   <Grid item>
                     <ListItemText>{bid.timestamp}</ListItemText>

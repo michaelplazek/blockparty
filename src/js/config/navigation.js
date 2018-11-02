@@ -1,6 +1,10 @@
 import React from "react";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faDollarSign, faTachometerAlt, faUser } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faDollarSign,
+  faTachometerAlt,
+  faUser
+} from "@fortawesome/free-solid-svg-icons";
 
 export const footerNavigation = [
   {
@@ -13,12 +17,12 @@ export const footerNavigation = [
     path: "/dashboard",
     label: "Dashboard",
     index: 1,
-    icon:  <FontAwesomeIcon icon={faTachometerAlt} />
+    icon: <FontAwesomeIcon icon={faTachometerAlt} />
   },
   {
     path: "/account",
     label: "Account",
     index: 2,
-    icon:  <FontAwesomeIcon icon={faUser} />
+    icon: <FontAwesomeIcon icon={faUser} />
   }
 ];

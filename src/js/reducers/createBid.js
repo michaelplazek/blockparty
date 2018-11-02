@@ -1,5 +1,5 @@
 import { stateReducer } from "./utils";
-import numeral from 'numeral';
+import numeral from "numeral";
 import {
   SET_BID_COIN,
   SET_BID_VOLUME,

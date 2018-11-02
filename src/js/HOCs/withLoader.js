@@ -9,9 +9,8 @@ import Loading from "../components/Loading";
  * @returns {*}
  */
 export default Component => {
-	const LoaderHOC = (props) => {
-		return props.loaded ? <Component  {...props} /> : "Loading..."
-	};
-	return compose(
-	)(LoaderHOC);
+  const LoaderHOC = props => {
+    return props.loaded ? <Component {...props} /> : "Loading...";
+  };
+  return compose()(LoaderHOC);
 };

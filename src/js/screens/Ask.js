@@ -41,7 +41,7 @@ const styles = () => ({
     margin: "20px 60px 20px 60px"
   },
   buttons: {
-    position: "absolute",
+    position: "fixed",
     bottom: "7em",
     right: "2em"
   }
@@ -79,11 +79,13 @@ const Ask = ({
             <br />
             <List>
               <ListItem divider={true}>
-								<Grid container justify='space-between'>
+                <Grid container justify="space-between">
                   <Grid item>
                     <ListItemText
-											disableTypography
-											primary={<Typography type="subheading">Location</Typography>}
+                      disableTypography
+                      primary={
+                        <Typography type="subheading">Location</Typography>
+                      }
                     />
                   </Grid>
                   <Grid item>
@@ -94,12 +96,12 @@ const Ask = ({
                 </Grid>
               </ListItem>
               <ListItem divider={true}>
-								<Grid container justify='space-between'>
+                <Grid container justify="space-between">
                   <Grid item>
-										<ListItemText
-											disableTypography
-											primary={<Typography type="subheading">Price</Typography>}
-										/>
+                    <ListItemText
+                      disableTypography
+                      primary={<Typography type="subheading">Price</Typography>}
+                    />
                   </Grid>
                   <Grid item>
                     <ListItemText>{ask.price}</ListItemText>
@@ -107,12 +109,14 @@ const Ask = ({
                 </Grid>
               </ListItem>
               <ListItem divider={true}>
-								<Grid container justify='space-between'>
+                <Grid container justify="space-between">
                   <Grid item>
-										<ListItemText
-											disableTypography
-											primary={<Typography type="subheading">Seller</Typography>}
-										/>
+                    <ListItemText
+                      disableTypography
+                      primary={
+                        <Typography type="subheading">Seller</Typography>
+                      }
+                    />
                   </Grid>
                   <Grid item>
                     <ListItemText>{ask._id}</ListItemText>
@@ -120,12 +124,14 @@ const Ask = ({
                 </Grid>
               </ListItem>
               <ListItem divider={true}>
-								<Grid container justify='space-between'>
+                <Grid container justify="space-between">
                   <Grid item>
-										<ListItemText
-											disableTypography
-											primary={<Typography type="subheading">Last Updated</Typography>}
-										/>
+                    <ListItemText
+                      disableTypography
+                      primary={
+                        <Typography type="subheading">Last Updated</Typography>
+                      }
+                    />
                   </Grid>
                   <Grid item>
                     <ListItemText>{ask.timestamp}</ListItemText>
