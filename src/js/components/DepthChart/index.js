@@ -50,7 +50,7 @@ const DepthChart = ({ height, width, data, handleTouch }) => (
         dataKey="price"
         interval="preserveStartEnd"
         tickMargin={20}
-        minTickGap={13}
+        minTickGap={9}
         tick={<XTick />}
       />
       <YAxis
