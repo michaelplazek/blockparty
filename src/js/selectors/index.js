@@ -126,7 +126,14 @@ export const selectMapMarkers = createSelector(
   (asks, bids, type, coin, filterDistance, currentLocation) => {
     const items = type === "ASK" ? asks : bids;
     return compose(
-      fpMap(ask => ({ lat: ask.lat, lng: ask.lng, id: ask._id })),
+      fpMap(ask => ({
+        lat: ask.lat,
+        lng: ask.lng,
+        id: ask._id ,
+        price: ask.price,
+        volume: ask.volume,
+        coin: ask.coin
+      })),
       filter(ask => {
         const distance = getDistance(
           { latitude: ask.lat, longitude: ask.lng },

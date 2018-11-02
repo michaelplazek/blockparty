@@ -5,8 +5,12 @@ import {
   withScriptjs,
   withGoogleMap,
   GoogleMap,
-  Marker
+  Marker,
+  InfoWindow
 } from "react-google-maps";
+import { smallIconMap } from "../../constants/coin-icons";
+import Typography from "@material-ui/core/Typography/Typography";
+import Grid from "@material-ui/core/Grid/Grid";
 
 class GoogleMapsWrapper extends Component {
   constructor(props) {
@@ -51,6 +55,7 @@ class GoogleMapsWrapper extends Component {
 
     return (
       <GoogleMap
+        google={this.props.google}
         defaultZoom={this.state.zoom}
         defaultCenter={{
           lat: parseFloat(this.state.currentLocation.lat),
@@ -66,6 +71,41 @@ class GoogleMapsWrapper extends Component {
         gestureHandling={movable}
       >
         {markers.map(item => (
+          <InfoWindow
+            options={{
+              pixelOffset: new google.maps.Size(0,-45)
+            }}
+            position={{
+              lat: parseFloat(item.lat),
+              lng: parseFloat(item.lng)
+            }}
+          >
+            <Grid container direction='column'>
+              <Grid item>
+                <Grid container direction='row'>
+                  <Grid item style={{ margin: '4px 4px 0px 0px' }}>
+                    {smallIconMap[item.coin]}
+                  </Grid>
+                  <Grid item>
+                    <Grid container direction='row'>
+                      <Grid item>
+                        <Typography variant='subheading'>{item.volume}</Typography>
+                      </Grid>
+                      <Grid item style={{ margin: '4px 0px 0px 4px' }}>
+                        <Typography variant='subtitle1'>{item.coin}</Typography>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Grid item>
+                <Typography variant='caption'>at {item.price}/{item.coin}</Typography>
+              </Grid>
+            </Grid>
+          </InfoWindow>
+        ))}
+
+        {markers.map(item => (
           <Marker
             key={item.id}
             position={{
@@ -78,6 +118,15 @@ class GoogleMapsWrapper extends Component {
             onDrag={item => onMarkerDrag(item)}
           />
         ))}
+        {/*{markers.map(item => (*/}
+          {/*<InfoWindow*/}
+            {/*key={item.id}*/}
+            {/*position={{*/}
+              {/*lat: parseFloat(item.lat),*/}
+              {/*lng: parseFloat(item.lng)*/}
+            {/*}}*/}
+          {/*>sdsadsd</InfoWindow>*/}
+        {/*))}*/}
       </GoogleMap>
     );
   }
