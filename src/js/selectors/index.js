@@ -306,6 +306,7 @@ const selectBidData = createSelector(
   (prices, range, bids) => {
     let data = [];
     let total = 0;
+    let count = 0;
     const difference = head(prices) - last(prices);
 
     range.map((item, index) => {
@@ -315,15 +316,20 @@ const selectBidData = createSelector(
       const low = range[index + 1].price;
 
       if (difference !== 0) {
-        total += binify(low, high, bids);
+        const obj = binify(low, high, bids);
+        total += obj.total;
+        count += obj.count;
       } else {
-        total = binify(low, high, bids);
+        const obj = binify(low, high, bids);
+        total = obj.total;
+        count = obj.count;
       }
 
       data.push({
         price: high,
         bid: total,
-        ask: null
+        ask: null,
+        count
       });
     });
 
@@ -338,6 +344,7 @@ const selectAskData = createSelector(
   (prices, range, asks) => {
     let data = [];
     let total = 0;
+    let count = 0;
     const difference = head(prices) - last(prices);
     range.map((item, index) => {
       if (index === range.length - 1) return;
@@ -346,15 +353,20 @@ const selectAskData = createSelector(
       const high = range[index + 1].price;
 
       if (difference !== 0) {
-        total += binify(low, high, asks);
+        const obj = binify(low, high, asks);
+        total += obj.total;
+        count += obj.count;
       } else {
-        total = binify(low, high, asks);
+        const obj = binify(low, high, asks);
+        total = obj.total;
+        count = obj.count;
       }
 
       data.push({
         price: high,
         bid: null,
-        ask: total
+        ask: total,
+        count
       });
     });
 

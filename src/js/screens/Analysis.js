@@ -12,7 +12,7 @@ import withAuthentification from "../HOCs/withAuthentification";
 import {
   selectAsksForDisplay,
   selectBidsForDisplay,
-  selectChartData,
+  selectChartData, selectFilterCoin,
   selectFilterPrice,
   selectFilterType,
   selectFormattedFilterPrice,
@@ -116,7 +116,8 @@ const propMap = {
   chartData: selectChartData,
   midMarketPrice: selectMidPoint,
   hasData: selectHasData,
-  price: selectFormattedFilterPrice
+  price: selectFormattedFilterPrice,
+  coin: selectFilterCoin
 };
 
 const actionMap = {
@@ -147,7 +148,7 @@ export default compose(
       setMarketView(MAP);
       history.push("/");
     },
-    handleTouch: ({ setTouched, setFilterPrice, setSubheading }) => ({
+    handleTouch: ({ setTouched, setFilterPrice, setSubheading, coin }) => ({
       activePayload
     }) => {
       if (!activePayload) return;
@@ -155,7 +156,8 @@ export default compose(
       const { price } = payload;
       const type = !payload.bid ? "asks" : "bids";
       const total = !payload.bid ? payload.ask : payload.bid;
-      const message = `${total} ${type} available`;
+      const { count } = payload;
+      const message = `${total} ${coin} available in ${count} ${type}`;
       setFilterPrice(price);
       setSubheading(message);
       setTouched(true);

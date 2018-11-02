@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import numeral from 'numeral';
 import { compose, withProps } from "recompose";
 import {
   withScriptjs,
@@ -11,6 +12,7 @@ import {
 import { smallIconMap } from "../../constants/coin-icons";
 import Typography from "@material-ui/core/Typography/Typography";
 import Grid from "@material-ui/core/Grid/Grid";
+import {USD} from "../../constants/currency";
 
 class GoogleMapsWrapper extends Component {
   constructor(props) {
@@ -103,7 +105,7 @@ class GoogleMapsWrapper extends Component {
                   </Grid>
                 </Grid>
                 <Grid item>
-                  <Typography variant='caption'>at {item.price}/{item.coin}</Typography>
+                  <Typography variant='caption'>at {numeral(item.price).format(USD)}/{item.coin}</Typography>
                 </Grid>
               </Grid>
             </div>
@@ -123,15 +125,6 @@ class GoogleMapsWrapper extends Component {
             onDrag={item => onMarkerDrag(item)}
           />
         ))}
-        {/*{markers.map(item => (*/}
-          {/*<InfoWindow*/}
-            {/*key={item.id}*/}
-            {/*position={{*/}
-              {/*lat: parseFloat(item.lat),*/}
-              {/*lng: parseFloat(item.lng)*/}
-            {/*}}*/}
-          {/*>sdsadsd</InfoWindow>*/}
-        {/*))}*/}
       </GoogleMap>
     );
   }
