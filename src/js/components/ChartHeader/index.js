@@ -23,7 +23,7 @@ const styles = theme => ({
   }
 });
 
-const ChartHeader = ({ classes, coin, setFilterCoin }) => (
+const ChartHeader = ({ classes, coin, setFilterCoin, onSelect }) => (
   <div className={classes.root}>
     <FormControl
       margin='dense'
@@ -34,7 +34,10 @@ const ChartHeader = ({ classes, coin, setFilterCoin }) => (
       <Select
         native
         value={coin}
-        onChange={({ target }) => {setFilterCoin(target.value)}}
+        onChange={({ target }) => {
+          onSelect();
+          setFilterCoin(target.value);
+        }}
       >
         {coins.map(item => (
           <option key={item} value={item}>

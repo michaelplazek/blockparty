@@ -51,14 +51,15 @@ const Analysis = ({
   handleTouch,
   touched,
   subheading,
-  price
+  price,
+  handleSelect
 }) => (
   <div>
     <PageHeader
       leftHandButton='Go to map view'
       leftHandAction={handleMarketView}
       showSubheader={true}
-      subheader={<ChartHeader />}
+      subheader={<ChartHeader onSelect={handleSelect} />}
     />
     {hasData &&
     <div>
@@ -157,5 +158,9 @@ export default compose(
       setSubheading(message);
       setTouched(true);
     },
+    handleSelect: ({ setTouched, setSubheading }) => () => {
+      setTouched(false);
+      setSubheading('Mid Market Price');
+    }
   }),
 )(Analysis);
