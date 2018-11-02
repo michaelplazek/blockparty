@@ -80,28 +80,33 @@ class GoogleMapsWrapper extends Component {
               lng: parseFloat(item.lng)
             }}
           >
-            <Grid container direction='column'>
-              <Grid item>
-                <Grid container direction='row'>
-                  <Grid item style={{ margin: '4px 4px 0px 0px' }}>
-                    {smallIconMap[item.coin]}
-                  </Grid>
-                  <Grid item>
-                    <Grid container direction='row'>
-                      <Grid item>
-                        <Typography variant='subheading'>{item.volume}</Typography>
-                      </Grid>
-                      <Grid item style={{ margin: '4px 0px 0px 4px' }}>
-                        <Typography variant='subtitle1'>{item.coin}</Typography>
+            <div
+              onClick={() => onMarkerClick(item)}
+              style={{ cursor: 'pointer' }}
+            >
+              <Grid container direction='column'>
+                <Grid item>
+                  <Grid container direction='row'>
+                    <Grid item style={{ margin: '4px 4px 0px 0px' }}>
+                      {smallIconMap[item.coin]}
+                    </Grid>
+                    <Grid item>
+                      <Grid container direction='row'>
+                        <Grid item>
+                          <Typography variant='subheading'>{item.volume}</Typography>
+                        </Grid>
+                        <Grid item style={{ margin: '4px 0px 0px 4px' }}>
+                          <Typography variant='subtitle1'>{item.coin}</Typography>
+                        </Grid>
                       </Grid>
                     </Grid>
                   </Grid>
                 </Grid>
+                <Grid item>
+                  <Typography variant='caption'>at {item.price}/{item.coin}</Typography>
+                </Grid>
               </Grid>
-              <Grid item>
-                <Typography variant='caption'>at {item.price}/{item.coin}</Typography>
-              </Grid>
-            </Grid>
+            </div>
           </InfoWindow>
         ))}
 
