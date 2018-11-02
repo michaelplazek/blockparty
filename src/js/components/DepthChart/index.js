@@ -3,9 +3,10 @@ import { compose, withHandlers } from 'recompose';
 import numeral from 'numeral';
 
 import PropTypes from "prop-types";
-import {Area, AreaChart, XAxis, YAxis} from "recharts";
+import {Area, AreaChart, Line, Tooltip, XAxis, YAxis} from "recharts";
 import {ASK_COLOR, BID_COLOR} from "../../constants/colors";
 import {USD} from "../../constants/currency";
+import ToolTip from "./ToolTip";
 
 const XTick = ({ payload, x, y, fill }) => {
   return <text
@@ -31,9 +32,15 @@ const DepthChart = ({
   height,
   width,
   data,
+  handleTouch
 }) => (
   <div style={{ zIndex: 500 }}>
-    <AreaChart width={width} height={height} data={data}>
+    <AreaChart
+      width={width}
+      height={height}
+      data={data}
+      onMouseMove={handleTouch}
+    >
       <XAxis
         dataKey='price'
         interval='preserveStartEnd'
@@ -55,6 +62,7 @@ const DepthChart = ({
         yAxisId='right'
         tick={<YTick />}
       />
+      <Tooltip content={<ToolTip />}/>
       <defs>
         <linearGradient id="bidId" x1="0" y1="0" x2="0" y2="1">
           <stop offset="5%" stopColor={BID_COLOR} stopOpacity={0.8}/>
@@ -71,6 +79,7 @@ const DepthChart = ({
         dataKey="bid"
         stroke={BID_COLOR}
         fillOpacity={1}
+        strokeWidth={2}
         fill="url(#bidId)"
         isAnimationActive={false}
       />
@@ -79,6 +88,7 @@ const DepthChart = ({
         type="linear"
         dataKey="ask"
         stroke={ASK_COLOR}
+        strokeWidth={1}
         fillOpacity={1}
         fill="url(#askId)"
         isAnimationActive={false}
@@ -90,12 +100,9 @@ const DepthChart = ({
 DepthChart.propTypes = {
   data: PropTypes.array,
   width: PropTypes.number,
-  height: PropTypes.number
+  height: PropTypes.number,
+  handleTouch: PropTypes.func,
 };
 
 export default compose(
-  withHandlers({
-    handleMarketView: ({}) => () => {
-    },
-  }),
 )(DepthChart);

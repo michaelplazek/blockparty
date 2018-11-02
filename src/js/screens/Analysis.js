@@ -1,7 +1,11 @@
 import React from "react";
-import { compose, withHandlers, lifecycle } from 'recompose';
+import { compose, withHandlers, withState, lifecycle } from 'recompose';
 import { withRouter } from "react-router";
+import get from'lodash/fp/get';
 import mapper from "../utils/connect";
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faList} from '@fortawesome/free-solid-svg-icons'
 
 import PageHeader from "../components/PageHeader";
 import withAuthentification from "../HOCs/withAuthentification";
@@ -23,6 +27,16 @@ import ChartHeader from "../components/ChartHeader";
 import PriceMarker from "../components/DepthChart/PriceMarker";
 import Placeholder from "../components/DepthChart/Placeholder";
 import withDimensions from "../HOCs/withDimensions";
+import Button from "@material-ui/core/Button/Button";
+import withStyles from "@material-ui/core/styles/withStyles";
+import Grow from "@material-ui/core/Grow/Grow";
+
+const styles = () => ({
+  actionButton: {
+    position: 'fixed',
+
+  }
+});
 
 const Analysis = ({
   handleMarketView,
@@ -33,6 +47,8 @@ const Analysis = ({
   windowHeight,
   midMarketPrice,
   hasData,
+  handleTouch,
+  touched,
 }) => (
   <div>
     <PageHeader
@@ -51,6 +67,7 @@ const Analysis = ({
         data={chartData}
         height={windowHeight - navHeight - headerHeight}
         width={windowWidth}
+        handleTouch={handleTouch}
       />
     </div>
     }
@@ -59,6 +76,23 @@ const Analysis = ({
         label='No Data'
         top={headerHeight + 50}
       />
+    }
+    {touched &&
+    <Grow in={touched}>
+      <div
+        style={{
+        position: 'fixed',
+        right: '2em',
+        bottom: `${navHeight + 60}px`,
+      }}
+      >
+        <Button
+          variant='fab'
+        >
+          <FontAwesomeIcon icon={faList} />
+        </Button>
+      </div>
+    </Grow>
     }
 
   </div>
@@ -92,6 +126,8 @@ export default compose(
   withAuthentification,
   withDimensions,
   withRouter,
+  withStyles(styles),
+  withState('touched', 'setTouched', false),
   lifecycle({
     componentDidMount() {
       this.props.loadAsks();
@@ -102,6 +138,12 @@ export default compose(
     handleMarketView: ({ history, setMarketView }) => () => {
       setMarketView(MAP);
       history.push('/');
+    },
+    handleTouch: ({ setTouched }) => ({ activePayload }) => {
+      if (!activePayload) return;
+      setTouched(true);
+      const payload = get('payload')(activePayload[0]);
+      // console.log(payload);
     },
   }),
 )(Analysis);
