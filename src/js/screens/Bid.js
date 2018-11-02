@@ -40,7 +40,7 @@ const styles = () => ({
     margin: "20px 60px 20px 60px"
   },
   buttons: {
-    position: "absolute",
+    position: "fixed",
     bottom: "7em",
     right: "2em"
   }
