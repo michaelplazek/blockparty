@@ -13,7 +13,7 @@ import {
 } from "../../../actions/asks";
 import Modal from "@material-ui/core/Modal/Modal";
 import {
-  selectAsk,
+  selectAsk, selectAskPostTime,
   selectLayerOpen,
   selectWindowHeight,
   selectWindowWidth
@@ -41,6 +41,9 @@ const styles = theme => ({
   },
   rate: {
     margin: "3px 0px 0px 3px"
+  },
+  time: {
+    marginTop: "4px"
   }
 });
 
@@ -51,7 +54,8 @@ const DeleteAsk = ({
   windowWidth,
   windowHeight,
   ask,
-  open
+  open,
+  time
 }) => (
   <Flyout
     onClose={() => {
@@ -98,10 +102,12 @@ const DeleteAsk = ({
             </Grid>
           </Grid>
         </Grid>
+        <Grid item className={classes.time}>
+          <Typography>Posted {time}</Typography>
+        </Grid>
         <div className={classes.button}>
           <Button
             variant="contained"
-            color="error"
             onClick={() => {
               deleteAsk(ask._id);
               setLayerOpen(false);
@@ -119,7 +125,8 @@ const propMap = {
   open: selectLayerOpen,
   ask: selectAsk,
   windowHeight: selectWindowHeight,
-  windowWidth: selectWindowWidth
+  windowWidth: selectWindowWidth,
+  time: selectAskPostTime
 };
 
 const actionMap = {
