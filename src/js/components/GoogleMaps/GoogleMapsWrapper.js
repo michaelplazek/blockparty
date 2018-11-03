@@ -76,6 +76,7 @@ class GoogleMapsWrapper extends Component {
         {showLabels &&
           markers.map(item => (
             <InfoWindow
+              key={item.id}
               options={{
                 pixelOffset: new google.maps.Size(0, -45)
               }}
@@ -102,7 +103,7 @@ class GoogleMapsWrapper extends Component {
                             </Typography>
                           </Grid>
                           <Grid item style={{ margin: "4px 0px 0px 4px" }}>
-                            <Typography variant="subtitle1">
+                            <Typography >
                               {item.coin}
                             </Typography>
                           </Grid>
