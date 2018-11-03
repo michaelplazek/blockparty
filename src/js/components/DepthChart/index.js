@@ -1,9 +1,9 @@
 import React from "react";
-import { compose, withHandlers } from "recompose";
+import { compose } from "recompose";
 import numeral from "numeral";
 
 import PropTypes from "prop-types";
-import { Area, AreaChart, Line, Tooltip, XAxis, YAxis } from "recharts";
+import { Area, AreaChart, Tooltip, XAxis, YAxis } from "recharts";
 import { ASK_COLOR, BID_COLOR } from "../../constants/colors";
 import { USD } from "../../constants/currency";
 import ToolTip from "./ToolTip";

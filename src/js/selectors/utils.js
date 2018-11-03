@@ -8,5 +8,5 @@ export const binify = (low, high, items) => {
       count++;
     }
   });
-  return {total, count };
+  return { total, count };
 };

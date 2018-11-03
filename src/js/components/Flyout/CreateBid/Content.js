@@ -11,7 +11,6 @@ import {
   selectBidCoin,
   selectBidLatitude,
   selectBidLongitude,
-  selectBidPrice,
   selectBidUseCurrentLocation,
   selectBidVolume,
   selectFormattedBidPrice,
@@ -115,6 +114,7 @@ const CreateAskContent = ({
           </FormControl>
           {!useCurrentLocation && (
             <LocationSelector
+              showLabels={false}
               markers={[{ id: 0, lat, lng }]}
               height="12em"
               width={`${width - width / 9}px`}

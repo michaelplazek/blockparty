@@ -66,12 +66,20 @@ export const selectBidsForDisplay = createSelector(selectBids, bids =>
 export const selectBid = state => state.bids.bid;
 export const selectBidId = state => state.bids.bid._id;
 export const selectBidTimestamp = state => state.bids.bid.timestamp;
+export const selectBidPostTime = createSelector(
+  selectBidTimestamp,
+  timestamp => moment(timestamp).fromNow()
+);
 
 // ASK
 export const selectAsk = state => state.asks.ask;
 export const selectAskId = state => state.asks.ask._id;
 export const selectAskAmount = state => state.asks.ask.amount;
 export const selectAskTimestamp = state => state.asks.ask.timestamp;
+export const selectAskPostTime = createSelector(
+  selectAskTimestamp,
+  timestamp => moment(timestamp).fromNow()
+);
 
 // TEMPORARY ASK
 export const selectAskCoin = state => state.ask.coin;
@@ -129,7 +137,7 @@ export const selectMapMarkers = createSelector(
       fpMap(ask => ({
         lat: ask.lat,
         lng: ask.lng,
-        id: ask._id ,
+        id: ask._id,
         price: ask.price,
         volume: ask.volume,
         coin: ask.coin
@@ -239,7 +247,6 @@ const selectBidPriceRange = createSelector(
 
     let range = [];
     let price = low;
-    range.push({ price: Math.floor(price) });
 
     while (price <= high) {
       price += step;

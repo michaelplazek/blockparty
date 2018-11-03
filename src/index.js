@@ -5,11 +5,22 @@ import thunk from "redux-thunk";
 import { Provider } from "react-redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import CssBaseline from "@material-ui/core/CssBaseline";
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import red from '@material-ui/core/colors/red';
 
 import { AppContainer } from "react-hot-loader";
 
 import reducers from "./js/reducers";
 import App from "./js/App";
+
+// const theme = createMuiTheme({
+//   palette: {
+//     primary: red,
+//     secondary: {
+//       main: "#D50000",
+//     },
+//   }
+// });
 
 const store = createStore(
   reducers,
@@ -33,7 +44,9 @@ if (module.hot) {
       <AppContainer>
         <Provider store={store}>
           <CssBaseline>
-            <App />
+            <MuiThemeProvider theme={theme}>
+              <App />
+            </MuiThemeProvider>
           </CssBaseline>
         </Provider>
       </AppContainer>,

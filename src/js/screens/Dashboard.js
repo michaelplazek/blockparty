@@ -122,7 +122,7 @@ const Dashboard = ({
         <Grow in={showButtons}>
           <div
             className={classes.buttonContainer}
-            onMouseLeave={() => setTimeout(() => setShowButtons(false), 1000)}
+            onMouseLeave={() => setTimeout(() => setShowButtons(false), 3000)}
             onMouseOver={() => setShowButtons(true)}
           >
             <Button
