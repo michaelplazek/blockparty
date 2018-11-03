@@ -247,7 +247,6 @@ const selectBidPriceRange = createSelector(
 
     let range = [];
     let price = low;
-    range.push({ price: Math.floor(price) });
 
     while (price <= high) {
       price += step;
