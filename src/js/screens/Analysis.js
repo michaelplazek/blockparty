@@ -60,7 +60,8 @@ const Analysis = ({
   touched,
   subheading,
   price,
-  handleSelect
+  handleSelect,
+  handleButtonClick,
 }) => (
   <div>
     <PageHeader
@@ -94,7 +95,7 @@ const Analysis = ({
             bottom: `${navHeight + 60}px`
           }}
         >
-          <Button variant="fab">
+          <Button variant="fab" onClick={handleButtonClick}>
             <FontAwesomeIcon icon={faList} />
           </Button>
         </div>
@@ -165,6 +166,9 @@ export default compose(
     handleSelect: ({ setTouched, setSubheading }) => () => {
       setTouched(false);
       setSubheading("Mid Market Price");
-    }
+    },
+    handleButtonClick: () => () => {
+
+    },
   })
 )(Analysis);
