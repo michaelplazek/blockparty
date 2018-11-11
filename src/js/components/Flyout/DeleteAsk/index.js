@@ -1,7 +1,7 @@
 import React from "react";
 import { compose, withHandlers, withState } from "recompose";
 import withStyles from "@material-ui/core/styles/withStyles";
-import numeral from 'numeral';
+import numeral from "numeral";
 import mapper from "../../../utils/connect";
 import Flyout from "../index";
 
@@ -13,7 +13,8 @@ import {
 } from "../../../actions/asks";
 import Modal from "@material-ui/core/Modal/Modal";
 import {
-  selectAsk, selectAskPostTime,
+  selectAsk,
+  selectAskPostTime,
   selectLayerOpen,
   selectWindowHeight,
   selectWindowWidth
@@ -21,7 +22,7 @@ import {
 import Paper from "@material-ui/core/Paper/Paper";
 import Typography from "@material-ui/core/Typography/Typography";
 import Button from "@material-ui/core/Button/Button";
-import {USD} from "../../../constants/currency";
+import { USD } from "../../../constants/currency";
 
 const styles = theme => ({
   paper: {
@@ -79,17 +80,19 @@ const DeleteAsk = ({
     >
       <Grid container className={classes.paper}>
         <Grid item>
-          <Grid container direction='row'>
+          <Grid container direction="row">
             <Grid item>
               <Typography variant="headline">{ask.volume}</Typography>
             </Grid>
             <Grid item>
-              <Typography variant="subheading" className={classes.coin}>{ask.coin}</Typography>
+              <Typography variant="subheading" className={classes.coin}>
+                {ask.coin}
+              </Typography>
             </Grid>
           </Grid>
         </Grid>
         <Grid item>
-          <Grid container direction='row'>
+          <Grid container direction="row">
             <Grid item>
               <Typography variant="subheading">
                 at {numeral(ask.price).format(USD)}

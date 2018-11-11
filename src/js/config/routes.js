@@ -8,6 +8,7 @@ import Login from "../screens/Login";
 import Register from "../screens/Register";
 import Account from "../screens/Account";
 import Analysis from "../screens/Analysis";
+import Oops from "../screens/Oops";
 
 export const protectedRoutes = [
   {
@@ -82,6 +83,13 @@ export const unprotectedRoutes = [
     protected: false,
     component: Login,
     index: 9
+  },
+  {
+    path: "*",
+    exact: true,
+    protected: true,
+    component: Oops,
+    index: 10
   }
 ];
 

@@ -4,7 +4,12 @@ import { withRouter } from "react-router";
 import mapper from "../utils/connect";
 import {
   selectAsk,
+  selectAskCity,
+  selectAskDisplayPrice,
   selectAskLoaded,
+  selectAskOwner,
+  selectAskPostTime,
+  selectAskState,
   selectNavHeight,
   selectWindowHeight,
   selectWindowWidth
@@ -12,21 +17,12 @@ import {
 import { loadAsk as loadAskAction } from "../actions/asks";
 import Grid from "@material-ui/core/Grid/Grid";
 import Button from "@material-ui/core/Button/Button";
-import GoogleMapsWrapper from "../components/GoogleMaps/GoogleMapsWrapper";
 import Typography from "@material-ui/core/Typography/Typography";
-import FormControl from "@material-ui/core/FormControl/FormControl";
-import InputLabel from "@material-ui/core/InputLabel/InputLabel";
-import Select from "@material-ui/core/Select/Select";
-import coins from "../constants/coins";
-import TextField from "@material-ui/core/TextField/TextField";
-import Slider from "@material-ui/lab/Slider";
 
 import withStyles from "@material-ui/core/styles/withStyles";
 import List from "@material-ui/core/List/List";
 import ListItem from "@material-ui/core/ListItem/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText/ListItemText";
-import GoogleMapDetails from "../components/GoogleMaps/GoogleMapDetails";
 
 const styles = () => ({
   root: {
@@ -54,7 +50,12 @@ const Ask = ({
   windowWidth,
   footerHeight,
   classes,
-  loaded
+  loaded,
+  city,
+  state,
+  price,
+  date,
+  owner
 }) => (
   <div>
     {loaded && (
@@ -67,17 +68,21 @@ const Ask = ({
                 {ask.volume} {ask.coin}
               </Typography>
             </Grid>
-            {/*<div className={classes.slider}>*/}
-            {/*<Slider*/}
-            {/*value={10}*/}
-            {/*aria-labelledby="label"*/}
-            {/*vertical={false}*/}
-            {/*min={0}*/}
-            {/*max={100}*/}
-            {/*/>*/}
-            {/*</div>*/}
             <br />
             <List>
+              <ListItem divider={true}>
+                <Grid container justify="space-between">
+                  <Grid item>
+                    <ListItemText
+                      disableTypography
+                      primary={<Typography type="subheading">Price</Typography>}
+                    />
+                  </Grid>
+                  <Grid item>
+                    <ListItemText>{price}</ListItemText>
+                  </Grid>
+                </Grid>
+              </ListItem>
               <ListItem divider={true}>
                 <Grid container justify="space-between">
                   <Grid item>
@@ -90,21 +95,8 @@ const Ask = ({
                   </Grid>
                   <Grid item>
                     <ListItemText>
-                      {ask.lat.toFixed(6)},{ask.lng.toFixed(6)}
+                      {city}, {state}
                     </ListItemText>
-                  </Grid>
-                </Grid>
-              </ListItem>
-              <ListItem divider={true}>
-                <Grid container justify="space-between">
-                  <Grid item>
-                    <ListItemText
-                      disableTypography
-                      primary={<Typography type="subheading">Price</Typography>}
-                    />
-                  </Grid>
-                  <Grid item>
-                    <ListItemText>{ask.price}</ListItemText>
                   </Grid>
                 </Grid>
               </ListItem>
@@ -119,7 +111,7 @@ const Ask = ({
                     />
                   </Grid>
                   <Grid item>
-                    <ListItemText>{ask._id}</ListItemText>
+                    <ListItemText>{owner}</ListItemText>
                   </Grid>
                 </Grid>
               </ListItem>
@@ -134,18 +126,12 @@ const Ask = ({
                     />
                   </Grid>
                   <Grid item>
-                    <ListItemText>{ask.timestamp}</ListItemText>
+                    <ListItemText>{date}</ListItemText>
                   </Grid>
                 </Grid>
               </ListItem>
             </List>
           </div>
-          {/*<GoogleMapDetails*/}
-          {/*marker={{ id: ask._id, lat: ask.lat, lng: ask.lng }}*/}
-          {/*height={`${windowHeight/4}px`}*/}
-          {/*locationFromBottom={footerHeight}*/}
-          {/*zoomable={false}*/}
-          {/*/>*/}
           <Button
             className={classes.buttons}
             variant="extendedFab"
@@ -162,6 +148,11 @@ const Ask = ({
 
 const propMap = {
   ask: selectAsk,
+  city: selectAskCity,
+  state: selectAskState,
+  price: selectAskDisplayPrice,
+  date: selectAskPostTime,
+  owner: selectAskOwner,
   windowHeight: selectWindowHeight,
   width: selectWindowWidth,
   footerHeight: selectNavHeight,

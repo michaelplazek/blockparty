@@ -4,28 +4,24 @@ import { withRouter } from "react-router";
 import mapper from "../utils/connect";
 import {
   selectBid,
+  selectBidCity,
+  selectBidDisplayPrice,
   selectBidLoaded,
+  selectBidOwner,
+  selectBidPostTime,
+  selectBidState,
   selectNavHeight,
   selectWindowHeight
 } from "../selectors";
 import { loadBid as loadBidAction } from "../actions/bids";
 import Grid from "@material-ui/core/Grid/Grid";
 import Button from "@material-ui/core/Button/Button";
-import GoogleMapsWrapper from "../components/GoogleMaps/GoogleMapsWrapper";
 import Typography from "@material-ui/core/Typography/Typography";
-import FormControl from "@material-ui/core/FormControl/FormControl";
-import InputLabel from "@material-ui/core/InputLabel/InputLabel";
-import Select from "@material-ui/core/Select/Select";
-import coins from "../constants/coins";
-import TextField from "@material-ui/core/TextField/TextField";
-import Slider from "@material-ui/lab/Slider";
 
 import withStyles from "@material-ui/core/styles/withStyles";
 import List from "@material-ui/core/List/List";
 import ListItem from "@material-ui/core/ListItem/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText/ListItemText";
-import GoogleMapDetails from "../components/GoogleMaps/GoogleMapDetails";
 
 const styles = () => ({
   root: {
@@ -46,7 +42,19 @@ const styles = () => ({
   }
 });
 
-const Bid = ({ bid, history, windowHeight, footerHeight, classes, loaded }) => (
+const Bid = ({
+  bid,
+  history,
+  windowHeight,
+  footerHeight,
+  classes,
+  loaded,
+  city,
+  state,
+  price,
+  date,
+  owner
+}) => (
   <div>
     {loaded && (
       <div>
@@ -58,17 +66,21 @@ const Bid = ({ bid, history, windowHeight, footerHeight, classes, loaded }) => (
                 {bid.volume} {bid.coin}
               </Typography>
             </Grid>
-            {/*<div className={classes.slider}>*/}
-            {/*<Slider*/}
-            {/*value={10}*/}
-            {/*aria-labelledby="label"*/}
-            {/*vertical={false}*/}
-            {/*min={0}*/}
-            {/*max={100}*/}
-            {/*/>*/}
-            {/*</div>*/}
             <br />
             <List>
+              <ListItem divider={true}>
+                <Grid container justify="space-between">
+                  <Grid item>
+                    <ListItemText
+                      disableTypography
+                      primary={<Typography type="subheading">Price</Typography>}
+                    />
+                  </Grid>
+                  <Grid item>
+                    <ListItemText>{price}</ListItemText>
+                  </Grid>
+                </Grid>
+              </ListItem>
               <ListItem divider={true}>
                 <Grid container justify="space-between">
                   <Grid item>
@@ -81,21 +93,8 @@ const Bid = ({ bid, history, windowHeight, footerHeight, classes, loaded }) => (
                   </Grid>
                   <Grid item>
                     <ListItemText>
-                      {bid.lat.toFixed(6)},{bid.lng.toFixed(6)}
+                      {city}, {state}
                     </ListItemText>
-                  </Grid>
-                </Grid>
-              </ListItem>
-              <ListItem divider={true}>
-                <Grid container justify="space-between">
-                  <Grid item>
-                    <ListItemText
-                      disableTypography
-                      primary={<Typography type="subheading">Price</Typography>}
-                    />
-                  </Grid>
-                  <Grid item>
-                    <ListItemText>{bid.price}</ListItemText>
                   </Grid>
                 </Grid>
               </ListItem>
@@ -108,7 +107,7 @@ const Bid = ({ bid, history, windowHeight, footerHeight, classes, loaded }) => (
                     />
                   </Grid>
                   <Grid item>
-                    <ListItemText>{bid._id}</ListItemText>
+                    <ListItemText>{owner}</ListItemText>
                   </Grid>
                 </Grid>
               </ListItem>
@@ -123,18 +122,12 @@ const Bid = ({ bid, history, windowHeight, footerHeight, classes, loaded }) => (
                     />
                   </Grid>
                   <Grid item>
-                    <ListItemText>{bid.timestamp}</ListItemText>
+                    <ListItemText>{date}</ListItemText>
                   </Grid>
                 </Grid>
               </ListItem>
             </List>
           </div>
-          {/*<GoogleMapDetails*/}
-          {/*marker={{ id: bid._id, lat: bid.lat, lng: bid.lng }}*/}
-          {/*height={`${windowHeight/4}px`}*/}
-          {/*locationFromBottom={footerHeight}*/}
-          {/*zoomable={false}*/}
-          {/*/>*/}
           <Button
             className={classes.buttons}
             variant="extendedFab"
@@ -151,6 +144,11 @@ const Bid = ({ bid, history, windowHeight, footerHeight, classes, loaded }) => (
 
 const propMap = {
   bid: selectBid,
+  city: selectBidCity,
+  state: selectBidState,
+  price: selectBidDisplayPrice,
+  date: selectBidPostTime,
+  owner: selectBidOwner,
   windowHeight: selectWindowHeight,
   footerHeight: selectNavHeight,
   loaded: selectBidLoaded

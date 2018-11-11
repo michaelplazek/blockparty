@@ -46,11 +46,7 @@ export default ProtectedRoute => {
     withRouter,
     lifecycle({
       componentDidMount() {
-        if (window.performance) {
-          if (performance.navigation.type === 1) {
-            this.props.loadUserFromToken();
-          }
-        }
+        this.props.loadUserFromToken();
       }
     })
   )(AuthHOC);

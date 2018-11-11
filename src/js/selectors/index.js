@@ -65,20 +65,41 @@ export const selectBidsForDisplay = createSelector(selectBids, bids =>
 // BID
 export const selectBid = state => state.bids.bid;
 export const selectBidId = state => state.bids.bid._id;
+export const selectBidOwner = state => state.bids.bid.owner;
 export const selectBidTimestamp = state => state.bids.bid.timestamp;
-export const selectBidPostTime = createSelector(
-  selectBidTimestamp,
-  timestamp => moment(timestamp).fromNow()
+export const selectBidPostTime = createSelector(selectBidTimestamp, timestamp =>
+  moment(timestamp).fromNow()
+);
+export const selectBidCity = createSelector(
+  selectBid,
+  get("location[1].long_name")
+);
+export const selectBidState = createSelector(
+  selectBid,
+  get("location[3].short_name")
+);
+export const selectBidDisplayPrice = createSelector(selectBid, bid =>
+  numeral(bid.price).format(USD)
 );
 
 // ASK
 export const selectAsk = state => state.asks.ask;
 export const selectAskId = state => state.asks.ask._id;
-export const selectAskAmount = state => state.asks.ask.amount;
 export const selectAskTimestamp = state => state.asks.ask.timestamp;
-export const selectAskPostTime = createSelector(
-  selectAskTimestamp,
-  timestamp => moment(timestamp).fromNow()
+export const selectAskOwner = state => state.asks.ask.owner;
+export const selectAskPostTime = createSelector(selectAskTimestamp, timestamp =>
+  moment(timestamp).fromNow()
+);
+export const selectAskCity = createSelector(
+  selectAsk,
+  get("location[1].long_name")
+);
+export const selectAskState = createSelector(
+  selectAsk,
+  get("location[3].short_name")
+);
+export const selectAskDisplayPrice = createSelector(selectAsk, ask =>
+  numeral(ask.price).format(USD)
 );
 
 // TEMPORARY ASK
@@ -249,9 +270,11 @@ const selectBidPriceRange = createSelector(
     let price = low;
 
     while (price <= high) {
-      price += step;
       range.push({ price: Math.floor(price) });
+      price += step;
     }
+
+    range.push({ price: Math.floor(price) });
     return range;
   }
 );
@@ -393,4 +416,32 @@ export const selectChartData = createSelector(
     };
     return bids.concat(midPoint).concat(asks);
   }
+);
+
+export const selectChartListType = createSelector(
+  selectMidPoint,
+  selectFilterPrice,
+  (mid, price) => (price > mid ? "ASK" : "BID")
+);
+
+export const selectChartBids = createSelector(
+  selectBids,
+  selectFilterPrice,
+  selectFilterCoin,
+  (bids, price, coin) =>
+    compose(
+      filter(bid => bid.price <= price),
+      filter(bid => bid.coin === coin)
+    )(bids)
+);
+
+export const selectChartAsks = createSelector(
+  selectAsks,
+  selectFilterPrice,
+  selectFilterCoin,
+  (asks, price, coin) =>
+    compose(
+      filter(ask => ask.price <= price),
+      filter(ask => ask.coin === coin)
+    )(asks)
 );
