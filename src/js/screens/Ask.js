@@ -23,6 +23,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import List from "@material-ui/core/List/List";
 import ListItem from "@material-ui/core/ListItem/ListItem";
 import ListItemText from "@material-ui/core/ListItemText/ListItemText";
+import Paper from "@material-ui/core/Paper/Paper";
 
 const styles = () => ({
   root: {
@@ -40,6 +41,9 @@ const styles = () => ({
     position: "fixed",
     bottom: "7em",
     right: "2em"
+  },
+  paper: {
+    margin: "0px 20px 0px 20px"
   }
 });
 
@@ -69,72 +73,75 @@ const Ask = ({
               </Typography>
             </Grid>
             <br />
-            <List>
-              <ListItem divider={true}>
-                <Grid container justify="space-between">
-                  <Grid item>
-                    <ListItemText
-                      disableTypography
-                      primary={<Typography type="subheading">Price</Typography>}
-                    />
+            <Paper className={classes.paper}>
+              <List>
+                <ListItem divider={true}>
+                  <Grid container justify="space-between">
+                    <Grid item>
+                      <ListItemText
+                        disableTypography
+                        primary={<Typography type="subheading">Price</Typography>}
+                      />
+                    </Grid>
+                    <Grid item>
+                      <ListItemText>{price}</ListItemText>
+                    </Grid>
                   </Grid>
-                  <Grid item>
-                    <ListItemText>{price}</ListItemText>
+                </ListItem>
+                <ListItem divider={true}>
+                  <Grid container justify="space-between">
+                    <Grid item>
+                      <ListItemText
+                        disableTypography
+                        primary={
+                          <Typography type="subheading">Location</Typography>
+                        }
+                      />
+                    </Grid>
+                    <Grid item>
+                      <ListItemText>
+                        {city}, {state}
+                      </ListItemText>
+                    </Grid>
                   </Grid>
-                </Grid>
-              </ListItem>
-              <ListItem divider={true}>
-                <Grid container justify="space-between">
-                  <Grid item>
-                    <ListItemText
-                      disableTypography
-                      primary={
-                        <Typography type="subheading">Location</Typography>
-                      }
-                    />
+                </ListItem>
+                <ListItem divider={true}>
+                  <Grid container justify="space-between">
+                    <Grid item>
+                      <ListItemText
+                        disableTypography
+                        primary={
+                          <Typography type="subheading">Seller</Typography>
+                        }
+                      />
+                    </Grid>
+                    <Grid item>
+                      <ListItemText>{owner}</ListItemText>
+                    </Grid>
                   </Grid>
-                  <Grid item>
-                    <ListItemText>
-                      {city}, {state}
-                    </ListItemText>
+                </ListItem>
+                <ListItem>
+                  <Grid container justify="space-between">
+                    <Grid item>
+                      <ListItemText
+                        disableTypography
+                        primary={
+                          <Typography type="subheading">Last Updated</Typography>
+                        }
+                      />
+                    </Grid>
+                    <Grid item>
+                      <ListItemText>{date}</ListItemText>
+                    </Grid>
                   </Grid>
-                </Grid>
-              </ListItem>
-              <ListItem divider={true}>
-                <Grid container justify="space-between">
-                  <Grid item>
-                    <ListItemText
-                      disableTypography
-                      primary={
-                        <Typography type="subheading">Seller</Typography>
-                      }
-                    />
-                  </Grid>
-                  <Grid item>
-                    <ListItemText>{owner}</ListItemText>
-                  </Grid>
-                </Grid>
-              </ListItem>
-              <ListItem divider={true}>
-                <Grid container justify="space-between">
-                  <Grid item>
-                    <ListItemText
-                      disableTypography
-                      primary={
-                        <Typography type="subheading">Last Updated</Typography>
-                      }
-                    />
-                  </Grid>
-                  <Grid item>
-                    <ListItemText>{date}</ListItemText>
-                  </Grid>
-                </Grid>
-              </ListItem>
-            </List>
+                </ListItem>
+              </List>
+            </Paper>
           </div>
           <Button
             className={classes.buttons}
             variant="extendedFab"
+            color="primary"
             onClick={() => {}}
           >
             Contact seller
