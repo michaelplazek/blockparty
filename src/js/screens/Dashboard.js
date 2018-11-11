@@ -81,7 +81,7 @@ const Dashboard = ({
       rightHandLabel="Inbox"
       rightHandIcon={<MailIcon />}
     />
-    <Tile title="Asks" count={numberOfAsks}>
+    <Tile title="My Asks" count={numberOfAsks}>
       {myAsks.map(item => (
         <ListTile
           age={item.timestamp}
@@ -96,7 +96,7 @@ const Dashboard = ({
         />
       ))}
     </Tile>
-    <Tile title="Bids" count={numberOfBids}>
+    <Tile title="My Bids" count={numberOfBids}>
       {myBids.map(item => (
         <ListTile
           age={item.timestamp}
