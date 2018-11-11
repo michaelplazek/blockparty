@@ -2,6 +2,7 @@ import { createSelector } from "reselect";
 import compose from "lodash/fp/compose";
 import fpMap from "lodash/fp/map";
 import get from "lodash/fp/get";
+import find from 'lodash/fp/find';
 import filter from "lodash/fp/filter";
 import moment from "moment";
 import numeral from "numeral";
@@ -12,6 +13,7 @@ import orderBy from "lodash/fp/orderBy";
 import head from "lodash/head";
 import last from "lodash/last";
 import { binify } from "./utils";
+import { ADMIN_1, LOCALITY, POLITICAL } from "../constants/maps";
 
 const NUMBER_OF_BINS = 100;
 
@@ -66,17 +68,24 @@ export const selectBidsForDisplay = createSelector(selectBids, bids =>
 export const selectBid = state => state.bids.bid;
 export const selectBidId = state => state.bids.bid._id;
 export const selectBidOwner = state => state.bids.bid.owner;
+export const selectBidLocation = state => state.bids.bid.location;
 export const selectBidTimestamp = state => state.bids.bid.timestamp;
 export const selectBidPostTime = createSelector(selectBidTimestamp, timestamp =>
   moment(timestamp).fromNow()
 );
 export const selectBidCity = createSelector(
-  selectBid,
-  get("location[1].long_name")
+  selectBidLocation,
+  compose(
+    get('long_name'),
+    find(item => item.types.includes(LOCALITY) && item.types.includes(POLITICAL))
+  )
 );
 export const selectBidState = createSelector(
-  selectBid,
-  get("location[3].short_name")
+  selectBidLocation,
+  compose(
+    get('short_name'),
+    find(item => item.types.includes(ADMIN_1) && item.types.includes(POLITICAL))
+  )
 );
 export const selectBidDisplayPrice = createSelector(selectBid, bid =>
   numeral(bid.price).format(USD)
@@ -86,17 +95,24 @@ export const selectBidDisplayPrice = createSelector(selectBid, bid =>
 export const selectAsk = state => state.asks.ask;
 export const selectAskId = state => state.asks.ask._id;
 export const selectAskTimestamp = state => state.asks.ask.timestamp;
+export const selectAskLocation = state => state.asks.ask.location;
 export const selectAskOwner = state => state.asks.ask.owner;
 export const selectAskPostTime = createSelector(selectAskTimestamp, timestamp =>
   moment(timestamp).fromNow()
 );
 export const selectAskCity = createSelector(
-  selectAsk,
-  get("location[1].long_name")
+  selectAskLocation,
+  compose(
+    get('long_name'),
+    find(item => item.types.includes(LOCALITY) && item.types.includes(POLITICAL))
+  )
 );
 export const selectAskState = createSelector(
-  selectAsk,
-  get("location[3].short_name")
+  selectAskLocation,
+  compose(
+    get('short_name'),
+    find(item => item.types.includes(ADMIN_1) && item.types.includes(POLITICAL))
+  )
 );
 export const selectAskDisplayPrice = createSelector(selectAsk, ask =>
   numeral(ask.price).format(USD)

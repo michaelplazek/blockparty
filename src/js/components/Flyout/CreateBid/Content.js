@@ -69,7 +69,7 @@ const CreateAskContent = ({
           <TextField
             id="volume"
             value={volume}
-            onChange={({ target }) => setBidVolume(target.value)}
+            onChange={({ target }) => setBidVolume(target.value || 0)}
             margin="dense"
             variant="standard"
             InputProps={{
