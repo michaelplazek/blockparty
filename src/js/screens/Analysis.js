@@ -12,12 +12,12 @@ import withAuthentification from "../HOCs/withAuthentification";
 import {
   selectAsksForDisplay,
   selectBidsForDisplay,
-  selectChartData,
+  selectChartData, selectChartListType,
   selectFilterCoin,
   selectFilterType,
   selectFormattedFilterPrice,
   selectHasData,
-  selectHeaderHeight,
+  selectHeaderHeight, selectLayer,
   selectMapMarkers,
   selectMarketLoaded,
   selectMidPoint,
@@ -27,7 +27,7 @@ import {
 } from "../selectors";
 import { loadAsks as loadAsksAction } from "../actions/asks";
 import { loadBids as loadBidsAction } from "../actions/bids";
-import { setLayerOpen as setLayerOpenAction } from "../actions/layers";
+import {setLayer, setLayerOpen as setLayerOpenAction} from "../actions/layers";
 import { loadCurrentLocation as loadCurrentLocationAction } from "../actions/session";
 import { setMarketView as setMarketViewAction } from "../actions/app";
 import { MAP } from "../constants/app";
@@ -40,6 +40,8 @@ import Button from "@material-ui/core/Button/Button";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Grow from "@material-ui/core/Grow/Grow";
 import { setFilterPrice } from "../actions/filters";
+import BidChartList from "../components/Flyout/BidChartList";
+import AskChartList from "../components/Flyout/AskChartList";
 
 const styles = () => ({
   actionButton: {
@@ -62,8 +64,11 @@ const Analysis = ({
   price,
   handleSelect,
   handleButtonClick,
+  layer
 }) => (
   <div>
+    {layer === "LIST_BIDS" && <BidChartList />}
+    {layer === "LIST_ASKS" && <AskChartList />}
     <PageHeader
       leftHandButton="Go to map view"
       leftHandAction={handleMarketView}
@@ -118,7 +123,9 @@ const propMap = {
   midMarketPrice: selectMidPoint,
   hasData: selectHasData,
   price: selectFormattedFilterPrice,
-  coin: selectFilterCoin
+  coin: selectFilterCoin,
+  layer: selectLayer,
+  selectedType: selectChartListType
 };
 
 const actionMap = {
@@ -127,7 +134,8 @@ const actionMap = {
   setLayerOpen: setLayerOpenAction,
   loadCurrentLocation: loadCurrentLocationAction,
   setMarketView: setMarketViewAction,
-  setFilterPrice
+  setFilterPrice,
+  setLayer,
 };
 
 export default compose(
@@ -154,21 +162,32 @@ export default compose(
     }) => {
       if (!activePayload) return;
       const payload = get("payload")(activePayload[0]);
-      const { price } = payload;
-      const type = !payload.bid ? "asks" : "bids";
-      const total = !payload.bid ? payload.ask : payload.bid;
       const { count } = payload;
-      const message = `${total} ${coin} available in ${count} ${type}`;
-      setFilterPrice(price);
-      setSubheading(message);
-      setTouched(true);
+
+      if (count > 0) {
+        const { price } = payload;
+        const type = !payload.bid ? "asks" : "bids";
+        const total = !payload.bid ? payload.ask : payload.bid;
+        const message = `${total} ${coin} available in ${count} ${type}`;
+        setFilterPrice(price);
+        setSubheading(message);
+        setTouched(true);
+      } else {
+        setTouched(false);
+        setSubheading("Mid Market Price");
+      }
     },
     handleSelect: ({ setTouched, setSubheading }) => () => {
       setTouched(false);
       setSubheading("Mid Market Price");
     },
-    handleButtonClick: () => () => {
-
+    handleButtonClick: ({ setLayer, setLayerOpen, selectedType }) => () => {
+      if(selectedType === 'ASK') {
+        setLayer('LIST_ASKS');
+      } else {
+        setLayer('LIST_BIDS');
+      }
+      setLayerOpen(true);
     },
   })
 )(Analysis);

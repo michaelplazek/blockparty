@@ -86,7 +86,7 @@ export const unprotectedRoutes = [
   },
   {
     path: "*",
-    exact: false,
+    exact: true,
     protected: true,
     component: Oops,
     index: 10

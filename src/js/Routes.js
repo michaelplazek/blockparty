@@ -7,7 +7,6 @@ import {Switch, withRouter} from "react-router";
 import FooterNav from "./components/FooterNav";
 import routes from "./config/routes";
 import withAuthentification from "./HOCs/withAuthentification";
-import Oops from "./screens/Oops";
 
 const Routes = () => (
   <div>
