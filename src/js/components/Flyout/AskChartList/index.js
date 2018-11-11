@@ -41,9 +41,9 @@ const AskChartList = ({ classes, onSubmit, setLayerOpen, asks, price }) => (
       setLayerOpen(false);
     }}
     size={8}
+    title={`Asks under ${price}`}
   >
     <Grid className={classes.root}>
-      <Typography variant="headline">Asks under {price}</Typography>
       <PostList items={asks} type="ASK" />
     </Grid>
   </Flyout>

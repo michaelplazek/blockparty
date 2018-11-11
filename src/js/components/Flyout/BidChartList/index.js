@@ -41,9 +41,9 @@ const BidChartList = ({ classes, onSubmit, setLayerOpen, bids, price }) => (
       setLayerOpen(false);
     }}
     size={8}
+    title={`Bids under ${price}`}
   >
     <Grid className={classes.root}>
-      <Typography variant="title">Bids under {price}</Typography>
       <PostList items={bids} type="BID" />
     </Grid>
   </Flyout>
