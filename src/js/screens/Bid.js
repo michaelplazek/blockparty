@@ -22,6 +22,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import List from "@material-ui/core/List/List";
 import ListItem from "@material-ui/core/ListItem/ListItem";
 import ListItemText from "@material-ui/core/ListItemText/ListItemText";
+import Paper from "@material-ui/core/Paper/Paper";
 
 const styles = () => ({
   root: {
@@ -39,6 +40,9 @@ const styles = () => ({
     position: "fixed",
     bottom: "7em",
     right: "2em"
+  },
+  paper: {
+    margin: "0px 20px 0px 20px"
   }
 });
 
@@ -58,85 +62,88 @@ const Bid = ({
   <div>
     {loaded && (
       <div>
-        <Grid>
-          <Button onClick={() => history.goBack()}>Go Back</Button>
-          <div className={classes.root}>
-            <Grid item className={classes.body}>
-              <Typography variant="display2">
-                {bid.volume} {bid.coin}
-              </Typography>
-            </Grid>
-            <br />
-            <List>
-              <ListItem divider={true}>
-                <Grid container justify="space-between">
-                  <Grid item>
-                    <ListItemText
-                      disableTypography
-                      primary={<Typography type="subheading">Price</Typography>}
-                    />
-                  </Grid>
-                  <Grid item>
-                    <ListItemText>{price}</ListItemText>
-                  </Grid>
-                </Grid>
-              </ListItem>
-              <ListItem divider={true}>
-                <Grid container justify="space-between">
-                  <Grid item>
-                    <ListItemText
-                      disableTypography
-                      primary={
-                        <Typography type="subheading">Location</Typography>
-                      }
-                    />
-                  </Grid>
-                  <Grid item>
-                    <ListItemText>
-                      {city}, {state}
-                    </ListItemText>
-                  </Grid>
-                </Grid>
-              </ListItem>
-              <ListItem divider={true}>
-                <Grid container justify="space-between">
-                  <Grid item>
-                    <ListItemText
-                      disableTypography
-                      primary={<Typography type="subheading">Buyer</Typography>}
-                    />
-                  </Grid>
-                  <Grid item>
-                    <ListItemText>{owner}</ListItemText>
-                  </Grid>
-                </Grid>
-              </ListItem>
-              <ListItem divider={true}>
-                <Grid container justify="space-between">
-                  <Grid item>
-                    <ListItemText
-                      disableTypography
-                      primary={
-                        <Typography type="subheading">Last Updated</Typography>
-                      }
-                    />
-                  </Grid>
-                  <Grid item>
-                    <ListItemText>{date}</ListItemText>
-                  </Grid>
-                </Grid>
-              </ListItem>
-            </List>
-          </div>
-          <Button
-            className={classes.buttons}
-            variant="extendedFab"
-            onClick={() => {}}
-          >
-            Contact buyer
-          </Button>
-        </Grid>
-        <Grid />
+          <Grid>
+            <Button onClick={() => history.goBack()}>Go Back</Button>
+            <div className={classes.root}>
+              <Grid item className={classes.body}>
+                <Typography variant="display2">
+                  {bid.volume} {bid.coin}
+                </Typography>
+              </Grid>
+              <br />
+              <Paper className={classes.paper}>
+                <List>
+                  <ListItem divider={true}>
+                    <Grid container justify="space-between">
+                      <Grid item>
+                        <ListItemText
+                          disableTypography
+                          primary={<Typography type="subheading">Price</Typography>}
+                        />
+                      </Grid>
+                      <Grid item>
+                        <ListItemText>{price}</ListItemText>
+                      </Grid>
+                    </Grid>
+                  </ListItem>
+                  <ListItem divider={true}>
+                    <Grid container justify="space-between">
+                      <Grid item>
+                        <ListItemText
+                          disableTypography
+                          primary={
+                            <Typography type="subheading">Location</Typography>
+                          }
+                        />
+                      </Grid>
+                      <Grid item>
+                        <ListItemText>
+                          {city}, {state}
+                        </ListItemText>
+                      </Grid>
+                    </Grid>
+                  </ListItem>
+                  <ListItem divider={true}>
+                    <Grid container justify="space-between">
+                      <Grid item>
+                        <ListItemText
+                          disableTypography
+                          primary={<Typography type="subheading">Buyer</Typography>}
+                        />
+                      </Grid>
+                      <Grid item>
+                        <ListItemText>{owner}</ListItemText>
+                      </Grid>
+                    </Grid>
+                  </ListItem>
+                  <ListItem >
+                    <Grid container justify="space-between">
+                      <Grid item>
+                        <ListItemText
+                          disableTypography
+                          primary={
+                            <Typography type="subheading">Last Updated</Typography>
+                          }
+                        />
+                      </Grid>
+                      <Grid item>
+                        <ListItemText>{date}</ListItemText>
+                      </Grid>
+                    </Grid>
+                  </ListItem>
+                </List>
+              </Paper>
+            </div>
+            <Button
+              className={classes.buttons}
+              color="primary"
+              variant="extendedFab"
+              onClick={() => {}}
+            >
+              Contact buyer
+            </Button>
+          </Grid>
+          <Grid />
       </div>
     )}
   </div>

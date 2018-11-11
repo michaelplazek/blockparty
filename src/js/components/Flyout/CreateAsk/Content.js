@@ -118,7 +118,7 @@ const CreateAskContent = ({
             <LocationSelector
               showLabels={false}
               markers={[{ id: 0, lat, lng }]}
-              height="12em"
+              height="10em"
               width={`${width - width / 9}px`}
               position="relative"
               onDrag={coords => handleDrag(coords)}

@@ -65,6 +65,7 @@ const CreateBid = ({
       setLayerOpen(false);
     }}
     size={8}
+    title='Create new bid'
   >
     <Grid className={classes.root}>
       <Stepper activeStep={activeIndex} orientation="vertical">

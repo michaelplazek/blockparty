@@ -15,20 +15,26 @@ import Modal from "@material-ui/core/Modal/Modal";
 import Slide from "@material-ui/core/Slide/Slide";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import Typography from "@material-ui/core/Typography/Typography";
+import Grid from "@material-ui/core/Grid/Grid";
 
 const styles = () => ({
   root: {
     position: "absolute",
     left: 0,
-    width: "100px",
-    background: "white"
+    background: "white",
   },
   closeButton: {
     textAlign: "right",
     position: "relative",
-    right: "1em",
-    top: "1em",
+    right: "1.5em",
+    top: "1.5em",
     cursor: "pointer"
+  },
+  title: {
+    position: 'relative',
+    top: "1.5em",
+    left: '1.5em'
   }
 });
 
@@ -40,7 +46,8 @@ const Flyout = ({
   open,
   setLayerOpen,
   size,
-  onClose
+  onClose,
+  title
 }) => (
   <Modal
     open={open}
@@ -52,9 +59,16 @@ const Flyout = ({
         className={classes.root}
         style={{ height: height, width: `${width - width / size}px` }}
       >
+        <Grid direction='row' justify='space-between' container>
+          <Grid className={classes.title} item>
+        <Typography variant="title">{title}</Typography>
+          </Grid>
+          <Grid item>
         <div className={classes.closeButton} onClick={onClose}>
           <FontAwesomeIcon icon={faTimes} />
         </div>
+          </Grid>
+        </Grid>
         {children}
       </div>
     </Slide>

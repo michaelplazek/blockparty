@@ -17,7 +17,6 @@ import {
 } from "../../../actions/asks";
 import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
 import { resetAsk as resetAskAction } from "../../../actions/createAsk";
-import Typography from "@material-ui/core/Typography/Typography";
 
 const styles = theme => ({
   root: {
@@ -41,9 +40,9 @@ const BidChartList = ({ classes, onSubmit, setLayerOpen, bids, price }) => (
       setLayerOpen(false);
     }}
     size={8}
+    title={`Bids under ${price}`}
   >
     <Grid className={classes.root}>
-      <Typography variant="title">Bids under {price}</Typography>
       <PostList items={bids} type="BID" />
     </Grid>
   </Flyout>

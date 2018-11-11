@@ -65,6 +65,7 @@ const CreateAsk = ({
       setLayerOpen(false);
     }}
     size={8}
+    title='Create new ask'
   >
     <Grid className={classes.root}>
       <Stepper activeStep={activeIndex} orientation="vertical">
