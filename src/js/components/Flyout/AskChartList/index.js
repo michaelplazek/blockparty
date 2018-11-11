@@ -17,7 +17,6 @@ import {
 } from "../../../actions/asks";
 import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
 import { resetAsk as resetAskAction } from "../../../actions/createAsk";
-import Typography from "@material-ui/core/Typography/Typography";
 
 const styles = theme => ({
   root: {

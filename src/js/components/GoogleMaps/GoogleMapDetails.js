@@ -115,7 +115,7 @@ GoogleMapDetails.defaultProps = {
 export default compose(
   withProps(props => {
     return {
-      googleMapURL: `https://maps.googleapis.com/maps/api/js?key=AIzaSyBnLziZFF5VLvovFkHPEulNisGPllCJitE&v=3.exp&libraries=geometry,drawing,places`,
+      googleMapURL: `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAPS_KEY}&v=3.exp&libraries=geometry,drawing,places`,
       loadingElement: <div style={{}} />,
       containerElement: (
         <div

@@ -27,7 +27,8 @@ export default {
         plugins: ['react-hot-loader/babel'],
     },
     plugins: [
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.EnvironmentPlugin(['GOOGLE_MAPS_KEY'])
     ],
     devServer: {
         contentBase: path.resolve(__dirname, 'src')
