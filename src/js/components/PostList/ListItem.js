@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import get from "lodash/fp/get";
+import find from "lodash/fp/find";
 import { compose, withHandlers } from "recompose";
 import { withRouter } from "react-router-dom";
 import numeral from "numeral";
@@ -13,6 +14,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import Grid from "@material-ui/core/Grid/Grid";
 import { USD } from "../../constants/currency";
 import Paper from "@material-ui/core/Paper/Paper";
+import { ADMIN_1, LOCALITY, POLITICAL } from "../../constants/maps";
 
 const styles = () => ({
   root: {
@@ -47,8 +49,22 @@ const ListItemBase = ({ item, classes, onClick }) => (
       <ListItemText
         primary={
           <Typography align="right" variant="caption">
-            {get("location[1].long_name")(item)},{" "}
-            {get("location[3].short_name")(item)}
+            {compose(
+              get("long_name"),
+              find(
+                item =>
+                  item.types.includes(LOCALITY) &&
+                  item.types.includes(POLITICAL)
+              )
+            )(item.location)}
+            ,{" "}
+            {compose(
+              get("short_name"),
+              find(
+                item =>
+                  item.types.includes(ADMIN_1) && item.types.includes(POLITICAL)
+              )
+            )(item.location)}
           </Typography>
         }
         secondary={
@@ -63,9 +79,7 @@ const ListItemBase = ({ item, classes, onClick }) => (
 
 ListItemBase.propTypes = {
   item: PropTypes.object.isRequired,
-  onClick: PropTypes.func.isRequired,
-  handleClick: PropTypes.func.isRequired,
-  path: PropTypes.string.isRequired
+  onClick: PropTypes.func.isRequired
 };
 
 export default compose(

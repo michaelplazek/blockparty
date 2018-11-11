@@ -145,7 +145,7 @@ export default compose(
     }) => () => {
       const bid = {
         coin,
-        volume,
+        volume: parseFloat(volume),
         price,
         owner: username,
         lat,

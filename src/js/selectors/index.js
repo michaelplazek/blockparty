@@ -2,7 +2,7 @@ import { createSelector } from "reselect";
 import compose from "lodash/fp/compose";
 import fpMap from "lodash/fp/map";
 import get from "lodash/fp/get";
-import find from 'lodash/fp/find';
+import find from "lodash/fp/find";
 import filter from "lodash/fp/filter";
 import moment from "moment";
 import numeral from "numeral";
@@ -76,14 +76,16 @@ export const selectBidPostTime = createSelector(selectBidTimestamp, timestamp =>
 export const selectBidCity = createSelector(
   selectBidLocation,
   compose(
-    get('long_name'),
-    find(item => item.types.includes(LOCALITY) && item.types.includes(POLITICAL))
+    get("long_name"),
+    find(
+      item => item.types.includes(LOCALITY) && item.types.includes(POLITICAL)
+    )
   )
 );
 export const selectBidState = createSelector(
   selectBidLocation,
   compose(
-    get('short_name'),
+    get("short_name"),
     find(item => item.types.includes(ADMIN_1) && item.types.includes(POLITICAL))
   )
 );
@@ -103,14 +105,16 @@ export const selectAskPostTime = createSelector(selectAskTimestamp, timestamp =>
 export const selectAskCity = createSelector(
   selectAskLocation,
   compose(
-    get('long_name'),
-    find(item => item.types.includes(LOCALITY) && item.types.includes(POLITICAL))
+    get("long_name"),
+    find(
+      item => item.types.includes(LOCALITY) && item.types.includes(POLITICAL)
+    )
   )
 );
 export const selectAskState = createSelector(
   selectAskLocation,
   compose(
-    get('short_name'),
+    get("short_name"),
     find(item => item.types.includes(ADMIN_1) && item.types.includes(POLITICAL))
   )
 );

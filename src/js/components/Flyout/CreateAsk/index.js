@@ -145,7 +145,7 @@ export default compose(
     }) => () => {
       const ask = {
         coin,
-        volume,
+        volume: parseFloat(volume),
         price,
         owner: username,
         lat,
