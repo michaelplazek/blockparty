@@ -73,6 +73,19 @@ const Bid = ({
                   <Grid item>
                     <ListItemText
                       disableTypography
+                      primary={<Typography type="subheading">Price</Typography>}
+                    />
+                  </Grid>
+                  <Grid item>
+                    <ListItemText>{price}</ListItemText>
+                  </Grid>
+                </Grid>
+              </ListItem>
+              <ListItem divider={true}>
+                <Grid container justify="space-between">
+                  <Grid item>
+                    <ListItemText
+                      disableTypography
                       primary={
                         <Typography type="subheading">Location</Typography>
                       }
@@ -82,19 +95,6 @@ const Bid = ({
                     <ListItemText>
                       {city}, {state}
                     </ListItemText>
-                  </Grid>
-                </Grid>
-              </ListItem>
-              <ListItem divider={true}>
-                <Grid container justify="space-between">
-                  <Grid item>
-                    <ListItemText
-                      disableTypography
-                      primary={<Typography type="subheading">Price</Typography>}
-                    />
-                  </Grid>
-                  <Grid item>
-                    <ListItemText>{price}</ListItemText>
                   </Grid>
                 </Grid>
               </ListItem>
