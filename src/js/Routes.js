@@ -2,7 +2,7 @@ import React from "react";
 import { compose } from "recompose";
 
 import { Route } from "react-router-dom";
-import {Switch, withRouter} from "react-router";
+import { Switch, withRouter } from "react-router";
 
 import FooterNav from "./components/FooterNav";
 import routes from "./config/routes";

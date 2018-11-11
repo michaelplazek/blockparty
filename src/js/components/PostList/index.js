@@ -42,6 +42,6 @@ export default compose(
       const { _id } = item;
       const url = type === "ASK" ? "/ask" : "/bid";
       history.push(`${url}?${_id}`);
-    },
-  }),
+    }
+  })
 )(ListBase);

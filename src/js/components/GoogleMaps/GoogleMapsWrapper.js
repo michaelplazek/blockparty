@@ -103,9 +103,7 @@ class GoogleMapsWrapper extends Component {
                             </Typography>
                           </Grid>
                           <Grid item style={{ margin: "4px 0px 0px 4px" }}>
-                            <Typography >
-                              {item.coin}
-                            </Typography>
+                            <Typography>{item.coin}</Typography>
                           </Grid>
                         </Grid>
                       </Grid>

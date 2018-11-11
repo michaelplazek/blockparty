@@ -3,8 +3,13 @@ import { compose, lifecycle } from "recompose";
 import { withRouter } from "react-router";
 import mapper from "../utils/connect";
 import {
-  selectBid, selectBidCity, selectBidDisplayPrice,
-  selectBidLoaded, selectBidOwner, selectBidPostTime, selectBidState,
+  selectBid,
+  selectBidCity,
+  selectBidDisplayPrice,
+  selectBidLoaded,
+  selectBidOwner,
+  selectBidPostTime,
+  selectBidState,
   selectNavHeight,
   selectWindowHeight
 } from "../selectors";
@@ -38,12 +43,12 @@ const styles = () => ({
 });
 
 const Bid = ({
-               bid,
-               history,
-               windowHeight,
-               footerHeight,
-               classes,
-               loaded,
+  bid,
+  history,
+  windowHeight,
+  footerHeight,
+  classes,
+  loaded,
   city,
   state,
   price,

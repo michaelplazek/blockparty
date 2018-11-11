@@ -46,7 +46,7 @@ export default ProtectedRoute => {
     withRouter,
     lifecycle({
       componentDidMount() {
-          this.props.loadUserFromToken();
+        this.props.loadUserFromToken();
       }
     })
   )(AuthHOC);

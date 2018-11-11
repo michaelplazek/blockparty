@@ -9,7 +9,7 @@ import Button from "@material-ui/core/Button/Button";
 
 const styles = {
   root: {
-    margin: `50px`,
+    margin: `50px`
   },
   info: {
     marginLeft: "10px",
@@ -29,9 +29,7 @@ const Oops = ({ history, classes }) => (
           <Typography className={classes.description} variant="caption">
             You seem to be lost. The page you're looking for does not exist.
           </Typography>
-          <Button
-            onClick={() => history.push('/')}
-          >
+          <Button onClick={() => history.push("/")}>
             <Typography className={classes.info} variant="subheading">
               Return to home
             </Typography>
@@ -44,5 +42,5 @@ const Oops = ({ history, classes }) => (
 
 export default compose(
   withStyles(styles),
-  withRouter,
+  withRouter
 )(Oops);

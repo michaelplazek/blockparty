@@ -12,12 +12,14 @@ import withAuthentification from "../HOCs/withAuthentification";
 import {
   selectAsksForDisplay,
   selectBidsForDisplay,
-  selectChartData, selectChartListType,
+  selectChartData,
+  selectChartListType,
   selectFilterCoin,
   selectFilterType,
   selectFormattedFilterPrice,
   selectHasData,
-  selectHeaderHeight, selectLayer,
+  selectHeaderHeight,
+  selectLayer,
   selectMapMarkers,
   selectMarketLoaded,
   selectMidPoint,
@@ -27,7 +29,10 @@ import {
 } from "../selectors";
 import { loadAsks as loadAsksAction } from "../actions/asks";
 import { loadBids as loadBidsAction } from "../actions/bids";
-import {setLayer, setLayerOpen as setLayerOpenAction} from "../actions/layers";
+import {
+  setLayer,
+  setLayerOpen as setLayerOpenAction
+} from "../actions/layers";
 import { loadCurrentLocation as loadCurrentLocationAction } from "../actions/session";
 import { setMarketView as setMarketViewAction } from "../actions/app";
 import { MAP } from "../constants/app";
@@ -135,7 +140,7 @@ const actionMap = {
   loadCurrentLocation: loadCurrentLocationAction,
   setMarketView: setMarketViewAction,
   setFilterPrice,
-  setLayer,
+  setLayer
 };
 
 export default compose(
@@ -182,12 +187,12 @@ export default compose(
       setSubheading("Mid Market Price");
     },
     handleButtonClick: ({ setLayer, setLayerOpen, selectedType }) => () => {
-      if(selectedType === 'ASK') {
-        setLayer('LIST_ASKS');
+      if (selectedType === "ASK") {
+        setLayer("LIST_ASKS");
       } else {
-        setLayer('LIST_BIDS');
+        setLayer("LIST_BIDS");
       }
       setLayerOpen(true);
-    },
+    }
   })
 )(Analysis);

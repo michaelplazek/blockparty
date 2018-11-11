@@ -11,7 +11,8 @@ import {
 } from "../../../actions/bids";
 import Modal from "@material-ui/core/Modal/Modal";
 import {
-  selectBid, selectBidPostTime,
+  selectBid,
+  selectBidPostTime,
   selectLayerOpen,
   selectWindowHeight,
   selectWindowWidth
@@ -20,8 +21,8 @@ import Paper from "@material-ui/core/Paper/Paper";
 import Typography from "@material-ui/core/Typography/Typography";
 import Button from "@material-ui/core/Button/Button";
 import numeral from "numeral";
-import {USD} from "../../../constants/currency";
-import {deleteAsk} from "../../../actions/asks";
+import { USD } from "../../../constants/currency";
+import { deleteAsk } from "../../../actions/asks";
 import Flyout from "../index";
 
 const styles = theme => ({
@@ -77,17 +78,19 @@ const DeleteBid = ({
     >
       <Grid container className={classes.paper}>
         <Grid item>
-          <Grid container direction='row'>
+          <Grid container direction="row">
             <Grid item>
               <Typography variant="headline">{bid.volume}</Typography>
             </Grid>
             <Grid item>
-              <Typography variant="subheading" className={classes.coin}>{bid.coin}</Typography>
+              <Typography variant="subheading" className={classes.coin}>
+                {bid.coin}
+              </Typography>
             </Grid>
           </Grid>
         </Grid>
         <Grid item>
-          <Grid container direction='row'>
+          <Grid container direction="row">
             <Grid item>
               <Typography variant="subheading">
                 at {numeral(bid.price).format(USD)}

@@ -8,7 +8,8 @@ import PostList from "../../PostList";
 import Grid from "@material-ui/core/Grid/Grid";
 
 import {
-  selectChartBids, selectFormattedFilterPrice,
+  selectChartBids,
+  selectFormattedFilterPrice
 } from "../../../selectors";
 import {
   createAsk as createAskAction,
@@ -34,13 +35,7 @@ const styles = theme => ({
   }
 });
 
-const BidChartList = ({
-  classes,
-  onSubmit,
-  setLayerOpen,
-  bids,
-  price
-}) => (
+const BidChartList = ({ classes, onSubmit, setLayerOpen, bids, price }) => (
   <Flyout
     onClose={() => {
       setLayerOpen(false);
@@ -48,13 +43,8 @@ const BidChartList = ({
     size={8}
   >
     <Grid className={classes.root}>
-      <Typography variant='title'>
-        Bids under {price}
-      </Typography>
-      <PostList
-        items={bids}
-        type='BID'
-      />
+      <Typography variant="title">Bids under {price}</Typography>
+      <PostList items={bids} type="BID" />
     </Grid>
   </Flyout>
 );
@@ -75,11 +65,7 @@ export default compose(
   mapper(propMap, actionMap),
   withStyles(styles),
   withHandlers({
-    handleClick: () => () => {
-
-    }
+    handleClick: () => () => {}
   }),
-  withHandlers({
-
-  })
+  withHandlers({})
 )(BidChartList);

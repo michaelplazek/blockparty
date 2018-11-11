@@ -8,7 +8,8 @@ import PostList from "../../PostList";
 import Grid from "@material-ui/core/Grid/Grid";
 
 import {
-  selectChartAsks, selectFormattedFilterPrice
+  selectChartAsks,
+  selectFormattedFilterPrice
 } from "../../../selectors";
 import {
   createAsk as createAskAction,
@@ -34,13 +35,7 @@ const styles = theme => ({
   }
 });
 
-const AskChartList = ({
-  classes,
-  onSubmit,
-  setLayerOpen,
-  asks,
-  price
-}) => (
+const AskChartList = ({ classes, onSubmit, setLayerOpen, asks, price }) => (
   <Flyout
     onClose={() => {
       setLayerOpen(false);
@@ -48,13 +43,8 @@ const AskChartList = ({
     size={8}
   >
     <Grid className={classes.root}>
-        <Typography variant='headline'>
-          Asks under {price}
-        </Typography>
-      <PostList
-        items={asks}
-        type='ASK'
-      />
+      <Typography variant="headline">Asks under {price}</Typography>
+      <PostList items={asks} type="ASK" />
     </Grid>
   </Flyout>
 );
@@ -75,11 +65,7 @@ export default compose(
   mapper(propMap, actionMap),
   withStyles(styles),
   withHandlers({
-    handleClick: () => () => {
-
-    }
+    handleClick: () => () => {}
   }),
-  withHandlers({
-
-  })
+  withHandlers({})
 )(AskChartList);

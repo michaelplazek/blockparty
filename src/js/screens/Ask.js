@@ -3,8 +3,13 @@ import { compose, lifecycle } from "recompose";
 import { withRouter } from "react-router";
 import mapper from "../utils/connect";
 import {
-  selectAsk, selectAskCity, selectAskDisplayPrice,
-  selectAskLoaded, selectAskOwner, selectAskPostTime, selectAskState,
+  selectAsk,
+  selectAskCity,
+  selectAskDisplayPrice,
+  selectAskLoaded,
+  selectAskOwner,
+  selectAskPostTime,
+  selectAskState,
   selectNavHeight,
   selectWindowHeight,
   selectWindowWidth
