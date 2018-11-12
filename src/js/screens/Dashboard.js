@@ -44,7 +44,8 @@ import {
 } from "../selectors";
 import Grow from "@material-ui/core/Grow/Grow";
 import withLoader from "../HOCs/withLoader";
-import { loadOffersByUser} from "../actions/offers";
+import {loadOffer, loadOffersByUser} from "../actions/offers";
+import OfferDetails from "../components/Flyout/OfferDetails";
 
 const styles = () => ({
   root: {
@@ -74,6 +75,7 @@ const Dashboard = ({
   myOffers,
   loadAsk,
   loadBid,
+  loadOffer,
   unloadAsk,
   unloadBid,
   footerHeight
@@ -83,19 +85,20 @@ const Dashboard = ({
     {layer === "CREATE_BID" && <CreateBid />}
     {layer === "DELETE_ASK" && <DeleteAsk />}
     {layer === "DELETE_BID" && <DeleteBid />}
+    {layer === "VIEW_OFFER" && <OfferDetails />}
     <PageHeader
       leftHandLabel="Dashboard"
       rightHandLabel="Inbox"
       rightHandIcon={<MailIcon />}
     />
-    <Tile title="My Offers" count={numberOfOffers}>
+    <Tile color="#f2f2f2" title="My Offers" count={numberOfOffers}>
       {myOffers.map(item => (
         <OfferTile
           item={item}
           key={item._id}
           onClick={() => {
-            // loadAsk(item._id);
-            setLayer("DELETE_ASK");
+            loadOffer(item._id);
+            setLayer("VIEW_OFFER");
             setLayerOpen(true);
           }}
         />
@@ -203,7 +206,8 @@ const actionMap = {
   loadBid: loadBidAction,
   unloadAsk: unloadAskAction,
   unloadBid: unloadBidAction,
-  loadOffersByUser
+  loadOffersByUser,
+  loadOffer
 };
 
 export default compose(

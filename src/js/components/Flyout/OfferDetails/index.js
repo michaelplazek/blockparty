@@ -1,36 +1,26 @@
 import React from "react";
-import { compose, withHandlers, withState } from "recompose";
+import { compose, withHandlers } from "recompose";
 import withStyles from "@material-ui/core/styles/withStyles";
 import mapper from "../../../utils/connect";
 
 import Grid from "@material-ui/core/Grid/Grid";
 import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
+
 import {
-  deleteBid,
-  loadMyBids as loadMyBidsAction
-} from "../../../actions/bids";
-import Modal from "@material-ui/core/Modal/Modal";
-import {
-  selectBid,
-  selectBidPostTime,
   selectLayerOpen,
+  selectOffer,
+  selectOfferPostTime,
   selectWindowHeight,
   selectWindowWidth
 } from "../../../selectors";
-import Paper from "@material-ui/core/Paper/Paper";
 import Typography from "@material-ui/core/Typography/Typography";
-import Button from "@material-ui/core/Button/Button";
 import numeral from "numeral";
 import { USD } from "../../../constants/currency";
-import { deleteAsk } from "../../../actions/asks";
 import Flyout from "../index";
 
 const styles = theme => ({
   paper: {
     width: "100%",
-    // backgroundColor: theme.palette.background.paper,
-    // boxShadow: theme.shadows[5],
-    // padding: theme.spacing.unit * 4,
     display: "flex",
     flexDirection: "column",
     alignItems: "center"
@@ -43,16 +33,18 @@ const styles = theme => ({
   },
   rate: {
     margin: "3px 0px 0px 3px"
+  },
+  status: {
+    marginTop: "2px"
   }
 });
 
-const DeleteBid = ({
+const OfferDetails = ({
   classes,
   setLayerOpen,
-  loadMyBids,
   windowWidth,
   windowHeight,
-  bid,
+  offer,
   open,
   time
 }) => (
@@ -65,7 +57,7 @@ const DeleteBid = ({
     }}
     size={5}
     open={open}
-    title="Bid Details"
+    title="Offer Details"
   >
     <div
       style={{
@@ -81,11 +73,11 @@ const DeleteBid = ({
         <Grid item>
           <Grid container direction="row">
             <Grid item>
-              <Typography variant="headline">{bid.volume}</Typography>
+              <Typography variant="headline">{offer.volume}</Typography>
             </Grid>
             <Grid item>
               <Typography variant="subheading" className={classes.coin}>
-                {bid.coin}
+                {offer.coin}
               </Typography>
             </Grid>
           </Grid>
@@ -94,30 +86,22 @@ const DeleteBid = ({
           <Grid container direction="row">
             <Grid item>
               <Typography variant="subheading">
-                at {numeral(bid.price).format(USD)}
+                at {numeral(offer.price).format(USD)}
               </Typography>
             </Grid>
             <Grid item>
               <Typography className={classes.rate} variant="caption">
-                /{bid.coin}
+                /{offer.coin}
               </Typography>
             </Grid>
           </Grid>
         </Grid>
         <Grid item>
-          <Typography>Posted {time}</Typography>
+          <Typography>Offered {time} to {offer.owner}</Typography>
         </Grid>
-        <div className={classes.button}>
-          <Button
-            variant="contained"
-            onClick={() => {
-              deleteBid(bid._id);
-              setLayerOpen(false);
-            }}
-          >
-            Delete
-          </Button>
-        </div>
+        <Grid className={classes.status} item>
+          <Typography>{offer.status}</Typography>
+        </Grid>
       </Grid>
     </div>
   </Flyout>
@@ -125,15 +109,14 @@ const DeleteBid = ({
 
 const propMap = {
   open: selectLayerOpen,
-  bid: selectBid,
+  offer: selectOffer,
   windowHeight: selectWindowHeight,
   windowWidth: selectWindowWidth,
-  time: selectBidPostTime
+  time: selectOfferPostTime
 };
 
 const actionMap = {
   setLayerOpen: setLayerOpenAction,
-  loadMyBids: loadMyBidsAction
 };
 
 export default compose(
@@ -141,4 +124,4 @@ export default compose(
   withStyles(styles),
   withHandlers({}),
   withHandlers({})
-)(DeleteBid);
+)(OfferDetails);

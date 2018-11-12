@@ -13,7 +13,7 @@ import ListItem from "@material-ui/core/ListItem/ListItem";
 
 const styles = () => ({
   root: {
-    margin: "5px"
+    margin: "5px",
   },
   coin: {
     margin: "4px 0px 0px 4px"
@@ -27,7 +27,7 @@ const styles = () => ({
 });
 
 const OfferTile = ({ classes, item, onClick }) => (
-  <div onClick={onClick}>
+  <div>
     <Paper className={classes.root} elevation={1}>
       <ListItem button onClick={onClick}>
         <ListItemText

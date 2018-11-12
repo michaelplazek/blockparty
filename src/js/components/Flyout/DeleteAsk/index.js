@@ -1,5 +1,5 @@
 import React from "react";
-import { compose, withHandlers, withState } from "recompose";
+import { compose, withHandlers } from "recompose";
 import withStyles from "@material-ui/core/styles/withStyles";
 import numeral from "numeral";
 import mapper from "../../../utils/connect";
@@ -11,7 +11,6 @@ import {
   deleteAsk,
   loadMyAsks as loadMyAsksAction
 } from "../../../actions/asks";
-import Modal from "@material-ui/core/Modal/Modal";
 import {
   selectAsk,
   selectAskPostTime,
@@ -19,7 +18,6 @@ import {
   selectWindowHeight,
   selectWindowWidth
 } from "../../../selectors";
-import Paper from "@material-ui/core/Paper/Paper";
 import Typography from "@material-ui/core/Typography/Typography";
 import Button from "@material-ui/core/Button/Button";
 import { USD } from "../../../constants/currency";
@@ -27,9 +25,6 @@ import { USD } from "../../../constants/currency";
 const styles = theme => ({
   paper: {
     width: "100%",
-    // backgroundColor: theme.palette.background.paper,
-    // boxShadow: theme.shadows[5],
-    // padding: theme.spacing.unit * 4,
     display: "flex",
     flexDirection: "column",
     alignItems: "center"
@@ -65,8 +60,9 @@ const DeleteAsk = ({
     onBackdropClick={() => {
       setLayerOpen(false);
     }}
-    size={3}
+    size={5}
     open={open}
+    title="Ask Details"
   >
     <div
       style={{

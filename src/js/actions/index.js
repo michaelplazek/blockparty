@@ -62,3 +62,4 @@ export const SET_FILTER = "SET_FILTER";
 
 // OFFERS
 export const LOAD_OFFERS_BY_USER = "LOAD_OFFERS_BY_USER";
+export const LOAD_OFFER = "LOAD_OFFER";

@@ -30,7 +30,14 @@ export const selectFormattedFilterPrice = createSelector(
 
 // OFFERS
 export const selectMyOffers = state => state.offers.myOffers;
+export const selectOffer = state => state.offers.offer;
+export const selectOfferTimestamp = state => state.offers.offer.timestamp;
+export const selectOfferLoaded = state => state.offers.offerLoaded;
 export const selectMyOffersLoaded = state => state.offers.myOffersLoaded;
+export const selectOfferPostTime = createSelector(
+  selectOfferTimestamp,
+  timestamp => moment(timestamp).fromNow()
+);
 export const selectNumberOfMyOffers = createSelector(
   selectMyOffers,
   selectMyOffersLoaded,

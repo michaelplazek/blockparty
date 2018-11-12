@@ -47,14 +47,15 @@ const Flyout = ({
   setLayerOpen,
   size,
   onClose,
-  title
+  title,
+  direction
 }) => (
   <Modal
     open={open}
     onClose={onClose}
     onBackdropClick={() => setLayerOpen(false)}
   >
-    <Slide direction="right" in={open} mountOnEnter unmountOnExit>
+    <Slide direction={direction} in={open} mountOnEnter unmountOnExit>
       <div
         className={classes.root}
         style={{ height: height, width: `${width - width / size}px` }}
@@ -76,11 +77,13 @@ const Flyout = ({
 );
 
 Flyout.propTypes = {
-  onClose: PropTypes.func
+  onClose: PropTypes.func,
+  direction: PropTypes.string,
 };
 
 Flyout.defaultProps = {
-  onClose: () => {}
+  onClose: () => {},
+  direction: 'right'
 };
 
 const propMap = {
