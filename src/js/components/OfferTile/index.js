@@ -13,7 +13,7 @@ import ListItem from "@material-ui/core/ListItem/ListItem";
 
 const styles = () => ({
   root: {
-    margin: "5px"
+    margin: "5px",
   },
   coin: {
     margin: "4px 0px 0px 4px"
@@ -26,8 +26,8 @@ const styles = () => ({
   }
 });
 
-const Tile = ({ classes, onClick, item }) => (
-  <div onClick={onClick}>
+const OfferTile = ({ classes, item, onClick }) => (
+  <div>
     <Paper className={classes.root} elevation={1}>
       <ListItem button onClick={onClick}>
         <ListItemText
@@ -36,7 +36,7 @@ const Tile = ({ classes, onClick, item }) => (
             <Grid direction="row" className={classes.left} container>
               <Grid className={classes.icon} item>
                 {getCoinIcon(item.coin)}
-              </Grid>
+                </Grid>
               <Grid item>
                 <Typography className={classes.volume} variant="title">{item.volume}</Typography>
               </Grid>
@@ -47,7 +47,11 @@ const Tile = ({ classes, onClick, item }) => (
           }
         />
         <ListItemText
-          primary={null}
+          primary={
+            <Typography align="right" variant="caption">
+              {item.status}
+            </Typography>
+          }
           secondary={
             <Typography align="right" variant="caption">
               {moment(item.timestamp).fromNow()}
@@ -59,10 +63,10 @@ const Tile = ({ classes, onClick, item }) => (
   </div>
 );
 
-Tile.propTypes = {
+OfferTile.propTypes = {
   onClick: PropTypes.func.isRequired
 };
 
-Tile.defaultProp = {};
+OfferTile.defaultProp = {};
 
-export default compose(withStyles(styles))(Tile);
+export default compose(withStyles(styles))(OfferTile);

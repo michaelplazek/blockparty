@@ -28,6 +28,22 @@ export const selectFormattedFilterPrice = createSelector(
   price => numeral(price).format(USD)
 );
 
+// OFFERS
+export const selectMyOffers = state => state.offers.myOffers;
+export const selectOffer = state => state.offers.offer;
+export const selectOfferTimestamp = state => state.offers.offer.timestamp;
+export const selectOfferLoaded = state => state.offers.offerLoaded;
+export const selectMyOffersLoaded = state => state.offers.myOffersLoaded;
+export const selectOfferPostTime = createSelector(
+  selectOfferTimestamp,
+  timestamp => moment(timestamp).fromNow()
+);
+export const selectNumberOfMyOffers = createSelector(
+  selectMyOffers,
+  selectMyOffersLoaded,
+  (offers, loaded) => (loaded ? offers.length : 0)
+);
+
 // ASKS
 export const selectAsks = state => state.asks.asks;
 export const selectAskLoaded = state => state.asks.askLoaded;

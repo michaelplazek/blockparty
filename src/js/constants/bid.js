@@ -3,11 +3,16 @@ export const DEFAULT_BID = {
     $oid: "0"
   },
   coin: "BTC",
+  userId: "",
   owner: "",
+  price: 0,
+  volume: 0,
+  lat: 0,
+  lng: 0,
+  isBid: true,
   timestamp: {
     $date: ""
   },
-  price: 0,
-  volume: 0,
-  isBid: true
+  location: {},
+  offers: []
 };
