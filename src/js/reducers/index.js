@@ -8,6 +8,7 @@ import filters from "./filters";
 import ask from "./createAsk";
 import bid from "./createBid";
 import bids from "./bids";
+import offers from "./offers";
 
 export default combineReducers({
   app,
@@ -17,5 +18,6 @@ export default combineReducers({
   session,
   filters,
   ask,
-  bid
+  bid,
+  offers
 });

@@ -21,6 +21,7 @@ import {
 } from "../actions/bids";
 
 import PageHeader from "../components/PageHeader";
+import OfferTile from "../components/OfferTile";
 import MailIcon from "@material-ui/icons/Mail";
 import AddIcon from "@material-ui/icons/Add";
 import CreateAsk from "../components/Flyout/CreateAsk/index";
@@ -35,16 +36,20 @@ import {
   selectDashboardLoaded,
   selectLayer,
   selectMyAsks,
-  selectMyBids,
+  selectMyBids, selectMyOffers,
   selectNavHeight,
   selectNumberOfMyAsks,
-  selectNumberOfMyBids,
+  selectNumberOfMyBids, selectNumberOfMyOffers,
   selectUserId
 } from "../selectors";
 import Grow from "@material-ui/core/Grow/Grow";
 import withLoader from "../HOCs/withLoader";
+import { loadOffersByUser} from "../actions/offers";
 
 const styles = () => ({
+  root: {
+    paddingBottom: "50px"
+  },
   buttonContainer: {
     display: "flex",
     flexDirection: "column"
@@ -63,15 +68,17 @@ const Dashboard = ({
   setShowButtons,
   numberOfBids,
   numberOfAsks,
+  numberOfOffers,
   myBids,
   myAsks,
+  myOffers,
   loadAsk,
   loadBid,
   unloadAsk,
   unloadBid,
   footerHeight
 }) => (
-  <div>
+  <div className={classes.root}>
     {layer === "CREATE_ASK" && <CreateAsk />}
     {layer === "CREATE_BID" && <CreateBid />}
     {layer === "DELETE_ASK" && <DeleteAsk />}
@@ -81,12 +88,23 @@ const Dashboard = ({
       rightHandLabel="Inbox"
       rightHandIcon={<MailIcon />}
     />
+    <Tile title="My Offers" count={numberOfOffers}>
+      {myOffers.map(item => (
+        <OfferTile
+          item={item}
+          key={item._id}
+          onClick={() => {
+            // loadAsk(item._id);
+            setLayer("DELETE_ASK");
+            setLayerOpen(true);
+          }}
+        />
+      ))}
+    </Tile>
     <Tile title="My Asks" count={numberOfAsks}>
       {myAsks.map(item => (
         <ListTile
-          age={item.timestamp}
-          type={item.coin}
-          volume={item.volume}
+          item={item}
           key={item._id}
           onClick={() => {
             loadAsk(item._id);
@@ -99,9 +117,7 @@ const Dashboard = ({
     <Tile title="My Bids" count={numberOfBids}>
       {myBids.map(item => (
         <ListTile
-          age={item.timestamp}
-          type={item.coin}
-          volume={item.volume}
+          item={item}
           key={item._id}
           onClick={() => {
             loadBid(item._id);
@@ -170,8 +186,10 @@ const propMap = {
   userId: selectUserId,
   myBids: selectMyBids,
   myAsks: selectMyAsks,
+  myOffers: selectMyOffers,
   numberOfBids: selectNumberOfMyBids,
   numberOfAsks: selectNumberOfMyAsks,
+  numberOfOffers: selectNumberOfMyOffers,
   loaded: selectDashboardLoaded,
   footerHeight: selectNavHeight
 };
@@ -184,7 +202,8 @@ const actionMap = {
   loadAsk: loadAskAction,
   loadBid: loadBidAction,
   unloadAsk: unloadAskAction,
-  unloadBid: unloadBidAction
+  unloadBid: unloadBidAction,
+  loadOffersByUser
 };
 
 export default compose(
@@ -194,9 +213,10 @@ export default compose(
   withDimensions,
   lifecycle({
     componentDidMount() {
-      const { loadMyAsks, loadMyBids, userId } = this.props;
+      const { loadMyAsks, loadMyBids, loadOffersByUser, userId } = this.props;
       loadMyAsks(userId);
       loadMyBids(userId);
+      loadOffersByUser(userId);
     }
   }),
   withLoader

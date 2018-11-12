@@ -28,6 +28,15 @@ export const selectFormattedFilterPrice = createSelector(
   price => numeral(price).format(USD)
 );
 
+// OFFERS
+export const selectMyOffers = state => state.offers.myOffers;
+export const selectMyOffersLoaded = state => state.offers.myOffersLoaded;
+export const selectNumberOfMyOffers = createSelector(
+  selectMyOffers,
+  selectMyOffersLoaded,
+  (offers, loaded) => (loaded ? offers.length : 0)
+);
+
 // ASKS
 export const selectAsks = state => state.asks.asks;
 export const selectAskLoaded = state => state.asks.askLoaded;

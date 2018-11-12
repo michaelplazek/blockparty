@@ -59,3 +59,6 @@ export const SET_FILTER_COIN = "SET_FILTER_COIN";
 export const SET_FILTER_TYPE = "SET_FILTER_TYPE";
 export const SET_FILTER_PRICE = "SET_FILTER_PRICE";
 export const SET_FILTER = "SET_FILTER";
+
+// OFFERS
+export const LOAD_OFFERS_BY_USER = "LOAD_OFFERS_BY_USER";
