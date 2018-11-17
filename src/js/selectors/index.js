@@ -85,6 +85,7 @@ export const selectBidsForDisplay = createSelector(selectBids, bids =>
 // BID
 export const selectBid = state => state.bids.bid;
 export const selectBidId = state => state.bids.bid._id;
+export const selectBidPrice = state => state.bids.bid.price;
 export const selectBidOwner = state => state.bids.bid.owner;
 export const selectBidLocation = state => state.bids.bid.location;
 export const selectBidTimestamp = state => state.bids.bid.timestamp;
@@ -149,6 +150,11 @@ export const selectAskOfferTotal = createSelector(
   selectOfferVolume,
   (price, volume) => numeral((price * volume)).format(USD)
 );
+export const selectBidOfferTotal = createSelector(
+  selectBidPrice,
+  selectOfferVolume,
+  (price, volume) => numeral((price * volume)).format(USD)
+);
 
 // TEMPORARY ASK
 export const selectAskCoin = state => state.ask.coin;
@@ -165,7 +171,7 @@ export const selectAskUseCurrentLocation = state =>
 // TEMPORARY BID
 export const selectBidCoin = state => state.bid.coin;
 export const selectBidVolume = state => state.bid.volume;
-export const selectBidPrice = state => state.bid.price;
+export const selectBidFormPrice = state => state.bid.price;
 export const selectFormattedBidPrice = createSelector(selectBidPrice, price =>
   numeral(price).format(USD)
 );

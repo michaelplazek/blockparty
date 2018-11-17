@@ -1,11 +1,13 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import { compose, lifecycle } from "recompose";
+import {compose, lifecycle, withHandlers} from "recompose";
 import { withRouter } from "react-router";
 import mapper from "../../utils/connect";
 import {
   selectBid,
   selectBidLoaded,
+  selectLayer,
+  selectLayerOpen,
 } from "../../selectors/index";
 import { loadBid as loadBidAction } from "../../actions/bids";
 import Grid from "@material-ui/core/Grid/Grid";
@@ -15,6 +17,8 @@ import Typography from "@material-ui/core/Typography/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
 import {selectBidDetails} from "./selectors";
 import DetailList from "../../components/DetailList";
+import {setLayer as setLayerAction, setLayerOpen as setLayerOpenAction} from "../../actions/layers";
+import CreateBidOffer from "../../components/Flyout/CreateBidOffer";
 
 const styles = () => ({
   root: {
@@ -36,11 +40,22 @@ const Bid = ({
   items,
   classes,
   loaded,
-  history
+  history,
+  open,
+  layer,
+  handleOffer
 }) => (
   <div>
     {loaded && (
       <div>
+        {
+          open && layer === "CREATE_BID_OFFER" &&
+            <CreateBidOffer
+              handleClose={() => {}}
+              handleSubmit={() => {}}
+            />
+
+        }
           <Grid>
             <Button onClick={() => history.goBack()}>Go Back</Button>
             <div className={classes.root}>
@@ -59,7 +74,7 @@ const Bid = ({
               className={classes.buttons}
               color="primary"
               variant="extendedFab"
-              onClick={() => {}}
+              onClick={handleOffer}
             >
               Make an offer
             </Button>
@@ -79,11 +94,15 @@ Bid.propTypes = {
 const propMap = {
   bid: selectBid,
   items: selectBidDetails,
-  loaded: selectBidLoaded
+  loaded: selectBidLoaded,
+  layer: selectLayer,
+  open: selectLayerOpen
 };
 
 const actionMap = {
-  loadBid: loadBidAction
+  loadBid: loadBidAction,
+  setLayer: setLayerAction,
+  setLayerOpen: setLayerOpenAction,
 };
 
 export default compose(
@@ -95,6 +114,12 @@ export default compose(
       const { search } = this.props.location;
       const id = search.substr(1);
       this.props.loadBid(id);
+    }
+  }),
+  withHandlers({
+    handleOffer: ({ setLayer, setLayerOpen }) => () => {
+      setLayer("CREATE_BID_OFFER");
+      setLayerOpen(true);
     }
   })
 )(Bid);

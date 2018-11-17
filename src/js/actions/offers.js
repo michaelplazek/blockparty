@@ -19,3 +19,6 @@ export const loadOffer = id => dispatch =>
 
 export const createAskOffer = offer =>
   wrappedFetch("ask_offers", offer, "POST");
+
+export const createBidOffer = offer =>
+  wrappedFetch("bid_offers", offer, "POST");
