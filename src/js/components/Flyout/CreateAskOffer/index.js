@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { compose, withHandlers, withState } from "recompose";
+import { withRouter } from "react-router-dom";
+
 import withStyles from "@material-ui/core/styles/withStyles";
 import mapper from "../../../utils/connect";
 import Flyout from "../index";
@@ -19,6 +21,18 @@ import Typography from "@material-ui/core/Typography/Typography";
 import {setLayerOpen as setLayerOpenAction} from "../../../actions/layers";
 import withDimensions from "../../../HOCs/withDimensions";
 import {resetOffer} from "../../../actions/createOffer";
+import { createAskOffer } from "../../../actions/offers";
+import {
+  selectAskCoin,
+  selectAskId,
+  selectAskOfferTotal,
+  selectAskOwner,
+  selectAskPrice,
+  selectAskVolume,
+  selectContactInfo,
+  selectOfferVolume,
+  selectUserId,
+} from "../../../selectors";
 
 const styles = theme => ({
   root: {
@@ -101,48 +115,60 @@ CreateAskOffer.propTypes = {
   handleClose: PropTypes.func.isRequired,
 };
 
-const propMap = {};
+const propMap = {
+  coin: selectAskCoin,
+  max: selectAskVolume,
+  volume: selectOfferVolume,
+  contactInfo: selectContactInfo,
+  price: selectAskPrice,
+  userId: selectUserId,
+  owner: selectAskOwner,
+  total: selectAskOfferTotal,
+  postId: selectAskId
+};
 
 const actionMap = {
   setLayerOpen: setLayerOpenAction,
-  resetOffer
+  resetOffer,
 };
 
 export default compose(
   mapper(propMap, actionMap),
   withStyles(styles),
   withDimensions,
+  withRouter,
   withState("activeIndex", "setActiveIndex", 0),
   withHandlers({
     handleSubmit: ({
-                     userId,
-                     coin,
-                     volume,
-                     price,
-                     lat,
-                     lng,
-                     username,
-                     createAsk,
-                     loadMyAsks,
-                     setLayerOpen,
-                     resetAsk,
-                     setActiveIndex
-                   }) => () => {
-      const ask = {
-        coin,
-        volume: parseFloat(volume),
+      volume,
+      userId,
+      owner,
+      price,
+      coin,
+      contactInfo,
+      postId,
+      setActiveIndex,
+      setLayerOpen,
+      resetOffer,
+      history,
+    }) => () => {
+      const offer = {
+        volume,
+        userId,
+        owner,
         price,
-        owner: username,
-        lat,
-        lng
+        coin,
+        contactInfo,
+        postId
       };
 
-      createAsk(ask).then(() => loadMyAsks(userId));
+      createAskOffer(offer);
       setTimeout(() => {
         setLayerOpen(false);
         setActiveIndex(0);
+        history.push('/dashboard');
       }, 1500);
-      resetAsk();
+      resetOffer();
     }
   }),
   withHandlers({

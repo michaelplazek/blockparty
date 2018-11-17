@@ -12,8 +12,6 @@ import {
   selectContactInfo,
   selectFormattedAskPrice,
   selectOfferVolume,
-  selectUserId,
-  selectUsername,
 } from "../../../selectors";
 import mapper from "../../../utils/connect";
 import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
@@ -101,8 +99,6 @@ const propMap = {
   volume: selectOfferVolume,
   contactInfo: selectContactInfo,
   price: selectFormattedAskPrice,
-  userId: selectUserId,
-  username: selectUsername,
   total: selectAskOfferTotal
 };
 

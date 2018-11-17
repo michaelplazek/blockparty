@@ -1,8 +1,9 @@
 import {
+  CREATE_ASK,
   LOAD_OFFER,
   LOAD_OFFERS_BY_USER,
 } from "./index";
-import { wrappedFetchWithParams } from "../api/utils";
+import {wrappedFetch, wrappedFetchWithParams} from "../api/utils";
 
 export const loadOffersByUser = id => dispatch =>
   wrappedFetchWithParams("offers_by_user", undefined, "GET", `/${id}`).then(response => {
@@ -15,3 +16,6 @@ export const loadOffer = id => dispatch =>
       dispatch({ type: LOAD_OFFER, data: response });
     }
   );
+
+export const createAskOffer = offer =>
+  wrappedFetch("ask_offers", offer, "POST");
