@@ -30,7 +30,7 @@ import Switch from "@material-ui/core/Switch/Switch";
 import LocationSelector from "../../LocationSelector";
 import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
 
-const CreateAskContent = ({
+const CreateBidContent = ({
   index,
   coin,
   volume,
@@ -177,4 +177,4 @@ export default compose(
       setBidLongitude(item.latLng.lng());
     }
   })
-)(CreateAskContent);
+)(CreateBidContent);

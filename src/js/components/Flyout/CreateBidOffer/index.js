@@ -5,7 +5,7 @@ import { withRouter } from "react-router-dom";
 
 import withStyles from "@material-ui/core/styles/withStyles";
 import mapper from "../../../utils/connect";
-import Flyout from "../CreateBid/index";
+import Flyout from "../index";
 
 import Grid from "@material-ui/core/Grid/Grid";
 import Button from "@material-ui/core/Button/Button";

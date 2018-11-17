@@ -49,7 +49,7 @@ const Bid = ({
     {loaded && (
       <div>
         {
-          open && layer === "CREATE_BID_OFFER" &&
+          open && layer === "poop" &&
             <CreateBidOffer
               handleClose={() => {}}
               handleSubmit={() => {}}
@@ -118,7 +118,7 @@ export default compose(
   }),
   withHandlers({
     handleOffer: ({ setLayer, setLayerOpen }) => () => {
-      setLayer("CREATE_BID_OFFER");
+      setLayer("poop");
       setLayerOpen(true);
     }
   })

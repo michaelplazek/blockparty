@@ -25,7 +25,7 @@ const styles = () => ({
   }
 });
 
-const CreateBidContent = ({
+const CreateBidOfferContent = ({
   index,
   classes,
   coin,
@@ -110,4 +110,4 @@ const actionMap = {
 export default compose(
   withStyles(styles),
   mapper(propMap, actionMap),
-)(CreateBidContent);
+)(CreateBidOfferContent);
