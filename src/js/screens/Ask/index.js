@@ -1,11 +1,11 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import { compose, lifecycle } from "recompose";
+import { compose, lifecycle, withHandlers } from "recompose";
 import { withRouter } from "react-router";
 import mapper from "../../utils/connect";
 import {
   selectAsk,
-  selectAskLoaded,
+  selectAskLoaded, selectLayer, selectLayerOpen,
 } from "../../selectors/index";
 import { loadAsk as loadAskAction } from "../../actions/asks";
 import Grid from "@material-ui/core/Grid/Grid";
@@ -16,6 +16,8 @@ import withStyles from "@material-ui/core/styles/withStyles";
 
 import {selectAskDetails} from "./selectors";
 import DetailList from "../../components/DetailList";
+import {setLayer as setLayerAction, setLayerOpen as setLayerOpenAction} from "../../actions/layers";
+import CreateAskOffer from "../../components/Flyout/CreateAskOffer";
 
 const styles = () => ({
   root: {
@@ -37,11 +39,21 @@ const Ask = ({
   items,
   classes,
   loaded,
-  history
+  history,
+  layer,
+  open,
+  handleOffer
 }) => (
   <div>
     {loaded && (
       <div>
+        {
+          open && layer === "CREATE_ASK_OFFER" &&
+          <CreateAskOffer
+            handleClose={() => {}}
+            handleSubmit={() => {}}
+          />
+        }
         <Grid>
           <Button onClick={() => history.goBack()}>Go Back</Button>
           <div className={classes.root}>
@@ -60,7 +72,7 @@ const Ask = ({
             className={classes.buttons}
             variant="extendedFab"
             color="primary"
-            onClick={() => {}}
+            onClick={handleOffer}
           >
             Make an offer
           </Button>
@@ -80,11 +92,15 @@ Ask.propTypes = {
 const propMap = {
   ask: selectAsk,
   loaded: selectAskLoaded,
-  items: selectAskDetails
+  items: selectAskDetails,
+  layer: selectLayer,
+  open: selectLayerOpen
 };
 
 const actionMap = {
-  loadAsk: loadAskAction
+  loadAsk: loadAskAction,
+  setLayer: setLayerAction,
+  setLayerOpen: setLayerOpenAction,
 };
 
 export default compose(
@@ -96,6 +112,12 @@ export default compose(
       const { search } = this.props.location;
       const id = search.substr(1);
       this.props.loadAsk(id);
+    }
+  }),
+  withHandlers({
+    handleOffer: ({ setLayer, setLayerOpen }) => () => {
+      setLayer("CREATE_ASK_OFFER");
+      setLayerOpen(true);
     }
   })
 )(Ask);

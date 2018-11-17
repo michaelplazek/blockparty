@@ -57,6 +57,7 @@ const CreateAskContent = ({
             onChange={({ target }) => setAskVolume(target.value || 0)}
             margin="dense"
             variant="standard"
+            helperText={`Max of ${volume}`}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="start">{coin}</InputAdornment>
@@ -65,7 +66,7 @@ const CreateAskContent = ({
           />
         </FormControl>
       );
-    case 2:
+    case 1:
       return (
         <FormControl margin="dense" fullWidth={true}>
           <TextField
@@ -82,34 +83,7 @@ const CreateAskContent = ({
           />
         </FormControl>
       );
-    case 3:
-      return (
-        <div>
-          <FormControl margin="dense" fullWidth={true}>
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={useCurrentLocation}
-                  onChange={handleToggle}
-                  value="location"
-                />
-              }
-              label="Use current location"
-            />
-          </FormControl>
-          {!useCurrentLocation && (
-            <LocationSelector
-              showLabels={false}
-              markers={[{ id: 0, lat, lng }]}
-              height="10em"
-              width={`${width - width / 9}px`}
-              position="relative"
-              onDrag={coords => handleDrag(coords)}
-            />
-          )}
-        </div>
-      );
-    case 4:
+    case 2:
       return (
         <Grid container direction="column">
           <Typography>Type: {coin}</Typography>

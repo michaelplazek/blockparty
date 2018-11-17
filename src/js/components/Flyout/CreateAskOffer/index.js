@@ -16,7 +16,8 @@ import Content from "./Content";
 import Paper from "@material-ui/core/Paper/Paper";
 import Typography from "@material-ui/core/Typography/Typography";
 
-import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
+import {setLayerOpen as setLayerOpenAction} from "../../../actions/layers";
+import withDimensions from "../../../HOCs/withDimensions";
 
 const styles = theme => ({
   root: {
@@ -106,6 +107,7 @@ const actionMap = {
 export default compose(
   mapper(propMap, actionMap),
   withStyles(styles),
+  withDimensions,
   withState("activeIndex", "setActiveIndex", 0),
   withHandlers({
     handleBack: ({ activeIndex, setActiveIndex }) => () => {
