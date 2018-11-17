@@ -89,7 +89,7 @@ const CreateAskContent = ({
           <Typography>Type: {coin}</Typography>
           <Typography>Price: {price}</Typography>
           <Typography>Volume: {volume}</Typography>
-          <Typography>Total: {total}</Typography>
+          <Typography  variant='subheading'>Total: {total}</Typography>
         </Grid>
       );
   }

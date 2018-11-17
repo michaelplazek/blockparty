@@ -18,6 +18,7 @@ import Typography from "@material-ui/core/Typography/Typography";
 
 import {setLayerOpen as setLayerOpenAction} from "../../../actions/layers";
 import withDimensions from "../../../HOCs/withDimensions";
+import {resetOffer} from "../../../actions/createOffer";
 
 const styles = theme => ({
   root: {
@@ -43,9 +44,11 @@ const CreateAskOffer = ({
   handleBack,
   handleNext,
   setLayerOpen,
+  resetOffer
 }) => (
   <Flyout
     onClose={() => {
+      resetOffer();
       setActiveIndex(0);
       setLayerOpen(false);
     }}
@@ -102,6 +105,7 @@ const propMap = {};
 
 const actionMap = {
   setLayerOpen: setLayerOpenAction,
+  resetOffer
 };
 
 export default compose(
@@ -109,6 +113,38 @@ export default compose(
   withStyles(styles),
   withDimensions,
   withState("activeIndex", "setActiveIndex", 0),
+  withHandlers({
+    handleSubmit: ({
+                     userId,
+                     coin,
+                     volume,
+                     price,
+                     lat,
+                     lng,
+                     username,
+                     createAsk,
+                     loadMyAsks,
+                     setLayerOpen,
+                     resetAsk,
+                     setActiveIndex
+                   }) => () => {
+      const ask = {
+        coin,
+        volume: parseFloat(volume),
+        price,
+        owner: username,
+        lat,
+        lng
+      };
+
+      createAsk(ask).then(() => loadMyAsks(userId));
+      setTimeout(() => {
+        setLayerOpen(false);
+        setActiveIndex(0);
+      }, 1500);
+      resetAsk();
+    }
+  }),
   withHandlers({
     handleBack: ({ activeIndex, setActiveIndex }) => () => {
       setActiveIndex(activeIndex - 1);
