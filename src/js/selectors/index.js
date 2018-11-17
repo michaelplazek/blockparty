@@ -17,6 +17,8 @@ import { ADMIN_1, LOCALITY, POLITICAL } from "../constants/maps";
 
 const NUMBER_OF_BINS = 100;
 
+export const intoArray = (...args) => args;
+
 // FILTERS
 export const selectFilterDistance = state => state.filters.distanceAway;
 export const selectFilterCoin = state => state.filters.coin;

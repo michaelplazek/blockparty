@@ -1,5 +1,5 @@
 import Market from "../screens/Market";
-import Ask from "../screens/Ask";
+import Ask from "../screens/Ask/index";
 import Bid from "../screens/Bid";
 import AboutUs from "../screens/AboutUs";
 import Details from "../screens/Details";
