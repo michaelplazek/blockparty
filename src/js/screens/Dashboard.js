@@ -53,10 +53,10 @@ const styles = () => ({
   },
   buttonContainer: {
     display: "flex",
-    flexDirection: "column"
+    flexDirection: "column",
   },
   buttons: {
-    margin: "6px"
+    margin: "6px",
   }
 });
 
@@ -134,7 +134,8 @@ const Dashboard = ({
       style={{
         position: "fixed",
         right: "2em",
-        bottom: `${footerHeight + 20}px`
+        bottom: `${footerHeight + 20}px`,
+        zIndex: 100
       }}
     >
       {showButtons && (

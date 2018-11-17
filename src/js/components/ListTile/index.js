@@ -9,11 +9,13 @@ const styles = () => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: "stretch"
+    alignItems: "stretch",
+    zIndex: 1
   },
   badge: {
     top: 4,
-    right: 1,
+    right: -3,
+    color: "white"
   }
 });
 
@@ -21,7 +23,7 @@ const ListTileWithBadge = ({ classes, onClick, item }) => {
   return item.offers.length > 0 ?
     (
       <div className={classes.root}>
-          <Badge classes={{ badge: classes.badge }} badgeContent={item.offers.length} color="primary">
+          <Badge classes={{ badge: classes.badge }} badgeContent={item.offers.length} color="secondary">
             <ListTile
               onClick={onClick}
               item={item}
