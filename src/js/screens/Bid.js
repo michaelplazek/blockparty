@@ -66,6 +66,9 @@ const Bid = ({
             <Button onClick={() => history.goBack()}>Go Back</Button>
             <div className={classes.root}>
               <Grid item className={classes.body}>
+                <Typography variant='display1'>
+                  Bid for
+                </Typography>
                 <Typography variant="display2">
                   {bid.volume} {bid.coin}
                 </Typography>
@@ -140,7 +143,7 @@ const Bid = ({
               variant="extendedFab"
               onClick={() => {}}
             >
-              Contact buyer
+              Make an offer
             </Button>
           </Grid>
           <Grid />

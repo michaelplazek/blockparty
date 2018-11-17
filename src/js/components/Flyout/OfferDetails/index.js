@@ -63,8 +63,8 @@ const OfferDetails = ({
       style={{
         position: "absolute",
         top: `${windowHeight / 3}px`,
-        left: "20%",
-        right: "20%",
+        left: "10%",
+        right: "10%",
         display: "flex",
         justifyContent: "center"
       }}
