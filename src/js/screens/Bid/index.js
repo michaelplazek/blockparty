@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import { compose, lifecycle } from "recompose";
 import { withRouter } from "react-router";
 import mapper from "../../utils/connect";
@@ -68,6 +69,12 @@ const Bid = ({
     )}
   </div>
 );
+
+Bid.propTypes = {
+  bid: PropTypes.object.isRequired,
+  items: PropTypes.array.isRequired,
+  loaded: PropTypes.bool.isRequired
+};
 
 const propMap = {
   bid: selectBid,

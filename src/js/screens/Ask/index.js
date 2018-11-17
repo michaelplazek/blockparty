@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import { compose, lifecycle } from "recompose";
 import { withRouter } from "react-router";
 import mapper from "../../utils/connect";
@@ -69,6 +70,12 @@ const Ask = ({
     )}
   </div>
 );
+
+Ask.propTypes = {
+  ask: PropTypes.object.isRequired,
+  items: PropTypes.array.isRequired,
+  loaded: PropTypes.bool.isRequired
+};
 
 const propMap = {
   ask: selectAsk,
