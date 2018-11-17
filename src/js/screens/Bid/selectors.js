@@ -1,14 +1,13 @@
 import React from "react";
 import { createSelector } from "reselect";
 import {
-  selectAskCity,
-  selectAskOwner,
-  selectAskPostTime,
+  selectBidCity,
+  selectBidOwner,
+  selectBidPostTime,
   selectFormattedBidPrice,
-  selectAskState,
+  selectBidState,
   intoArray,
 } from "../../selectors";
-
 
 export const selectPriceDetail = createSelector(
   selectFormattedBidPrice,
@@ -20,8 +19,8 @@ export const selectPriceDetail = createSelector(
 );
 
 export const selectLocationDetail = createSelector(
-  selectAskCity,
-  selectAskState,
+  selectBidCity,
+  selectBidState,
   (city, state) => ({
     name: "Location",
     value: `${city}, ${state}`,
@@ -30,16 +29,16 @@ export const selectLocationDetail = createSelector(
 );
 
 export const selectSellerDetail = createSelector(
-  selectAskOwner,
+  selectBidOwner,
   owner => ({
-    name: "Seller",
+    name: "Buyer",
     value: owner,
     onClick: undefined
   })
 );
 
 export const selectLastUpdatedDetail = createSelector(
-  selectAskPostTime,
+  selectBidPostTime,
   time => ({
     name: "Last Updated",
     value: time,
@@ -47,7 +46,7 @@ export const selectLastUpdatedDetail = createSelector(
   })
 );
 
-export const selectAskDetails = createSelector(
+export const selectBidDetails = createSelector(
   selectPriceDetail,
   selectLocationDetail,
   selectSellerDetail,

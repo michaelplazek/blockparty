@@ -3,17 +3,16 @@ import { compose, lifecycle } from "recompose";
 import { withRouter } from "react-router";
 import mapper from "../../utils/connect";
 import {
-  selectAsk,
-  selectAskLoaded,
+  selectBid,
+  selectBidLoaded,
 } from "../../selectors/index";
-import { loadAsk as loadAskAction } from "../../actions/asks";
+import { loadBid as loadBidAction } from "../../actions/bids";
 import Grid from "@material-ui/core/Grid/Grid";
 import Button from "@material-ui/core/Button/Button";
 import Typography from "@material-ui/core/Typography/Typography";
 
 import withStyles from "@material-ui/core/styles/withStyles";
-
-import {selectAskDetails} from "./selectors";
+import {selectBidDetails} from "./selectors";
 import DetailList from "../../components/DetailList";
 
 const styles = () => ({
@@ -31,8 +30,8 @@ const styles = () => ({
   },
 });
 
-const Ask = ({
-  ask,
+const Bid = ({
+  bid,
   items,
   classes,
   loaded,
@@ -41,43 +40,43 @@ const Ask = ({
   <div>
     {loaded && (
       <div>
-        <Grid>
-          <Button onClick={() => history.goBack()}>Go Back</Button>
-          <div className={classes.root}>
-            <Grid item className={classes.body}>
-              <Typography variant="display1">
-                Ask for
-              </Typography>
-              <Typography variant="display2">
-                {ask.volume} {ask.coin}
-              </Typography>
-            </Grid>
-            <br />
-            <DetailList items={items}/>
-          </div>
-          <Button
-            className={classes.buttons}
-            variant="extendedFab"
-            color="primary"
-            onClick={() => {}}
-          >
-            Make an offer
-          </Button>
-        </Grid>
-        <Grid />
+          <Grid>
+            <Button onClick={() => history.goBack()}>Go Back</Button>
+            <div className={classes.root}>
+              <Grid item className={classes.body}>
+                <Typography variant="display1">
+                  Bid for
+                </Typography>
+                <Typography variant="display2">
+                  {bid.volume} {bid.coin}
+                </Typography>
+              </Grid>
+              <br />
+              <DetailList items={items} />
+            </div>
+            <Button
+              className={classes.buttons}
+              color="primary"
+              variant="extendedFab"
+              onClick={() => {}}
+            >
+              Make an offer
+            </Button>
+          </Grid>
+          <Grid />
       </div>
     )}
   </div>
 );
 
 const propMap = {
-  ask: selectAsk,
-  loaded: selectAskLoaded,
-  items: selectAskDetails
+  bid: selectBid,
+  items: selectBidDetails,
+  loaded: selectBidLoaded
 };
 
 const actionMap = {
-  loadAsk: loadAskAction
+  loadBid: loadBidAction
 };
 
 export default compose(
@@ -88,7 +87,7 @@ export default compose(
     componentDidMount() {
       const { search } = this.props.location;
       const id = search.substr(1);
-      this.props.loadAsk(id);
+      this.props.loadBid(id);
     }
   })
-)(Ask);
+)(Bid);
