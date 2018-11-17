@@ -140,6 +140,10 @@ export const selectAskDisplayPrice = createSelector(selectAsk, ask =>
   numeral(ask.price).format(USD)
 );
 
+// TEMPORARY OFFER
+export const selectOfferVolume = state => state.offer.volume;
+export const selectContactInfo = state => state.offer.contactInfo;
+
 // TEMPORARY ASK
 export const selectAskCoin = state => state.ask.coin;
 export const selectAskVolume = state => state.ask.volume;
