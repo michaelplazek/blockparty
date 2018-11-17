@@ -3,7 +3,7 @@ import { compose, withState, lifecycle } from "recompose";
 import mapper from "../utils/connect";
 
 import Tile from "../components/Tile";
-import ListTile from "../components/ListTile";
+import ListTile from "../components/ListTile/index";
 
 import {
   setLayer as setLayerAction,
@@ -78,7 +78,7 @@ const Dashboard = ({
   loadOffer,
   unloadAsk,
   unloadBid,
-  footerHeight
+  footerHeight,
 }) => (
   <div className={classes.root}>
     {layer === "CREATE_ASK" && <CreateAsk />}
@@ -194,7 +194,7 @@ const propMap = {
   numberOfAsks: selectNumberOfMyAsks,
   numberOfOffers: selectNumberOfMyOffers,
   loaded: selectDashboardLoaded,
-  footerHeight: selectNavHeight
+  footerHeight: selectNavHeight,
 };
 
 const actionMap = {

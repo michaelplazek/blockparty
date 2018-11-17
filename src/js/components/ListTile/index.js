@@ -1,68 +1,46 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { compose } from "recompose";
+import Badge from "@material-ui/core/Badge/Badge";
+import ListTile from "./ListTile";
 import withStyles from "@material-ui/core/styles/withStyles";
-import Paper from "@material-ui/core/Paper/Paper";
-import Typography from "@material-ui/core/Typography/Typography";
-import Grid from "@material-ui/core/Grid/Grid";
-import { getCoinIcon } from "../List/utils";
-import ListItemText from "@material-ui/core/ListItemText/ListItemText";
-import moment from "moment";
-import ListItem from "@material-ui/core/ListItem/ListItem";
 
 const styles = () => ({
   root: {
-    margin: "5px"
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: "stretch"
   },
-  coin: {
-    margin: "4px 0px 0px 4px"
-  },
-  icon: {
-    marginRight: "8px"
-  },
-  volume: {
-    marginTop: "4px"
+  badge: {
+    top: 4,
+    right: 1,
   }
 });
 
-const Tile = ({ classes, onClick, item }) => (
-  <div onClick={onClick}>
-    <Paper className={classes.root} elevation={1}>
-      <ListItem button onClick={onClick}>
-        <ListItemText
-          disableTypography={true}
-          primary={
-            <Grid direction="row" className={classes.left} container>
-              <Grid className={classes.icon} item>
-                {getCoinIcon(item.coin)}
-              </Grid>
-              <Grid item>
-                <Typography className={classes.volume} variant="title">{item.volume}</Typography>
-              </Grid>
-              <Grid item className={classes.coin}>
-                <Typography variant="subheading">{item.coin}</Typography>
-              </Grid>
-            </Grid>
-          }
-        />
-        <ListItemText
-          primary={null}
-          secondary={
-            <Typography align="right" variant="caption">
-              {moment(item.timestamp).fromNow()}
-            </Typography>
-          }
-        />
-      </ListItem>
-    </Paper>
-  </div>
-);
+const ListTileWithBadge = ({ classes, onClick, item }) => {
+  return item.offers.length > 0 ?
+    (
+      <div className={classes.root}>
+          <Badge classes={{ badge: classes.badge }} badgeContent={item.offers.length} color="primary">
+            <ListTile
+              onClick={onClick}
+              item={item}
+            />
+          </Badge>
+      </div>
+    ) :
+    (
+      <ListTile
+        onClick={onClick}
+        item={item}
+      />
+    )
+};
 
-Tile.propTypes = {
+ListTileWithBadge.propTypes = {
   onClick: PropTypes.func.isRequired
 };
 
-Tile.defaultProp = {};
+ListTileWithBadge.defaultProp = {};
 
-export default compose(withStyles(styles))(Tile);
+export default withStyles(styles)(ListTileWithBadge);
