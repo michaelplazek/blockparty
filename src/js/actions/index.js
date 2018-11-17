@@ -63,3 +63,8 @@ export const SET_FILTER = "SET_FILTER";
 // OFFERS
 export const LOAD_OFFERS_BY_USER = "LOAD_OFFERS_BY_USER";
 export const LOAD_OFFER = "LOAD_OFFER";
+
+// TEMPORARY OFFER
+export const SET_OFFER_VOLUME = 'SET_OFFER_VOLUME';
+export const SET_CONTACT_INFO = "SET_CONTACT_INFO";
+export const RESET_OFFER = "RESET_OFFER";
