@@ -115,6 +115,7 @@ export const selectBidDisplayPrice = createSelector(selectBid, bid =>
 export const selectAsk = state => state.asks.ask;
 export const selectAskId = state => state.asks.ask._id;
 export const selectAskTimestamp = state => state.asks.ask.timestamp;
+export const selectAskPrice = state => state.asks.ask.price;
 export const selectAskLocation = state => state.asks.ask.location;
 export const selectAskOwner = state => state.asks.ask.owner;
 export const selectAskPostTime = createSelector(selectAskTimestamp, timestamp =>
@@ -143,11 +144,16 @@ export const selectAskDisplayPrice = createSelector(selectAsk, ask =>
 // TEMPORARY OFFER
 export const selectOfferVolume = state => state.offer.volume;
 export const selectContactInfo = state => state.offer.contactInfo;
+export const selectAskOfferTotal = createSelector(
+  selectAskPrice,
+  selectOfferVolume,
+  (price, volume) => numeral((price * volume)).format(USD)
+);
 
 // TEMPORARY ASK
 export const selectAskCoin = state => state.ask.coin;
 export const selectAskVolume = state => state.ask.volume;
-export const selectAskPrice = state => state.ask.price;
+export const selectAskFormPrice = state => state.ask.price;
 export const selectFormattedAskPrice = createSelector(selectAskPrice, price =>
   numeral(price).format(USD)
 );

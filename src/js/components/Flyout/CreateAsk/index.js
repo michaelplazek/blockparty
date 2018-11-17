@@ -20,7 +20,7 @@ import {
   selectAskCoin,
   selectAskLatitude,
   selectAskLongitude,
-  selectAskPrice,
+  selectAskFormPrice,
   selectAskVolume,
   selectUserId,
   selectUsername
@@ -111,7 +111,7 @@ const CreateAsk = ({
 const propMap = {
   coin: selectAskCoin,
   volume: selectAskVolume,
-  price: selectAskPrice,
+  price: selectAskFormPrice,
   lat: selectAskLatitude,
   lng: selectAskLongitude,
   username: selectUsername,
