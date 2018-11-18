@@ -14,37 +14,43 @@ const styles = () => ({
     flexDirection: "column",
     margin: "2px",
     padding: "10px",
-    cursor: "pointer"
+    cursor: "pointer",
   },
   coin: {
-    margin: "4px 0px 0px 4px"
+    margin: "0px 0px 0px 4px"
   },
   volume: {
-    marginTop: "4px"
   },
 
   button: {
     margin: "4px"
-  }
+  },
 });
 
-const OfferWidget = ({ classes, total, volume, coin, open, setOpen }) => (
+const OfferWidget = ({ classes, total, volume, coin, time, open, setOpen }) => (
   <div onClick={() => setOpen(!open)}>
     <Paper className={classes.root} elevation={1}>
-      <Grid container direction="column" align="center">
+      <Grid container direction="column">
         <Grid item>
-          <Typography variant="title">{total}</Typography>
-        </Grid>
-        <Grid item>
-          <Grid direction="row" container>
+          <Grid container justify='space-between' direction="row">
             <Grid item>
-              <Typography className={classes.volume} variant="subheading">
-                {volume}
-              </Typography>
+              <Typography variant="title">{total}</Typography>
             </Grid>
-            <Grid item className={classes.coin}>
-              <Typography variant="subheading">{coin}</Typography>
+            <Grid item>
+              <Grid direction="row" container>
+                <Grid item>
+                  <Typography className={classes.volume} variant="subheading">
+                    {volume}
+                  </Typography>
+                </Grid>
+                <Grid item className={classes.coin}>
+                  <Typography variant="subheading">{coin}</Typography>
+                </Grid>
+              </Grid>
             </Grid>
+          </Grid>
+          <Grid item>
+            <Typography variant='caption'>{time}</Typography>
           </Grid>
         </Grid>
         <Grid item>

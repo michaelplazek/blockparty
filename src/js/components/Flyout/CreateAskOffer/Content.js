@@ -8,9 +8,7 @@ import Grid from "@material-ui/core/Grid/Grid";
 import {
   selectAskCoin,
   selectAskOfferTotal,
-  selectAskFormVolume,
   selectContactInfo,
-  selectFormattedAskPrice,
   selectOfferVolume,
   selectAskVolume,
   selectAskDisplayPrice

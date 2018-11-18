@@ -62,7 +62,7 @@ const DeleteAsk = ({
     onClose={() => {
       setLayerOpen(false);
     }}
-    size={5}
+    size={8}
     open={open}
     title="Ask Details"
   >

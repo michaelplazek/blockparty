@@ -31,7 +31,7 @@ import {
   selectAskFormVolume,
   selectContactInfo,
   selectOfferVolume,
-  selectUserId
+  selectUserId, selectAskVolume
 } from "../../../selectors";
 
 const styles = theme => ({
@@ -117,7 +117,7 @@ CreateAskOffer.propTypes = {
 
 const propMap = {
   coin: selectAskCoin,
-  max: selectAskFormVolume,
+  max: selectAskVolume,
   volume: selectOfferVolume,
   contactInfo: selectContactInfo,
   price: selectAskPrice,
@@ -161,7 +161,6 @@ export default compose(
         contactInfo,
         postId
       };
-
       createAskOffer(offer);
       setTimeout(() => {
         setLayerOpen(false);

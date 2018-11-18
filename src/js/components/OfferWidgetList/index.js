@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import moment from 'moment';
 
 import OfferWidget from "../OfferWidget/index";
 import { getTotal } from "../Flyout/DeleteAsk/utils";
@@ -12,9 +13,10 @@ const OfferWidgetList = ({ offers, post }) => (
         <OfferWidget
           key={`${item.volume}-${index}`}
           total={getTotal(post.price, item.volume)}
-          volume={post.volume}
+          volume={item.volume}
           price={post.price}
           coin={post.coin}
+          time={moment(post.time).fromNow()}
           onClick={() => {}}
         />
       ))}
