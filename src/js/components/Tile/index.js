@@ -10,7 +10,7 @@ import Grid from "@material-ui/core/Grid/Grid";
 const styles = () => ({
   root: {
     margin: "30px 30px 30px 30px",
-    padding: "20px",
+    padding: "20px"
   }
 });
 
@@ -32,7 +32,9 @@ const Tile = ({
         onClick={() => {}}
       >
         <Grid item>
-          <Typography color={textColor} variant="title">{title}</Typography>
+          <Typography color={textColor} variant="title">
+            {title}
+          </Typography>
         </Grid>
         <Grid item>
           <Typography color={textColor} variant="subheading">

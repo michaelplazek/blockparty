@@ -9,7 +9,7 @@ import ask from "./createAsk";
 import bid from "./createBid";
 import bids from "./bids";
 import offers from "./offers";
-import offer from './createOffer';
+import offer from "./createOffer";
 
 export default combineReducers({
   app,

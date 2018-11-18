@@ -97,7 +97,9 @@ const OfferDetails = ({
           </Grid>
         </Grid>
         <Grid item>
-          <Typography>Offered {time} to {offer.owner}</Typography>
+          <Typography>
+            Offered {time} to {offer.owner}
+          </Typography>
         </Grid>
         <Grid className={classes.status} item>
           <Typography>{offer.status}</Typography>
@@ -116,7 +118,7 @@ const propMap = {
 };
 
 const actionMap = {
-  setLayerOpen: setLayerOpenAction,
+  setLayerOpen: setLayerOpenAction
 };
 
 export default compose(

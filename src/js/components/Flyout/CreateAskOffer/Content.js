@@ -11,11 +11,13 @@ import {
   selectAskFormVolume,
   selectContactInfo,
   selectFormattedAskPrice,
-  selectOfferVolume, selectAskVolume, selectAskDisplayPrice,
+  selectOfferVolume,
+  selectAskVolume,
+  selectAskDisplayPrice
 } from "../../../selectors";
 import mapper from "../../../utils/connect";
 import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
-import {setContactInfo, setOfferVolume} from "../../../actions/createOffer";
+import { setContactInfo, setOfferVolume } from "../../../actions/createOffer";
 import withStyles from "@material-ui/core/styles/withStyles";
 
 const styles = () => ({
@@ -41,31 +43,27 @@ const CreateAskContent = ({
     case 0:
       return (
         <div>
-        <FormControl margin="dense" fullWidth={true}>
-          <TextField
-            id="volume"
-            value={volume}
-            onChange={({ target }) => setOfferVolume(target.value || 0)}
-            margin="dense"
-            variant="standard"
-            helperText={`Max of ${max}`}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="start">{coin}</InputAdornment>
-              )
-            }}
-          />
-        </FormControl>
-            <Grid
-              container
-              direction="column"
-              className={classes.info}
-            >
-              <Typography>Type: {coin}</Typography>
-              <Typography>Price: {price}</Typography>
-              <Typography>Volume: {volume}</Typography>
-              <Typography variant='subheading'>Total: {total}</Typography>
-            </Grid>
+          <FormControl margin="dense" fullWidth={true}>
+            <TextField
+              id="volume"
+              value={volume}
+              onChange={({ target }) => setOfferVolume(target.value || 0)}
+              margin="dense"
+              variant="standard"
+              helperText={`Max of ${max}`}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="start">{coin}</InputAdornment>
+                )
+              }}
+            />
+          </FormControl>
+          <Grid container direction="column" className={classes.info}>
+            <Typography>Type: {coin}</Typography>
+            <Typography>Price: {price}</Typography>
+            <Typography>Volume: {volume}</Typography>
+            <Typography variant="subheading">Total: {total}</Typography>
+          </Grid>
         </div>
       );
     case 1:
@@ -87,7 +85,7 @@ const CreateAskContent = ({
           <Typography>Type: {coin}</Typography>
           <Typography>Price: {price}</Typography>
           <Typography>Volume: {volume}</Typography>
-          <Typography  variant='subheading'>Total: {total}</Typography>
+          <Typography variant="subheading">Total: {total}</Typography>
         </Grid>
       );
   }
@@ -109,5 +107,5 @@ const actionMap = {
 
 export default compose(
   withStyles(styles),
-  mapper(propMap, actionMap),
+  mapper(propMap, actionMap)
 )(CreateAskContent);

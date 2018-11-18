@@ -12,7 +12,9 @@ import {
   loadMyBids as loadMyBidsAction
 } from "../../../actions/bids";
 import {
-  selectBid, selectBidLoaded, selectBidOfferTotal,
+  selectBid,
+  selectBidLoaded,
+  selectBidOfferTotal,
   selectBidPostTime,
   selectLayerOpen,
   selectOffers,
@@ -42,20 +44,20 @@ const styles = () => ({
   },
   time: {
     marginTop: "4px"
-  },
+  }
 });
 
 const DeleteBid = ({
-                     classes,
-                     setLayerOpen,
-                     windowWidth,
-                     windowHeight,
-                     bid,
-                     open,
-                     offers,
-                     time,
-                     history
-                   }) => (
+  classes,
+  setLayerOpen,
+  windowWidth,
+  windowHeight,
+  bid,
+  open,
+  offers,
+  time,
+  history
+}) => (
   <Flyout
     onClose={() => {
       setLayerOpen(false);
@@ -67,32 +69,27 @@ const DeleteBid = ({
     open={open}
     title="Bid Details"
   >
-    <Grid
-      container
-      direction='column'
-    >
+    <Grid container direction="column">
       <Grid item>
         <DetailBox
           post={bid}
           time={time}
-          onClick={() => {history.push(`/bid?${bid._id}`)}}
+          onClick={() => {
+            history.push(`/bid?${bid._id}`);
+          }}
         />
       </Grid>
       <Grid item>
-        <OfferWidgetList
-          offers={offers}
-          post={bid}
-        />
+        <OfferWidgetList offers={offers} post={bid} />
       </Grid>
       <Grid item>
         <Grid
-          direction='column'
+          direction="column"
           className={classes.footer}
-          alignItems='center'
+          alignItems="center"
           container
         >
-          <div className={classes.button}
-          >
+          <div className={classes.button}>
             <Button
               variant="contained"
               disabled={offers.length > 0}
@@ -119,16 +116,16 @@ const propMap = {
   total: selectBidOfferTotal,
   windowHeight: selectWindowHeight,
   windowWidth: selectWindowWidth,
-  time: selectBidPostTime,
+  time: selectBidPostTime
 };
 
 const actionMap = {
   setLayerOpen: setLayerOpenAction,
-  loadMyBids: loadMyBidsAction,
+  loadMyBids: loadMyBidsAction
 };
 
 export default compose(
   mapper(propMap, actionMap),
   withStyles(styles),
-  withRouter,
+  withRouter
 )(DeleteBid);

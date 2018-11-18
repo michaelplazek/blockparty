@@ -7,8 +7,8 @@ import withStyles from "@material-ui/core/styles/withStyles";
 
 const styles = () => ({
   root: {
-    display: 'flex',
-    flexDirection: 'column',
+    display: "flex",
+    flexDirection: "column",
     alignItems: "stretch",
     zIndex: 1
   },
@@ -20,23 +20,19 @@ const styles = () => ({
 });
 
 const ListTileWithBadge = ({ classes, onClick, item }) => {
-  return item.offers.length > 0 ?
-    (
-      <div className={classes.root}>
-          <Badge classes={{ badge: classes.badge }} badgeContent={item.offers.length} color="secondary">
-            <ListTile
-              onClick={onClick}
-              item={item}
-            />
-          </Badge>
-      </div>
-    ) :
-    (
-      <ListTile
-        onClick={onClick}
-        item={item}
-      />
-    )
+  return item.offers.length > 0 ? (
+    <div className={classes.root}>
+      <Badge
+        classes={{ badge: classes.badge }}
+        badgeContent={item.offers.length}
+        color="secondary"
+      >
+        <ListTile onClick={onClick} item={item} />
+      </Badge>
+    </div>
+  ) : (
+    <ListTile onClick={onClick} item={item} />
+  );
 };
 
 ListTileWithBadge.propTypes = {

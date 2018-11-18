@@ -18,9 +18,9 @@ import Content from "./Content";
 import Paper from "@material-ui/core/Paper/Paper";
 import Typography from "@material-ui/core/Typography/Typography";
 
-import {setLayerOpen as setLayerOpenAction} from "../../../actions/layers";
+import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
 import withDimensions from "../../../HOCs/withDimensions";
-import {resetOffer} from "../../../actions/createOffer";
+import { resetOffer } from "../../../actions/createOffer";
 import { createAskOffer } from "../../../actions/offers";
 import {
   selectAskCoin,
@@ -31,7 +31,7 @@ import {
   selectAskFormVolume,
   selectContactInfo,
   selectOfferVolume,
-  selectUserId,
+  selectUserId
 } from "../../../selectors";
 
 const styles = theme => ({
@@ -67,7 +67,7 @@ const CreateAskOffer = ({
       setLayerOpen(false);
     }}
     size={8}
-    title='Make an offer to buy'
+    title="Make an offer to buy"
   >
     <Grid className={classes.root}>
       <Stepper activeStep={activeIndex} orientation="vertical">
@@ -112,7 +112,7 @@ const CreateAskOffer = ({
 
 CreateAskOffer.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
-  handleClose: PropTypes.func.isRequired,
+  handleClose: PropTypes.func.isRequired
 };
 
 const propMap = {
@@ -129,7 +129,7 @@ const propMap = {
 
 const actionMap = {
   setLayerOpen: setLayerOpenAction,
-  resetOffer,
+  resetOffer
 };
 
 export default compose(
@@ -150,7 +150,7 @@ export default compose(
       setActiveIndex,
       setLayerOpen,
       resetOffer,
-      history,
+      history
     }) => () => {
       const offer = {
         volume,
@@ -166,7 +166,7 @@ export default compose(
       setTimeout(() => {
         setLayerOpen(false);
         setActiveIndex(0);
-        history.push('/dashboard');
+        history.push("/dashboard");
       }, 1500);
       resetOffer();
     }

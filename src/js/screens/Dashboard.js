@@ -36,15 +36,22 @@ import {
   selectDashboardLoaded,
   selectLayer,
   selectMyAsks,
-  selectMyBids, selectMyOffers,
+  selectMyBids,
+  selectMyOffers,
   selectNavHeight,
   selectNumberOfMyAsks,
-  selectNumberOfMyBids, selectNumberOfMyOffers,
+  selectNumberOfMyBids,
+  selectNumberOfMyOffers,
   selectUserId
 } from "../selectors";
 import Grow from "@material-ui/core/Grow/Grow";
 import withLoader from "../HOCs/withLoader";
-import {loadOffer, loadOffersByAsk, loadOffersByUser, unloadOffers} from "../actions/offers";
+import {
+  loadOffer,
+  loadOffersByAsk,
+  loadOffersByUser,
+  unloadOffers
+} from "../actions/offers";
 import OfferDetails from "../components/Flyout/OfferDetails";
 
 const styles = () => ({
@@ -53,10 +60,10 @@ const styles = () => ({
   },
   buttonContainer: {
     display: "flex",
-    flexDirection: "column",
+    flexDirection: "column"
   },
   buttons: {
-    margin: "6px",
+    margin: "6px"
   }
 });
 
@@ -114,9 +121,9 @@ const Dashboard = ({
           onClick={() => {
             unloadOffers();
             loadAsk(item._id).then(() => {
-            loadOffersByAsk(item._id);
-            setLayer("DELETE_ASK");
-            setLayerOpen(true);
+              loadOffersByAsk(item._id);
+              setLayer("DELETE_ASK");
+              setLayerOpen(true);
             });
           }}
         />
@@ -200,7 +207,7 @@ const propMap = {
   numberOfAsks: selectNumberOfMyAsks,
   numberOfOffers: selectNumberOfMyOffers,
   loaded: selectDashboardLoaded,
-  footerHeight: selectNavHeight,
+  footerHeight: selectNavHeight
 };
 
 const actionMap = {

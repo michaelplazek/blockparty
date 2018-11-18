@@ -1,8 +1,4 @@
-import {
-  SET_OFFER_VOLUME,
-  SET_CONTACT_INFO,
-  RESET_OFFER
-} from "./index";
+import { SET_OFFER_VOLUME, SET_CONTACT_INFO, RESET_OFFER } from "./index";
 
 export const setOfferVolume = data => dispatch =>
   dispatch({ type: SET_OFFER_VOLUME, data });

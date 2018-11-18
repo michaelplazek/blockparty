@@ -151,20 +151,21 @@ export const selectContactInfo = state => state.offer.contactInfo;
 export const selectAskOfferTotal = createSelector(
   selectAskPrice,
   selectOfferVolume,
-  (price, volume) => numeral((price * volume)).format(USD)
+  (price, volume) => numeral(price * volume).format(USD)
 );
 export const selectBidOfferTotal = createSelector(
   selectBidPrice,
   selectOfferVolume,
-  (price, volume) => numeral((price * volume)).format(USD)
+  (price, volume) => numeral(price * volume).format(USD)
 );
 
 // TEMPORARY ASK
 export const selectAskCoin = state => state.ask.coin;
 export const selectAskFormVolume = state => state.ask.volume;
 export const selectAskFormPrice = state => state.ask.price;
-export const selectFormattedAskPrice = createSelector(selectAskFormPrice, price =>
-  numeral(price).format(USD)
+export const selectFormattedAskPrice = createSelector(
+  selectAskFormPrice,
+  price => numeral(price).format(USD)
 );
 export const selectAskLatitude = state => state.ask.lat;
 export const selectAskLongitude = state => state.ask.lng;
@@ -175,8 +176,9 @@ export const selectAskUseCurrentLocation = state =>
 export const selectBidCoin = state => state.bid.coin;
 export const selectBidFormVolume = state => state.bid.volume;
 export const selectBidFormPrice = state => state.bid.price;
-export const selectFormattedBidFormPrice = createSelector(selectBidFormPrice, price =>
-  numeral(price).format(USD)
+export const selectFormattedBidFormPrice = createSelector(
+  selectBidFormPrice,
+  price => numeral(price).format(USD)
 );
 export const selectBidLatitude = state => state.bid.lat;
 export const selectBidLongitude = state => state.bid.lng;

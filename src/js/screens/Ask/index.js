@@ -1,11 +1,13 @@
 import React from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import { compose, lifecycle, withHandlers } from "recompose";
 import { withRouter } from "react-router";
 import mapper from "../../utils/connect";
 import {
   selectAsk,
-  selectAskLoaded, selectLayer, selectLayerOpen,
+  selectAskLoaded,
+  selectLayer,
+  selectLayerOpen
 } from "../../selectors/index";
 import { loadAsk as loadAskAction } from "../../actions/asks";
 import Grid from "@material-ui/core/Grid/Grid";
@@ -14,9 +16,12 @@ import Typography from "@material-ui/core/Typography/Typography";
 
 import withStyles from "@material-ui/core/styles/withStyles";
 
-import {selectAskDetails} from "./selectors";
+import { selectAskDetails } from "./selectors";
 import DetailList from "../../components/DetailList";
-import {setLayer as setLayerAction, setLayerOpen as setLayerOpenAction} from "../../actions/layers";
+import {
+  setLayer as setLayerAction,
+  setLayerOpen as setLayerOpenAction
+} from "../../actions/layers";
 import CreateAskOffer from "../../components/Flyout/CreateAskOffer";
 
 const styles = () => ({
@@ -31,7 +36,7 @@ const styles = () => ({
     position: "fixed",
     bottom: "7em",
     right: "2em"
-  },
+  }
 });
 
 const Ask = ({
@@ -47,26 +52,21 @@ const Ask = ({
   <div>
     {loaded && (
       <div>
-        {
-          open && layer === "CREATE_ASK_OFFER" &&
-          <CreateAskOffer
-            handleClose={() => {}}
-            handleSubmit={() => {}}
-          />
-        }
+        {open &&
+          layer === "CREATE_ASK_OFFER" && (
+            <CreateAskOffer handleClose={() => {}} handleSubmit={() => {}} />
+          )}
         <Grid>
           <Button onClick={() => history.goBack()}>Go Back</Button>
           <div className={classes.root}>
             <Grid item className={classes.body}>
-              <Typography variant="display1">
-                Ask for
-              </Typography>
+              <Typography variant="display1">Ask for</Typography>
               <Typography variant="display2">
                 {ask.volume} {ask.coin}
               </Typography>
             </Grid>
             <br />
-            <DetailList items={items}/>
+            <DetailList items={items} />
           </div>
           <Button
             className={classes.buttons}
@@ -100,7 +100,7 @@ const propMap = {
 const actionMap = {
   loadAsk: loadAskAction,
   setLayer: setLayerAction,
-  setLayerOpen: setLayerOpenAction,
+  setLayerOpen: setLayerOpenAction
 };
 
 export default compose(

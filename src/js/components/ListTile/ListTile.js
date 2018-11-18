@@ -27,11 +27,11 @@ const styles = () => ({
   },
   volume: {
     marginTop: "4px"
-  },
+  }
 });
 
 const ListTile = ({ classes, onClick, item }) => (
-  <div  className={classes.root} onClick={onClick}>
+  <div className={classes.root} onClick={onClick}>
     <Paper elevation={1}>
       <ListItem button onClick={onClick}>
         <ListItemText
@@ -42,7 +42,9 @@ const ListTile = ({ classes, onClick, item }) => (
                 {getCoinIcon(item.coin)}
               </Grid>
               <Grid item>
-                <Typography className={classes.volume} variant="title">{item.volume}</Typography>
+                <Typography className={classes.volume} variant="title">
+                  {item.volume}
+                </Typography>
               </Grid>
               <Grid item className={classes.coin}>
                 <Typography variant="subheading">{item.coin}</Typography>
@@ -61,7 +63,6 @@ const ListTile = ({ classes, onClick, item }) => (
       </ListItem>
     </Paper>
   </div>
-
 );
 
 ListTile.propTypes = {

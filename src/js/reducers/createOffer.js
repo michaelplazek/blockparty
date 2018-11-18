@@ -1,9 +1,5 @@
 import { stateReducer } from "./utils";
-import {
-  SET_OFFER_VOLUME,
-  SET_CONTACT_INFO,
-  RESET_OFFER
-} from "../actions";
+import { SET_OFFER_VOLUME, SET_CONTACT_INFO, RESET_OFFER } from "../actions";
 
 const initialState = {
   volume: 0.0001,

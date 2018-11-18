@@ -12,7 +12,9 @@ import {
   loadMyAsks as loadMyAsksAction
 } from "../../../actions/asks";
 import {
-  selectAsk, selectAskLoaded, selectAskOfferTotal,
+  selectAsk,
+  selectAskLoaded,
+  selectAskOfferTotal,
   selectAskPostTime,
   selectLayerOpen,
   selectOffers,
@@ -42,7 +44,7 @@ const styles = () => ({
   },
   time: {
     marginTop: "4px"
-  },
+  }
 });
 
 const DeleteAsk = ({
@@ -67,32 +69,27 @@ const DeleteAsk = ({
     open={open}
     title="Ask Details"
   >
-    <Grid
-      container
-      direction='column'
-    >
+    <Grid container direction="column">
       <Grid item>
         <DetailBox
           post={ask}
           time={time}
-          onClick={() => {history.push(`/ask?${ask._id}`)}}
+          onClick={() => {
+            history.push(`/ask?${ask._id}`);
+          }}
         />
       </Grid>
       <Grid item>
-        <OfferWidgetList
-          offers={offers}
-          post={ask}
-        />
+        <OfferWidgetList offers={offers} post={ask} />
       </Grid>
       <Grid item>
         <Grid
-          direction='column'
+          direction="column"
           className={classes.footer}
-          alignItems='center'
+          alignItems="center"
           container
         >
-          <div className={classes.button}
-          >
+          <div className={classes.button}>
             <Button
               variant="contained"
               disabled={offers.length > 0}
@@ -119,16 +116,16 @@ const propMap = {
   total: selectAskOfferTotal,
   windowHeight: selectWindowHeight,
   windowWidth: selectWindowWidth,
-  time: selectAskPostTime,
+  time: selectAskPostTime
 };
 
 const actionMap = {
   setLayerOpen: setLayerOpenAction,
-  loadMyAsks: loadMyAsksAction,
+  loadMyAsks: loadMyAsksAction
 };
 
 export default compose(
   mapper(propMap, actionMap),
   withStyles(styles),
-  withRouter,
+  withRouter
 )(DeleteAsk);

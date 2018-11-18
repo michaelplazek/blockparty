@@ -22,7 +22,7 @@ const styles = () => ({
   root: {
     position: "absolute",
     left: 0,
-    background: "white",
+    background: "white"
   },
   closeButton: {
     textAlign: "right",
@@ -32,9 +32,9 @@ const styles = () => ({
     cursor: "pointer"
   },
   title: {
-    position: 'relative',
+    position: "relative",
     top: "1.5em",
-    left: '1.5em'
+    left: "1.5em"
   }
 });
 
@@ -60,14 +60,14 @@ const Flyout = ({
         className={classes.root}
         style={{ height: height, width: `${width - width / size}px` }}
       >
-        <Grid direction='row' justify='space-between' container>
+        <Grid direction="row" justify="space-between" container>
           <Grid className={classes.title} item>
-        <Typography variant="title">{title}</Typography>
+            <Typography variant="title">{title}</Typography>
           </Grid>
           <Grid item>
-        <div className={classes.closeButton} onClick={onClose}>
-          <FontAwesomeIcon icon={faTimes} />
-        </div>
+            <div className={classes.closeButton} onClick={onClose}>
+              <FontAwesomeIcon icon={faTimes} />
+            </div>
           </Grid>
         </Grid>
         {children}
@@ -78,12 +78,12 @@ const Flyout = ({
 
 Flyout.propTypes = {
   onClose: PropTypes.func,
-  direction: PropTypes.string,
+  direction: PropTypes.string
 };
 
 Flyout.defaultProps = {
   onClose: () => {},
-  direction: 'right'
+  direction: "right"
 };
 
 const propMap = {

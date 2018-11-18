@@ -1,7 +1,7 @@
 import Grid from "@material-ui/core/Grid/Grid";
 import Typography from "@material-ui/core/Typography/Typography";
 import numeral from "numeral";
-import {USD} from "../../constants/currency";
+import { USD } from "../../constants/currency";
 import React from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Paper from "@material-ui/core/Paper/Paper";
@@ -16,7 +16,7 @@ const styles = () => ({
     width: "100%",
     display: "flex",
     flexDirection: "column",
-    alignItems: "center",
+    alignItems: "center"
   },
   coin: {
     margin: "6px 0px 0px 6px"

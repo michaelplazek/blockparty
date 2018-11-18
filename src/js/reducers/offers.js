@@ -6,7 +6,7 @@ import {
   LOAD_OFFERS_BY_BID,
   UNLOAD_OFFERS
 } from "../actions";
-import {DEFAULT_OFFER} from "../constants/offer";
+import { DEFAULT_OFFER } from "../constants/offer";
 
 const initialState = {
   offer: DEFAULT_OFFER,
@@ -37,7 +37,7 @@ const handlers = {
   [LOAD_OFFER]: (state, action) => ({
     offer: action.data,
     offerLoaded: true
-  }),
+  })
 };
 
 export default stateReducer(initialState, handlers);

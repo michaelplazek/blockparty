@@ -12,10 +12,7 @@ const styles = () => ({
   }
 });
 
-const DetailList = ({
-  items,
-  classes
-}) => (
+const DetailList = ({ items, classes }) => (
   <Paper className={classes.paper}>
     <List>
       {items.map((item, index) => (
@@ -31,6 +28,4 @@ const DetailList = ({
   </Paper>
 );
 
-export default compose(
-  withStyles(styles),
-)(DetailList);
+export default compose(withStyles(styles))(DetailList);

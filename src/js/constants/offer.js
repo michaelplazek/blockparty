@@ -1,7 +1,7 @@
 export const DEFAULT_OFFER = {
   volume: 0,
-  userId: '',
-  owner: '',
+  userId: "",
+  owner: "",
   forBid: false,
   timestamp: {
     $date: ""
@@ -12,5 +12,5 @@ export const DEFAULT_OFFER = {
   _id: {
     $oid: "0"
   },
-  accepted: false,
+  accepted: false
 };

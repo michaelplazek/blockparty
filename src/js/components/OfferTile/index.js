@@ -13,7 +13,7 @@ import ListItem from "@material-ui/core/ListItem/ListItem";
 
 const styles = () => ({
   root: {
-    margin: "5px",
+    margin: "5px"
   },
   coin: {
     margin: "4px 0px 0px 4px"
@@ -36,9 +36,11 @@ const OfferTile = ({ classes, item, onClick }) => (
             <Grid direction="row" className={classes.left} container>
               <Grid className={classes.icon} item>
                 {getCoinIcon(item.coin)}
-                </Grid>
+              </Grid>
               <Grid item>
-                <Typography className={classes.volume} variant="title">{item.volume}</Typography>
+                <Typography className={classes.volume} variant="title">
+                  {item.volume}
+                </Typography>
               </Grid>
               <Grid item className={classes.coin}>
                 <Typography variant="subheading">{item.coin}</Typography>

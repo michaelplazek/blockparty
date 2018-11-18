@@ -5,12 +5,14 @@ import {
   LOAD_OFFERS_BY_ASK,
   UNLOAD_OFFERS
 } from "./index";
-import {wrappedFetch, wrappedFetchWithParams} from "../api/utils";
+import { wrappedFetch, wrappedFetchWithParams } from "../api/utils";
 
 export const loadOffersByUser = id => dispatch =>
-  wrappedFetchWithParams("offers_by_user", undefined, "GET", `/${id}`).then(response => {
-    dispatch({ type: LOAD_OFFERS_BY_USER, data: response });
-  });
+  wrappedFetchWithParams("offers_by_user", undefined, "GET", `/${id}`).then(
+    response => {
+      dispatch({ type: LOAD_OFFERS_BY_USER, data: response });
+    }
+  );
 
 export const loadOffer = id => dispatch =>
   wrappedFetchWithParams("offer", undefined, "GET", `?id=${id}`).then(
@@ -19,13 +21,14 @@ export const loadOffer = id => dispatch =>
     }
   );
 
-export const unloadOffers = () => dispatch =>
-      dispatch({ type: UNLOAD_OFFERS });
+export const unloadOffers = () => dispatch => dispatch({ type: UNLOAD_OFFERS });
 
 export const loadOffersByAsk = id => dispatch =>
-  wrappedFetchWithParams("offers_by_ask", undefined, "GET", `/${id}`).then(response => {
-    dispatch({ type: LOAD_OFFERS_BY_ASK, data: response });
-  });
+  wrappedFetchWithParams("offers_by_ask", undefined, "GET", `/${id}`).then(
+    response => {
+      dispatch({ type: LOAD_OFFERS_BY_ASK, data: response });
+    }
+  );
 
 export const createAskOffer = offer =>
   wrappedFetch("ask_offers", offer, "POST");
