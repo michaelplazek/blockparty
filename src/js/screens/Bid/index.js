@@ -7,7 +7,9 @@ import {
   selectBid,
   selectBidLoaded,
   selectLayer,
-  selectLayerOpen
+  selectLayerOpen,
+  selectBidHasOffer,
+  selectBidOfferButtonText, selectMyOffersLoaded, selectUserId
 } from "../../selectors/index";
 import { loadBid as loadBidAction } from "../../actions/bids";
 import Grid from "@material-ui/core/Grid/Grid";
@@ -22,6 +24,7 @@ import {
   setLayerOpen as setLayerOpenAction
 } from "../../actions/layers";
 import CreateBidOffer from "../../components/Flyout/CreateBidOffer";
+import {loadOffersByUser} from "../../actions/offers";
 
 const styles = () => ({
   root: {
@@ -46,7 +49,9 @@ const Bid = ({
   history,
   open,
   layer,
-  handleOffer
+  handleOffer,
+  bidHasOffer,
+  buttonText
 }) => (
   <div>
     {loaded && (
@@ -70,10 +75,11 @@ const Bid = ({
           <Button
             className={classes.buttons}
             color="primary"
+            disabled={bidHasOffer}
             variant="extendedFab"
             onClick={handleOffer}
           >
-            Make an offer
+            {buttonText}
           </Button>
         </Grid>
         <Grid />
@@ -93,13 +99,18 @@ const propMap = {
   items: selectBidDetails,
   loaded: selectBidLoaded,
   layer: selectLayer,
-  open: selectLayerOpen
+  open: selectLayerOpen,
+  bidHasOffer: selectBidHasOffer,
+  buttonText: selectBidOfferButtonText,
+  myOffersLoaded: selectMyOffersLoaded,
+  userId: selectUserId
 };
 
 const actionMap = {
   loadBid: loadBidAction,
   setLayer: setLayerAction,
-  setLayerOpen: setLayerOpenAction
+  setLayerOpen: setLayerOpenAction,
+  loadOffersByUser
 };
 
 export default compose(
@@ -111,6 +122,11 @@ export default compose(
       const { search } = this.props.location;
       const id = search.substr(1);
       this.props.loadBid(id);
+
+      if(!this.props.myOffersLoaded) {
+        this.props.loadOffersByUser(this.props.userId);
+
+      }
     }
   }),
   withHandlers({

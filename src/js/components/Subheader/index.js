@@ -5,7 +5,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import Chip from "@material-ui/core/Chip/Chip";
 
 import { setLayerOpen as setLayerOpenAction } from "../../actions/layers";
-import { selectFilter } from "../../selectors";
+import {selectFilter, selectFilterCoin, selectFilterDistance, selectFilterType} from "../../selectors";
 import mapper from "../../utils/connect";
 import IconButton from "@material-ui/core/IconButton/IconButton";
 import FilterListIcon from "@material-ui/icons/FilterList";
@@ -25,28 +25,34 @@ const styles = theme => ({
   filterButton: {}
 });
 
-const Subheader = ({ classes, filter, setLayerOpen }) => (
+const Subheader = ({
+  classes,
+  distanceAway,
+  setLayerOpen,
+  type,
+  coin
+}) => (
   <div className={classes.root}>
     <Grid container justify="space-between">
       <Grid item>
         <Chip
           clickable={true}
           onClick={() => setLayerOpen(true)}
-          label={`Type: ${filter.type}`}
+          label={`Type: ${type}`}
           className={classes.chip}
           variant="outlined"
         />
         <Chip
           clickable={true}
           onClick={() => setLayerOpen(true)}
-          label={`Coin: ${filter.coin}`}
+          label={`Coin: ${coin}`}
           className={classes.chip}
           variant="outlined"
         />
         <Chip
           clickable={true}
           onClick={() => setLayerOpen(true)}
-          label={`Distance: ${filter.distanceAway}`}
+          label={`Distance: ${distanceAway || 0}`}
           className={classes.chip}
           variant="outlined"
         />
@@ -65,7 +71,9 @@ const Subheader = ({ classes, filter, setLayerOpen }) => (
 );
 
 const propMap = {
-  filter: selectFilter
+  type: selectFilterType,
+  coin: selectFilterCoin,
+  distanceAway: selectFilterDistance,
 };
 
 const actionMap = {

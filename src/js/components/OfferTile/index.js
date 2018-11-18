@@ -23,6 +23,11 @@ const styles = () => ({
   },
   volume: {
     marginTop: "4px"
+  },
+  type: {
+    position: "relative",
+    bottom: "3px",
+    left: "1px"
   }
 });
 
@@ -33,17 +38,26 @@ const OfferTile = ({ classes, item, onClick }) => (
         <ListItemText
           disableTypography={true}
           primary={
-            <Grid direction="row" className={classes.left} container>
+            <Grid direction="row" alignItems='center' container>
               <Grid className={classes.icon} item>
                 {getCoinIcon(item.coin)}
               </Grid>
               <Grid item>
-                <Typography className={classes.volume} variant="title">
-                  {item.volume}
-                </Typography>
-              </Grid>
-              <Grid item className={classes.coin}>
-                <Typography variant="subheading">{item.coin}</Typography>
+                <Grid container direction='row'>
+                  <Grid item>
+                    <Typography className={classes.volume} variant="title">
+                      {item.volume}
+                    </Typography>
+                  </Grid>
+                  <Grid item className={classes.coin}>
+                    <Typography variant="subheading">{item.coin}</Typography>
+                  </Grid>
+                </Grid>
+                <Grid className={classes.type} item>
+                  <Typography variant="caption">
+                    {item.bid ? "offer to sell" : "offer to buy"}
+                  </Typography>
+                </Grid>
               </Grid>
             </Grid>
           }

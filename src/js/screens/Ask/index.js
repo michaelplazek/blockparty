@@ -7,7 +7,9 @@ import {
   selectAsk,
   selectAskLoaded,
   selectLayer,
-  selectLayerOpen
+  selectLayerOpen,
+  selectAskHasOffer,
+  selectAskOfferButtonText, selectMyOffersLoaded, selectUserId
 } from "../../selectors/index";
 import { loadAsk as loadAskAction } from "../../actions/asks";
 import Grid from "@material-ui/core/Grid/Grid";
@@ -23,6 +25,7 @@ import {
   setLayerOpen as setLayerOpenAction
 } from "../../actions/layers";
 import CreateAskOffer from "../../components/Flyout/CreateAskOffer";
+import {loadOffersByUser} from "../../actions/offers";
 
 const styles = () => ({
   root: {
@@ -47,7 +50,9 @@ const Ask = ({
   history,
   layer,
   open,
-  handleOffer
+  handleOffer,
+  hasAskOffer,
+  buttonText
 }) => (
   <div>
     {loaded && (
@@ -71,10 +76,11 @@ const Ask = ({
           <Button
             className={classes.buttons}
             variant="extendedFab"
+            disabled={hasAskOffer}
             color="primary"
             onClick={handleOffer}
           >
-            Make an offer
+            {buttonText}
           </Button>
         </Grid>
         <Grid />
@@ -94,13 +100,18 @@ const propMap = {
   loaded: selectAskLoaded,
   items: selectAskDetails,
   layer: selectLayer,
-  open: selectLayerOpen
+  open: selectLayerOpen,
+  hasAskOffer: selectAskHasOffer,
+  buttonText: selectAskOfferButtonText,
+  myOffersLoaded: selectMyOffersLoaded,
+  userId: selectUserId
 };
 
 const actionMap = {
   loadAsk: loadAskAction,
   setLayer: setLayerAction,
-  setLayerOpen: setLayerOpenAction
+  setLayerOpen: setLayerOpenAction,
+  loadOffersByUser
 };
 
 export default compose(
@@ -112,6 +123,11 @@ export default compose(
       const { search } = this.props.location;
       const id = search.substr(1);
       this.props.loadAsk(id);
+
+      if(!this.props.myOffersLoaded) {
+        this.props.loadOffersByUser(this.props.userId);
+
+      }
     }
   }),
   withHandlers({

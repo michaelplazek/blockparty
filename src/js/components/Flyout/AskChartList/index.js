@@ -20,7 +20,7 @@ import { resetAsk as resetAskAction } from "../../../actions/createAsk";
 
 const styles = theme => ({
   root: {
-    margin: "30px"
+    margin: "20px 10px 10px 10px"
   },
   button: {
     marginTop: theme.spacing.unit,
