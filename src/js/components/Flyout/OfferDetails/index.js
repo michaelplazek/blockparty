@@ -70,6 +70,11 @@ const OfferDetails = ({
         <Paper className={classes.paper}>
           <Grid container className={classes.box}>
             <Grid item>
+              <Typography variant="subheading">
+                {offer.bid ? "Sell" : "Buy"}
+              </Typography>
+            </Grid>
+            <Grid item>
               <Grid container direction="row">
                 <Grid item>
                   <Typography variant="headline">{offer.volume}</Typography>
