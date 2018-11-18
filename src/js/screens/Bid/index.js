@@ -7,7 +7,9 @@ import {
   selectBid,
   selectBidLoaded,
   selectLayer,
-  selectLayerOpen
+  selectLayerOpen,
+  selectBidHasOffer,
+  selectBidOfferButtonText
 } from "../../selectors/index";
 import { loadBid as loadBidAction } from "../../actions/bids";
 import Grid from "@material-ui/core/Grid/Grid";
@@ -46,7 +48,9 @@ const Bid = ({
   history,
   open,
   layer,
-  handleOffer
+  handleOffer,
+  bidHasOffer,
+  buttonText
 }) => (
   <div>
     {loaded && (
@@ -70,10 +74,11 @@ const Bid = ({
           <Button
             className={classes.buttons}
             color="primary"
+            disabled={bidHasOffer}
             variant="extendedFab"
             onClick={handleOffer}
           >
-            Make an offer
+            {buttonText}
           </Button>
         </Grid>
         <Grid />
@@ -93,7 +98,9 @@ const propMap = {
   items: selectBidDetails,
   loaded: selectBidLoaded,
   layer: selectLayer,
-  open: selectLayerOpen
+  open: selectLayerOpen,
+  bidHasOffer: selectBidHasOffer,
+  buttonText: selectBidOfferButtonText
 };
 
 const actionMap = {

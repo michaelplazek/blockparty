@@ -7,7 +7,9 @@ import {
   selectAsk,
   selectAskLoaded,
   selectLayer,
-  selectLayerOpen
+  selectLayerOpen,
+  selectAskHasOffer,
+  selectAskOfferButtonText
 } from "../../selectors/index";
 import { loadAsk as loadAskAction } from "../../actions/asks";
 import Grid from "@material-ui/core/Grid/Grid";
@@ -47,7 +49,9 @@ const Ask = ({
   history,
   layer,
   open,
-  handleOffer
+  handleOffer,
+  hasAskOffer,
+  buttonText
 }) => (
   <div>
     {loaded && (
@@ -71,10 +75,11 @@ const Ask = ({
           <Button
             className={classes.buttons}
             variant="extendedFab"
+            disabled={hasAskOffer}
             color="primary"
             onClick={handleOffer}
           >
-            Make an offer
+            {buttonText}
           </Button>
         </Grid>
         <Grid />
@@ -94,7 +99,9 @@ const propMap = {
   loaded: selectAskLoaded,
   items: selectAskDetails,
   layer: selectLayer,
-  open: selectLayerOpen
+  open: selectLayerOpen,
+  hasAskOffer: selectAskHasOffer,
+  buttonText: selectAskOfferButtonText
 };
 
 const actionMap = {
