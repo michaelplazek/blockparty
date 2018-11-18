@@ -28,7 +28,7 @@ import {
   selectBidOfferTotal,
   selectBidOwner,
   selectBidPrice,
-  selectBidVolume,
+  selectBidFormVolume,
   selectContactInfo,
   selectOfferVolume,
   selectUserId,
@@ -117,7 +117,7 @@ CreateBidOffer.propTypes = {
 
 const propMap = {
   coin: selectBidCoin,
-  max: selectBidVolume,
+  max: selectBidFormVolume,
   volume: selectOfferVolume,
   contactInfo: selectContactInfo,
   price: selectBidPrice,

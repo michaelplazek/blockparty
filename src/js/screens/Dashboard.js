@@ -44,7 +44,7 @@ import {
 } from "../selectors";
 import Grow from "@material-ui/core/Grow/Grow";
 import withLoader from "../HOCs/withLoader";
-import {loadOffer, loadOffersByUser} from "../actions/offers";
+import {loadOffer, loadOffersByAsk, loadOffersByUser, unloadOffers} from "../actions/offers";
 import OfferDetails from "../components/Flyout/OfferDetails";
 
 const styles = () => ({
@@ -79,6 +79,8 @@ const Dashboard = ({
   unloadAsk,
   unloadBid,
   footerHeight,
+  unloadOffers,
+  loadOffersByAsk
 }) => (
   <div className={classes.root}>
     {layer === "CREATE_ASK" && <CreateAsk />}
@@ -110,9 +112,12 @@ const Dashboard = ({
           item={item}
           key={item._id}
           onClick={() => {
-            loadAsk(item._id);
+            unloadOffers();
+            loadAsk(item._id).then(() => {
+            loadOffersByAsk(item._id);
             setLayer("DELETE_ASK");
             setLayerOpen(true);
+            });
           }}
         />
       ))}
@@ -208,7 +213,9 @@ const actionMap = {
   unloadAsk: unloadAskAction,
   unloadBid: unloadBidAction,
   loadOffersByUser,
-  loadOffer
+  loadOffer,
+  loadOffersByAsk,
+  unloadOffers
 };
 
 export default compose(

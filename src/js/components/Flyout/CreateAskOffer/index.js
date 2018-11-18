@@ -28,7 +28,7 @@ import {
   selectAskOfferTotal,
   selectAskOwner,
   selectAskPrice,
-  selectAskVolume,
+  selectAskFormVolume,
   selectContactInfo,
   selectOfferVolume,
   selectUserId,
@@ -117,7 +117,7 @@ CreateAskOffer.propTypes = {
 
 const propMap = {
   coin: selectAskCoin,
-  max: selectAskVolume,
+  max: selectAskFormVolume,
   volume: selectOfferVolume,
   contactInfo: selectContactInfo,
   price: selectAskPrice,

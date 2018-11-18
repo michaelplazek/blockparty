@@ -12,7 +12,7 @@ import {
   selectBidLatitude,
   selectBidLongitude,
   selectBidUseCurrentLocation,
-  selectBidVolume,
+  selectBidFormVolume,
   selectFormattedBidPrice,
   selectWindowWidth
 } from "../../../selectors";
@@ -137,7 +137,7 @@ const CreateBidContent = ({
 
 const propMap = {
   coin: selectBidCoin,
-  volume: selectBidVolume,
+  volume: selectBidFormVolume,
   price: selectFormattedBidPrice,
   lat: selectBidLatitude,
   lng: selectBidLongitude,

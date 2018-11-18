@@ -33,6 +33,7 @@ export const selectFormattedFilterPrice = createSelector(
 // OFFERS
 export const selectMyOffers = state => state.offers.myOffers;
 export const selectOffer = state => state.offers.offer;
+export const selectOffers = state => state.offers.offers;
 export const selectOfferTimestamp = state => state.offers.offer.timestamp;
 export const selectOfferLoaded = state => state.offers.offerLoaded;
 export const selectMyOffersLoaded = state => state.offers.myOffersLoaded;
@@ -84,6 +85,7 @@ export const selectBidsForDisplay = createSelector(selectBids, bids =>
 
 // BID
 export const selectBid = state => state.bids.bid;
+export const selectBidVolume = state => state.bids.bid.volume;
 export const selectBidId = state => state.bids.bid._id;
 export const selectBidPrice = state => state.bids.bid.price;
 export const selectBidOwner = state => state.bids.bid.owner;
@@ -114,6 +116,7 @@ export const selectBidDisplayPrice = createSelector(selectBid, bid =>
 
 // ASK
 export const selectAsk = state => state.asks.ask;
+export const selectAskVolume = state => state.asks.ask.volume;
 export const selectAskId = state => state.asks.ask._id;
 export const selectAskTimestamp = state => state.asks.ask.timestamp;
 export const selectAskPrice = state => state.asks.ask.price;
@@ -158,9 +161,9 @@ export const selectBidOfferTotal = createSelector(
 
 // TEMPORARY ASK
 export const selectAskCoin = state => state.ask.coin;
-export const selectAskVolume = state => state.ask.volume;
+export const selectAskFormVolume = state => state.ask.volume;
 export const selectAskFormPrice = state => state.ask.price;
-export const selectFormattedAskPrice = createSelector(selectAskPrice, price =>
+export const selectFormattedAskPrice = createSelector(selectAskFormPrice, price =>
   numeral(price).format(USD)
 );
 export const selectAskLatitude = state => state.ask.lat;
@@ -170,9 +173,9 @@ export const selectAskUseCurrentLocation = state =>
 
 // TEMPORARY BID
 export const selectBidCoin = state => state.bid.coin;
-export const selectBidVolume = state => state.bid.volume;
+export const selectBidFormVolume = state => state.bid.volume;
 export const selectBidFormPrice = state => state.bid.price;
-export const selectFormattedBidPrice = createSelector(selectBidPrice, price =>
+export const selectFormattedBidFormPrice = createSelector(selectBidFormPrice, price =>
   numeral(price).format(USD)
 );
 export const selectBidLatitude = state => state.bid.lat;

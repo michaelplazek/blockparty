@@ -8,10 +8,10 @@ import Grid from "@material-ui/core/Grid/Grid";
 import {
   selectAskCoin,
   selectAskOfferTotal,
-  selectAskVolume,
+  selectAskFormVolume,
   selectContactInfo,
   selectFormattedAskPrice,
-  selectOfferVolume,
+  selectOfferVolume, selectAskVolume, selectAskDisplayPrice,
 } from "../../../selectors";
 import mapper from "../../../utils/connect";
 import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
@@ -48,7 +48,7 @@ const CreateAskContent = ({
             onChange={({ target }) => setOfferVolume(target.value || 0)}
             margin="dense"
             variant="standard"
-            helperText={`Max of ${volume}`}
+            helperText={`Max of ${max}`}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="start">{coin}</InputAdornment>
@@ -98,7 +98,7 @@ const propMap = {
   max: selectAskVolume,
   volume: selectOfferVolume,
   contactInfo: selectContactInfo,
-  price: selectFormattedAskPrice,
+  price: selectAskDisplayPrice,
   total: selectAskOfferTotal
 };
 

@@ -37,7 +37,7 @@ const ListTile = ({ classes, onClick, item }) => (
         <ListItemText
           disableTypography={true}
           primary={
-            <Grid direction="row" className={classes.left} container>
+            <Grid direction="row" container>
               <Grid className={classes.icon} item>
                 {getCoinIcon(item.coin)}
               </Grid>

@@ -21,7 +21,7 @@ import {
   selectAskLatitude,
   selectAskLongitude,
   selectAskFormPrice,
-  selectAskVolume,
+  selectAskFormVolume,
   selectUserId,
   selectUsername
 } from "../../../selectors";
@@ -110,7 +110,7 @@ const CreateAsk = ({
 
 const propMap = {
   coin: selectAskCoin,
-  volume: selectAskVolume,
+  volume: selectAskFormVolume,
   price: selectAskFormPrice,
   lat: selectAskLatitude,
   lng: selectAskLongitude,

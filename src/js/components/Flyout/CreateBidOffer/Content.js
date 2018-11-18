@@ -8,15 +8,15 @@ import Grid from "@material-ui/core/Grid/Grid";
 import {
   selectBidCoin,
   selectBidOfferTotal,
-  selectBidVolume,
+  selectBidFormVolume,
   selectContactInfo,
-  selectFormattedBidPrice,
-  selectOfferVolume,
+  selectOfferVolume, selectBidDisplayPrice,
 } from "../../../selectors/index";
 import mapper from "../../../utils/connect";
 import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
 import {setContactInfo, setOfferVolume} from "../../../actions/createOffer";
 import withStyles from "@material-ui/core/styles/withStyles";
+import {selectBidVolume} from "../../../selectors";
 
 const styles = () => ({
   info: {
@@ -48,7 +48,7 @@ const CreateBidOfferContent = ({
             onChange={({ target }) => setOfferVolume(target.value || 0)}
             margin="dense"
             variant="standard"
-            helperText={`Max of ${volume}`}
+            helperText={`Max of ${max}`}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="start">{coin}</InputAdornment>
@@ -98,7 +98,7 @@ const propMap = {
   max: selectBidVolume,
   volume: selectOfferVolume,
   contactInfo: selectContactInfo,
-  price: selectFormattedBidPrice,
+  price: selectBidDisplayPrice,
   total: selectBidOfferTotal
 };
 

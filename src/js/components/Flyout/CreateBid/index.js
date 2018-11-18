@@ -21,7 +21,7 @@ import {
   selectBidLatitude,
   selectBidLongitude,
   selectBidFormPrice,
-  selectBidVolume,
+  selectBidFormVolume,
   selectUserId,
   selectUsername
 } from "../../../selectors";
@@ -110,7 +110,7 @@ const CreateBid = ({
 
 const propMap = {
   coin: selectBidCoin,
-  volume: selectBidVolume,
+  volume: selectBidFormVolume,
   price: selectBidFormPrice,
   lat: selectBidLatitude,
   lng: selectBidLongitude,
