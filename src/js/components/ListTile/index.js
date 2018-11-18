@@ -13,7 +13,7 @@ const styles = () => ({
     zIndex: 1
   },
   badge: {
-    top: 4,
+    top: 2,
     right: -3,
     color: "white"
   }
