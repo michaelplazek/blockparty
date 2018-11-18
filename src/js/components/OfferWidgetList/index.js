@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import moment from 'moment';
 
 import OfferWidget from "../OfferWidget/index";
-import { getTotal } from "../Flyout/DeleteAsk/utils";
+import { getTotal } from "../Flyout/AskDetails/utils";
 import Grid from "@material-ui/core/Grid/Grid";
 import Tile from "../Tile";
 const OfferWidgetList = ({ offers, post }) => (

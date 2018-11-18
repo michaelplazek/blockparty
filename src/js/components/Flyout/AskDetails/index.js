@@ -47,7 +47,7 @@ const styles = () => ({
   }
 });
 
-const DeleteAsk = ({
+const AskDetails = ({
   classes,
   setLayerOpen,
   windowWidth,
@@ -125,4 +125,4 @@ export default compose(
   mapper(propMap, actionMap),
   withStyles(styles),
   withRouter
-)(DeleteAsk);
+)(AskDetails);

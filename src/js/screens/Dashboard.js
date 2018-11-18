@@ -26,8 +26,8 @@ import MailIcon from "@material-ui/icons/Mail";
 import AddIcon from "@material-ui/icons/Add";
 import CreateAsk from "../components/Flyout/CreateAsk/index";
 import CreateBid from "../components/Flyout/CreateBid/index";
-import DeleteAsk from "../components/Flyout/DeleteAsk";
-import DeleteBid from "../components/Flyout/DeleteBid";
+import DeleteAsk from "../components/Flyout/AskDetails";
+import DeleteBid from "../components/Flyout/BidDetails";
 
 import withDimensions from "../HOCs/withDimensions";
 import Button from "@material-ui/core/Button/Button";
