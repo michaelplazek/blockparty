@@ -45,7 +45,7 @@ const FilterMap = ({
   handleSubmit,
   type
 }) => (
-  <Flyout onClose={() => setLayerOpen(false)} size={3}>
+  <Flyout size={3}>
     <Grid className={classes.root}>
       <FormControl margin="dense" fullWidth={true}>
         <InputLabel>Type</InputLabel>
