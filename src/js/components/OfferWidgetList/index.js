@@ -1,8 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
+import moment from 'moment';
 
 import OfferWidget from "../OfferWidget/index";
-import { getTotal } from "../Flyout/DeleteAsk/utils";
+import { getTotal } from "../Flyout/AskDetails/utils";
 import Grid from "@material-ui/core/Grid/Grid";
 import Tile from "../Tile";
 const OfferWidgetList = ({ offers, post }) => (
@@ -12,9 +13,10 @@ const OfferWidgetList = ({ offers, post }) => (
         <OfferWidget
           key={`${item.volume}-${index}`}
           total={getTotal(post.price, item.volume)}
-          volume={post.volume}
+          volume={item.volume}
           price={post.price}
           coin={post.coin}
+          time={moment(item.timestamp).fromNow()}
           onClick={() => {}}
         />
       ))}

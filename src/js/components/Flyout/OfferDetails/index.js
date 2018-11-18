@@ -19,7 +19,7 @@ import { USD } from "../../../constants/currency";
 import Flyout from "../index";
 import Paper from "@material-ui/core/Paper/Paper";
 
-const styles = theme => ({
+const styles = () => ({
   button: {
     marginTop: "10px"
   },
@@ -61,7 +61,7 @@ const OfferDetails = ({
     onBackdropClick={() => {
       setLayerOpen(false);
     }}
-    size={5}
+    size={8}
     open={open}
     title="Offer Details"
   >

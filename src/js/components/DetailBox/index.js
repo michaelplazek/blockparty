@@ -8,7 +8,7 @@ import Paper from "@material-ui/core/Paper/Paper";
 
 const styles = () => ({
   paper: {
-    margin: "40px 30px 0px 30px",
+    margin: "40px 10px 0px 10px",
     padding: "20px",
     cursor: "pointer"
   },

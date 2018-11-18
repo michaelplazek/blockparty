@@ -13,7 +13,7 @@ import ListItem from "@material-ui/core/ListItem/ListItem";
 
 const styles = () => ({
   root: {
-    margin: "5px",
+    margin: "5px 0px 5px 0px",
     display: "flex",
     flexDirection: "column",
     alignSelf: "stretch",

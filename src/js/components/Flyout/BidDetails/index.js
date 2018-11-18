@@ -8,14 +8,14 @@ import DetailBox from "../../DetailBox";
 
 import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
 import {
-  deleteAsk,
-  loadMyAsks as loadMyAsksAction
-} from "../../../actions/asks";
+  deleteBid,
+  loadMyBids as loadMyBidsAction
+} from "../../../actions/bids";
 import {
-  selectAsk,
-  selectAskLoaded,
-  selectAskOfferTotal,
-  selectAskPostTime,
+  selectBid,
+  selectBidLoaded,
+  selectBidOfferTotal,
+  selectBidPostTime,
   selectLayerOpen,
   selectOffers,
   selectWindowHeight,
@@ -47,12 +47,12 @@ const styles = () => ({
   }
 });
 
-const DeleteAsk = ({
+const DeleteBid = ({
   classes,
   setLayerOpen,
   windowWidth,
   windowHeight,
-  ask,
+  bid,
   open,
   offers,
   time,
@@ -62,22 +62,22 @@ const DeleteAsk = ({
     onClose={() => {
       setLayerOpen(false);
     }}
-    size={5}
+    size={8}
     open={open}
-    title="Ask Details"
+    title="Bid Details"
   >
     <Grid container direction="column">
       <Grid item>
         <DetailBox
-          post={ask}
+          post={bid}
           time={time}
           onClick={() => {
-            history.push(`/ask?${ask._id}`);
+            history.push(`/bid?${bid._id}`);
           }}
         />
       </Grid>
       <Grid item>
-        <OfferWidgetList offers={offers} post={ask} />
+        <OfferWidgetList offers={offers} post={bid} />
       </Grid>
       <Grid item>
         <Grid
@@ -91,11 +91,11 @@ const DeleteAsk = ({
               variant="contained"
               disabled={offers.length > 0}
               onClick={() => {
-                deleteAsk(ask._id);
+                deleteBid(bid._id);
                 setLayerOpen(false);
               }}
             >
-              Delete Ask
+              Delete Bid
             </Button>
           </div>
           <Typography className={classes.time}>Posted {time}</Typography>
@@ -107,22 +107,22 @@ const DeleteAsk = ({
 
 const propMap = {
   open: selectLayerOpen,
-  ask: selectAsk,
-  askLoaded: selectAskLoaded,
+  bid: selectBid,
+  bidLoaded: selectBidLoaded,
   offers: selectOffers,
-  total: selectAskOfferTotal,
+  total: selectBidOfferTotal,
   windowHeight: selectWindowHeight,
   windowWidth: selectWindowWidth,
-  time: selectAskPostTime
+  time: selectBidPostTime
 };
 
 const actionMap = {
   setLayerOpen: setLayerOpenAction,
-  loadMyAsks: loadMyAsksAction,
+  loadMyBids: loadMyBidsAction,
 };
 
 export default compose(
   mapper(propMap, actionMap),
   withStyles(styles),
   withRouter
-)(DeleteAsk);
+)(DeleteBid);

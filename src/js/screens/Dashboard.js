@@ -22,12 +22,11 @@ import {
 
 import PageHeader from "../components/PageHeader";
 import OfferTile from "../components/OfferTile";
-import MailIcon from "@material-ui/icons/Mail";
 import AddIcon from "@material-ui/icons/Add";
 import CreateAsk from "../components/Flyout/CreateAsk/index";
 import CreateBid from "../components/Flyout/CreateBid/index";
-import DeleteAsk from "../components/Flyout/DeleteAsk";
-import DeleteBid from "../components/Flyout/DeleteBid";
+import DeleteAsk from "../components/Flyout/AskDetails";
+import DeleteBid from "../components/Flyout/BidDetails";
 
 import withDimensions from "../HOCs/withDimensions";
 import Button from "@material-ui/core/Button/Button";
@@ -98,10 +97,12 @@ const Dashboard = ({
     {layer === "VIEW_OFFER" && <OfferDetails />}
     <PageHeader
       leftHandLabel="Dashboard"
-      rightHandLabel="Inbox"
-      rightHandIcon={<MailIcon />}
     />
-    <Tile color="#f2f2f2" title="My Offers" count={numberOfOffers}>
+    <Tile
+      color="#f2f2f2"
+      title="My Offers"
+      count={numberOfOffers}
+    >
       {myOffers.map(item => (
         <OfferTile
           item={item}
@@ -114,7 +115,11 @@ const Dashboard = ({
         />
       ))}
     </Tile>
-    <Tile title="My Asks" count={numberOfAsks}>
+    <Tile
+      title="My Asks"
+      count={numberOfAsks}
+      description="looking to sell"
+    >
       {myAsks.map(item => (
         <ListTile
           item={item}
@@ -130,7 +135,11 @@ const Dashboard = ({
         />
       ))}
     </Tile>
-    <Tile title="My Bids" count={numberOfBids}>
+    <Tile
+      title="My Bids"
+      count={numberOfBids}
+      description="looking to buy"
+    >
       {myBids.map(item => (
         <ListTile
           item={item}

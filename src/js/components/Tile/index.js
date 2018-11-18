@@ -9,8 +9,17 @@ import Grid from "@material-ui/core/Grid/Grid";
 
 const styles = () => ({
   root: {
-    margin: "30px 30px 30px 30px",
-    padding: "20px"
+    margin: "10px",
+    padding: "10px"
+  },
+  pipe: {
+    position: "relative",
+    marginLeft: "5px",
+    marginRight: "5px"
+  },
+  description: {
+    position: "relative",
+    top: "1px"
   }
 });
 
@@ -21,7 +30,8 @@ const Tile = ({
   onClick,
   children,
   color,
-  textColor
+  textColor,
+  description
 }) => (
   <Grid>
     <Paper style={{ background: color }} className={classes.root} elevation={1}>
@@ -32,9 +42,29 @@ const Tile = ({
         onClick={() => {}}
       >
         <Grid item>
-          <Typography color={textColor} variant="title">
-            {title}
-          </Typography>
+          <Grid container direction='row'>
+            <Grid item>
+              <Typography color={textColor} variant="title">
+                {title}
+              </Typography>
+            </Grid>
+            {description &&
+              <Grid item>
+                <Grid container direction='row'>
+                  <Grid item className={classes.pipe}>
+                    <Typography color={textColor} variant="title">
+                      |
+                    </Typography>
+                  </Grid>
+                  <Grid item className={classes.description}>
+                    <Typography color={textColor} variant="subheading">
+                      {description}
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </Grid>
+            }
+          </Grid>
         </Grid>
         <Grid item>
           <Typography color={textColor} variant="subheading">
@@ -49,6 +79,7 @@ const Tile = ({
 
 Tile.propTypes = {
   title: PropTypes.string.isRequired,
+  description: PropTypes.string,
   textColor: PropTypes.string,
   count: PropTypes.number,
   onClick: PropTypes.func
@@ -56,7 +87,8 @@ Tile.propTypes = {
 
 Tile.defaultProp = {
   count: 0,
-  textColor: "#000000"
+  textColor: "#000000",
+  description: undefined
 };
 
 export default compose(
