@@ -114,6 +114,12 @@ export const selectBidDisplayPrice = createSelector(selectBid, bid =>
   numeral(bid.price).format(USD)
 );
 
+export const selectBidTotal = createSelector(
+  selectBidVolume,
+  selectBidPrice,
+  (volume, price) => numeral(volume * price).format(USD)
+);
+
 // ASK
 export const selectAsk = state => state.asks.ask;
 export const selectAskVolume = state => state.asks.ask.volume;
@@ -143,6 +149,12 @@ export const selectAskState = createSelector(
 );
 export const selectAskDisplayPrice = createSelector(selectAsk, ask =>
   numeral(ask.price).format(USD)
+);
+
+export const selectAskTotal = createSelector(
+  selectAskVolume,
+  selectAskPrice,
+  (volume, price) => numeral(volume * price).format(USD)
 );
 
 // TEMPORARY OFFER

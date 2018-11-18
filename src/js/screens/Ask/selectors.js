@@ -6,7 +6,7 @@ import {
   selectAskPostTime,
   selectAskDisplayPrice,
   selectAskState,
-  intoArray
+  intoArray, selectAskTotal
 } from "../../selectors";
 
 export const selectPriceDetail = createSelector(
@@ -14,6 +14,15 @@ export const selectPriceDetail = createSelector(
   price => ({
     name: "Price",
     value: price,
+    onClick: undefined
+  })
+);
+
+export const selectTotalDetail = createSelector(
+  selectAskTotal,
+  total => ({
+    name: "Total",
+    value: total,
     onClick: undefined
   })
 );
@@ -45,6 +54,7 @@ export const selectLastUpdatedDetail = createSelector(
 
 export const selectAskDetails = createSelector(
   selectPriceDetail,
+  selectTotalDetail,
   selectLocationDetail,
   selectSellerDetail,
   selectLastUpdatedDetail,
