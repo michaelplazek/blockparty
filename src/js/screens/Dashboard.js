@@ -98,8 +98,6 @@ const Dashboard = ({
     {layer === "VIEW_OFFER" && <OfferDetails />}
     <PageHeader
       leftHandLabel="Dashboard"
-      rightHandLabel="Inbox"
-      rightHandIcon={<MailIcon />}
     />
     <Tile color="#f2f2f2" title="My Offers" count={numberOfOffers}>
       {myOffers.map(item => (
