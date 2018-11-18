@@ -2,7 +2,6 @@ import Market from "../screens/Market";
 import Ask from "../screens/Ask/index";
 import Bid from "../screens/Bid/index";
 import AboutUs from "../screens/AboutUs";
-import Details from "../screens/Details";
 import Dashboard from "../screens/Dashboard";
 import Login from "../screens/Login";
 import Register from "../screens/Register";
@@ -40,32 +39,25 @@ export const protectedRoutes = [
     index: 3
   },
   {
-    path: "/details",
-    exact: false,
-    protected: true,
-    component: Details,
-    index: 4
-  },
-  {
     path: "/account",
     exact: false,
     protected: true,
     component: Account,
-    index: 5
+    index: 4
   },
   {
     path: "/bid",
     exact: false,
     protected: true,
     component: Bid,
-    index: 6
+    index: 5
   },
   {
     path: "/analysis",
     exact: false,
     protected: true,
     component: Analysis,
-    index: 7
+    index: 6
   }
 ];
 
@@ -75,21 +67,21 @@ export const unprotectedRoutes = [
     exact: false,
     protected: false,
     component: Register,
-    index: 8
+    index: 7
   },
   {
     path: "/login",
     exact: false,
     protected: false,
     component: Login,
-    index: 9
+    index: 8
   },
   {
     path: "*",
     exact: true,
     protected: true,
     component: Oops,
-    index: 10
+    index: 9
   }
 ];
 

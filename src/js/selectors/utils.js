@@ -3,7 +3,7 @@ export const binify = (low, high, items) => {
   let count = 0;
   items.forEach(item => {
     const price = item.price;
-    if (price < high && price >= low) {
+    if (price <= high && price >= low) {
       total += item.volume;
       count++;
     }

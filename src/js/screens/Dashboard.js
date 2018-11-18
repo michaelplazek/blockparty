@@ -22,7 +22,6 @@ import {
 
 import PageHeader from "../components/PageHeader";
 import OfferTile from "../components/OfferTile";
-import MailIcon from "@material-ui/icons/Mail";
 import AddIcon from "@material-ui/icons/Add";
 import CreateAsk from "../components/Flyout/CreateAsk/index";
 import CreateBid from "../components/Flyout/CreateBid/index";
