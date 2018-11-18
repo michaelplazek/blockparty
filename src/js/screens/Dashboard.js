@@ -98,7 +98,11 @@ const Dashboard = ({
     <PageHeader
       leftHandLabel="Dashboard"
     />
-    <Tile color="#f2f2f2" title="My Offers" count={numberOfOffers}>
+    <Tile
+      color="#f2f2f2"
+      title="My Offers"
+      count={numberOfOffers}
+    >
       {myOffers.map(item => (
         <OfferTile
           item={item}
@@ -111,7 +115,11 @@ const Dashboard = ({
         />
       ))}
     </Tile>
-    <Tile title="My Asks" count={numberOfAsks}>
+    <Tile
+      title="My Asks"
+      count={numberOfAsks}
+      description="looking to sell"
+    >
       {myAsks.map(item => (
         <ListTile
           item={item}
@@ -127,7 +135,11 @@ const Dashboard = ({
         />
       ))}
     </Tile>
-    <Tile title="My Bids" count={numberOfBids}>
+    <Tile
+      title="My Bids"
+      count={numberOfBids}
+      description="looking to buy"
+    >
       {myBids.map(item => (
         <ListTile
           item={item}
