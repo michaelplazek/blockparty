@@ -38,7 +38,7 @@ const OfferWidget = ({ classes, total, volume, coin, open, setOpen }) => (
         <Grid item>
           <Grid direction="row" container>
             <Grid item>
-              <Typography className={classes.volume} variant="title">
+              <Typography className={classes.volume} variant="subheading">
                 {volume}
               </Typography>
             </Grid>

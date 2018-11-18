@@ -43,7 +43,7 @@ const styles = () => ({
     margin: "3px 0px 0px 3px"
   },
   time: {
-    marginTop: "4px"
+    marginTop: "6px"
   }
 });
 
@@ -60,9 +60,6 @@ const DeleteBid = ({
 }) => (
   <Flyout
     onClose={() => {
-      setLayerOpen(false);
-    }}
-    onBackdropClick={() => {
       setLayerOpen(false);
     }}
     size={5}
@@ -101,7 +98,7 @@ const DeleteBid = ({
               Delete Bid
             </Button>
           </div>
-          <Typography>Posted {time}</Typography>
+          <Typography className={classes.time}>Posted {time}</Typography>
         </Grid>
       </Grid>
     </Grid>
@@ -121,7 +118,7 @@ const propMap = {
 
 const actionMap = {
   setLayerOpen: setLayerOpenAction,
-  loadMyBids: loadMyBidsAction
+  loadMyBids: loadMyBidsAction,
 };
 
 export default compose(

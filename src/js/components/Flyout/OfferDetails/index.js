@@ -17,25 +17,31 @@ import Typography from "@material-ui/core/Typography/Typography";
 import numeral from "numeral";
 import { USD } from "../../../constants/currency";
 import Flyout from "../index";
+import Paper from "@material-ui/core/Paper/Paper";
 
 const styles = theme => ({
+  button: {
+    marginTop: "10px"
+  },
+  time: {
+    marginTop: "8px"
+  },
   paper: {
+    margin: "40px 30px 0px 30px",
+    padding: "20px",
+    cursor: "pointer"
+  },
+  box: {
     width: "100%",
     display: "flex",
     flexDirection: "column",
     alignItems: "center"
-  },
-  button: {
-    marginTop: "10px"
   },
   coin: {
     margin: "6px 0px 0px 6px"
   },
   rate: {
     margin: "3px 0px 0px 3px"
-  },
-  status: {
-    marginTop: "2px"
   }
 });
 
@@ -59,53 +65,67 @@ const OfferDetails = ({
     open={open}
     title="Offer Details"
   >
-    <div
-      style={{
-        position: "absolute",
-        top: `${windowHeight / 3}px`,
-        left: "10%",
-        right: "10%",
-        display: "flex",
-        justifyContent: "center"
-      }}
-    >
-      <Grid container className={classes.paper}>
-        <Grid item>
-          <Grid container direction="row">
+    <Grid container direction="column">
+      <Grid item>
+        <Paper className={classes.paper}>
+          <Grid container className={classes.box}>
             <Grid item>
-              <Typography variant="headline">{offer.volume}</Typography>
+              <Grid container direction="row">
+                <Grid item>
+                  <Typography variant="headline">{offer.volume}</Typography>
+                </Grid>
+                <Grid item>
+                  <Typography variant="subheading" className={classes.coin}>
+                    {offer.coin}
+                  </Typography>
+                </Grid>
+              </Grid>
             </Grid>
             <Grid item>
-              <Typography variant="subheading" className={classes.coin}>
-                {offer.coin}
-              </Typography>
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid item>
-          <Grid container direction="row">
-            <Grid item>
-              <Typography variant="subheading">
-                at {numeral(offer.price).format(USD)}
-              </Typography>
+              <Grid container direction="row">
+                <Grid item>
+                  <Typography variant="subheading">
+                    at {numeral(offer.price).format(USD)}
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <Typography className={classes.rate} variant="caption">
+                    /{offer.coin}
+                  </Typography>
+                </Grid>
+              </Grid>
             </Grid>
             <Grid item>
               <Typography className={classes.rate} variant="caption">
-                /{offer.coin}
+                {offer.status}
               </Typography>
             </Grid>
           </Grid>
-        </Grid>
-        <Grid item>
-          <Typography>
-            Offered {time} to {offer.owner}
-          </Typography>
-        </Grid>
-        <Grid className={classes.status} item>
-          <Typography>{offer.status}</Typography>
+        </Paper>
+      </Grid>
+      <Grid item>
+        <Grid
+          direction="column"
+          className={classes.footer}
+          alignItems="center"
+          container
+        >
+          {/*<div className={classes.button}>*/}
+            {/*<Button*/}
+              {/*variant="contained"*/}
+              {/*disabled={offer.length > 0}*/}
+              {/*onClick={() => {*/}
+                {/*deleteOffer(offer._id);*/}
+                {/*setLayerOpen(false);*/}
+              {/*}}*/}
+            {/*>*/}
+              {/*Delete Offer*/}
+            {/*</Button>*/}
+          {/*</div>*/}
+          <Typography className={classes.time}>Posted {time}</Typography>
         </Grid>
       </Grid>
-    </div>
+    </Grid>
   </Flyout>
 );
 
