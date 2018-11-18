@@ -90,9 +90,9 @@ const FilterMap = ({
           }}
         />
         <br />
-        <Button variant="contained" onClick={handleSubmit}>
-          Filter
-        </Button>
+        {/*<Button variant="contained" onClick={handleSubmit}>*/}
+          {/*Filter*/}
+        {/*</Button>*/}
       </FormControl>
     </Grid>
   </Flyout>
@@ -115,11 +115,11 @@ const actionMap = {
 
 export default compose(
   mapper(propMap, actionMap),
-  withHandlers({
-    handleSubmit: ({ setFilter, setLayerOpen }) => () => {
-      setFilter();
-      setLayerOpen(false);
-    }
-  }),
+  // withHandlers({
+  //   handleSubmit: ({ setFilter, setLayerOpen }) => () => {
+  //     setFilter();
+  //     setLayerOpen(false);
+  //   }
+  // }),
   withStyles(styles)
 )(FilterMap);
