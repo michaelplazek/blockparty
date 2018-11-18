@@ -16,7 +16,7 @@ const OfferWidgetList = ({ offers, post }) => (
           volume={item.volume}
           price={post.price}
           coin={post.coin}
-          time={moment(post.time).fromNow()}
+          time={moment(item.timestamp).fromNow()}
           onClick={() => {}}
         />
       ))}
