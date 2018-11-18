@@ -6,7 +6,6 @@ import { Provider } from "react-redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import white from '@material-ui/core/colors/common';
 
 import { AppContainer } from "react-hot-loader";
 
@@ -16,7 +15,7 @@ import App from "./js/App";
 const theme = createMuiTheme({
   palette: {
     secondary: {
-      main: "#FFF9C4"
+      main: "#b28704"
     },
   }
 });

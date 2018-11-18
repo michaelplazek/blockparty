@@ -20,7 +20,8 @@ const styles = () => ({
   root: {
     width: "100%",
     bottom: 0,
-    position: "fixed"
+    position: "fixed",
+    zIndex: 100
   }
 });
 

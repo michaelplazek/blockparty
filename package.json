@@ -37,6 +37,7 @@
     "moment": "^2.22.2",
     "numeral": "^2.0.6",
     "prop-types": "^15.6.2",
+    "react-collapsible": "^2.3.1",
     "react-cryptocoins": "^1.0.11",
     "react-fontawesome": "^1.6.1",
     "react-google-maps": "^9.4.5",

@@ -1,7 +1,5 @@
 export const DEFAULT_ASK = {
-  _id: {
-    $oid: "0"
-  },
+  _id: "0",
   coin: "BTC",
   userId: "",
   owner: "",

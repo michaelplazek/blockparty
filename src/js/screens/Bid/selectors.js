@@ -4,13 +4,13 @@ import {
   selectBidCity,
   selectBidOwner,
   selectBidPostTime,
-  selectFormattedBidPrice,
+  selectBidDisplayPrice,
   selectBidState,
-  intoArray,
+  intoArray
 } from "../../selectors";
 
 export const selectPriceDetail = createSelector(
-  selectFormattedBidPrice,
+  selectBidDisplayPrice,
   price => ({
     name: "Price",
     value: price,
@@ -28,19 +28,16 @@ export const selectLocationDetail = createSelector(
   })
 );
 
-export const selectSellerDetail = createSelector(
-  selectBidOwner,
-  owner => ({
-    name: "Buyer",
-    value: owner,
-    onClick: undefined
-  })
-);
+export const selectSellerDetail = createSelector(selectBidOwner, owner => ({
+  name: "Buyer",
+  value: owner,
+  onClick: undefined
+}));
 
 export const selectLastUpdatedDetail = createSelector(
   selectBidPostTime,
   time => ({
-    name: "Last Updated",
+    name: "Created",
     value: time,
     onClick: undefined
   })

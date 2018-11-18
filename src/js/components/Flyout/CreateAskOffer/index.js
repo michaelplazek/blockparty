@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { compose, withHandlers, withState } from "recompose";
+import { withRouter } from "react-router-dom";
+
 import withStyles from "@material-ui/core/styles/withStyles";
 import mapper from "../../../utils/connect";
 import Flyout from "../index";
@@ -17,6 +19,20 @@ import Paper from "@material-ui/core/Paper/Paper";
 import Typography from "@material-ui/core/Typography/Typography";
 
 import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
+import withDimensions from "../../../HOCs/withDimensions";
+import { resetOffer } from "../../../actions/createOffer";
+import { createAskOffer } from "../../../actions/offers";
+import {
+  selectAskCoin,
+  selectAskId,
+  selectAskOfferTotal,
+  selectAskOwner,
+  selectAskPrice,
+  selectAskFormVolume,
+  selectContactInfo,
+  selectOfferVolume,
+  selectUserId
+} from "../../../selectors";
 
 const styles = theme => ({
   root: {
@@ -42,14 +58,16 @@ const CreateAskOffer = ({
   handleBack,
   handleNext,
   setLayerOpen,
+  resetOffer
 }) => (
   <Flyout
     onClose={() => {
+      resetOffer();
       setActiveIndex(0);
       setLayerOpen(false);
     }}
     size={8}
-    title='Make an offer to buy'
+    title="Make an offer to buy"
   >
     <Grid className={classes.root}>
       <Stepper activeStep={activeIndex} orientation="vertical">
@@ -94,19 +112,65 @@ const CreateAskOffer = ({
 
 CreateAskOffer.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
-  handleClose: PropTypes.func.isRequired,
+  handleClose: PropTypes.func.isRequired
 };
 
-const propMap = {};
+const propMap = {
+  coin: selectAskCoin,
+  max: selectAskFormVolume,
+  volume: selectOfferVolume,
+  contactInfo: selectContactInfo,
+  price: selectAskPrice,
+  userId: selectUserId,
+  owner: selectAskOwner,
+  total: selectAskOfferTotal,
+  postId: selectAskId
+};
 
 const actionMap = {
   setLayerOpen: setLayerOpenAction,
+  resetOffer
 };
 
 export default compose(
   mapper(propMap, actionMap),
   withStyles(styles),
+  withDimensions,
+  withRouter,
   withState("activeIndex", "setActiveIndex", 0),
+  withHandlers({
+    handleSubmit: ({
+      volume,
+      userId,
+      owner,
+      price,
+      coin,
+      contactInfo,
+      postId,
+      setActiveIndex,
+      setLayerOpen,
+      resetOffer,
+      history
+    }) => () => {
+      const offer = {
+        volume,
+        userId,
+        owner,
+        price,
+        coin,
+        contactInfo,
+        postId
+      };
+
+      createAskOffer(offer);
+      setTimeout(() => {
+        setLayerOpen(false);
+        setActiveIndex(0);
+        history.push("/dashboard");
+      }, 1500);
+      resetOffer();
+    }
+  }),
   withHandlers({
     handleBack: ({ activeIndex, setActiveIndex }) => () => {
       setActiveIndex(activeIndex - 1);

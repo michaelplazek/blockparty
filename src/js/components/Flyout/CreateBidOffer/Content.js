@@ -6,19 +6,18 @@ import TextField from "@material-ui/core/TextField/TextField";
 import Typography from "@material-ui/core/Typography/Typography";
 import Grid from "@material-ui/core/Grid/Grid";
 import {
-  selectAskCoin,
-  selectAskOfferTotal,
-  selectAskFormVolume,
+  selectBidCoin,
+  selectBidOfferTotal,
+  selectBidFormVolume,
   selectContactInfo,
-  selectFormattedAskPrice,
   selectOfferVolume,
-  selectAskVolume,
-  selectAskDisplayPrice
-} from "../../../selectors";
+  selectBidDisplayPrice
+} from "../../../selectors/index";
 import mapper from "../../../utils/connect";
 import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
 import { setContactInfo, setOfferVolume } from "../../../actions/createOffer";
 import withStyles from "@material-ui/core/styles/withStyles";
+import { selectBidVolume } from "../../../selectors";
 
 const styles = () => ({
   info: {
@@ -27,7 +26,7 @@ const styles = () => ({
   }
 });
 
-const CreateAskContent = ({
+const CreateBidOfferContent = ({
   index,
   classes,
   coin,
@@ -92,12 +91,12 @@ const CreateAskContent = ({
 };
 
 const propMap = {
-  coin: selectAskCoin,
-  max: selectAskVolume,
+  coin: selectBidCoin,
+  max: selectBidVolume,
   volume: selectOfferVolume,
   contactInfo: selectContactInfo,
-  price: selectAskDisplayPrice,
-  total: selectAskOfferTotal
+  price: selectBidDisplayPrice,
+  total: selectBidOfferTotal
 };
 
 const actionMap = {
@@ -108,4 +107,4 @@ const actionMap = {
 export default compose(
   withStyles(styles),
   mapper(propMap, actionMap)
-)(CreateAskContent);
+)(CreateBidOfferContent);

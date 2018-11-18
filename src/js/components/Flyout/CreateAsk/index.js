@@ -20,8 +20,8 @@ import {
   selectAskCoin,
   selectAskLatitude,
   selectAskLongitude,
-  selectAskPrice,
-  selectAskVolume,
+  selectAskFormPrice,
+  selectAskFormVolume,
   selectUserId,
   selectUsername
 } from "../../../selectors";
@@ -65,7 +65,7 @@ const CreateAsk = ({
       setLayerOpen(false);
     }}
     size={8}
-    title='Create new ask'
+    title="Create new ask"
   >
     <Grid className={classes.root}>
       <Stepper activeStep={activeIndex} orientation="vertical">
@@ -110,8 +110,8 @@ const CreateAsk = ({
 
 const propMap = {
   coin: selectAskCoin,
-  volume: selectAskVolume,
-  price: selectAskPrice,
+  volume: selectAskFormVolume,
+  price: selectAskFormPrice,
   lat: selectAskLatitude,
   lng: selectAskLongitude,
   username: selectUsername,

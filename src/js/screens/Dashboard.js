@@ -3,7 +3,7 @@ import { compose, withState, lifecycle } from "recompose";
 import mapper from "../utils/connect";
 
 import Tile from "../components/Tile";
-import ListTile from "../components/ListTile";
+import ListTile from "../components/ListTile/index";
 
 import {
   setLayer as setLayerAction,
@@ -36,15 +36,22 @@ import {
   selectDashboardLoaded,
   selectLayer,
   selectMyAsks,
-  selectMyBids, selectMyOffers,
+  selectMyBids,
+  selectMyOffers,
   selectNavHeight,
   selectNumberOfMyAsks,
-  selectNumberOfMyBids, selectNumberOfMyOffers,
+  selectNumberOfMyBids,
+  selectNumberOfMyOffers,
   selectUserId
 } from "../selectors";
 import Grow from "@material-ui/core/Grow/Grow";
 import withLoader from "../HOCs/withLoader";
-import {loadOffer, loadOffersByUser} from "../actions/offers";
+import {
+  loadOffer,
+  loadOffersByAsk, loadOffersByBid,
+  loadOffersByUser,
+  unloadOffers
+} from "../actions/offers";
 import OfferDetails from "../components/Flyout/OfferDetails";
 
 const styles = () => ({
@@ -78,7 +85,10 @@ const Dashboard = ({
   loadOffer,
   unloadAsk,
   unloadBid,
-  footerHeight
+  footerHeight,
+  unloadOffers,
+  loadOffersByAsk,
+  loadOffersByBid
 }) => (
   <div className={classes.root}>
     {layer === "CREATE_ASK" && <CreateAsk />}
@@ -110,9 +120,12 @@ const Dashboard = ({
           item={item}
           key={item._id}
           onClick={() => {
-            loadAsk(item._id);
-            setLayer("DELETE_ASK");
-            setLayerOpen(true);
+            unloadOffers();
+            loadAsk(item._id).then(() => {
+              loadOffersByAsk(item._id);
+              setLayer("DELETE_ASK");
+              setLayerOpen(true);
+            });
           }}
         />
       ))}
@@ -123,9 +136,11 @@ const Dashboard = ({
           item={item}
           key={item._id}
           onClick={() => {
-            loadBid(item._id);
-            setLayer("DELETE_BID");
-            setLayerOpen(true);
+            loadBid(item._id).then(() => {
+              loadOffersByBid(item._id);
+              setLayer("DELETE_BID");
+              setLayerOpen(true);
+            });
           }}
         />
       ))}
@@ -134,7 +149,8 @@ const Dashboard = ({
       style={{
         position: "fixed",
         right: "2em",
-        bottom: `${footerHeight + 20}px`
+        bottom: `${footerHeight + 20}px`,
+        zIndex: 100
       }}
     >
       {showButtons && (
@@ -207,7 +223,10 @@ const actionMap = {
   unloadAsk: unloadAskAction,
   unloadBid: unloadBidAction,
   loadOffersByUser,
-  loadOffer
+  loadOffer,
+  loadOffersByAsk,
+  unloadOffers,
+  loadOffersByBid
 };
 
 export default compose(

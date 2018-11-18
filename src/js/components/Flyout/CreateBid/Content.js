@@ -12,7 +12,7 @@ import {
   selectBidLatitude,
   selectBidLongitude,
   selectBidUseCurrentLocation,
-  selectBidVolume,
+  selectBidFormVolume,
   selectFormattedBidPrice,
   selectWindowWidth
 } from "../../../selectors";
@@ -30,7 +30,7 @@ import Switch from "@material-ui/core/Switch/Switch";
 import LocationSelector from "../../LocationSelector";
 import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
 
-const CreateAskContent = ({
+const CreateBidContent = ({
   index,
   coin,
   volume,
@@ -137,7 +137,7 @@ const CreateAskContent = ({
 
 const propMap = {
   coin: selectBidCoin,
-  volume: selectBidVolume,
+  volume: selectBidFormVolume,
   price: selectFormattedBidPrice,
   lat: selectBidLatitude,
   lng: selectBidLongitude,
@@ -177,4 +177,4 @@ export default compose(
       setBidLongitude(item.latLng.lng());
     }
   })
-)(CreateAskContent);
+)(CreateBidContent);

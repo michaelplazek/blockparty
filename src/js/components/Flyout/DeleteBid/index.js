@@ -1,36 +1,34 @@
 import React from "react";
-import { compose, withHandlers, withState } from "recompose";
+import { compose } from "recompose";
+import { withRouter } from "react-router-dom";
 import withStyles from "@material-ui/core/styles/withStyles";
 import mapper from "../../../utils/connect";
+import Flyout from "../index";
+import DetailBox from "../../DetailBox";
 
-import Grid from "@material-ui/core/Grid/Grid";
 import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
 import {
   deleteBid,
   loadMyBids as loadMyBidsAction
 } from "../../../actions/bids";
-import Modal from "@material-ui/core/Modal/Modal";
 import {
   selectBid,
+  selectBidLoaded,
+  selectBidOfferTotal,
   selectBidPostTime,
   selectLayerOpen,
+  selectOffers,
   selectWindowHeight,
   selectWindowWidth
 } from "../../../selectors";
-import Paper from "@material-ui/core/Paper/Paper";
+import OfferWidgetList from "../../OfferWidgetList/index";
+import Grid from "@material-ui/core/Grid/Grid";
 import Typography from "@material-ui/core/Typography/Typography";
 import Button from "@material-ui/core/Button/Button";
-import numeral from "numeral";
-import { USD } from "../../../constants/currency";
-import { deleteAsk } from "../../../actions/asks";
-import Flyout from "../index";
 
-const styles = theme => ({
+const styles = () => ({
   paper: {
     width: "100%",
-    // backgroundColor: theme.palette.background.paper,
-    // boxShadow: theme.shadows[5],
-    // padding: theme.spacing.unit * 4,
     display: "flex",
     flexDirection: "column",
     alignItems: "center"
@@ -43,89 +41,76 @@ const styles = theme => ({
   },
   rate: {
     margin: "3px 0px 0px 3px"
+  },
+  time: {
+    marginTop: "6px"
   }
 });
 
 const DeleteBid = ({
   classes,
   setLayerOpen,
-  loadMyBids,
   windowWidth,
   windowHeight,
   bid,
   open,
-  time
+  offers,
+  time,
+  history
 }) => (
   <Flyout
     onClose={() => {
-      setLayerOpen(false);
-    }}
-    onBackdropClick={() => {
       setLayerOpen(false);
     }}
     size={5}
     open={open}
     title="Bid Details"
   >
-    <div
-      style={{
-        position: "absolute",
-        top: `${windowHeight / 3}px`,
-        left: "20%",
-        right: "20%",
-        display: "flex",
-        justifyContent: "center"
-      }}
-    >
-      <Grid container className={classes.paper}>
-        <Grid item>
-          <Grid container direction="row">
-            <Grid item>
-              <Typography variant="headline">{bid.volume}</Typography>
-            </Grid>
-            <Grid item>
-              <Typography variant="subheading" className={classes.coin}>
-                {bid.coin}
-              </Typography>
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid item>
-          <Grid container direction="row">
-            <Grid item>
-              <Typography variant="subheading">
-                at {numeral(bid.price).format(USD)}
-              </Typography>
-            </Grid>
-            <Grid item>
-              <Typography className={classes.rate} variant="caption">
-                /{bid.coin}
-              </Typography>
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid item>
-          <Typography>Posted {time}</Typography>
-        </Grid>
-        <div className={classes.button}>
-          <Button
-            variant="contained"
-            onClick={() => {
-              deleteBid(bid._id);
-              setLayerOpen(false);
-            }}
-          >
-            Delete
-          </Button>
-        </div>
+    <Grid container direction="column">
+      <Grid item>
+        <DetailBox
+          post={bid}
+          time={time}
+          onClick={() => {
+            history.push(`/bid?${bid._id}`);
+          }}
+        />
       </Grid>
-    </div>
+      <Grid item>
+        <OfferWidgetList offers={offers} post={bid} />
+      </Grid>
+      <Grid item>
+        <Grid
+          direction="column"
+          className={classes.footer}
+          alignItems="center"
+          container
+        >
+          <div className={classes.button}>
+            <Button
+              variant="contained"
+              disabled={offers.length > 0}
+              onClick={() => {
+                deleteBid(bid._id);
+                setLayerOpen(false);
+              }}
+            >
+              Delete Bid
+            </Button>
+          </div>
+          <Typography className={classes.time}>Posted {time}</Typography>
+        </Grid>
+      </Grid>
+    </Grid>
   </Flyout>
 );
 
 const propMap = {
   open: selectLayerOpen,
   bid: selectBid,
+  bidLoaded: selectBidLoaded,
+  offers: selectOffers,
+  total: selectBidOfferTotal,
   windowHeight: selectWindowHeight,
   windowWidth: selectWindowWidth,
   time: selectBidPostTime
@@ -133,12 +118,11 @@ const propMap = {
 
 const actionMap = {
   setLayerOpen: setLayerOpenAction,
-  loadMyBids: loadMyBidsAction
+  loadMyBids: loadMyBidsAction,
 };
 
 export default compose(
   mapper(propMap, actionMap),
   withStyles(styles),
-  withHandlers({}),
-  withHandlers({})
+  withRouter
 )(DeleteBid);

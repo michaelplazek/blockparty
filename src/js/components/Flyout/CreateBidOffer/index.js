@@ -1,8 +1,10 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { compose, withHandlers, withState } from "recompose";
+import { withRouter } from "react-router-dom";
+
 import withStyles from "@material-ui/core/styles/withStyles";
 import mapper from "../../../utils/connect";
-
 import Flyout from "../index";
 
 import Grid from "@material-ui/core/Grid/Grid";
@@ -16,21 +18,21 @@ import Content from "./Content";
 import Paper from "@material-ui/core/Paper/Paper";
 import Typography from "@material-ui/core/Typography/Typography";
 
+import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
+import withDimensions from "../../../HOCs/withDimensions";
+import { resetOffer } from "../../../actions/createOffer";
+import { createBidOffer } from "../../../actions/offers";
 import {
   selectBidCoin,
-  selectBidLatitude,
-  selectBidLongitude,
-  selectBidFormPrice,
+  selectBidId,
+  selectBidOfferTotal,
+  selectBidOwner,
+  selectBidPrice,
   selectBidFormVolume,
-  selectUserId,
-  selectUsername
-} from "../../../selectors";
-import {
-  createBid as createBidAction,
-  loadMyBids as loadMyBidsAction
-} from "../../../actions/bids";
-import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
-import { resetBid as resetBidAction } from "../../../actions/createBid";
+  selectContactInfo,
+  selectOfferVolume,
+  selectUserId
+} from "../../../selectors/index";
 
 const styles = theme => ({
   root: {
@@ -48,24 +50,24 @@ const styles = theme => ({
   }
 });
 
-const CreateBid = ({
+const CreateBidOffer = ({
   classes,
   onSubmit,
   activeIndex,
   setActiveIndex,
   handleBack,
   handleNext,
-  resetBid,
-  setLayerOpen
+  setLayerOpen,
+  resetOffer
 }) => (
   <Flyout
     onClose={() => {
-      resetBid();
+      resetOffer();
       setActiveIndex(0);
       setLayerOpen(false);
     }}
     size={8}
-    title="Create new bid"
+    title="Make an offer to sell"
   >
     <Grid className={classes.root}>
       <Stepper activeStep={activeIndex} orientation="vertical">
@@ -101,64 +103,72 @@ const CreateBid = ({
       </Stepper>
       {activeIndex === STEPS.length && (
         <Paper square elevation={0} className={classes.resetContainer}>
-          <Typography>Bid successfully created.</Typography>
+          <Typography>Offer successfully created.</Typography>
         </Paper>
       )}
     </Grid>
   </Flyout>
 );
 
+CreateBidOffer.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  handleClose: PropTypes.func.isRequired
+};
+
 const propMap = {
   coin: selectBidCoin,
-  volume: selectBidFormVolume,
-  price: selectBidFormPrice,
-  lat: selectBidLatitude,
-  lng: selectBidLongitude,
-  username: selectUsername,
-  userId: selectUserId
+  max: selectBidFormVolume,
+  volume: selectOfferVolume,
+  contactInfo: selectContactInfo,
+  price: selectBidPrice,
+  userId: selectUserId,
+  owner: selectBidOwner,
+  total: selectBidOfferTotal,
+  postId: selectBidId
 };
 
 const actionMap = {
-  createBid: createBidAction,
-  loadMyBids: loadMyBidsAction,
   setLayerOpen: setLayerOpenAction,
-  resetBid: resetBidAction
+  resetOffer
 };
 
 export default compose(
   mapper(propMap, actionMap),
   withStyles(styles),
+  withDimensions,
+  withRouter,
   withState("activeIndex", "setActiveIndex", 0),
   withHandlers({
     handleSubmit: ({
-      userId,
-      coin,
       volume,
+      userId,
+      owner,
       price,
-      lat,
-      lng,
-      username,
-      createBid,
-      loadMyBids,
+      coin,
+      contactInfo,
+      postId,
+      setActiveIndex,
       setLayerOpen,
-      resetBid,
-      setActiveIndex
+      resetOffer,
+      history
     }) => () => {
-      const bid = {
-        coin,
-        volume: parseFloat(volume),
+      const offer = {
+        volume,
+        userId,
+        owner,
         price,
-        owner: username,
-        lat,
-        lng
+        coin,
+        contactInfo,
+        postId
       };
 
-      createBid(bid).then(() => loadMyBids(userId));
+      createBidOffer(offer);
       setTimeout(() => {
         setLayerOpen(false);
         setActiveIndex(0);
+        history.push("/dashboard");
       }, 1500);
-      resetBid();
+      resetOffer();
     }
   }),
   withHandlers({
@@ -172,4 +182,4 @@ export default compose(
       }
     }
   })
-)(CreateBid);
+)(CreateBidOffer);
