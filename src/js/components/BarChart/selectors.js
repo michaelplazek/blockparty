@@ -1,5 +1,10 @@
 import { createSelector } from "reselect";
-import { selectAsks, selectBids, selectFilterCoin } from "../../selectors";
+import {
+  selectAsks,
+  selectBids,
+  selectFilterCoin,
+  selectFilterPrice
+} from "../../selectors";
 import compose from "lodash/fp/compose";
 import fpMap from "lodash/fp/map";
 import last from "lodash/last";
@@ -8,6 +13,8 @@ import orderBy from "lodash/fp/orderBy";
 import filter from "lodash/fp/filter";
 import concat from "lodash/fp/concat";
 import reduce from "lodash/fp/reduce";
+import maxBy from 'lodash/fp/maxBy';
+import minBy from 'lodash/fp/minBy';
 
 const NUMBER_OF_BINS = 100;
 
@@ -50,8 +57,6 @@ export const selectPriceRange = createSelector(
       orderBy("price", "asc"),
       concat(asks)
     )(bids);
-    console.log(data);
-    console.log(asks);
     return { start: head(data) - 2, end: last(data) + 2 };
   }
 );
@@ -63,7 +68,6 @@ export const selectRange = createSelector(selectPriceRange, range => {
   for (let i = start; i <= end; i += step) {
     bins.push(i);
   }
-  console.log(bins);
   return bins;
 });
 
@@ -104,5 +108,37 @@ export const selectFullBins = createSelector(
     });
 
     return data;
+  }
+);
+
+export const selectChartBids = createSelector(
+  selectBids,
+  selectFilterPrice,
+  selectFilterCoin,
+  (bids, price, coin) =>
+    compose(
+      filter(bid => bid.price <= price),
+      filter(bid => bid.coin === coin)
+    )(bids)
+);
+
+export const selectChartAsks = createSelector(
+  selectAsks,
+  selectFilterPrice,
+  selectFilterCoin,
+  (asks, price, coin) =>
+    compose(
+      filter(ask => ask.price <= price),
+      filter(ask => ask.coin === coin)
+    )(asks)
+);
+
+export const selectMidMarketPrice = createSelector(
+  selectFilteredBids,
+  selectFilteredAsks,
+  (bids, asks) => {
+    const min = maxBy(item => item.price)(bids);
+    const max = minBy(item => item.price)(asks);
+    return ((max.price + min.price)/2).toFixed(2);
   }
 );

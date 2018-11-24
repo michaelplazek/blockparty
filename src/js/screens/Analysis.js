@@ -46,7 +46,7 @@ import Grow from "@material-ui/core/Grow/Grow";
 import { setFilterPrice } from "../actions/filters";
 import BidChartList from "../components/Flyout/BidChartList";
 import AskChartList from "../components/Flyout/AskChartList";
-import { selectFullBins } from "../components/BarChart/selectors";
+import {selectFullBins, selectMidMarketPrice} from "../components/BarChart/selectors";
 
 const styles = () => ({
   actionButton: {
@@ -128,7 +128,7 @@ const propMap = {
   type: selectFilterType,
   loaded: selectMarketLoaded, // for withLoader
   chartData: selectFullBins,
-  midMarketPrice: selectMidPoint,
+  midMarketPrice: selectMidMarketPrice,
   hasData: selectHasData,
   price: selectFormattedFilterPrice,
   coin: selectFilterCoin,
@@ -153,8 +153,8 @@ export default compose(
   withRouter,
   withStyles(styles),
   withState("touched", "setTouched", false),
-  withState("askInfo", "setAskInfo", ""),
-  withState("bidInfo", "setBidInfo", ""),
+  withState("askInfo", "setAskInfo", undefined),
+  withState("bidInfo", "setBidInfo", undefined),
 
   lifecycle({
     componentDidMount() {
@@ -176,24 +176,26 @@ export default compose(
     }) => ({ activePayload }) => {
       if (!activePayload) return;
       const payload = get("payload")(activePayload[0]);
-      const { count } = payload;
+      const { totalVolume } = payload;
 
-      if (count > 0) {
-        const { price } = payload;
-        const type = !payload.bid ? "asks" : "bids";
-        const total = !payload.bid ? payload.ask : payload.bid;
-        const message = `${total} ${coin} available in ${count} ${type}`;
-        setFilterPrice(price);
-        setSubheading(message);
-        setTouched(true);
-      } else {
+      if (totalVolume === 0) {
         setTouched(false);
-        setSubheading("Mid Market Price");
+        setAskInfo("Mid Market Price");
+        setBidInfo(undefined);
+      } else {
+        const { price, askVolume, bidVolume, askCount, bidCount } = payload;
+        const askInfo = askVolume > 0 ? `${askVolume} ${coin} available in ${askCount} asks` : undefined;
+        const bidInfo = bidVolume > 0 ? `${bidVolume} ${coin} available in ${bidCount} bids` : undefined;
+        setFilterPrice(price);
+        setAskInfo(askInfo);
+        setBidInfo(bidInfo);
+        setTouched(true);
       }
     },
-    handleSelect: ({ setTouched, setSubheading }) => () => {
+    handleSelect: ({ setTouched, setAskInfo, setBidInfo }) => () => {
       setTouched(false);
-      setSubheading("Mid Market Price");
+      setAskInfo("Mid Market Price");
+      setBidInfo(undefined);
     },
     handleButtonClick: ({ setLayer, setLayerOpen, selectedType }) => () => {
       if (selectedType === "ASK") {

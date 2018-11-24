@@ -523,24 +523,4 @@ export const selectChartListType = createSelector(
   (mid, price) => (price > mid ? "ASK" : "BID")
 );
 
-export const selectChartBids = createSelector(
-  selectBids,
-  selectFilterPrice,
-  selectFilterCoin,
-  (bids, price, coin) =>
-    compose(
-      filter(bid => bid.price <= price),
-      filter(bid => bid.coin === coin)
-    )(bids)
-);
 
-export const selectChartAsks = createSelector(
-  selectAsks,
-  selectFilterPrice,
-  selectFilterCoin,
-  (asks, price, coin) =>
-    compose(
-      filter(ask => ask.price <= price),
-      filter(ask => ask.coin === coin)
-    )(asks)
-);

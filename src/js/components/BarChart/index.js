@@ -44,13 +44,12 @@ const BarChartBase = ({ height, width, data, handleTouch }) => (
       width={width}
       height={height}
       data={data}
-      // onMouseMove={handleTouch}
+      onMouseMove={(payload) => payload && handleTouch(payload)}
     >
       <XAxis
         dataKey="price"
         interval="preserveStartEnd"
         tickMargin={20}
-        minTickGap={9}
         tick={<XTick />}
       />
       <YAxis
