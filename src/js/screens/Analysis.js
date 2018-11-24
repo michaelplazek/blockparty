@@ -12,7 +12,6 @@ import withAuthentification from "../HOCs/withAuthentification";
 import {
   selectAsksForDisplay,
   selectBidsForDisplay,
-  selectChartData,
   selectChartListType,
   selectFilterCoin,
   selectFilterType,
@@ -36,10 +35,10 @@ import {
 import { loadCurrentLocation as loadCurrentLocationAction } from "../actions/session";
 import { setMarketView as setMarketViewAction } from "../actions/app";
 import { MAP } from "../constants/app";
-import DepthChart from "../components/DepthChart";
+import BarChart from "../components/BarChart";
 import ChartHeader from "../components/ChartHeader";
-import PriceMarker from "../components/DepthChart/PriceMarker";
-import Placeholder from "../components/DepthChart/Placeholder";
+import PriceMarker from "../components/BarChart/PriceMarker";
+import Placeholder from "../components/BarChart/Placeholder";
 import withDimensions from "../HOCs/withDimensions";
 import Button from "@material-ui/core/Button/Button";
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -47,6 +46,7 @@ import Grow from "@material-ui/core/Grow/Grow";
 import { setFilterPrice } from "../actions/filters";
 import BidChartList from "../components/Flyout/BidChartList";
 import AskChartList from "../components/Flyout/AskChartList";
+import {selectFullBins} from "../components/BarChart/selectors";
 
 const styles = () => ({
   actionButton: {
@@ -69,7 +69,9 @@ const Analysis = ({
   price,
   handleSelect,
   handleButtonClick,
-  layer
+  layer,
+                    askInfo,
+                    bidInfo
 }) => (
   <div>
     {layer === "LIST_BIDS" && <BidChartList />}
@@ -84,10 +86,11 @@ const Analysis = ({
       <div>
         <PriceMarker
           price={touched ? price : midMarketPrice}
-          subheading={subheading}
+          askInfo={askInfo}
+          bidInfo={bidInfo}
           top={headerHeight + 50}
         />
-        <DepthChart
+        <BarChart
           data={chartData}
           height={windowHeight - navHeight - headerHeight}
           width={windowWidth}
@@ -124,7 +127,7 @@ const propMap = {
   windowWidth: selectWindowWidth,
   type: selectFilterType,
   loaded: selectMarketLoaded, // for withLoader
-  chartData: selectChartData,
+  chartData: selectFullBins,
   midMarketPrice: selectMidPoint,
   hasData: selectHasData,
   price: selectFormattedFilterPrice,
@@ -150,7 +153,9 @@ export default compose(
   withRouter,
   withStyles(styles),
   withState("touched", "setTouched", false),
-  withState("subheading", "setSubheading", "Mid Market Price"),
+  withState("askInfo", "setAskInfo", ""),
+  withState("bidInfo", "setBidInfo", ""),
+
   lifecycle({
     componentDidMount() {
       this.props.loadAsks();
@@ -162,7 +167,13 @@ export default compose(
       setMarketView(MAP);
       history.push("/");
     },
-    handleTouch: ({ setTouched, setFilterPrice, setSubheading, coin }) => ({
+    handleTouch: ({
+                    setTouched,
+                    setFilterPrice,
+                    setAskInfo,
+                    setBidInfo,
+                    coin
+    }) => ({
       activePayload
     }) => {
       if (!activePayload) return;
