@@ -7,10 +7,8 @@ import Flyout from "../index";
 import PostList from "../../PostList";
 import Grid from "@material-ui/core/Grid/Grid";
 
-import {
-  selectChartBids,
-  selectFormattedFilterPrice
-} from "../../../selectors";
+import {selectFormattedFilterPrice} from "../../../selectors";
+import {selectChartBids} from "../../ComparisonChart/selectors"
 import {
   createAsk as createAskAction,
   loadMyAsks as loadMyAsksAction

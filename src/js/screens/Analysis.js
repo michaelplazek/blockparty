@@ -12,16 +12,13 @@ import withAuthentification from "../HOCs/withAuthentification";
 import {
   selectAsksForDisplay,
   selectBidsForDisplay,
-  selectChartListType,
   selectFilterCoin,
   selectFilterType,
   selectFormattedFilterPrice,
-  selectHasData,
   selectHeaderHeight,
   selectLayer,
   selectMapMarkers,
   selectMarketLoaded,
-  selectMidPoint,
   selectNavHeight,
   selectWindowHeight,
   selectWindowWidth
@@ -35,10 +32,10 @@ import {
 import { loadCurrentLocation as loadCurrentLocationAction } from "../actions/session";
 import { setMarketView as setMarketViewAction } from "../actions/app";
 import { MAP } from "../constants/app";
-import BarChart from "../components/BarChart";
+import ComparisonChart from "../components/ComparisonChart";
 import ChartHeader from "../components/ChartHeader";
-import PriceMarker from "../components/BarChart/PriceMarker";
-import Placeholder from "../components/BarChart/Placeholder";
+import PriceMarker from "../components/ComparisonChart/PriceMarker";
+import Placeholder from "../components/ComparisonChart/Placeholder";
 import withDimensions from "../HOCs/withDimensions";
 import Button from "@material-ui/core/Button/Button";
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -46,7 +43,8 @@ import Grow from "@material-ui/core/Grow/Grow";
 import { setFilterPrice } from "../actions/filters";
 import BidChartList from "../components/Flyout/BidChartList";
 import AskChartList from "../components/Flyout/AskChartList";
-import {selectFullBins, selectMidMarketPrice} from "../components/BarChart/selectors";
+import AsksOrBids from "../components/Flyout/AsksOrBids";
+import {selectFullBins, selectMidMarketPrice, selectHasData,} from "../components/ComparisonChart/selectors";
 
 const styles = () => ({
   actionButton: {
@@ -76,6 +74,7 @@ const Analysis = ({
   <div>
     {layer === "LIST_BIDS" && <BidChartList />}
     {layer === "LIST_ASKS" && <AskChartList />}
+    {layer === "ASKS_OR_BIDS" && <AsksOrBids />}
     <PageHeader
       leftHandButton="Go to map view"
       leftHandAction={handleMarketView}
@@ -90,7 +89,7 @@ const Analysis = ({
           bidInfo={bidInfo}
           top={headerHeight + 50}
         />
-        <BarChart
+        <ComparisonChart
           data={chartData}
           height={windowHeight - navHeight - headerHeight}
           width={windowWidth}
@@ -133,7 +132,6 @@ const propMap = {
   price: selectFormattedFilterPrice,
   coin: selectFilterCoin,
   layer: selectLayer,
-  selectedType: selectChartListType
 };
 
 const actionMap = {
@@ -197,12 +195,8 @@ export default compose(
       setAskInfo("Mid Market Price");
       setBidInfo(undefined);
     },
-    handleButtonClick: ({ setLayer, setLayerOpen, selectedType }) => () => {
-      if (selectedType === "ASK") {
-        setLayer("LIST_ASKS");
-      } else {
-        setLayer("LIST_BIDS");
-      }
+    handleButtonClick: ({ setLayer, setLayerOpen }) => () => {
+      setLayer("ASKS_OR_BIDS");
       setLayerOpen(true);
     }
   })
