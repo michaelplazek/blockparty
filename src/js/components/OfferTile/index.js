@@ -38,12 +38,12 @@ const OfferTile = ({ classes, item, onClick }) => (
         <ListItemText
           disableTypography={true}
           primary={
-            <Grid direction="row" alignItems='center' container>
+            <Grid direction="row" alignItems="center" container>
               <Grid className={classes.icon} item>
                 {getCoinIcon(item.coin)}
               </Grid>
               <Grid item>
-                <Grid container direction='row'>
+                <Grid container direction="row">
                   <Grid item>
                     <Typography className={classes.volume} variant="title">
                       {item.volume}

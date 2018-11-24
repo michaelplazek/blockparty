@@ -47,7 +47,8 @@ import Grow from "@material-ui/core/Grow/Grow";
 import withLoader from "../HOCs/withLoader";
 import {
   loadOffer,
-  loadOffersByAsk, loadOffersByBid,
+  loadOffersByAsk,
+  loadOffersByBid,
   loadOffersByUser,
   unloadOffers
 } from "../actions/offers";
@@ -95,14 +96,8 @@ const Dashboard = ({
     {layer === "DELETE_ASK" && <DeleteAsk />}
     {layer === "DELETE_BID" && <DeleteBid />}
     {layer === "VIEW_OFFER" && <OfferDetails />}
-    <PageHeader
-      leftHandLabel="Dashboard"
-    />
-    <Tile
-      color="#f2f2f2"
-      title="My Offers"
-      count={numberOfOffers}
-    >
+    <PageHeader leftHandLabel="Dashboard" />
+    <Tile color="#f2f2f2" title="My Offers" count={numberOfOffers}>
       {myOffers.map(item => (
         <OfferTile
           item={item}
@@ -115,11 +110,7 @@ const Dashboard = ({
         />
       ))}
     </Tile>
-    <Tile
-      title="My Asks"
-      count={numberOfAsks}
-      description="looking to sell"
-    >
+    <Tile title="My Asks" count={numberOfAsks} description="looking to sell">
       {myAsks.map(item => (
         <ListTile
           item={item}
@@ -135,11 +126,7 @@ const Dashboard = ({
         />
       ))}
     </Tile>
-    <Tile
-      title="My Bids"
-      count={numberOfBids}
-      description="looking to buy"
-    >
+    <Tile title="My Bids" count={numberOfBids} description="looking to buy">
       {myBids.map(item => (
         <ListTile
           item={item}

@@ -38,12 +38,7 @@ const YTick = ({ payload, x, y, fill }) => {
   );
 };
 
-const BarChartBase = ({
-                        height,
-                        width,
-                        data,
-                        handleTouch
-}) => (
+const BarChartBase = ({ height, width, data, handleTouch }) => (
   <div>
     <BarChart
       width={width}

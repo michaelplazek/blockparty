@@ -116,16 +116,16 @@ const OfferDetails = ({
           container
         >
           {/*<div className={classes.button}>*/}
-            {/*<Button*/}
-              {/*variant="contained"*/}
-              {/*disabled={offer.length > 0}*/}
-              {/*onClick={() => {*/}
-                {/*deleteOffer(offer._id);*/}
-                {/*setLayerOpen(false);*/}
-              {/*}}*/}
-            {/*>*/}
-              {/*Delete Offer*/}
-            {/*</Button>*/}
+          {/*<Button*/}
+          {/*variant="contained"*/}
+          {/*disabled={offer.length > 0}*/}
+          {/*onClick={() => {*/}
+          {/*deleteOffer(offer._id);*/}
+          {/*setLayerOpen(false);*/}
+          {/*}}*/}
+          {/*>*/}
+          {/*Delete Offer*/}
+          {/*</Button>*/}
           {/*</div>*/}
           <Typography className={classes.time}>Posted {time}</Typography>
         </Grid>

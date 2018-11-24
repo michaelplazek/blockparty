@@ -5,7 +5,12 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import Chip from "@material-ui/core/Chip/Chip";
 
 import { setLayerOpen as setLayerOpenAction } from "../../actions/layers";
-import {selectFilter, selectFilterCoin, selectFilterDistance, selectFilterType} from "../../selectors";
+import {
+  selectFilter,
+  selectFilterCoin,
+  selectFilterDistance,
+  selectFilterType
+} from "../../selectors";
 import mapper from "../../utils/connect";
 import IconButton from "@material-ui/core/IconButton/IconButton";
 import FilterListIcon from "@material-ui/icons/FilterList";
@@ -25,13 +30,7 @@ const styles = theme => ({
   filterButton: {}
 });
 
-const Subheader = ({
-  classes,
-  distanceAway,
-  setLayerOpen,
-  type,
-  coin
-}) => (
+const Subheader = ({ classes, distanceAway, setLayerOpen, type, coin }) => (
   <div className={classes.root}>
     <Grid container justify="space-between">
       <Grid item>
@@ -73,7 +72,7 @@ const Subheader = ({
 const propMap = {
   type: selectFilterType,
   coin: selectFilterCoin,
-  distanceAway: selectFilterDistance,
+  distanceAway: selectFilterDistance
 };
 
 const actionMap = {

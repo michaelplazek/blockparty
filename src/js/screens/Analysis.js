@@ -46,7 +46,7 @@ import Grow from "@material-ui/core/Grow/Grow";
 import { setFilterPrice } from "../actions/filters";
 import BidChartList from "../components/Flyout/BidChartList";
 import AskChartList from "../components/Flyout/AskChartList";
-import {selectFullBins} from "../components/BarChart/selectors";
+import { selectFullBins } from "../components/BarChart/selectors";
 
 const styles = () => ({
   actionButton: {
@@ -70,8 +70,8 @@ const Analysis = ({
   handleSelect,
   handleButtonClick,
   layer,
-                    askInfo,
-                    bidInfo
+  askInfo,
+  bidInfo
 }) => (
   <div>
     {layer === "LIST_BIDS" && <BidChartList />}
@@ -168,14 +168,12 @@ export default compose(
       history.push("/");
     },
     handleTouch: ({
-                    setTouched,
-                    setFilterPrice,
-                    setAskInfo,
-                    setBidInfo,
-                    coin
-    }) => ({
-      activePayload
-    }) => {
+      setTouched,
+      setFilterPrice,
+      setAskInfo,
+      setBidInfo,
+      coin
+    }) => ({ activePayload }) => {
       if (!activePayload) return;
       const payload = get("payload")(activePayload[0]);
       const { count } = payload;
