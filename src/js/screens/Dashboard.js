@@ -41,7 +41,7 @@ import {
   selectNumberOfMyAsks,
   selectNumberOfMyBids,
   selectNumberOfMyOffers,
-  selectUserId
+  selectUserId, selectUsername
 } from "../selectors";
 import Grow from "@material-ui/core/Grow/Grow";
 import withLoader from "../HOCs/withLoader";
@@ -52,6 +52,7 @@ import {
   unloadOffers
 } from "../actions/offers";
 import OfferDetails from "../components/Flyout/OfferDetails";
+import {loadTransactions} from "../actions/transactions";
 
 const styles = () => ({
   root: {
@@ -190,9 +191,7 @@ const Dashboard = ({
           className={classes.buttonContainer}
           color="primary"
           variant="fab"
-          onClick={() => {
-            setShowButtons(true);
-          }}
+          onClick={() => setShowButtons(true)}
         >
           <AddIcon />
         </Button>
@@ -204,6 +203,7 @@ const Dashboard = ({
 const propMap = {
   layer: selectLayer,
   userId: selectUserId,
+  owner: selectUsername,
   myBids: selectMyBids,
   myAsks: selectMyAsks,
   myOffers: selectMyOffers,
@@ -227,7 +227,8 @@ const actionMap = {
   loadOffer,
   loadOffersByAsk,
   unloadOffers,
-  loadOffersByBid
+  loadOffersByBid,
+  loadTransactions
 };
 
 export default compose(
@@ -237,10 +238,11 @@ export default compose(
   withDimensions,
   lifecycle({
     componentDidMount() {
-      const { loadMyAsks, loadMyBids, loadOffersByUser, userId } = this.props;
+      const { loadMyAsks, loadMyBids, loadOffersByUser, loadTransactions, userId } = this.props;
       loadMyAsks(userId);
       loadMyBids(userId);
       loadOffersByUser(userId);
+      loadTransactions(userId);
     }
   }),
   withHandlers({

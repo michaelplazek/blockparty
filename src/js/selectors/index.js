@@ -50,7 +50,11 @@ export const selectNumberOfMyOffers = createSelector(
 // ASKS
 export const selectAsks = state => state.asks.asks;
 export const selectAskLoaded = state => state.asks.askLoaded;
-export const selectMyAsks = state => state.asks.myAsks;
+export const selectMyUnfilteredAsks = state => state.asks.myAsks;
+export const selectMyAsks = createSelector(
+  selectMyUnfilteredAsks,
+  filter(item => !item.isAccepted)
+);
 export const selectAsksLoaded = state => state.asks.asksLoaded;
 export const selectMyAsksLoaded = state => state.asks.myAsksLoaded;
 export const selectNumberOfMyAsks = createSelector(
@@ -68,7 +72,11 @@ export const selectAsksForDisplay = createSelector(selectAsks, asks =>
 // BIDS
 export const selectBids = state => state.bids.bids;
 export const selectBidLoaded = state => state.bids.bidLoaded;
-export const selectMyBids = state => state.bids.myBids;
+export const selectMyUnfilteredBids = state => state.bids.myBids;
+export const selectMyBids = createSelector(
+  selectMyUnfilteredBids,
+  filter(item => !item.isAccepted)
+);
 export const selectBidsLoaded = state => state.bids.bidsLoaded;
 export const selectMyBidsLoaded = state => state.bids.myBidsLoaded;
 export const selectNumberOfMyBids = createSelector(
@@ -156,6 +164,10 @@ export const selectAskTotal = createSelector(
   selectAskPrice,
   (volume, price) => numeral(volume * price).format(USD)
 );
+
+// TRANSACTIONS
+export const selectTransactions = state => state.transactions.transactions;
+export const selectTransactionsLoaded = state => state.transactions.transactionsLoaded;
 
 // TEMPORARY OFFER
 export const selectOfferVolume = state => state.offer.volume;
