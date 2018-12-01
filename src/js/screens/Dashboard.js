@@ -1,5 +1,5 @@
 import React from "react";
-import { compose, withState, lifecycle } from "recompose";
+import { compose, withState, lifecycle, withHandlers } from "recompose";
 import mapper from "../utils/connect";
 
 import Tile from "../components/Tile";
@@ -87,7 +87,10 @@ const Dashboard = ({
   footerHeight,
   unloadOffers,
   loadOffersByAsk,
-  loadOffersByBid
+  loadOffersByBid,
+  handleAskClick,
+  handleBidClick,
+  handleOfferClick
 }) => (
   <div className={classes.root}>
     {layer === "CREATE_ASK" && <CreateAsk />}
@@ -99,7 +102,13 @@ const Dashboard = ({
       leftHandLabel="Dashboard"
     />
     <Tile
-      color="#f2f2f2"
+      title="My Accepted Offers"
+      count={numberOfOffers}
+    >
+
+    </Tile>
+    <Tile
+      // color="#f2f2f2"
       title="My Offers"
       count={numberOfOffers}
     >
@@ -107,11 +116,7 @@ const Dashboard = ({
         <OfferTile
           item={item}
           key={item._id}
-          onClick={() => {
-            loadOffer(item._id);
-            setLayer("VIEW_OFFER");
-            setLayerOpen(true);
-          }}
+          onClick={() => handleOfferClick(item)}
         />
       ))}
     </Tile>
@@ -124,14 +129,7 @@ const Dashboard = ({
         <ListTile
           item={item}
           key={item._id}
-          onClick={() => {
-            unloadOffers();
-            loadAsk(item._id).then(() => {
-              loadOffersByAsk(item._id);
-              setLayer("DELETE_ASK");
-              setLayerOpen(true);
-            });
-          }}
+          onClick={() => handleAskClick(item)}
         />
       ))}
     </Tile>
@@ -144,13 +142,7 @@ const Dashboard = ({
         <ListTile
           item={item}
           key={item._id}
-          onClick={() => {
-            loadBid(item._id).then(() => {
-              loadOffersByBid(item._id);
-              setLayer("DELETE_BID");
-              setLayerOpen(true);
-            });
-          }}
+          onClick={() => handleBidClick(item)}
         />
       ))}
     </Tile>
@@ -249,6 +241,29 @@ export default compose(
       loadMyAsks(userId);
       loadMyBids(userId);
       loadOffersByUser(userId);
+    }
+  }),
+  withHandlers({
+    handleAskClick: ({ unloadOffers, loadAsk, loadOffersByAsk, setLayer, setLayerOpen }) => ({ _id }) => {
+      unloadOffers();
+      loadAsk(_id).then(() => {
+        loadOffersByAsk(_id);
+        setLayer("DELETE_ASK");
+        setLayerOpen(true);
+      });
+    },
+    handleBidClick: ({ unloadOffers, loadBid, loadOffersByBid, setLayer, setLayerOpen }) => ({ _id }) => {
+      unloadOffers();
+      loadBid(_id).then(() => {
+        loadOffersByBid(_id);
+        setLayer("DELETE_BID");
+        setLayerOpen(true);
+      });
+    },
+    handleOfferClick: ({ loadOffer, setLayer, setLayerOpen }) => ({ _id }) => {
+      loadOffer(_id);
+      setLayer("VIEW_OFFER");
+      setLayerOpen(true);
     }
   }),
   withLoader
