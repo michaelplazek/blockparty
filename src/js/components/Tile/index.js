@@ -42,15 +42,15 @@ const Tile = ({
         onClick={() => {}}
       >
         <Grid item>
-          <Grid container direction='row'>
+          <Grid container direction="row">
             <Grid item>
               <Typography color={textColor} variant="title">
                 {title}
               </Typography>
             </Grid>
-            {description &&
+            {description && (
               <Grid item>
-                <Grid container direction='row'>
+                <Grid container direction="row">
                   <Grid item className={classes.pipe}>
                     <Typography color={textColor} variant="title">
                       |
@@ -63,7 +63,7 @@ const Tile = ({
                   </Grid>
                 </Grid>
               </Grid>
-            }
+            )}
           </Grid>
         </Grid>
         <Grid item>

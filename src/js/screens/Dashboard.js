@@ -41,19 +41,23 @@ import {
   selectNavHeight,
   selectNumberOfMyAsks,
   selectNumberOfMyBids,
-  selectNumberOfMyOffers, selectNumberOfMyTransactions, selectTransactionsForDisplay,
-  selectUserId, selectUsername
+  selectNumberOfMyOffers,
+  selectNumberOfMyTransactions,
+  selectTransactionsForDisplay,
+  selectUserId,
+  selectUsername
 } from "../selectors";
 import Grow from "@material-ui/core/Grow/Grow";
 import withLoader from "../HOCs/withLoader";
 import {
   loadOffer,
-  loadOffersByAsk, loadOffersByBid,
+  loadOffersByAsk,
+  loadOffersByBid,
   loadOffersByUser,
   unloadOffers
 } from "../actions/offers";
 import OfferDetails from "../components/Flyout/OfferDetails";
-import {loadTransactions} from "../actions/transactions";
+import { loadTransactions } from "../actions/transactions";
 
 const styles = () => ({
   root: {
@@ -102,18 +106,10 @@ const Dashboard = ({
     {layer === "DELETE_ASK" && <DeleteAsk />}
     {layer === "DELETE_BID" && <DeleteBid />}
     {layer === "VIEW_OFFER" && <OfferDetails />}
-    <PageHeader
-      leftHandLabel="Dashboard"
-    />
-    <Tile
-      title="My Accepted Offers"
-      count={numberOfTransactions}
-    >
+    <PageHeader leftHandLabel="Dashboard" />
+    <Tile title="My Accepted Offers" count={numberOfTransactions}>
       {myTransactions.map(item => (
-        <TransactionTile
-          item={item}
-          key={item._id}
-        />
+        <TransactionTile item={item} key={item._id} />
       ))}
     </Tile>
     <Tile
@@ -129,11 +125,7 @@ const Dashboard = ({
         />
       ))}
     </Tile>
-    <Tile
-      title="My Asks"
-      count={numberOfAsks}
-      description="looking to sell"
-    >
+    <Tile title="My Asks" count={numberOfAsks} description="looking to sell">
       {myAsks.map(item => (
         <ListTile
           item={item}
@@ -142,11 +134,7 @@ const Dashboard = ({
         />
       ))}
     </Tile>
-    <Tile
-      title="My Bids"
-      count={numberOfBids}
-      description="looking to buy"
-    >
+    <Tile title="My Bids" count={numberOfBids} description="looking to buy">
       {myBids.map(item => (
         <ListTile
           item={item}
@@ -248,7 +236,13 @@ export default compose(
   withDimensions,
   lifecycle({
     componentDidMount() {
-      const { loadMyAsks, loadMyBids, loadOffersByUser, loadTransactions, userId } = this.props;
+      const {
+        loadMyAsks,
+        loadMyBids,
+        loadOffersByUser,
+        loadTransactions,
+        userId
+      } = this.props;
       loadMyAsks(userId);
       loadMyBids(userId);
       loadOffersByUser(userId);
@@ -256,7 +250,13 @@ export default compose(
     }
   }),
   withHandlers({
-    handleAskClick: ({ unloadOffers, loadAsk, loadOffersByAsk, setLayer, setLayerOpen }) => ({ _id }) => {
+    handleAskClick: ({
+      unloadOffers,
+      loadAsk,
+      loadOffersByAsk,
+      setLayer,
+      setLayerOpen
+    }) => ({ _id }) => {
       unloadOffers();
       loadAsk(_id).then(() => {
         loadOffersByAsk(_id);
@@ -264,7 +264,13 @@ export default compose(
         setLayerOpen(true);
       });
     },
-    handleBidClick: ({ unloadOffers, loadBid, loadOffersByBid, setLayer, setLayerOpen }) => ({ _id }) => {
+    handleBidClick: ({
+      unloadOffers,
+      loadBid,
+      loadOffersByBid,
+      setLayer,
+      setLayerOpen
+    }) => ({ _id }) => {
       unloadOffers();
       loadBid(_id).then(() => {
         loadOffersByBid(_id);

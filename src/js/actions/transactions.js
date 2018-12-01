@@ -12,9 +12,10 @@ export const loadTransactions = userId => dispatch =>
     }
   );
 
-export const unloadAsks = () => dispatch => dispatch({ type: UNLOAD_TRANSACTIONS });
+export const unloadAsks = () => dispatch =>
+  dispatch({ type: UNLOAD_TRANSACTIONS });
 
 export const createTransaction = (offerId, owner) => dispatch =>
   wrappedFetch("transaction", { offerId, owner }, "POST").then(response => {
-    dispatch({ type: CREATE_TRANSACTION })
+    dispatch({ type: CREATE_TRANSACTION });
   });

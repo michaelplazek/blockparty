@@ -118,7 +118,7 @@ const propMap = {
 
 const actionMap = {
   setLayerOpen: setLayerOpenAction,
-  loadMyAsks: loadMyAsksAction,
+  loadMyAsks: loadMyAsksAction
 };
 
 export default compose(

@@ -188,21 +188,23 @@ export const selectAskTotal = createSelector(
 
 // TRANSACTIONS
 export const selectTransactions = state => state.transactions.transactions;
-export const selectTransactionsLoaded = state => state.transactions.transactionsLoaded;
+export const selectTransactionsLoaded = state =>
+  state.transactions.transactionsLoaded;
 export const selectTransactionsForDisplay = createSelector(
   selectTransactions,
   selectUserId,
-  (transactions, userId) => fpMap(item => ({
-    ...item,
-    status: 'ACCEPTED',
-    description: userId === item.sellerId ? "Set to sell" : "Set to buy"
-  }))(transactions)
+  (transactions, userId) =>
+    fpMap(item => ({
+      ...item,
+      status: "ACCEPTED",
+      description: userId === item.sellerId ? "Set to sell" : "Set to buy"
+    }))(transactions)
 );
 
 export const selectNumberOfMyTransactions = createSelector(
   selectTransactions,
   selectTransactionsLoaded,
-  (transactions, loaded) => loaded ? transactions.length : 0
+  (transactions, loaded) => (loaded ? transactions.length : 0)
 );
 
 // TEMPORARY OFFER
@@ -283,12 +285,12 @@ export const selectAskHasOffer = createSelector(
 
 export const selectAskOfferButtonText = createSelector(
   selectAskHasOffer,
-  hasOffer => hasOffer ? "Waiting for reply" : "Make an offer"
+  hasOffer => (hasOffer ? "Waiting for reply" : "Make an offer")
 );
 
 export const selectBidOfferButtonText = createSelector(
   selectBidHasOffer,
-  hasOffer => hasOffer ? "Waiting for reply" : "Make an offer"
+  hasOffer => (hasOffer ? "Waiting for reply" : "Make an offer")
 );
 
 export const selectMapMarkers = createSelector(

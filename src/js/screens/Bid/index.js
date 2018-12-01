@@ -9,7 +9,9 @@ import {
   selectLayer,
   selectLayerOpen,
   selectBidHasOffer,
-  selectBidOfferButtonText, selectMyOffersLoaded, selectUserId
+  selectBidOfferButtonText,
+  selectMyOffersLoaded,
+  selectUserId
 } from "../../selectors/index";
 import { loadBid as loadBidAction } from "../../actions/bids";
 import Grid from "@material-ui/core/Grid/Grid";
@@ -24,7 +26,7 @@ import {
   setLayerOpen as setLayerOpenAction
 } from "../../actions/layers";
 import CreateBidOffer from "../../components/Flyout/CreateBidOffer";
-import {loadOffersByUser} from "../../actions/offers";
+import { loadOffersByUser } from "../../actions/offers";
 
 const styles = () => ({
   root: {
@@ -123,9 +125,8 @@ export default compose(
       const id = search.substr(1);
       this.props.loadBid(id);
 
-      if(!this.props.myOffersLoaded) {
+      if (!this.props.myOffersLoaded) {
         this.props.loadOffersByUser(this.props.userId);
-
       }
     }
   }),

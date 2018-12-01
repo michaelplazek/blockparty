@@ -48,9 +48,6 @@ export const deleteOffer = id =>
   wrappedFetchWithParams("offer", undefined, "DELETE", `/${id}`);
 
 export const patchOffer = (id, items) => dispatch =>
-  wrappedFetch("offer", { ...items, id }, "PATCH").then(
-    response => {
-      dispatch({ type: PATCH_OFFER })
-    });
-
-
+  wrappedFetch("offer", { ...items, id }, "PATCH").then(response => {
+    dispatch({ type: PATCH_OFFER });
+  });

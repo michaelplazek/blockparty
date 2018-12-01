@@ -31,7 +31,8 @@ import {
   selectAskFormVolume,
   selectContactInfo,
   selectOfferVolume,
-  selectUserId, selectAskVolume
+  selectUserId,
+  selectAskVolume
 } from "../../../selectors";
 
 const styles = theme => ({

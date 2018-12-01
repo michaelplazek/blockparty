@@ -23,5 +23,5 @@ export default combineReducers({
   bid,
   offers,
   offer,
-  transactions,
+  transactions
 });

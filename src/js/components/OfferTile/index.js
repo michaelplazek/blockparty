@@ -10,7 +10,7 @@ import { getCoinIcon } from "../List/utils";
 import ListItemText from "@material-ui/core/ListItemText/ListItemText";
 import moment from "moment";
 import ListItem from "@material-ui/core/ListItem/ListItem";
-import {getStatusColor} from "../../utils/status";
+import { getStatusColor } from "../../utils/status";
 
 const styles = () => ({
   root: {
@@ -39,12 +39,12 @@ const OfferTile = ({ classes, item, onClick }) => (
         <ListItemText
           disableTypography={true}
           primary={
-            <Grid direction="row" alignItems='center' container>
+            <Grid direction="row" alignItems="center" container>
               <Grid className={classes.icon} item>
                 {getCoinIcon(item.coin)}
               </Grid>
               <Grid item>
-                <Grid container direction='row'>
+                <Grid container direction="row">
                   <Grid item>
                     <Typography className={classes.volume} variant="title">
                       {item.volume}
@@ -65,7 +65,11 @@ const OfferTile = ({ classes, item, onClick }) => (
         />
         <ListItemText
           primary={
-            <Typography style={getStatusColor(item.status)} align="right" variant="caption">
+            <Typography
+              style={getStatusColor(item.status)}
+              align="right"
+              variant="caption"
+            >
               {item.status}
             </Typography>
           }

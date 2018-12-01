@@ -38,12 +38,12 @@ const TransactionTile = ({ classes, item, onClick }) => (
         <ListItemText
           disableTypography={true}
           primary={
-            <Grid direction="row" alignItems='center' container>
+            <Grid direction="row" alignItems="center" container>
               <Grid className={classes.icon} item>
                 {getCoinIcon(item.coin)}
               </Grid>
               <Grid item>
-                <Grid container direction='row'>
+                <Grid container direction="row">
                   <Grid item>
                     <Typography className={classes.volume} variant="title">
                       {item.volume}
@@ -54,9 +54,7 @@ const TransactionTile = ({ classes, item, onClick }) => (
                   </Grid>
                 </Grid>
                 <Grid className={classes.type} item>
-                  <Typography variant="caption">
-                    {item.description}
-                  </Typography>
+                  <Typography variant="caption">{item.description}</Typography>
                 </Grid>
               </Grid>
             </Grid>
@@ -64,7 +62,11 @@ const TransactionTile = ({ classes, item, onClick }) => (
         />
         <ListItemText
           primary={
-            <Typography style={theme.palette.statusOK} align="right" variant="caption">
+            <Typography
+              style={theme.palette.statusOK}
+              align="right"
+              variant="caption"
+            >
               {item.status}
             </Typography>
           }

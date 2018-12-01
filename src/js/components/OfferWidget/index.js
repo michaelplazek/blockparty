@@ -14,27 +14,26 @@ const styles = () => ({
     flexDirection: "column",
     margin: "2px",
     padding: "10px",
-    cursor: "pointer",
+    cursor: "pointer"
   },
   coin: {
     margin: "0px 0px 0px 4px"
   },
-  volume: {
-  },
+  volume: {},
 
   button: {
     margin: "4px"
-  },
+  }
 });
 
 const OfferWidget = ({
-                       classes,
-                       total,
-                       volume,
-                       coin,
-                       time,
-                       open,
-                       setOpen,
+  classes,
+  total,
+  volume,
+  coin,
+  time,
+  open,
+  setOpen,
   handleAccept,
   handleDecline
 }) => (
@@ -42,7 +41,7 @@ const OfferWidget = ({
     <Paper className={classes.root} elevation={1}>
       <Grid container direction="column">
         <Grid item>
-          <Grid container justify='space-between' direction="row">
+          <Grid container justify="space-between" direction="row">
             <Grid item>
               <Typography variant="title">{total}</Typography>
             </Grid>
@@ -60,7 +59,7 @@ const OfferWidget = ({
             </Grid>
           </Grid>
           <Grid item>
-            <Typography variant='caption'>{time}</Typography>
+            <Typography variant="caption">{time}</Typography>
           </Grid>
         </Grid>
         <Grid item>
@@ -82,10 +81,7 @@ const OfferWidget = ({
                   </Button>
                 </Grid>
                 <Grid className={classes.button} item>
-                  <Button
-                    onClick={handleDecline}
-                    variant="raised"
-                  >
+                  <Button onClick={handleDecline} variant="raised">
                     Decline
                   </Button>
                 </Grid>

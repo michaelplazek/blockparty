@@ -1,12 +1,9 @@
 import { stateReducer } from "./utils";
-import {
-  LOAD_TRANSACTIONS,
-  UNLOAD_TRANSACTIONS
-} from "../actions";
+import { LOAD_TRANSACTIONS, UNLOAD_TRANSACTIONS } from "../actions";
 
 const initialState = {
   transactions: [],
-  transactionsLoaded: false,
+  transactionsLoaded: false
 };
 
 const handlers = {
@@ -17,7 +14,7 @@ const handlers = {
   [UNLOAD_TRANSACTIONS]: () => ({
     transactions: initialState.asks,
     transactionsLoaded: false
-  }),
+  })
 };
 
 export default stateReducer(initialState, handlers);

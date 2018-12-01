@@ -6,7 +6,8 @@ import {
   selectAskPostTime,
   selectAskDisplayPrice,
   selectAskState,
-  intoArray, selectAskTotal
+  intoArray,
+  selectAskTotal
 } from "../../selectors";
 
 export const selectPriceDetail = createSelector(
@@ -18,14 +19,11 @@ export const selectPriceDetail = createSelector(
   })
 );
 
-export const selectTotalDetail = createSelector(
-  selectAskTotal,
-  total => ({
-    name: "Total",
-    value: total,
-    onClick: undefined
-  })
-);
+export const selectTotalDetail = createSelector(selectAskTotal, total => ({
+  name: "Total",
+  value: total,
+  onClick: undefined
+}));
 
 export const selectLocationDetail = createSelector(
   selectAskCity,
