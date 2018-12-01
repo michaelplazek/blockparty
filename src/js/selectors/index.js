@@ -40,7 +40,11 @@ export const selectFormattedFilterPrice = createSelector(
 // OFFERS
 export const selectMyOffers = state => state.offers.myOffers;
 export const selectOffer = state => state.offers.offer;
-export const selectOffers = state => state.offers.offers;
+export const selectUnfilteredOffers = state => state.offers.offers;
+export const selectOffers = createSelector(
+  selectUnfilteredOffers,
+  filter(item => item.status !== "DECLINED")
+);
 export const selectOfferTimestamp = state => state.offers.offer.timestamp;
 export const selectOfferLoaded = state => state.offers.offerLoaded;
 export const selectMyOffersLoaded = state => state.offers.myOffersLoaded;
@@ -108,6 +112,7 @@ export const selectBidsForDisplay = createSelector(selectBids, bids =>
 
 // BID
 export const selectBid = state => state.bids.bid;
+export const selectBidCoin = state => state.bids.bid.coin;
 export const selectBidVolume = state => state.bids.bid.volume;
 export const selectBidId = state => state.bids.bid._id;
 export const selectBidPrice = state => state.bids.bid.price;
@@ -145,6 +150,7 @@ export const selectBidTotal = createSelector(
 
 // ASK
 export const selectAsk = state => state.asks.ask;
+export const selectAskCoin = state => state.asks.ask.coin;
 export const selectAskVolume = state => state.asks.ask.volume;
 export const selectAskId = state => state.asks.ask._id;
 export const selectAskTimestamp = state => state.asks.ask.timestamp;
@@ -214,7 +220,7 @@ export const selectBidOfferTotal = createSelector(
 );
 
 // TEMPORARY ASK
-export const selectAskCoin = state => state.ask.coin;
+export const selectAskFormCoin = state => state.ask.coin;
 export const selectAskFormVolume = state => state.ask.volume;
 export const selectAskFormPrice = state => state.ask.price;
 export const selectFormattedAskPrice = createSelector(
@@ -227,7 +233,7 @@ export const selectAskUseCurrentLocation = state =>
   state.ask.useCurrentLocation;
 
 // TEMPORARY BID
-export const selectBidCoin = state => state.bid.coin;
+export const selectBidFormCoin = state => state.bid.coin;
 export const selectBidFormVolume = state => state.bid.volume;
 export const selectBidFormPrice = state => state.bid.price;
 export const selectFormattedBidFormPrice = createSelector(

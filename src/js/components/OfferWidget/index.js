@@ -27,7 +27,17 @@ const styles = () => ({
   },
 });
 
-const OfferWidget = ({ classes, total, volume, coin, time, open, setOpen }) => (
+const OfferWidget = ({
+                       classes,
+                       total,
+                       volume,
+                       coin,
+                       time,
+                       open,
+                       setOpen,
+  handleAccept,
+  handleDecline
+}) => (
   <div onClick={() => setOpen(!open)}>
     <Paper className={classes.root} elevation={1}>
       <Grid container direction="column">
@@ -63,12 +73,21 @@ const OfferWidget = ({ classes, total, volume, coin, time, open, setOpen }) => (
                 container
               >
                 <Grid className={classes.button} item>
-                  <Button variant="raised" color="primary">
+                  <Button
+                    onClick={handleAccept}
+                    variant="raised"
+                    color="primary"
+                  >
                     Accept
                   </Button>
                 </Grid>
                 <Grid className={classes.button} item>
-                  <Button variant="raised">Reject</Button>
+                  <Button
+                    onClick={handleDecline}
+                    variant="raised"
+                  >
+                    Decline
+                  </Button>
                 </Grid>
               </Grid>
             </Collapsible>

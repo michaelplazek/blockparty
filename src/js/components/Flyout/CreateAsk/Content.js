@@ -8,7 +8,7 @@ import TextField from "@material-ui/core/TextField/TextField";
 import Typography from "@material-ui/core/Typography/Typography";
 import Grid from "@material-ui/core/Grid/Grid";
 import {
-  selectAskCoin,
+  selectAskFormCoin,
   selectAskLatitude,
   selectAskLongitude,
   selectAskUseCurrentLocation,
@@ -138,7 +138,7 @@ const CreateAskContent = ({
 };
 
 const propMap = {
-  coin: selectAskCoin,
+  coin: selectAskFormCoin,
   volume: selectAskFormVolume,
   price: selectFormattedAskPrice,
   lat: selectAskLatitude,

@@ -74,10 +74,4 @@ const TransactionTile = ({ classes, item, onClick }) => (
   </div>
 );
 
-TransactionTile.propTypes = {
-  onClick: PropTypes.func.isRequired
-};
-
-TransactionTile.defaultProp = {};
-
 export default compose(withStyles(styles))(TransactionTile);

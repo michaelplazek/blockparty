@@ -10,6 +10,7 @@ import { getCoinIcon } from "../List/utils";
 import ListItemText from "@material-ui/core/ListItemText/ListItemText";
 import moment from "moment";
 import ListItem from "@material-ui/core/ListItem/ListItem";
+import {getStatusColor} from "../../utils/status";
 
 const styles = () => ({
   root: {
@@ -64,7 +65,7 @@ const OfferTile = ({ classes, item, onClick }) => (
         />
         <ListItemText
           primary={
-            <Typography align="right" variant="caption">
+            <Typography style={getStatusColor(item.status)} align="right" variant="caption">
               {item.status}
             </Typography>
           }

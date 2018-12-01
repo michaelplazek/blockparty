@@ -6,12 +6,12 @@ import TextField from "@material-ui/core/TextField/TextField";
 import Typography from "@material-ui/core/Typography/Typography";
 import Grid from "@material-ui/core/Grid/Grid";
 import {
-  selectAskCoin,
   selectAskOfferTotal,
   selectContactInfo,
   selectOfferVolume,
   selectAskVolume,
-  selectAskDisplayPrice
+  selectAskDisplayPrice,
+  selectAskCoin
 } from "../../../selectors";
 import mapper from "../../../utils/connect";
 import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";

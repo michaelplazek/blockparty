@@ -8,13 +8,13 @@ import TextField from "@material-ui/core/TextField/TextField";
 import Typography from "@material-ui/core/Typography/Typography";
 import Grid from "@material-ui/core/Grid/Grid";
 import {
-  selectBidCoin,
   selectBidLatitude,
   selectBidLongitude,
   selectBidUseCurrentLocation,
   selectBidFormVolume,
   selectFormattedBidFormPrice,
-  selectWindowWidth
+  selectWindowWidth,
+  selectBidCoin
 } from "../../../selectors";
 import mapper from "../../../utils/connect";
 import {
