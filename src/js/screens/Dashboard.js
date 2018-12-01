@@ -107,15 +107,18 @@ const Dashboard = ({
     {layer === "DELETE_BID" && <DeleteBid />}
     {layer === "VIEW_OFFER" && <OfferDetails />}
     <PageHeader leftHandLabel="Dashboard" />
-    <Tile title="My Accepted Offers" count={numberOfTransactions}>
+    <Tile
+      title="Accepted Offers"
+      count={numberOfTransactions}
+    >
       {myTransactions.map(item => (
         <TransactionTile item={item} key={item._id} />
       ))}
     </Tile>
     <Tile
-      // color="#f2f2f2"
       title="My Offers"
       count={numberOfOffers}
+      description="offers I've made"
     >
       {myOffers.map(item => (
         <OfferTile
@@ -125,7 +128,11 @@ const Dashboard = ({
         />
       ))}
     </Tile>
-    <Tile title="My Asks" count={numberOfAsks} description="looking to sell">
+    <Tile
+      title="My Asks"
+      count={numberOfAsks}
+      description="looking to sell"
+    >
       {myAsks.map(item => (
         <ListTile
           item={item}
@@ -134,7 +141,11 @@ const Dashboard = ({
         />
       ))}
     </Tile>
-    <Tile title="My Bids" count={numberOfBids} description="looking to buy">
+    <Tile
+      title="My Bids"
+      count={numberOfBids}
+      description="looking to buy"
+    >
       {myBids.map(item => (
         <ListTile
           item={item}

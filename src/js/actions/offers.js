@@ -4,7 +4,8 @@ import {
   LOAD_OFFERS_BY_ASK,
   UNLOAD_OFFERS,
   LOAD_OFFERS_BY_BID,
-  PATCH_OFFER
+  PATCH_OFFER,
+  DELETE_OFFER
 } from "./index";
 import { wrappedFetch, wrappedFetchWithParams } from "../api/utils";
 
@@ -44,10 +45,12 @@ export const createAskOffer = offer =>
 export const createBidOffer = offer =>
   wrappedFetch("bid_offers", offer, "POST");
 
-export const deleteOffer = id =>
-  wrappedFetchWithParams("offer", undefined, "DELETE", `/${id}`);
+export const deleteOffer = id => dispatch =>
+  wrappedFetchWithParams("offer", undefined, "DELETE", `/${id}`).then(() => {
+    dispatch({ type: DELETE_OFFER });
+  });
 
 export const patchOffer = (id, items) => dispatch =>
-  wrappedFetch("offer", { ...items, id }, "PATCH").then(response => {
+  wrappedFetch("offer", { ...items, id }, "PATCH").then(() => {
     dispatch({ type: PATCH_OFFER });
   });
