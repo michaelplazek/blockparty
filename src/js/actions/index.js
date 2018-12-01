@@ -15,6 +15,7 @@ export const UNLOAD_BIDS = "UNLOAD_BIDS";
 export const LOAD_BID = "LOAD_BID";
 export const UNLOAD_BID = "UNLOAD_BID";
 export const CREATE_BID = "CREATE_BID";
+export const DELETE_BID = "DELETE_BID";
 
 // TEMPORARY ASK
 export const SET_ASK_COIN = "SET_ASK_COIN";

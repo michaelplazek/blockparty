@@ -9,7 +9,8 @@ import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
 import {
   selectLayerOpen,
   selectOffer,
-  selectOfferPostTime, selectUserId,
+  selectOfferPostTime,
+  selectUserId,
   selectWindowHeight,
   selectWindowWidth
 } from "../../../selectors";
