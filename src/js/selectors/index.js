@@ -263,6 +263,7 @@ export const selectBidHasOffer = createSelector(
   (myOffers, bidId) => {
     const ids = compose(
       fpMap(item => item.postId),
+      filter(item => item.status !== "DECLINED")
     )(myOffers);
     return ids.includes(bidId);
   }
@@ -273,7 +274,8 @@ export const selectAskHasOffer = createSelector(
   selectAskId,
   (myOffers, askId) => {
     const ids = compose(
-      fpMap(item => item.postId)
+      fpMap(item => item.postId),
+      filter(item => item.status !== "DECLINED")
     )(myOffers);
     return ids.includes(askId);
   }
