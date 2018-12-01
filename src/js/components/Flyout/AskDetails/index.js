@@ -1,5 +1,5 @@
 import React from "react";
-import { compose } from "recompose";
+import {compose, withHandlers} from "recompose";
 import { withRouter } from "react-router-dom";
 import withStyles from "@material-ui/core/styles/withStyles";
 import mapper from "../../../utils/connect";
@@ -9,7 +9,7 @@ import DetailBox from "../../DetailBox";
 import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
 import {
   deleteAsk,
-  loadMyAsks as loadMyAsksAction
+  loadMyAsks
 } from "../../../actions/asks";
 import {
   selectAsk,
@@ -17,7 +17,7 @@ import {
   selectAskOfferTotal,
   selectAskPostTime,
   selectLayerOpen,
-  selectOffers,
+  selectOffers, selectUserId,
   selectWindowHeight,
   selectWindowWidth
 } from "../../../selectors";
@@ -25,6 +25,8 @@ import OfferWidgetList from "../../OfferWidgetList/index";
 import Grid from "@material-ui/core/Grid/Grid";
 import Typography from "@material-ui/core/Typography/Typography";
 import Button from "@material-ui/core/Button/Button";
+import {loadMyBids} from "../../../actions/bids";
+import {loadOffersByUser} from "../../../actions/offers";
 
 const styles = () => ({
   paper: {
@@ -56,7 +58,8 @@ const AskDetails = ({
   open,
   offers,
   time,
-  history
+  history,
+  handleDelete
 }) => (
   <Flyout
     onClose={() => {
@@ -90,10 +93,7 @@ const AskDetails = ({
             <Button
               variant="contained"
               disabled={offers.length > 0}
-              onClick={() => {
-                deleteAsk(ask._id);
-                setLayerOpen(false);
-              }}
+              onClick={() => handleDelete(ask._id)}
             >
               Delete Ask
             </Button>
@@ -108,6 +108,7 @@ const AskDetails = ({
 const propMap = {
   open: selectLayerOpen,
   ask: selectAsk,
+  userId: selectUserId,
   askLoaded: selectAskLoaded,
   offers: selectOffers,
   total: selectAskOfferTotal,
@@ -118,11 +119,31 @@ const propMap = {
 
 const actionMap = {
   setLayerOpen: setLayerOpenAction,
-  loadMyAsks: loadMyAsksAction
+  deleteAsk,
+  loadOffersByUser,
+  loadMyAsks,
+  loadMyBids
 };
 
 export default compose(
   mapper(propMap, actionMap),
   withStyles(styles),
-  withRouter
+  withRouter,
+  withHandlers({
+    handleDelete: ({
+     deleteAsk,
+     loadOffersByUser,
+     userId,
+     setLayerOpen,
+     loadMyAsks,
+     loadMyBids
+   }) => (id) => {
+      deleteAsk(id).then(() => {
+        loadOffersByUser(userId);
+        loadMyBids(userId);
+        loadMyAsks(userId);
+      });
+      setLayerOpen(false);
+    }
+  }),
 )(AskDetails);
