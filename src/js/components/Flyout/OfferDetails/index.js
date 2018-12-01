@@ -18,6 +18,7 @@ import numeral from "numeral";
 import { USD } from "../../../constants/currency";
 import Flyout from "../index";
 import Paper from "@material-ui/core/Paper/Paper";
+import {getStatusColor} from "../../../utils/status";
 
 const styles = () => ({
   button: {
@@ -101,7 +102,7 @@ const OfferDetails = ({
               </Grid>
             </Grid>
             <Grid item>
-              <Typography className={classes.rate} variant="caption">
+              <Typography style={getStatusColor(offer.status)} className={classes.rate} variant="caption">
                 {offer.status}
               </Typography>
             </Grid>
@@ -115,18 +116,6 @@ const OfferDetails = ({
           alignItems="center"
           container
         >
-          {/*<div className={classes.button}>*/}
-            {/*<Button*/}
-              {/*variant="contained"*/}
-              {/*disabled={offer.length > 0}*/}
-              {/*onClick={() => {*/}
-                {/*deleteOffer(offer._id);*/}
-                {/*setLayerOpen(false);*/}
-              {/*}}*/}
-            {/*>*/}
-              {/*Delete Offer*/}
-            {/*</Button>*/}
-          {/*</div>*/}
           <Typography className={classes.time}>Posted {time}</Typography>
         </Grid>
       </Grid>
