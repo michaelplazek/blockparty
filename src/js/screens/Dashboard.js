@@ -4,6 +4,7 @@ import mapper from "../utils/connect";
 
 import Tile from "../components/Tile";
 import ListTile from "../components/ListTile/index";
+import TransactionTile from "../components/TransactionTile/index";
 
 import {
   setLayer as setLayerAction,
@@ -40,7 +41,7 @@ import {
   selectNavHeight,
   selectNumberOfMyAsks,
   selectNumberOfMyBids,
-  selectNumberOfMyOffers,
+  selectNumberOfMyOffers, selectNumberOfMyTransactions, selectTransactionsForDisplay,
   selectUserId, selectUsername
 } from "../selectors";
 import Grow from "@material-ui/core/Grow/Grow";
@@ -77,9 +78,11 @@ const Dashboard = ({
   numberOfBids,
   numberOfAsks,
   numberOfOffers,
+  numberOfTransactions,
   myBids,
   myAsks,
   myOffers,
+  myTransactions,
   loadAsk,
   loadBid,
   loadOffer,
@@ -104,9 +107,14 @@ const Dashboard = ({
     />
     <Tile
       title="My Accepted Offers"
-      count={numberOfOffers}
+      count={numberOfTransactions}
     >
-
+      {myTransactions.map(item => (
+        <TransactionTile
+          item={item}
+          key={item._id}
+        />
+      ))}
     </Tile>
     <Tile
       // color="#f2f2f2"
@@ -207,9 +215,11 @@ const propMap = {
   myBids: selectMyBids,
   myAsks: selectMyAsks,
   myOffers: selectMyOffers,
+  myTransactions: selectTransactionsForDisplay,
   numberOfBids: selectNumberOfMyBids,
   numberOfAsks: selectNumberOfMyAsks,
   numberOfOffers: selectNumberOfMyOffers,
+  numberOfTransactions: selectNumberOfMyTransactions,
   loaded: selectDashboardLoaded,
   footerHeight: selectNavHeight
 };

@@ -19,6 +19,13 @@ const NUMBER_OF_BINS = 100;
 
 export const intoArray = (...args) => args;
 
+// SESSION
+export const selectIsLoggedIn = state => state.session.loggedIn;
+export const selectSessionLoaded = state => state.session.sessionLoaded;
+export const selectUsername = state => state.session.username;
+export const selectUserId = state => state.session.userId;
+export const selectCurrentLocation = state => state.session.location;
+
 // FILTERS
 export const selectFilterDistance = state => state.filters.distanceAway;
 export const selectFilterCoin = state => state.filters.coin;
@@ -48,7 +55,11 @@ export const selectNumberOfMyOffers = createSelector(
 );
 
 // ASKS
-export const selectAsks = state => state.asks.asks;
+export const selectUnfilteredAsks = state => state.asks.asks;
+export const selectAsks = createSelector(
+  selectUnfilteredAsks,
+  filter(item => !item.isAccepted)
+);
 export const selectAskLoaded = state => state.asks.askLoaded;
 export const selectMyUnfilteredAsks = state => state.asks.myAsks;
 export const selectMyAsks = createSelector(
@@ -70,7 +81,11 @@ export const selectAsksForDisplay = createSelector(selectAsks, asks =>
 );
 
 // BIDS
-export const selectBids = state => state.bids.bids;
+export const selectUnfilteredBids = state => state.bids.bids;
+export const selectBids = createSelector(
+  selectUnfilteredBids,
+  filter(item => !item.isAccepted)
+);
 export const selectBidLoaded = state => state.bids.bidLoaded;
 export const selectMyUnfilteredBids = state => state.bids.myBids;
 export const selectMyBids = createSelector(
@@ -168,6 +183,21 @@ export const selectAskTotal = createSelector(
 // TRANSACTIONS
 export const selectTransactions = state => state.transactions.transactions;
 export const selectTransactionsLoaded = state => state.transactions.transactionsLoaded;
+export const selectTransactionsForDisplay = createSelector(
+  selectTransactions,
+  selectUserId,
+  (transactions, userId) => fpMap(item => ({
+    ...item,
+    status: 'ACCEPTED',
+    description: userId === item.sellerId ? "Set to sell" : "Set to buy"
+  }))(transactions)
+);
+
+export const selectNumberOfMyTransactions = createSelector(
+  selectTransactions,
+  selectTransactionsLoaded,
+  (transactions, loaded) => loaded ? transactions.length : 0
+);
 
 // TEMPORARY OFFER
 export const selectOfferVolume = state => state.offer.volume;
@@ -212,13 +242,6 @@ export const selectBidUseCurrentLocation = state =>
 // LAYERS
 export const selectLayer = state => state.layers.layer;
 export const selectLayerOpen = state => state.layers.open;
-
-// SESSION
-export const selectIsLoggedIn = state => state.session.loggedIn;
-export const selectSessionLoaded = state => state.session.sessionLoaded;
-export const selectUsername = state => state.session.username;
-export const selectUserId = state => state.session.userId;
-export const selectCurrentLocation = state => state.session.location;
 
 // APP
 export const selectNavHeight = state => state.app.navigationBarHeight;
