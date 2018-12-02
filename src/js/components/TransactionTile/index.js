@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 
 import { compose } from "recompose";
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -10,6 +9,7 @@ import { getCoinIcon } from "../List/utils";
 import ListItemText from "@material-ui/core/ListItemText/ListItemText";
 import ListItem from "@material-ui/core/ListItem/ListItem";
 import theme from "../../../theme";
+import {getStatusIcon} from "../../utils/status";
 
 const styles = () => ({
   root: {
@@ -28,6 +28,13 @@ const styles = () => ({
     position: "relative",
     bottom: "3px",
     left: "1px"
+  },
+  status: {
+    position: "relative",
+    left: "1em"
+  },
+  statusIcon: {
+    marginLeft: "2px"
   }
 });
 
@@ -62,13 +69,20 @@ const TransactionTile = ({ classes, item, onClick }) => (
         />
         <ListItemText
           primary={
-            <Typography
-              style={theme.palette.statusOK}
-              align="right"
-              variant="caption"
-            >
-              {item.status}
-            </Typography>
+            <Grid className={classes.status} container direction='row' alignItems='center'>
+              <Grid item>
+              <Typography
+                style={theme.palette.statusOK}
+                align="right"
+                variant="caption"
+              >
+                {item.status}
+              </Typography>
+              </Grid>
+              <Grid className={classes.statusIcon} item>
+                {getStatusIcon(item.status)}
+              </Grid>
+            </Grid>
           }
         />
       </ListItem>
@@ -76,4 +90,6 @@ const TransactionTile = ({ classes, item, onClick }) => (
   </div>
 );
 
-export default compose(withStyles(styles))(TransactionTile);
+export default compose(
+  withStyles(styles),
+)(TransactionTile);
