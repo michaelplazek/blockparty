@@ -282,6 +282,11 @@ export const selectAskLatitude = state => state.ask.lat;
 export const selectAskLongitude = state => state.ask.lng;
 export const selectAskUseCurrentLocation = state =>
   state.ask.useCurrentLocation;
+export const selectAskFormTotal = createSelector(
+  selectAskFormVolume,
+  selectAskFormPrice,
+  (volume, price) => numeral(volume * price).format(USD)
+);
 
 // TEMPORARY BID
 export const selectBidFormCoin = state => state.bid.coin;
@@ -295,6 +300,11 @@ export const selectBidLatitude = state => state.bid.lat;
 export const selectBidLongitude = state => state.bid.lng;
 export const selectBidUseCurrentLocation = state =>
   state.bid.useCurrentLocation;
+export const selectBidFormTotal = createSelector(
+  selectBidFormVolume,
+  selectBidFormPrice,
+  (volume, price) => numeral(volume * price).format(USD)
+);
 
 // LAYERS
 export const selectLayer = state => state.layers.layer;

@@ -14,7 +14,7 @@ import {
   selectBidFormVolume,
   selectFormattedBidFormPrice,
   selectWindowWidth,
-  selectBidCoin, selectBidTotal
+  selectBidCoin, selectBidTotal, selectBidFormTotal
 } from "../../../selectors";
 import mapper from "../../../utils/connect";
 import {
@@ -141,7 +141,7 @@ const propMap = {
   coin: selectBidCoin,
   volume: selectBidFormVolume,
   price: selectFormattedBidFormPrice,
-  total: selectBidTotal,
+  total: selectBidFormTotal,
   lat: selectBidLatitude,
   lng: selectBidLongitude,
   useCurrentLocation: selectBidUseCurrentLocation,
