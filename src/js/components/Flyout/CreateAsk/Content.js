@@ -15,7 +15,7 @@ import {
   selectAskFormVolume,
   selectFormattedAskPrice,
   selectWindowWidth,
-  selectAskFormTotal
+  selectAskFormTotal, selectAskFormContactInfo
 } from "../../../selectors";
 import mapper from "../../../utils/connect";
 import {
@@ -24,7 +24,7 @@ import {
   setAskVolume as setAskVolumeAction,
   setAskLatitude as setAskLatitudeAction,
   setAskLongitude as setAskLongitudeAction,
-  setAskUseCurrentLocation as setAskUseCurrentLocationAction
+  setAskUseCurrentLocation as setAskUseCurrentLocationAction, setAskContactInfo
 } from "../../../actions/createAsk";
 import FormControlLabel from "@material-ui/core/FormControlLabel/FormControlLabel";
 import Switch from "@material-ui/core/Switch/Switch";
@@ -47,7 +47,9 @@ const CreateAskContent = ({
   setAskVolume,
   handleDrag,
   useCurrentLocation,
-  handleToggle
+  handleToggle,
+  contactInfo,
+  setAskContactInfo,
 }) => {
   switch (index) {
     case 0:
@@ -130,6 +132,19 @@ const CreateAskContent = ({
       );
     case 4:
       return (
+        <FormControl margin="dense" fullWidth={true}>
+          <TextField
+            id="contactInfo"
+            value={contactInfo}
+            onChange={({ target }) => setAskContactInfo(target.value)}
+            margin="dense"
+            helperText="Usually a phone number"
+            variant="standard"
+          />
+        </FormControl>
+      );
+    case 5:
+      return (
         <Grid container direction="column">
           <Typography>Type: {coin}</Typography>
           <Typography>Volume: {volume}</Typography>
@@ -145,6 +160,7 @@ const propMap = {
   volume: selectAskFormVolume,
   price: selectFormattedAskPrice,
   total: selectAskFormTotal,
+  contactInfo: selectAskFormContactInfo,
   lat: selectAskLatitude,
   lng: selectAskLongitude,
   width: selectWindowWidth,
@@ -157,7 +173,8 @@ const actionMap = {
   setAskPrice: setAskPriceAction,
   setAskLatitude: setAskLatitudeAction,
   setAskLongitude: setAskLongitudeAction,
-  setUseCurrentLocation: setAskUseCurrentLocationAction
+  setUseCurrentLocation: setAskUseCurrentLocationAction,
+  setAskContactInfo
 };
 
 export default compose(
