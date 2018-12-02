@@ -7,15 +7,19 @@ import Flyout from "../index";
 
 import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
 import {
-  selectLayerOpen, selectTransaction, selectTransactionId,
+  selectLayerOpen,
+  selectTransactionId, selectUserId,
   selectWindowHeight,
   selectWindowWidth
 } from "../../../selectors";
 import Grid from "@material-ui/core/Grid/Grid";
-import {loadTransaction} from "../../../actions/transactions";
+import {completeTransaction, loadTransaction, loadTransactions} from "../../../actions/transactions";
 import {selectTransactionDetails} from "./selectors";
 import DetailList from "./DetailList";
 import ButtonContainer from "./ButtonContainer";
+import {loadMyAsks} from "../../../actions/asks";
+import {loadMyBids} from "../../../actions/bids";
+import {loadOffersByUser} from "../../../actions/offers";
 
 const styles = () => ({
   list: {
@@ -46,7 +50,6 @@ const TransactionDetails = ({
     <Grid className={classes.list} container direction="column">
       <DetailList items={items} />
       <ButtonContainer
-        id={id}
         handleComplete={handleComplete}
         handleCancel={handleCancel}
       />
@@ -56,6 +59,7 @@ const TransactionDetails = ({
 
 const propMap = {
   open: selectLayerOpen,
+  userId: selectUserId,
   windowHeight: selectWindowHeight,
   windowWidth: selectWindowWidth,
   items: selectTransactionDetails,
@@ -64,7 +68,12 @@ const propMap = {
 
 const actionMap = {
   setLayerOpen: setLayerOpenAction,
-  loadTransaction
+  loadTransaction,
+  completeTransaction,
+  loadTransactions,
+  loadMyAsks,
+  loadMyBids,
+  loadOffersByUser
 };
 
 export default compose(
@@ -72,8 +81,23 @@ export default compose(
   withStyles(styles),
   withRouter,
   withHandlers({
-    handleComplete: () => () => {
-
+    handleComplete: ({
+      userId,
+      id,
+      completeTransaction,
+      setLayerOpen,
+      loadTransactions,
+      loadMyAsks,
+      loadMyBids,
+      loadOffersByUser
+    }) => () => {
+      completeTransaction(id, userId).then(() => {
+        loadTransactions(userId);
+        loadMyAsks(userId);
+        loadMyBids(userId);
+        loadOffersByUser(userId);
+        setLayerOpen(false);
+      })
     },
     handleCancel: () => () => {
 

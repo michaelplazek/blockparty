@@ -224,7 +224,7 @@ export const selectTransactionSellerId = state => state.transactions.transaction
 export const selectTransactionSellerUsername = state => state.transactions.transaction.sellerUsername;
 export const selectTransactionBuyerId = state => state.transactions.transaction.buyerId;
 export const selectTransactionBuyerUsername = state => state.transactions.transaction.buyerUsername;
-export const selectTransactionId = state => state.transactions.transaction.id;
+export const selectTransactionId = state => state.transactions.transaction._id;
 export const selectTransactionCoin = state => state.transactions.transaction.coin;
 export const selectTransactionVolume = state => state.transactions.transaction.volume;
 export const selectTransactionContactInfo = state => state.transactions.transaction.contactInfo;

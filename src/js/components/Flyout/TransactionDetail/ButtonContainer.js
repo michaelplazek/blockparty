@@ -24,7 +24,7 @@ const ButtonContainer = ({ id, classes, handleComplete, handleCancel }) => (
     <Grid item className={classes.button}>
       <Button
         variant="contained"
-        onClick={() => handleComplete(id)}
+        onClick={handleComplete}
         color="primary"
       >
         Mark as Completed
@@ -33,7 +33,7 @@ const ButtonContainer = ({ id, classes, handleComplete, handleCancel }) => (
     <Grid item className={classes.button}>
       <Button
         variant="contained"
-        onClick={() => handleCancel(id)}
+        onClick={handleCancel}
       >
         Mark as Cancelled
       </Button>
