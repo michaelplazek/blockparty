@@ -13,7 +13,7 @@ import {
   selectWindowWidth
 } from "../../../selectors";
 import Grid from "@material-ui/core/Grid/Grid";
-import {completeTransaction, loadTransaction, loadTransactions} from "../../../actions/transactions";
+import {cancelTransaction, completeTransaction, loadTransaction, loadTransactions} from "../../../actions/transactions";
 import {selectCompleteButtonIsDisabled, selectTransactionDetails} from "./selectors";
 import DetailList from "./DetailList";
 import ButtonContainer from "./ButtonContainer";
@@ -76,7 +76,8 @@ const actionMap = {
   loadTransactions,
   loadMyAsks,
   loadMyBids,
-  loadOffersByUser
+  loadOffersByUser,
+  cancelTransaction
 };
 
 export default compose(
@@ -102,8 +103,23 @@ export default compose(
         setLayerOpen(false);
       })
     },
-    handleCancel: () => () => {
-
+    handleCancel: ({
+      id,
+      userId,
+      cancelTransaction,
+      setLayerOpen,
+      loadTransactions,
+      loadMyAsks,
+      loadMyBids,
+      loadOffersByUser
+    }) => () => {
+      cancelTransaction(id).then(() => {
+        loadTransactions(userId);
+        loadMyAsks(userId);
+        loadMyBids(userId);
+        loadOffersByUser(userId);
+        setLayerOpen(false);
+      })
     }
   }),
 )(TransactionDetails);

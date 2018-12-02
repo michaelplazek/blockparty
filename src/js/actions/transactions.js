@@ -4,7 +4,8 @@ import {
   LOAD_TRANSACTION,
   UNLOAD_TRANSACTION,
   CREATE_TRANSACTION,
-  COMPLETE_TRANSACTION
+  COMPLETE_TRANSACTION,
+  CANCEL_TRANSACTION
 } from "./index";
 import { wrappedFetch, wrappedFetchWithParams } from "../api/utils";
 
@@ -36,4 +37,9 @@ export const createTransaction = (offerId, owner) => dispatch =>
 export const completeTransaction = (id, userId) => dispatch =>
   wrappedFetch("transaction_complete", { id, userId }, "POST").then(response => {
     dispatch({ type: COMPLETE_TRANSACTION });
+  });
+
+export const cancelTransaction = (id) => dispatch =>
+  wrappedFetch("transaction_cancelled", { id }, "POST").then(response => {
+    dispatch({ type: CANCEL_TRANSACTION });
   });
