@@ -25,7 +25,7 @@ const ListTileWithBadge = ({ classes, onClick, item }) => {
       <Badge
         classes={{ badge: classes.badge }}
         badgeContent={item.offers.length}
-        color="secondary"
+        color="primary"
       >
         <ListTile onClick={onClick} item={item} />
       </Badge>

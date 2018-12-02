@@ -208,7 +208,7 @@ export const selectTransactionsForDisplay = createSelector(
     fpMap(item => ({
       ...item,
       status: "ACCEPTED",
-      description: userId === item.sellerId ? "Set to sell" : "Set to buy"
+      description: userId === item.sellerId ? "Ready to sell" : "Ready to buy"
     }))(transactions)
 );
 
@@ -217,6 +217,17 @@ export const selectNumberOfMyTransactions = createSelector(
   selectTransactionsLoaded,
   (transactions, loaded) => (loaded ? transactions.length : 0)
 );
+
+export const selectTransaction = state => state.transactions.transaction;
+export const selectTransactionLoaded = state => state.transactions.transactionLoaded;
+export const selectTransactionSellerId = state => state.transactions.transaction.sellerId;
+export const selectTransactionSellerUsername = state => state.transactions.transaction.sellerUsername;
+export const selectTransactionBuyerId = state => state.transactions.transaction.buyerId;
+export const selectTransactionBuyerUsername = state => state.transactions.transaction.buyerUsername;
+export const selectTransactionId = state => state.transactions.transaction.id;
+export const selectTransactionCoin = state => state.transactions.transaction.coin;
+export const selectTransactionVolume = state => state.transactions.transaction.volume;
+export const selectTransactionPrice = state => state.transactions.transaction.price;
 
 // TEMPORARY OFFER
 export const selectOfferVolume = state => state.offer.volume;
