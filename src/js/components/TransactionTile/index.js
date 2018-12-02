@@ -33,7 +33,7 @@ const styles = () => ({
 
 const TransactionTile = ({ classes, item, onClick }) => (
   <div>
-    <Paper className={classes.root} elevation={1}>
+    <Paper className={classes.root} elevation={2}>
       <ListItem button onClick={onClick}>
         <ListItemText
           disableTypography={true}

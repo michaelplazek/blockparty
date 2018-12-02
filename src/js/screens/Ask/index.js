@@ -28,6 +28,7 @@ import {
 } from "../../actions/layers";
 import CreateAskOffer from "../../components/Flyout/CreateAskOffer";
 import { loadOffersByUser } from "../../actions/offers";
+import {selectAskHasButton} from "../../selectors";
 
 const styles = () => ({
   root: {
@@ -54,7 +55,8 @@ const Ask = ({
   open,
   handleOffer,
   hasAskOffer,
-  buttonText
+  buttonText,
+  showButton
 }) => (
   <div>
     {loaded && (
@@ -75,15 +77,17 @@ const Ask = ({
             <br />
             <DetailList items={items} />
           </div>
-          <Button
-            className={classes.buttons}
-            variant="extendedFab"
-            disabled={hasAskOffer}
-            color="primary"
-            onClick={handleOffer}
-          >
-            {buttonText}
-          </Button>
+          {showButton &&
+            <Button
+              className={classes.buttons}
+              variant="extendedFab"
+              disabled={hasAskOffer}
+              color="primary"
+              onClick={handleOffer}
+            >
+              {buttonText}
+            </Button>
+          }
         </Grid>
         <Grid />
       </div>
@@ -106,7 +110,8 @@ const propMap = {
   hasAskOffer: selectAskHasOffer,
   buttonText: selectAskOfferButtonText,
   myOffersLoaded: selectMyOffersLoaded,
-  userId: selectUserId
+  userId: selectUserId,
+  showButton: selectAskHasButton
 };
 
 const actionMap = {

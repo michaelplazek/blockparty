@@ -147,6 +147,11 @@ export const selectBidTotal = createSelector(
   selectBidPrice,
   (volume, price) => numeral(volume * price).format(USD)
 );
+export const selectBidHasButton = createSelector(
+  selectBidOwner,
+  selectUsername,
+  (owner, username) => owner !== username
+);
 
 // ASK
 export const selectAsk = state => state.asks.ask;
@@ -186,6 +191,12 @@ export const selectAskTotal = createSelector(
   (volume, price) => numeral(volume * price).format(USD)
 );
 
+export const selectAskHasButton = createSelector(
+  selectAskOwner,
+  selectUsername,
+  (owner, username) => owner !== username
+);
+
 // TRANSACTIONS
 export const selectTransactions = state => state.transactions.transactions;
 export const selectTransactionsLoaded = state =>
@@ -220,6 +231,7 @@ export const selectBidOfferTotal = createSelector(
   selectOfferVolume,
   (price, volume) => numeral(price * volume).format(USD)
 );
+
 
 // TEMPORARY ASK
 export const selectAskFormCoin = state => state.ask.coin;
