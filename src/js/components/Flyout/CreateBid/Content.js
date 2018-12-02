@@ -14,7 +14,7 @@ import {
   selectBidFormVolume,
   selectFormattedBidFormPrice,
   selectWindowWidth,
-  selectBidCoin
+  selectBidCoin, selectBidTotal
 } from "../../../selectors";
 import mapper from "../../../utils/connect";
 import {
@@ -35,6 +35,7 @@ const CreateBidContent = ({
   coin,
   volume,
   price,
+  total,
   lat,
   lng,
   width,
@@ -130,6 +131,7 @@ const CreateBidContent = ({
           <Typography>Type: {coin}</Typography>
           <Typography>Volume: {volume}</Typography>
           <Typography>Price: {price}</Typography>
+          <Typography variant="subheading">Total: {total}</Typography>
         </Grid>
       );
   }
@@ -139,6 +141,7 @@ const propMap = {
   coin: selectBidCoin,
   volume: selectBidFormVolume,
   price: selectFormattedBidFormPrice,
+  total: selectBidTotal,
   lat: selectBidLatitude,
   lng: selectBidLongitude,
   useCurrentLocation: selectBidUseCurrentLocation,

@@ -14,7 +14,7 @@ import {
   selectAskUseCurrentLocation,
   selectAskFormVolume,
   selectFormattedAskPrice,
-  selectWindowWidth
+  selectWindowWidth, selectAskTotal
 } from "../../../selectors";
 import mapper from "../../../utils/connect";
 import {
@@ -37,6 +37,7 @@ const CreateAskContent = ({
   coin,
   volume,
   price,
+  total,
   width,
   lat,
   lng,
@@ -132,6 +133,7 @@ const CreateAskContent = ({
           <Typography>Type: {coin}</Typography>
           <Typography>Volume: {volume}</Typography>
           <Typography>Price: {price}</Typography>
+          <Typography variant="subheading">Total: {total}</Typography>
         </Grid>
       );
   }
@@ -141,6 +143,7 @@ const propMap = {
   coin: selectAskFormCoin,
   volume: selectAskFormVolume,
   price: selectFormattedAskPrice,
+  total: selectAskTotal,
   lat: selectAskLatitude,
   lng: selectAskLongitude,
   width: selectWindowWidth,
