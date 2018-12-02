@@ -14,7 +14,7 @@ const styles = () => ({
   }
 });
 
-const ButtonContainer = ({ id, classes, handleComplete, handleCancel }) => (
+const ButtonContainer = ({ id, classes, handleComplete, handleCancel, disabled }) => (
   <Grid
     container
     direction='column'
@@ -26,8 +26,9 @@ const ButtonContainer = ({ id, classes, handleComplete, handleCancel }) => (
         variant="contained"
         onClick={handleComplete}
         color="primary"
+        disabled={disabled}
       >
-        Mark as Completed
+        {disabled ? "Marked as completed" : "Mark as completed"}
       </Button>
     </Grid>
     <Grid item className={classes.button}>

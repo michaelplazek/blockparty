@@ -9,7 +9,11 @@ import {
   selectTransactionFormattedTotal,
   selectTransactionContactInfo,
   selectTransactionBuyerUsername,
-  selectTransactionSellerUsername, selectUsername,
+  selectTransactionSellerUsername,
+  selectUsername,
+  selectUserIsBuyer,
+  selectUserIsSeller,
+  selectTransactionCompletedByBuyer, selectTransactionCompletedBySeller,
 } from "../../../selectors";
 
 export const selectTypeDetail = createSelector(
@@ -76,4 +80,15 @@ export const selectTransactionDetails = createSelector(
   selectTotalDetail,
   selectContactDetail,
   intoArray
+);
+
+export const selectCompleteButtonIsDisabled = createSelector(
+  selectUserIsBuyer,
+  selectUserIsSeller,
+  selectTransactionCompletedByBuyer,
+  selectTransactionCompletedBySeller,
+  (userIsBuyer, userIsSeller, completedByBuyer, completedBySeller) => {
+    if(userIsBuyer) return completedByBuyer;
+    else if(userIsSeller) return completedBySeller;
+  }
 );

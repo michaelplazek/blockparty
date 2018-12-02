@@ -14,7 +14,7 @@ import {
 } from "../../../selectors";
 import Grid from "@material-ui/core/Grid/Grid";
 import {completeTransaction, loadTransaction, loadTransactions} from "../../../actions/transactions";
-import {selectTransactionDetails} from "./selectors";
+import {selectCompleteButtonIsDisabled, selectTransactionDetails} from "./selectors";
 import DetailList from "./DetailList";
 import ButtonContainer from "./ButtonContainer";
 import {loadMyAsks} from "../../../actions/asks";
@@ -37,7 +37,8 @@ const TransactionDetails = ({
   items,
   id,
   handleComplete,
-  handleCancel
+  handleCancel,
+  completeButtonIsDisabled
 }) => (
   <Flyout
     onClose={() => {
@@ -50,6 +51,7 @@ const TransactionDetails = ({
     <Grid className={classes.list} container direction="column">
       <DetailList items={items} />
       <ButtonContainer
+        disabled={completeButtonIsDisabled}
         handleComplete={handleComplete}
         handleCancel={handleCancel}
       />
@@ -63,7 +65,8 @@ const propMap = {
   windowHeight: selectWindowHeight,
   windowWidth: selectWindowWidth,
   items: selectTransactionDetails,
-  id: selectTransactionId
+  id: selectTransactionId,
+  completeButtonIsDisabled: selectCompleteButtonIsDisabled
 };
 
 const actionMap = {

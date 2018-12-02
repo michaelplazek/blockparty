@@ -224,6 +224,10 @@ export const selectTransactionSellerId = state => state.transactions.transaction
 export const selectTransactionSellerUsername = state => state.transactions.transaction.sellerUsername;
 export const selectTransactionBuyerId = state => state.transactions.transaction.buyerId;
 export const selectTransactionBuyerUsername = state => state.transactions.transaction.buyerUsername;
+
+export const selectTransactionCompletedByBuyer = state => state.transactions.transaction.completedByBuyer;
+export const selectTransactionCompletedBySeller = state => state.transactions.transaction.completedBySeller;
+
 export const selectTransactionId = state => state.transactions.transaction._id;
 export const selectTransactionCoin = state => state.transactions.transaction.coin;
 export const selectTransactionVolume = state => state.transactions.transaction.volume;
@@ -238,6 +242,17 @@ export const selectTransactionFormattedTotal = createSelector(
   selectTransactionPrice,
   selectTransactionVolume,
   (price, volume) => numeral(price * volume).format(USD)
+);
+export const selectUserIsSeller = createSelector(
+  selectUserId,
+  selectTransactionSellerId,
+  (userId, sellerId) => userId === sellerId
+);
+
+export const selectUserIsBuyer = createSelector(
+  selectUserId,
+  selectTransactionBuyerId,
+  (userId, buyerId) => userId === buyerId
 );
 
 // TEMPORARY OFFER
@@ -627,3 +642,4 @@ export const selectChartAsks = createSelector(
       filter(ask => ask.coin === coin)
     )(asks)
 );
+
