@@ -55,6 +55,11 @@ const DetailBox = ({ post, classes, time, onClick }) => (
           </Grid>
         </Grid>
       </Grid>
+      <Grid item>
+        <Typography variant="subheading">
+          for {numeral(post.price * post.volume).format(USD)}
+        </Typography>
+      </Grid>
     </Grid>
   </Paper>
 );

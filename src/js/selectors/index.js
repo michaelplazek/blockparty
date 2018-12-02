@@ -46,6 +46,8 @@ export const selectOffers = createSelector(
   filter(item => item.status !== "DECLINED")
 );
 export const selectOfferTimestamp = state => state.offers.offer.timestamp;
+export const selectOfferPrice = state => state.offers.offer.price;
+export const selectOfferIsOnBid = state => state.offers.offer.bid;
 export const selectOfferLoaded = state => state.offers.offerLoaded;
 export const selectMyOffersLoaded = state => state.offers.myOffersLoaded;
 export const selectOfferPostTime = createSelector(
@@ -236,7 +238,7 @@ export const selectTransactionPrice = state => state.transactions.transaction.pr
 export const selectTransactionType = createSelector(
   selectTransactionBuyerId,
   selectUserId,
-  (buyerId, userId) => userId === buyerId ? "BUY" : "SELL"
+  (buyerId, userId) => userId === buyerId ? "BUYING" : "SELLING"
 );
 export const selectTransactionFormattedTotal = createSelector(
   selectTransactionPrice,
@@ -268,8 +270,8 @@ export const selectAskOfferTotal = createSelector(
   selectOfferVolume,
   (price, volume) => numeral(price * volume).format(USD)
 );
-export const selectBidOfferTotal = createSelector(
-  selectBidPrice,
+export const selectOfferTotal = createSelector(
+  selectOfferPrice,
   selectOfferVolume,
   (price, volume) => numeral(price * volume).format(USD)
 );

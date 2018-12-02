@@ -9,7 +9,7 @@ import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
 import {
   selectLayerOpen,
   selectOffer,
-  selectOfferPostTime,
+  selectOfferPostTime, selectOfferTotal,
   selectUserId,
   selectWindowHeight,
   selectWindowWidth
@@ -48,6 +48,11 @@ const styles = () => ({
   },
   rate: {
     margin: "3px 0px 0px 3px"
+  },
+  bid: {
+    position: "relative",
+    top: "3px",
+    marginRight: "3px"
   }
 });
 
@@ -59,7 +64,8 @@ const OfferDetails = ({
   offer,
   open,
   time,
-  handleDelete
+  handleDelete,
+  total
 }) => (
   <Flyout
     onClose={() => {
@@ -77,12 +83,12 @@ const OfferDetails = ({
         <Paper className={classes.paper}>
           <Grid container className={classes.box}>
             <Grid item>
-              <Typography variant="subheading">
-                {offer.bid ? "Sell" : "Buy"}
-              </Typography>
-            </Grid>
-            <Grid item>
               <Grid container direction="row">
+                <Grid className={classes.bid} item>
+                  <Typography variant="title">
+                    {offer.bid ? "Sell" : "Buy"}
+                  </Typography>
+                </Grid>
                 <Grid item>
                   <Typography variant="headline">{offer.volume}</Typography>
                 </Grid>
@@ -106,6 +112,11 @@ const OfferDetails = ({
                   </Typography>
                 </Grid>
               </Grid>
+            </Grid>
+            <Grid item>
+              <Typography variant="subheading">
+                for {total}
+              </Typography>
             </Grid>
             <Grid item>
               <Typography
@@ -145,6 +156,7 @@ const OfferDetails = ({
 const propMap = {
   open: selectLayerOpen,
   userId: selectUserId,
+  total: selectOfferTotal,
   offer: selectOffer,
   windowHeight: selectWindowHeight,
   windowWidth: selectWindowWidth,
