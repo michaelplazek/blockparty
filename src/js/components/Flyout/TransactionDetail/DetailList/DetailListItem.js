@@ -8,7 +8,10 @@ import ListItem from "@material-ui/core/ListItem/ListItem";
 import ListItemText from "@material-ui/core/ListItemText/ListItemText";
 
 const ContactDetailItem = ({ name, value, isLast, onClick, contact }) => (
-  <ListItem style={theme.palette.inverse} divider={false}>
+  <ListItem
+    style={theme.palette.inverse}
+    divider={false}
+  >
     <Grid
       direction="column"
       container
@@ -46,7 +49,7 @@ const ContactDetailItem = ({ name, value, isLast, onClick, contact }) => (
           container
           direction='column'
           alignItems='center'
-          style={{ marginTop: "1em" }}
+          style={{ marginTop: "1em", marginBottom: "1em" }}
         >
           <Grid item>
             <Typography

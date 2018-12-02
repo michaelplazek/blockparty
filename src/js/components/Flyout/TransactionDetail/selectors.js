@@ -1,7 +1,6 @@
 import React from "react";
 import { createSelector } from "reselect";
 import {
-  selectTransactionPrice,
   intoArray,
   selectTransactionCoin,
   selectTransactionVolume,

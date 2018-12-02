@@ -14,7 +14,8 @@ import {
   selectAskUseCurrentLocation,
   selectAskFormVolume,
   selectFormattedAskPrice,
-  selectWindowWidth, selectAskTotal, selectAskFormTotal
+  selectWindowWidth,
+  selectAskFormTotal
 } from "../../../selectors";
 import mapper from "../../../utils/connect";
 import {

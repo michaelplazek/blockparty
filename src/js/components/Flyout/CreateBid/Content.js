@@ -14,7 +14,8 @@ import {
   selectBidFormVolume,
   selectFormattedBidFormPrice,
   selectWindowWidth,
-  selectBidCoin, selectBidTotal, selectBidFormTotal
+  selectBidCoin,
+  selectBidFormTotal
 } from "../../../selectors";
 import mapper from "../../../utils/connect";
 import {

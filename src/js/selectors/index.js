@@ -46,6 +46,7 @@ export const selectOffers = createSelector(
   filter(item => item.status !== "DECLINED")
 );
 export const selectOfferTimestamp = state => state.offers.offer.timestamp;
+export const selectOfferVolume = state => state.offers.offer.volume;
 export const selectOfferPrice = state => state.offers.offer.price;
 export const selectOfferIsOnBid = state => state.offers.offer.bid;
 export const selectOfferLoaded = state => state.offers.offerLoaded;
@@ -58,6 +59,11 @@ export const selectNumberOfMyOffers = createSelector(
   selectMyOffers,
   selectMyOffersLoaded,
   (offers, loaded) => (loaded ? offers.length : 0)
+);
+export const selectOfferTotal = createSelector(
+  selectOfferPrice,
+  selectOfferVolume,
+  (price, volume) => numeral(price * volume).format(USD)
 );
 
 // ASKS
@@ -263,19 +269,19 @@ export const selectTransactionDisplayPrice = createSelector(
 );
 
 // TEMPORARY OFFER
-export const selectOfferVolume = state => state.offer.volume;
+export const selectOfferFormVolume = state => state.offer.volume;
 export const selectContactInfo = state => state.offer.contactInfo;
 export const selectAskOfferTotal = createSelector(
   selectAskPrice,
-  selectOfferVolume,
-  (price, volume) => numeral(price * volume).format(USD)
-);
-export const selectOfferTotal = createSelector(
-  selectOfferPrice,
-  selectOfferVolume,
+  selectOfferFormVolume,
   (price, volume) => numeral(price * volume).format(USD)
 );
 
+export const selectBidOfferTotal = createSelector(
+  selectBidPrice,
+  selectOfferFormVolume,
+  (price, volume) => numeral(price * volume).format(USD)
+);
 
 // TEMPORARY ASK
 export const selectAskFormCoin = state => state.ask.coin;
