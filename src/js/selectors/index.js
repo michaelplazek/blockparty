@@ -227,7 +227,18 @@ export const selectTransactionBuyerUsername = state => state.transactions.transa
 export const selectTransactionId = state => state.transactions.transaction.id;
 export const selectTransactionCoin = state => state.transactions.transaction.coin;
 export const selectTransactionVolume = state => state.transactions.transaction.volume;
+export const selectTransactionContactInfo = state => state.transactions.transaction.contactInfo;
 export const selectTransactionPrice = state => state.transactions.transaction.price;
+export const selectTransactionType = createSelector(
+  selectTransactionBuyerId,
+  selectUserId,
+  (buyerId, userId) => userId === buyerId ? "BUY" : "SELL"
+);
+export const selectTransactionFormattedTotal = createSelector(
+  selectTransactionPrice,
+  selectTransactionVolume,
+  (price, volume) => numeral(price * volume).format(USD)
+);
 
 // TEMPORARY OFFER
 export const selectOfferVolume = state => state.offer.volume;

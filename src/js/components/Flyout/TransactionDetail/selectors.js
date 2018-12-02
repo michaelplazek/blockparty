@@ -1,17 +1,46 @@
 import React from "react";
 import { createSelector } from "reselect";
 import {
-  selectAskCity,
-  selectAskOwner,
-  selectAskPostTime,
-  selectAskDisplayPrice,
-  selectAskState,
+  selectTransactionPrice,
   intoArray,
-  selectAskTotal
+  selectTransactionCoin,
+  selectTransactionVolume,
+  selectTransactionType,
+  selectTransactionFormattedTotal,
+  selectTransactionContactInfo,
+  selectTransactionBuyerUsername,
+  selectTransactionSellerUsername, selectUsername,
 } from "../../../selectors";
 
+export const selectTypeDetail = createSelector(
+  selectTransactionType,
+  type => ({
+    name: "Type",
+    value: type,
+    onClick: undefined
+  })
+);
+
+export const selectCoinDetail = createSelector(
+  selectTransactionCoin,
+  coin => ({
+    name: "Coin",
+    value: coin,
+    onClick: undefined
+  })
+);
+
+export const selectVolumeDetail = createSelector(
+  selectTransactionVolume,
+  volume => ({
+    name: "Volume",
+    value: volume,
+    onClick: undefined
+  })
+);
+
 export const selectPriceDetail = createSelector(
-  selectAskDisplayPrice,
+  selectTransactionPrice,
   price => ({
     name: "Price",
     value: price,
@@ -19,42 +48,32 @@ export const selectPriceDetail = createSelector(
   })
 );
 
-export const selectTotalDetail = createSelector(selectAskTotal, total => ({
+export const selectTotalDetail = createSelector(
+  selectTransactionFormattedTotal,
+    total => ({
   name: "Total",
   value: total,
   onClick: undefined
 }));
 
-export const selectLocationDetail = createSelector(
-  selectAskCity,
-  selectAskState,
-  (city, state) => ({
-    name: "Location",
-    value: `${city}, ${state}`,
-    onClick: undefined
-  })
-);
+export const selectContactDetail = createSelector(
+  selectTransactionContactInfo,
+  selectTransactionBuyerUsername,
+  selectTransactionSellerUsername,
+  selectUsername,
+  (contactInfo, buyer, seller, username) => ({
+    name: username === buyer ? "Seller" : "Buyer",
+    value: username === buyer ? seller : buyer,
+    onClick: undefined,
+    contact: contactInfo
+  }));
 
-export const selectSellerDetail = createSelector(selectAskOwner, owner => ({
-  name: "Seller",
-  value: owner,
-  onClick: undefined
-}));
-
-export const selectLastUpdatedDetail = createSelector(
-  selectAskPostTime,
-  time => ({
-    name: "Created",
-    value: time,
-    onClick: undefined
-  })
-);
-
-export const selectAskDetails = createSelector(
+export const selectTransactionDetails = createSelector(
+  selectTypeDetail,
+  selectCoinDetail,
+  selectVolumeDetail,
   selectPriceDetail,
   selectTotalDetail,
-  selectLocationDetail,
-  selectSellerDetail,
-  selectLastUpdatedDetail,
+  selectContactDetail,
   intoArray
 );

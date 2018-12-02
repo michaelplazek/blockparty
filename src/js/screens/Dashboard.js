@@ -57,7 +57,8 @@ import {
   unloadOffers
 } from "../actions/offers";
 import OfferDetails from "../components/Flyout/OfferDetails";
-import { loadTransactions } from "../actions/transactions";
+import {loadTransaction, loadTransactions} from "../actions/transactions";
+import TransactionDetails from "../components/Flyout/TransactionDetail";
 
 const styles = () => ({
   root: {
@@ -98,7 +99,8 @@ const Dashboard = ({
   loadOffersByBid,
   handleAskClick,
   handleBidClick,
-  handleOfferClick
+  handleOfferClick,
+  handleTransactionClick
 }) => (
   <div className={classes.root}>
     {layer === "CREATE_ASK" && <CreateAsk />}
@@ -106,6 +108,7 @@ const Dashboard = ({
     {layer === "DELETE_ASK" && <DeleteAsk />}
     {layer === "DELETE_BID" && <DeleteBid />}
     {layer === "VIEW_OFFER" && <OfferDetails />}
+    {layer === "VIEW_TRANSACTION" && <TransactionDetails />}
     <PageHeader leftHandLabel="Dashboard" />
     <Tile
       title="Accepted Offers"
@@ -113,7 +116,11 @@ const Dashboard = ({
       description="time to meet up"
     >
       {myTransactions.map(item => (
-        <TransactionTile item={item} key={item._id} />
+        <TransactionTile
+          item={item}
+          key={item._id}
+          onClick={() => handleTransactionClick(item)}
+        />
       ))}
     </Tile>
     <Tile
@@ -238,7 +245,8 @@ const actionMap = {
   loadOffersByAsk,
   unloadOffers,
   loadOffersByBid,
-  loadTransactions
+  loadTransactions,
+  loadTransaction
 };
 
 export default compose(
@@ -293,6 +301,11 @@ export default compose(
     handleOfferClick: ({ loadOffer, setLayer, setLayerOpen }) => ({ _id }) => {
       loadOffer(_id);
       setLayer("VIEW_OFFER");
+      setLayerOpen(true);
+    },
+    handleTransactionClick: ({ loadTransaction, setLayer, setLayerOpen }) => ({ _id }) => {
+      loadTransaction(_id);
+      setLayer("VIEW_TRANSACTION");
       setLayerOpen(true);
     }
   }),
