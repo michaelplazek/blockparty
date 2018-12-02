@@ -13,7 +13,7 @@ import {
   selectUsername,
   selectUserIsBuyer,
   selectUserIsSeller,
-  selectTransactionCompletedByBuyer, selectTransactionCompletedBySeller,
+  selectTransactionCompletedByBuyer, selectTransactionCompletedBySeller, selectTransactionDisplayPrice,
 } from "../../../selectors";
 
 export const selectTypeDetail = createSelector(
@@ -44,7 +44,7 @@ export const selectVolumeDetail = createSelector(
 );
 
 export const selectPriceDetail = createSelector(
-  selectTransactionPrice,
+  selectTransactionDisplayPrice,
   price => ({
     name: "Price",
     value: price,
@@ -66,7 +66,7 @@ export const selectContactDetail = createSelector(
   selectTransactionSellerUsername,
   selectUsername,
   (contactInfo, buyer, seller, username) => ({
-    name: username === buyer ? "Seller" : "Buyer",
+    name: username === buyer ? "Buyer" : "Seller",
     value: username === buyer ? seller : buyer,
     onClick: undefined,
     contact: contactInfo

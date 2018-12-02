@@ -255,6 +255,11 @@ export const selectUserIsBuyer = createSelector(
   (userId, buyerId) => userId === buyerId
 );
 
+export const selectTransactionDisplayPrice = createSelector(
+  selectTransactionPrice,
+  price => numeral(price).format(USD)
+);
+
 // TEMPORARY OFFER
 export const selectOfferVolume = state => state.offer.volume;
 export const selectContactInfo = state => state.offer.contactInfo;
