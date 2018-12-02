@@ -1,13 +1,14 @@
 import React from "react";
 import { compose } from "recompose";
 
+import theme from "../../../../theme";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Grid from "@material-ui/core/Grid/Grid";
 import Button from "@material-ui/core/Button/Button";
 
 const styles = () => ({
   container: {
-    marginTop: "1em"
+    marginTop: "0.5em"
   },
   button: {
     margin: "0.2em"
@@ -17,15 +18,15 @@ const styles = () => ({
 const ButtonContainer = ({ id, classes, handleComplete, handleCancel, disabled }) => (
   <Grid
     container
-    direction='column'
-    alignItems='center'
+    direction='row'
+    justify='center'
     className={classes.container}
   >
     <Grid item className={classes.button}>
       <Button
         variant="contained"
         onClick={handleComplete}
-        color="primary"
+        style={!disabled ? theme.palette.submitButton : theme.palette.disabledSubmitButton}
         disabled={disabled}
       >
         {disabled ? "Marked as completed" : "Mark as completed"}
@@ -35,8 +36,9 @@ const ButtonContainer = ({ id, classes, handleComplete, handleCancel, disabled }
       <Button
         variant="contained"
         onClick={handleCancel}
+        style={theme.palette.errorButton}
       >
-        Mark as Cancelled
+        Cancel
       </Button>
     </Grid>
   </Grid>

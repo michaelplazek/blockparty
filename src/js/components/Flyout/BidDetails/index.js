@@ -1,6 +1,7 @@
 import React from "react";
 import { compose, withHandlers } from "recompose";
 import { withRouter } from "react-router-dom";
+import theme from "../../../../theme";
 import withStyles from "@material-ui/core/styles/withStyles";
 import mapper from "../../../utils/connect";
 import Flyout from "../index";
@@ -46,7 +47,7 @@ const styles = () => ({
   },
   time: {
     marginTop: "6px"
-  }
+  },
 });
 
 const DeleteBid = ({
@@ -93,6 +94,7 @@ const DeleteBid = ({
             <Button
               variant="contained"
               disabled={offers.length > 0}
+              style={!(offers.length > 0) ? theme.palette.errorButton : theme.palette.disabledErrorButton}
               onClick={() => handleDelete(bid._id)}
             >
               Delete Bid

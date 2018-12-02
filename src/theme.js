@@ -7,10 +7,10 @@ export default createMuiTheme({
       main: "#ffc107"
     },
     statusOK: {
-      color: "#7CD992"
+      color: "#357a38"
     },
     statusError: {
-      color: "#EB6060"
+      color: "#C62828"
     },
     statusPending: {
       color: "#F7E463"
@@ -18,6 +18,22 @@ export default createMuiTheme({
     inverse: {
       background: indigo[500],
       color: "#f2f2f2"
+    },
+    errorButton: {
+      background: "#C62828",
+      color: "#f2f2f2",
+    },
+    submitButton: {
+      background: "#357a38",
+      color: "#f2f2f2"
+    },
+    disabledErrorButton: {
+      background: "#E57373",
+      color: "#f2f2f2",
+    },
+    disabledSubmitButton: {
+      background: "#A5D6A7",
+      color: "#f2f2f2",
     }
   },
 });

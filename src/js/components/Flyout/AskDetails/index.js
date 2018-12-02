@@ -27,6 +27,7 @@ import Typography from "@material-ui/core/Typography/Typography";
 import Button from "@material-ui/core/Button/Button";
 import {loadMyBids} from "../../../actions/bids";
 import {loadOffersByUser} from "../../../actions/offers";
+import theme from "../../../../theme";
 
 const styles = () => ({
   paper: {
@@ -93,6 +94,7 @@ const AskDetails = ({
             <Button
               variant="contained"
               disabled={offers.length > 0}
+              style={!(offers.length > 0) ? theme.palette.errorButton : theme.palette.disabledErrorButton}
               onClick={() => handleDelete(ask._id)}
             >
               Delete Ask

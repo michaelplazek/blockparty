@@ -3,6 +3,7 @@ import { compose, withHandlers } from "recompose";
 import withStyles from "@material-ui/core/styles/withStyles";
 import mapper from "../../../utils/connect";
 
+import theme from "../../../../theme";
 import Grid from "@material-ui/core/Grid/Grid";
 import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
 
@@ -141,6 +142,8 @@ const OfferDetails = ({
             <Button
               variant="contained"
               disabled={offer.status === "ACCEPTED"}
+              style={theme.palette.errorButton}
+              classes={{disabled: classes.disabled}}
               onClick={() => handleDelete(offer._id)}
             >
               Delete Offer
