@@ -30,7 +30,6 @@ import FormControlLabel from "@material-ui/core/FormControlLabel/FormControlLabe
 import Switch from "@material-ui/core/Switch/Switch";
 import LocationSelector from "../../LocationSelector";
 import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
-import {setAskContactInfo} from "../../../actions/createAsk";
 
 const CreateBidContent = ({
   index,

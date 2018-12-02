@@ -6,13 +6,15 @@ import {
   selectTransactionVolume,
   selectTransactionType,
   selectTransactionFormattedTotal,
-  selectTransactionContactInfo,
   selectTransactionBuyerUsername,
   selectTransactionSellerUsername,
   selectUsername,
   selectUserIsBuyer,
   selectUserIsSeller,
-  selectTransactionCompletedByBuyer, selectTransactionCompletedBySeller, selectTransactionDisplayPrice,
+  selectTransactionCompletedByBuyer,
+  selectTransactionCompletedBySeller,
+  selectTransactionDisplayPrice,
+  selectTransactionSellerContactInfo, selectTransactionBuyerContactInfo,
 } from "../../../selectors";
 
 export const selectTypeDetail = createSelector(
@@ -59,8 +61,19 @@ export const selectTotalDetail = createSelector(
   onClick: undefined
 }));
 
+const selectContactInfo = createSelector(
+  selectUserIsBuyer,
+  selectUserIsSeller,
+  selectTransactionSellerContactInfo,
+  selectTransactionBuyerContactInfo,
+  (isBuyer, isSeller, sellerInfo, buyerInfo) => {
+    if(isBuyer) return sellerInfo;
+    else return buyerInfo;
+  }
+);
+
 export const selectContactDetail = createSelector(
-  selectTransactionContactInfo,
+  selectContactInfo,
   selectTransactionBuyerUsername,
   selectTransactionSellerUsername,
   selectUsername,
