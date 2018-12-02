@@ -110,6 +110,7 @@ const Dashboard = ({
     <Tile
       title="Accepted Offers"
       count={numberOfTransactions}
+      description="time to meet up"
     >
       {myTransactions.map(item => (
         <TransactionTile item={item} key={item._id} />
