@@ -65,7 +65,7 @@ export const selectContactDetail = createSelector(
   selectTransactionSellerUsername,
   selectUsername,
   (contactInfo, buyer, seller, username) => ({
-    name: username === buyer ? "Buyer" : "Seller",
+    name: username === buyer ? "Seller" : "Buyer",
     value: username === buyer ? seller : buyer,
     onClick: undefined,
     contact: contactInfo

@@ -285,6 +285,7 @@ export const selectBidOfferTotal = createSelector(
 
 // TEMPORARY ASK
 export const selectAskFormCoin = state => state.ask.coin;
+export const selectAskFormContactInfo = state => state.ask.contactInfo;
 export const selectAskFormVolume = state => state.ask.volume;
 export const selectAskFormPrice = state => state.ask.price;
 export const selectFormattedAskPrice = createSelector(
@@ -303,6 +304,7 @@ export const selectAskFormTotal = createSelector(
 
 // TEMPORARY BID
 export const selectBidFormCoin = state => state.bid.coin;
+export const selectBidFormContactInfo = state => state.bid.contactInfo;
 export const selectBidFormVolume = state => state.bid.volume;
 export const selectBidFormPrice = state => state.bid.price;
 export const selectFormattedBidFormPrice = createSelector(
