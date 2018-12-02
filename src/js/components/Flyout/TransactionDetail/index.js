@@ -7,7 +7,7 @@ import Flyout from "../index";
 
 import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
 import {
-  selectLayerOpen,
+  selectLayerOpen, selectTransaction, selectTransactionId,
   selectWindowHeight,
   selectWindowWidth
 } from "../../../selectors";
@@ -15,6 +15,7 @@ import Grid from "@material-ui/core/Grid/Grid";
 import {loadTransaction} from "../../../actions/transactions";
 import {selectTransactionDetails} from "./selectors";
 import DetailList from "./DetailList";
+import ButtonContainer from "./ButtonContainer";
 
 const styles = () => ({
   list: {
@@ -30,6 +31,9 @@ const TransactionDetails = ({
   ask,
   open,
   items,
+  id,
+  handleComplete,
+  handleCancel
 }) => (
   <Flyout
     onClose={() => {
@@ -41,6 +45,11 @@ const TransactionDetails = ({
   >
     <Grid className={classes.list} container direction="column">
       <DetailList items={items} />
+      <ButtonContainer
+        id={id}
+        handleComplete={handleComplete}
+        handleCancel={handleCancel}
+      />
     </Grid>
   </Flyout>
 );
@@ -49,7 +58,8 @@ const propMap = {
   open: selectLayerOpen,
   windowHeight: selectWindowHeight,
   windowWidth: selectWindowWidth,
-  items: selectTransactionDetails
+  items: selectTransactionDetails,
+  id: selectTransactionId
 };
 
 const actionMap = {
@@ -62,5 +72,11 @@ export default compose(
   withStyles(styles),
   withRouter,
   withHandlers({
+    handleComplete: () => () => {
+
+    },
+    handleCancel: () => () => {
+
+    }
   }),
 )(TransactionDetails);
