@@ -17,7 +17,7 @@ import Paper from "@material-ui/core/Paper/Paper";
 import Typography from "@material-ui/core/Typography/Typography";
 
 import {
-  selectAskCoin,
+  selectAskFormCoin,
   selectAskLatitude,
   selectAskLongitude,
   selectAskFormPrice,
@@ -109,7 +109,7 @@ const CreateAsk = ({
 );
 
 const propMap = {
-  coin: selectAskCoin,
+  coin: selectAskFormCoin,
   volume: selectAskFormVolume,
   price: selectAskFormPrice,
   lat: selectAskLatitude,

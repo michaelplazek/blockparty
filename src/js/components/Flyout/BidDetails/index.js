@@ -1,5 +1,5 @@
 import React from "react";
-import { compose } from "recompose";
+import { compose, withHandlers } from "recompose";
 import { withRouter } from "react-router-dom";
 import withStyles from "@material-ui/core/styles/withStyles";
 import mapper from "../../../utils/connect";
@@ -9,7 +9,7 @@ import DetailBox from "../../DetailBox";
 import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
 import {
   deleteBid,
-  loadMyBids as loadMyBidsAction
+  loadMyBids
 } from "../../../actions/bids";
 import {
   selectBid,
@@ -17,7 +17,7 @@ import {
   selectBidOfferTotal,
   selectBidPostTime,
   selectLayerOpen,
-  selectOffers,
+  selectOffers, selectUserId,
   selectWindowHeight,
   selectWindowWidth
 } from "../../../selectors";
@@ -25,6 +25,8 @@ import OfferWidgetList from "../../OfferWidgetList/index";
 import Grid from "@material-ui/core/Grid/Grid";
 import Typography from "@material-ui/core/Typography/Typography";
 import Button from "@material-ui/core/Button/Button";
+import {loadOffersByUser} from "../../../actions/offers";
+import {loadMyAsks} from "../../../actions/asks";
 
 const styles = () => ({
   paper: {
@@ -56,7 +58,8 @@ const DeleteBid = ({
   open,
   offers,
   time,
-  history
+  history,
+  handleDelete
 }) => (
   <Flyout
     onClose={() => {
@@ -90,10 +93,7 @@ const DeleteBid = ({
             <Button
               variant="contained"
               disabled={offers.length > 0}
-              onClick={() => {
-                deleteBid(bid._id);
-                setLayerOpen(false);
-              }}
+              onClick={() => handleDelete(bid._id)}
             >
               Delete Bid
             </Button>
@@ -107,6 +107,7 @@ const DeleteBid = ({
 
 const propMap = {
   open: selectLayerOpen,
+  userId: selectUserId,
   bid: selectBid,
   bidLoaded: selectBidLoaded,
   offers: selectOffers,
@@ -118,11 +119,31 @@ const propMap = {
 
 const actionMap = {
   setLayerOpen: setLayerOpenAction,
-  loadMyBids: loadMyBidsAction,
+  deleteBid,
+  loadOffersByUser,
+  loadMyAsks,
+  loadMyBids
 };
 
 export default compose(
   mapper(propMap, actionMap),
   withStyles(styles),
-  withRouter
+  withRouter,
+  withHandlers({
+    handleDelete: ({
+     deleteBid,
+     loadOffersByUser,
+     userId,
+     setLayerOpen,
+     loadMyAsks,
+     loadMyBids
+   }) => (id) => {
+      deleteBid(id).then(() => {
+        loadOffersByUser(userId);
+        loadMyBids(userId);
+        loadMyAsks(userId);
+      });
+      setLayerOpen(false);
+    }
+  }),
 )(DeleteBid);

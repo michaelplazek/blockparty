@@ -6,7 +6,7 @@ import TextField from "@material-ui/core/TextField/TextField";
 import Typography from "@material-ui/core/Typography/Typography";
 import Grid from "@material-ui/core/Grid/Grid";
 import {
-  selectBidCoin,
+  selectBidFormCoin,
   selectBidOfferTotal,
   selectBidFormVolume,
   selectContactInfo,
@@ -91,7 +91,7 @@ const CreateBidOfferContent = ({
 };
 
 const propMap = {
-  coin: selectBidCoin,
+  coin: selectBidFormCoin,
   max: selectBidVolume,
   volume: selectOfferVolume,
   contactInfo: selectContactInfo,

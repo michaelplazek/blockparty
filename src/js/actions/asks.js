@@ -4,7 +4,8 @@ import {
   CREATE_ASK,
   LOAD_ASK,
   UNLOAD_ASK,
-  UNLOAD_ASKS
+  UNLOAD_ASKS,
+  DELETE_ASK
 } from "./index";
 import { wrappedFetch, wrappedFetchWithParams } from "../api/utils";
 
@@ -36,5 +37,7 @@ export const createAsk = ask => dispatch =>
     dispatch({ type: CREATE_ASK, data: response });
   });
 
-export const deleteAsk = id =>
-  wrappedFetchWithParams("ask", undefined, "DELETE", `/${id}`);
+export const deleteAsk = id => dispatch =>
+  wrappedFetchWithParams("ask", undefined, "DELETE", `/${id}`).then(() => {
+    dispatch({ type: DELETE_ASK })
+  });

@@ -4,7 +4,8 @@ import {
   UNLOAD_BIDS,
   UNLOAD_BID,
   CREATE_BID,
-  LOAD_MY_BIDS
+  LOAD_MY_BIDS,
+  DELETE_BID
 } from "./index";
 import { wrappedFetch, wrappedFetchWithParams } from "../api/utils";
 
@@ -36,5 +37,7 @@ export const createBid = bid => dispatch =>
     dispatch({ type: CREATE_BID, data: response });
   });
 
-export const deleteBid = id =>
-  wrappedFetchWithParams("bid", undefined, "DELETE", `/${id}`);
+export const deleteBid = id => dispatch =>
+  wrappedFetchWithParams("bid", undefined, "DELETE", `/${id}`).then(() => {
+    dispatch({ type: DELETE_BID })
+  });

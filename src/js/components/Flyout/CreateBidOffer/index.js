@@ -23,7 +23,7 @@ import withDimensions from "../../../HOCs/withDimensions";
 import { resetOffer } from "../../../actions/createOffer";
 import { createBidOffer } from "../../../actions/offers";
 import {
-  selectBidCoin,
+  selectBidFormCoin,
   selectBidId,
   selectBidOfferTotal,
   selectBidOwner,
@@ -116,7 +116,7 @@ CreateBidOffer.propTypes = {
 };
 
 const propMap = {
-  coin: selectBidCoin,
+  coin: selectBidFormCoin,
   max: selectBidFormVolume,
   volume: selectOfferVolume,
   contactInfo: selectContactInfo,

@@ -11,14 +11,7 @@ import { AppContainer } from "react-hot-loader";
 
 import reducers from "./js/reducers";
 import App from "./js/App";
-
-const theme = createMuiTheme({
-  palette: {
-    secondary: {
-      main: "#ffc107"
-    },
-  }
-});
+import theme from "./theme";
 
 const store = createStore(
   reducers,

@@ -1,9 +1,10 @@
 import React from "react";
-import { compose, withState, lifecycle } from "recompose";
+import { compose, withState, lifecycle, withHandlers } from "recompose";
 import mapper from "../utils/connect";
 
 import Tile from "../components/Tile";
 import ListTile from "../components/ListTile/index";
+import TransactionTile from "../components/TransactionTile/index";
 
 import {
   setLayer as setLayerAction,
@@ -41,17 +42,22 @@ import {
   selectNumberOfMyAsks,
   selectNumberOfMyBids,
   selectNumberOfMyOffers,
-  selectUserId
+  selectNumberOfMyTransactions,
+  selectTransactionsForDisplay,
+  selectUserId,
+  selectUsername
 } from "../selectors";
 import Grow from "@material-ui/core/Grow/Grow";
 import withLoader from "../HOCs/withLoader";
 import {
   loadOffer,
-  loadOffersByAsk, loadOffersByBid,
+  loadOffersByAsk,
+  loadOffersByBid,
   loadOffersByUser,
   unloadOffers
 } from "../actions/offers";
 import OfferDetails from "../components/Flyout/OfferDetails";
+import { loadTransactions } from "../actions/transactions";
 
 const styles = () => ({
   root: {
@@ -76,9 +82,11 @@ const Dashboard = ({
   numberOfBids,
   numberOfAsks,
   numberOfOffers,
+  numberOfTransactions,
   myBids,
   myAsks,
   myOffers,
+  myTransactions,
   loadAsk,
   loadBid,
   loadOffer,
@@ -87,7 +95,10 @@ const Dashboard = ({
   footerHeight,
   unloadOffers,
   loadOffersByAsk,
-  loadOffersByBid
+  loadOffersByBid,
+  handleAskClick,
+  handleBidClick,
+  handleOfferClick
 }) => (
   <div className={classes.root}>
     {layer === "CREATE_ASK" && <CreateAsk />}
@@ -95,23 +106,26 @@ const Dashboard = ({
     {layer === "DELETE_ASK" && <DeleteAsk />}
     {layer === "DELETE_BID" && <DeleteBid />}
     {layer === "VIEW_OFFER" && <OfferDetails />}
-    <PageHeader
-      leftHandLabel="Dashboard"
-    />
+    <PageHeader leftHandLabel="Dashboard" />
     <Tile
-      color="#f2f2f2"
+      title="Accepted Offers"
+      count={numberOfTransactions}
+      description="time to meet up"
+    >
+      {myTransactions.map(item => (
+        <TransactionTile item={item} key={item._id} />
+      ))}
+    </Tile>
+    <Tile
       title="My Offers"
       count={numberOfOffers}
+      description="offers I've made"
     >
       {myOffers.map(item => (
         <OfferTile
           item={item}
           key={item._id}
-          onClick={() => {
-            loadOffer(item._id);
-            setLayer("VIEW_OFFER");
-            setLayerOpen(true);
-          }}
+          onClick={() => handleOfferClick(item)}
         />
       ))}
     </Tile>
@@ -124,14 +138,7 @@ const Dashboard = ({
         <ListTile
           item={item}
           key={item._id}
-          onClick={() => {
-            unloadOffers();
-            loadAsk(item._id).then(() => {
-              loadOffersByAsk(item._id);
-              setLayer("DELETE_ASK");
-              setLayerOpen(true);
-            });
-          }}
+          onClick={() => handleAskClick(item)}
         />
       ))}
     </Tile>
@@ -144,13 +151,7 @@ const Dashboard = ({
         <ListTile
           item={item}
           key={item._id}
-          onClick={() => {
-            loadBid(item._id).then(() => {
-              loadOffersByBid(item._id);
-              setLayer("DELETE_BID");
-              setLayerOpen(true);
-            });
-          }}
+          onClick={() => handleBidClick(item)}
         />
       ))}
     </Tile>
@@ -198,9 +199,7 @@ const Dashboard = ({
           className={classes.buttonContainer}
           color="primary"
           variant="fab"
-          onClick={() => {
-            setShowButtons(true);
-          }}
+          onClick={() => setShowButtons(true)}
         >
           <AddIcon />
         </Button>
@@ -212,12 +211,15 @@ const Dashboard = ({
 const propMap = {
   layer: selectLayer,
   userId: selectUserId,
+  owner: selectUsername,
   myBids: selectMyBids,
   myAsks: selectMyAsks,
   myOffers: selectMyOffers,
+  myTransactions: selectTransactionsForDisplay,
   numberOfBids: selectNumberOfMyBids,
   numberOfAsks: selectNumberOfMyAsks,
   numberOfOffers: selectNumberOfMyOffers,
+  numberOfTransactions: selectNumberOfMyTransactions,
   loaded: selectDashboardLoaded,
   footerHeight: selectNavHeight
 };
@@ -235,7 +237,8 @@ const actionMap = {
   loadOffer,
   loadOffersByAsk,
   unloadOffers,
-  loadOffersByBid
+  loadOffersByBid,
+  loadTransactions
 };
 
 export default compose(
@@ -245,10 +248,52 @@ export default compose(
   withDimensions,
   lifecycle({
     componentDidMount() {
-      const { loadMyAsks, loadMyBids, loadOffersByUser, userId } = this.props;
+      const {
+        loadMyAsks,
+        loadMyBids,
+        loadOffersByUser,
+        loadTransactions,
+        userId
+      } = this.props;
       loadMyAsks(userId);
       loadMyBids(userId);
       loadOffersByUser(userId);
+      loadTransactions(userId);
+    }
+  }),
+  withHandlers({
+    handleAskClick: ({
+      unloadOffers,
+      loadAsk,
+      loadOffersByAsk,
+      setLayer,
+      setLayerOpen
+    }) => ({ _id }) => {
+      unloadOffers();
+      loadAsk(_id).then(() => {
+        loadOffersByAsk(_id);
+        setLayer("DELETE_ASK");
+        setLayerOpen(true);
+      });
+    },
+    handleBidClick: ({
+      unloadOffers,
+      loadBid,
+      loadOffersByBid,
+      setLayer,
+      setLayerOpen
+    }) => ({ _id }) => {
+      unloadOffers();
+      loadBid(_id).then(() => {
+        loadOffersByBid(_id);
+        setLayer("DELETE_BID");
+        setLayerOpen(true);
+      });
+    },
+    handleOfferClick: ({ loadOffer, setLayer, setLayerOpen }) => ({ _id }) => {
+      loadOffer(_id);
+      setLayer("VIEW_OFFER");
+      setLayerOpen(true);
     }
   }),
   withLoader

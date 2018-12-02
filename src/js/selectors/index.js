@@ -19,6 +19,13 @@ const NUMBER_OF_BINS = 100;
 
 export const intoArray = (...args) => args;
 
+// SESSION
+export const selectIsLoggedIn = state => state.session.loggedIn;
+export const selectSessionLoaded = state => state.session.sessionLoaded;
+export const selectUsername = state => state.session.username;
+export const selectUserId = state => state.session.userId;
+export const selectCurrentLocation = state => state.session.location;
+
 // FILTERS
 export const selectFilterDistance = state => state.filters.distanceAway;
 export const selectFilterCoin = state => state.filters.coin;
@@ -33,7 +40,11 @@ export const selectFormattedFilterPrice = createSelector(
 // OFFERS
 export const selectMyOffers = state => state.offers.myOffers;
 export const selectOffer = state => state.offers.offer;
-export const selectOffers = state => state.offers.offers;
+export const selectUnfilteredOffers = state => state.offers.offers;
+export const selectOffers = createSelector(
+  selectUnfilteredOffers,
+  filter(item => item.status !== "DECLINED")
+);
 export const selectOfferTimestamp = state => state.offers.offer.timestamp;
 export const selectOfferLoaded = state => state.offers.offerLoaded;
 export const selectMyOffersLoaded = state => state.offers.myOffersLoaded;
@@ -48,9 +59,17 @@ export const selectNumberOfMyOffers = createSelector(
 );
 
 // ASKS
-export const selectAsks = state => state.asks.asks;
+export const selectUnfilteredAsks = state => state.asks.asks;
+export const selectAsks = createSelector(
+  selectUnfilteredAsks,
+  filter(item => !item.isAccepted)
+);
 export const selectAskLoaded = state => state.asks.askLoaded;
-export const selectMyAsks = state => state.asks.myAsks;
+export const selectMyUnfilteredAsks = state => state.asks.myAsks;
+export const selectMyAsks = createSelector(
+  selectMyUnfilteredAsks,
+  filter(item => !item.isAccepted)
+);
 export const selectAsksLoaded = state => state.asks.asksLoaded;
 export const selectMyAsksLoaded = state => state.asks.myAsksLoaded;
 export const selectNumberOfMyAsks = createSelector(
@@ -66,9 +85,17 @@ export const selectAsksForDisplay = createSelector(selectAsks, asks =>
 );
 
 // BIDS
-export const selectBids = state => state.bids.bids;
+export const selectUnfilteredBids = state => state.bids.bids;
+export const selectBids = createSelector(
+  selectUnfilteredBids,
+  filter(item => !item.isAccepted)
+);
 export const selectBidLoaded = state => state.bids.bidLoaded;
-export const selectMyBids = state => state.bids.myBids;
+export const selectMyUnfilteredBids = state => state.bids.myBids;
+export const selectMyBids = createSelector(
+  selectMyUnfilteredBids,
+  filter(item => !item.isAccepted)
+);
 export const selectBidsLoaded = state => state.bids.bidsLoaded;
 export const selectMyBidsLoaded = state => state.bids.myBidsLoaded;
 export const selectNumberOfMyBids = createSelector(
@@ -85,6 +112,7 @@ export const selectBidsForDisplay = createSelector(selectBids, bids =>
 
 // BID
 export const selectBid = state => state.bids.bid;
+export const selectBidCoin = state => state.bids.bid.coin;
 export const selectBidVolume = state => state.bids.bid.volume;
 export const selectBidId = state => state.bids.bid._id;
 export const selectBidPrice = state => state.bids.bid.price;
@@ -122,6 +150,7 @@ export const selectBidTotal = createSelector(
 
 // ASK
 export const selectAsk = state => state.asks.ask;
+export const selectAskCoin = state => state.asks.ask.coin;
 export const selectAskVolume = state => state.asks.ask.volume;
 export const selectAskId = state => state.asks.ask._id;
 export const selectAskTimestamp = state => state.asks.ask.timestamp;
@@ -157,6 +186,27 @@ export const selectAskTotal = createSelector(
   (volume, price) => numeral(volume * price).format(USD)
 );
 
+// TRANSACTIONS
+export const selectTransactions = state => state.transactions.transactions;
+export const selectTransactionsLoaded = state =>
+  state.transactions.transactionsLoaded;
+export const selectTransactionsForDisplay = createSelector(
+  selectTransactions,
+  selectUserId,
+  (transactions, userId) =>
+    fpMap(item => ({
+      ...item,
+      status: "ACCEPTED",
+      description: userId === item.sellerId ? "Set to sell" : "Set to buy"
+    }))(transactions)
+);
+
+export const selectNumberOfMyTransactions = createSelector(
+  selectTransactions,
+  selectTransactionsLoaded,
+  (transactions, loaded) => (loaded ? transactions.length : 0)
+);
+
 // TEMPORARY OFFER
 export const selectOfferVolume = state => state.offer.volume;
 export const selectContactInfo = state => state.offer.contactInfo;
@@ -172,7 +222,7 @@ export const selectBidOfferTotal = createSelector(
 );
 
 // TEMPORARY ASK
-export const selectAskCoin = state => state.ask.coin;
+export const selectAskFormCoin = state => state.ask.coin;
 export const selectAskFormVolume = state => state.ask.volume;
 export const selectAskFormPrice = state => state.ask.price;
 export const selectFormattedAskPrice = createSelector(
@@ -185,7 +235,7 @@ export const selectAskUseCurrentLocation = state =>
   state.ask.useCurrentLocation;
 
 // TEMPORARY BID
-export const selectBidCoin = state => state.bid.coin;
+export const selectBidFormCoin = state => state.bid.coin;
 export const selectBidFormVolume = state => state.bid.volume;
 export const selectBidFormPrice = state => state.bid.price;
 export const selectFormattedBidFormPrice = createSelector(
@@ -201,13 +251,6 @@ export const selectBidUseCurrentLocation = state =>
 export const selectLayer = state => state.layers.layer;
 export const selectLayerOpen = state => state.layers.open;
 
-// SESSION
-export const selectIsLoggedIn = state => state.session.loggedIn;
-export const selectSessionLoaded = state => state.session.sessionLoaded;
-export const selectUsername = state => state.session.username;
-export const selectUserId = state => state.session.userId;
-export const selectCurrentLocation = state => state.session.location;
-
 // APP
 export const selectNavHeight = state => state.app.navigationBarHeight;
 export const selectHeaderHeight = state => state.app.headerHeight;
@@ -222,6 +265,7 @@ export const selectBidHasOffer = createSelector(
   (myOffers, bidId) => {
     const ids = compose(
       fpMap(item => item.postId),
+      filter(item => item.status !== "DECLINED")
     )(myOffers);
     return ids.includes(bidId);
   }
@@ -232,7 +276,8 @@ export const selectAskHasOffer = createSelector(
   selectAskId,
   (myOffers, askId) => {
     const ids = compose(
-      fpMap(item => item.postId)
+      fpMap(item => item.postId),
+      filter(item => item.status !== "DECLINED")
     )(myOffers);
     return ids.includes(askId);
   }
@@ -240,12 +285,12 @@ export const selectAskHasOffer = createSelector(
 
 export const selectAskOfferButtonText = createSelector(
   selectAskHasOffer,
-  hasOffer => hasOffer ? "Waiting for reply" : "Make an offer"
+  hasOffer => (hasOffer ? "Waiting for reply" : "Make an offer")
 );
 
 export const selectBidOfferButtonText = createSelector(
   selectBidHasOffer,
-  hasOffer => hasOffer ? "Waiting for reply" : "Make an offer"
+  hasOffer => (hasOffer ? "Waiting for reply" : "Make an offer")
 );
 
 export const selectMapMarkers = createSelector(

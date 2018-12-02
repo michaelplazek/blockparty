@@ -23,7 +23,7 @@ import withDimensions from "../../../HOCs/withDimensions";
 import { resetOffer } from "../../../actions/createOffer";
 import { createAskOffer } from "../../../actions/offers";
 import {
-  selectAskCoin,
+  selectAskFormCoin,
   selectAskId,
   selectAskOfferTotal,
   selectAskOwner,
@@ -31,7 +31,8 @@ import {
   selectAskFormVolume,
   selectContactInfo,
   selectOfferVolume,
-  selectUserId, selectAskVolume
+  selectUserId,
+  selectAskVolume
 } from "../../../selectors";
 
 const styles = theme => ({
@@ -116,7 +117,7 @@ CreateAskOffer.propTypes = {
 };
 
 const propMap = {
-  coin: selectAskCoin,
+  coin: selectAskFormCoin,
   max: selectAskVolume,
   volume: selectOfferVolume,
   contactInfo: selectContactInfo,

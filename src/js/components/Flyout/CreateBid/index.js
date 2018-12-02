@@ -17,7 +17,7 @@ import Paper from "@material-ui/core/Paper/Paper";
 import Typography from "@material-ui/core/Typography/Typography";
 
 import {
-  selectBidCoin,
+  selectBidFormCoin,
   selectBidLatitude,
   selectBidLongitude,
   selectBidFormPrice,
@@ -109,7 +109,7 @@ const CreateBid = ({
 );
 
 const propMap = {
-  coin: selectBidCoin,
+  coin: selectBidFormCoin,
   volume: selectBidFormVolume,
   price: selectBidFormPrice,
   lat: selectBidLatitude,

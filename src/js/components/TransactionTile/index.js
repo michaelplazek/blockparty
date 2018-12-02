@@ -8,9 +8,8 @@ import Typography from "@material-ui/core/Typography/Typography";
 import Grid from "@material-ui/core/Grid/Grid";
 import { getCoinIcon } from "../List/utils";
 import ListItemText from "@material-ui/core/ListItemText/ListItemText";
-import moment from "moment";
 import ListItem from "@material-ui/core/ListItem/ListItem";
-import { getStatusColor } from "../../utils/status";
+import theme from "../../../theme";
 
 const styles = () => ({
   root: {
@@ -32,7 +31,7 @@ const styles = () => ({
   }
 });
 
-const OfferTile = ({ classes, item, onClick }) => (
+const TransactionTile = ({ classes, item, onClick }) => (
   <div>
     <Paper className={classes.root} elevation={1}>
       <ListItem button onClick={onClick}>
@@ -55,9 +54,7 @@ const OfferTile = ({ classes, item, onClick }) => (
                   </Grid>
                 </Grid>
                 <Grid className={classes.type} item>
-                  <Typography variant="caption">
-                    {item.bid ? "offer to sell" : "offer to buy"}
-                  </Typography>
+                  <Typography variant="caption">{item.description}</Typography>
                 </Grid>
               </Grid>
             </Grid>
@@ -66,16 +63,11 @@ const OfferTile = ({ classes, item, onClick }) => (
         <ListItemText
           primary={
             <Typography
-              style={getStatusColor(item.status)}
+              style={theme.palette.statusOK}
               align="right"
               variant="caption"
             >
               {item.status}
-            </Typography>
-          }
-          secondary={
-            <Typography align="right" variant="caption">
-              {moment(item.timestamp).fromNow()}
             </Typography>
           }
         />
@@ -84,10 +76,4 @@ const OfferTile = ({ classes, item, onClick }) => (
   </div>
 );
 
-OfferTile.propTypes = {
-  onClick: PropTypes.func.isRequired
-};
-
-OfferTile.defaultProp = {};
-
-export default compose(withStyles(styles))(OfferTile);
+export default compose(withStyles(styles))(TransactionTile);

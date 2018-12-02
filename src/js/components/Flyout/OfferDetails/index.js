@@ -10,6 +10,7 @@ import {
   selectLayerOpen,
   selectOffer,
   selectOfferPostTime,
+  selectUserId,
   selectWindowHeight,
   selectWindowWidth
 } from "../../../selectors";
@@ -18,6 +19,11 @@ import numeral from "numeral";
 import { USD } from "../../../constants/currency";
 import Flyout from "../index";
 import Paper from "@material-ui/core/Paper/Paper";
+import { getStatusColor } from "../../../utils/status";
+import Button from "@material-ui/core/Button/Button";
+import {deleteOffer, loadOffersByUser} from "../../../actions/offers";
+import {loadMyAsks} from "../../../actions/asks";
+import {loadMyBids} from "../../../actions/bids";
 
 const styles = () => ({
   button: {
@@ -52,7 +58,8 @@ const OfferDetails = ({
   windowHeight,
   offer,
   open,
-  time
+  time,
+  handleDelete
 }) => (
   <Flyout
     onClose={() => {
@@ -101,7 +108,11 @@ const OfferDetails = ({
               </Grid>
             </Grid>
             <Grid item>
-              <Typography className={classes.rate} variant="caption">
+              <Typography
+                style={getStatusColor(offer.status)}
+                className={classes.rate}
+                variant="caption"
+              >
                 {offer.status}
               </Typography>
             </Grid>
@@ -115,18 +126,15 @@ const OfferDetails = ({
           alignItems="center"
           container
         >
-          {/*<div className={classes.button}>*/}
-            {/*<Button*/}
-              {/*variant="contained"*/}
-              {/*disabled={offer.length > 0}*/}
-              {/*onClick={() => {*/}
-                {/*deleteOffer(offer._id);*/}
-                {/*setLayerOpen(false);*/}
-              {/*}}*/}
-            {/*>*/}
-              {/*Delete Offer*/}
-            {/*</Button>*/}
-          {/*</div>*/}
+          <div className={classes.button}>
+            <Button
+              variant="contained"
+              disabled={offer.status === "ACCEPTED"}
+              onClick={() => handleDelete(offer._id)}
+            >
+              Delete Offer
+            </Button>
+          </div>
           <Typography className={classes.time}>Posted {time}</Typography>
         </Grid>
       </Grid>
@@ -136,6 +144,7 @@ const OfferDetails = ({
 
 const propMap = {
   open: selectLayerOpen,
+  userId: selectUserId,
   offer: selectOffer,
   windowHeight: selectWindowHeight,
   windowWidth: selectWindowWidth,
@@ -143,12 +152,31 @@ const propMap = {
 };
 
 const actionMap = {
-  setLayerOpen: setLayerOpenAction
+  setLayerOpen: setLayerOpenAction,
+  deleteOffer,
+  loadOffersByUser,
+  loadMyAsks,
+  loadMyBids
 };
 
 export default compose(
   mapper(propMap, actionMap),
   withStyles(styles),
-  withHandlers({}),
-  withHandlers({})
+  withHandlers({
+    handleDelete: ({
+      deleteOffer,
+      loadOffersByUser,
+      userId,
+      setLayerOpen,
+      loadMyAsks,
+      loadMyBids
+    }) => (id) => {
+      deleteOffer(id).then(() => {
+        loadOffersByUser(userId);
+        loadMyBids(userId);
+        loadMyAsks(userId);
+      });
+      setLayerOpen(false);
+    }
+  }),
 )(OfferDetails);
