@@ -52,8 +52,8 @@ const styles = () => ({
   },
   bid: {
     position: "relative",
-    top: "3px",
-    marginRight: "3px"
+    top: "4px",
+    marginRight: "5px"
   }
 });
 
