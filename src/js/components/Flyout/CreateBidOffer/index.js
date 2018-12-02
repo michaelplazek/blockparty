@@ -30,8 +30,8 @@ import {
   selectBidPrice,
   selectBidFormVolume,
   selectContactInfo,
-  selectOfferVolume,
-  selectUserId
+  selectOfferFormVolume,
+  selectUserId, selectUsername
 } from "../../../selectors/index";
 
 const styles = theme => ({
@@ -118,13 +118,14 @@ CreateBidOffer.propTypes = {
 const propMap = {
   coin: selectBidFormCoin,
   max: selectBidFormVolume,
-  volume: selectOfferVolume,
+  volume: selectOfferFormVolume,
   contactInfo: selectContactInfo,
   price: selectBidPrice,
   userId: selectUserId,
   owner: selectBidOwner,
   total: selectBidOfferTotal,
-  postId: selectBidId
+  postId: selectBidId,
+  username: selectUsername
 };
 
 const actionMap = {
@@ -150,7 +151,8 @@ export default compose(
       setActiveIndex,
       setLayerOpen,
       resetOffer,
-      history
+      history,
+      username
     }) => () => {
       const offer = {
         volume,
@@ -159,7 +161,8 @@ export default compose(
         price,
         coin,
         contactInfo,
-        postId
+        postId,
+        username
       };
 
       createBidOffer(offer);

@@ -34,7 +34,7 @@ const Tile = ({
   description
 }) => (
   <Grid>
-    <Paper style={{ background: color }} className={classes.root} elevation={1}>
+    <Paper style={{ background: color }} className={classes.root} elevation={2}>
       <Grid
         container
         justify="space-between"

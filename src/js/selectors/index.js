@@ -46,6 +46,9 @@ export const selectOffers = createSelector(
   filter(item => item.status !== "DECLINED")
 );
 export const selectOfferTimestamp = state => state.offers.offer.timestamp;
+export const selectOfferVolume = state => state.offers.offer.volume;
+export const selectOfferPrice = state => state.offers.offer.price;
+export const selectOfferIsOnBid = state => state.offers.offer.bid;
 export const selectOfferLoaded = state => state.offers.offerLoaded;
 export const selectMyOffersLoaded = state => state.offers.myOffersLoaded;
 export const selectOfferPostTime = createSelector(
@@ -56,6 +59,11 @@ export const selectNumberOfMyOffers = createSelector(
   selectMyOffers,
   selectMyOffersLoaded,
   (offers, loaded) => (loaded ? offers.length : 0)
+);
+export const selectOfferTotal = createSelector(
+  selectOfferPrice,
+  selectOfferVolume,
+  (price, volume) => numeral(price * volume).format(USD)
 );
 
 // ASKS
@@ -147,6 +155,11 @@ export const selectBidTotal = createSelector(
   selectBidPrice,
   (volume, price) => numeral(volume * price).format(USD)
 );
+export const selectBidHasButton = createSelector(
+  selectBidOwner,
+  selectUsername,
+  (owner, username) => owner !== username
+);
 
 // ASK
 export const selectAsk = state => state.asks.ask;
@@ -186,6 +199,12 @@ export const selectAskTotal = createSelector(
   (volume, price) => numeral(volume * price).format(USD)
 );
 
+export const selectAskHasButton = createSelector(
+  selectAskOwner,
+  selectUsername,
+  (owner, username) => owner !== username
+);
+
 // TRANSACTIONS
 export const selectTransactions = state => state.transactions.transactions;
 export const selectTransactionsLoaded = state =>
@@ -197,7 +216,7 @@ export const selectTransactionsForDisplay = createSelector(
     fpMap(item => ({
       ...item,
       status: "ACCEPTED",
-      description: userId === item.sellerId ? "Set to sell" : "Set to buy"
+      description: userId === item.sellerId ? "Ready to sell" : "Ready to buy"
     }))(transactions)
 );
 
@@ -207,22 +226,66 @@ export const selectNumberOfMyTransactions = createSelector(
   (transactions, loaded) => (loaded ? transactions.length : 0)
 );
 
+export const selectTransaction = state => state.transactions.transaction;
+export const selectTransactionLoaded = state => state.transactions.transactionLoaded;
+export const selectTransactionSellerId = state => state.transactions.transaction.sellerId;
+export const selectTransactionSellerUsername = state => state.transactions.transaction.sellerUsername;
+export const selectTransactionBuyerId = state => state.transactions.transaction.buyerId;
+export const selectTransactionBuyerUsername = state => state.transactions.transaction.buyerUsername;
+export const selectTransactionBuyerContactInfo = state => state.transactions.transaction.buyerContactInfo;
+export const selectTransactionSellerContactInfo = state => state.transactions.transaction.sellerContactInfo;
+export const selectTransactionCompletedByBuyer = state => state.transactions.transaction.completedByBuyer;
+export const selectTransactionCompletedBySeller = state => state.transactions.transaction.completedBySeller;
+
+export const selectTransactionId = state => state.transactions.transaction._id;
+export const selectTransactionCoin = state => state.transactions.transaction.coin;
+export const selectTransactionVolume = state => state.transactions.transaction.volume;
+export const selectTransactionPrice = state => state.transactions.transaction.price;
+export const selectTransactionType = createSelector(
+  selectTransactionBuyerId,
+  selectUserId,
+  (buyerId, userId) => userId === buyerId ? "BUYING" : "SELLING"
+);
+export const selectTransactionFormattedTotal = createSelector(
+  selectTransactionPrice,
+  selectTransactionVolume,
+  (price, volume) => numeral(price * volume).format(USD)
+);
+export const selectUserIsSeller = createSelector(
+  selectUserId,
+  selectTransactionSellerId,
+  (userId, sellerId) => userId === sellerId
+);
+
+export const selectUserIsBuyer = createSelector(
+  selectUserId,
+  selectTransactionBuyerId,
+  (userId, buyerId) => userId === buyerId
+);
+
+export const selectTransactionDisplayPrice = createSelector(
+  selectTransactionPrice,
+  price => numeral(price).format(USD)
+);
+
 // TEMPORARY OFFER
-export const selectOfferVolume = state => state.offer.volume;
+export const selectOfferFormVolume = state => state.offer.volume;
 export const selectContactInfo = state => state.offer.contactInfo;
 export const selectAskOfferTotal = createSelector(
   selectAskPrice,
-  selectOfferVolume,
+  selectOfferFormVolume,
   (price, volume) => numeral(price * volume).format(USD)
 );
+
 export const selectBidOfferTotal = createSelector(
   selectBidPrice,
-  selectOfferVolume,
+  selectOfferFormVolume,
   (price, volume) => numeral(price * volume).format(USD)
 );
 
 // TEMPORARY ASK
 export const selectAskFormCoin = state => state.ask.coin;
+export const selectAskFormContactInfo = state => state.ask.contactInfo;
 export const selectAskFormVolume = state => state.ask.volume;
 export const selectAskFormPrice = state => state.ask.price;
 export const selectFormattedAskPrice = createSelector(
@@ -233,9 +296,15 @@ export const selectAskLatitude = state => state.ask.lat;
 export const selectAskLongitude = state => state.ask.lng;
 export const selectAskUseCurrentLocation = state =>
   state.ask.useCurrentLocation;
+export const selectAskFormTotal = createSelector(
+  selectAskFormVolume,
+  selectAskFormPrice,
+  (volume, price) => numeral(volume * price).format(USD)
+);
 
 // TEMPORARY BID
 export const selectBidFormCoin = state => state.bid.coin;
+export const selectBidFormContactInfo = state => state.bid.contactInfo;
 export const selectBidFormVolume = state => state.bid.volume;
 export const selectBidFormPrice = state => state.bid.price;
 export const selectFormattedBidFormPrice = createSelector(
@@ -246,6 +315,11 @@ export const selectBidLatitude = state => state.bid.lat;
 export const selectBidLongitude = state => state.bid.lng;
 export const selectBidUseCurrentLocation = state =>
   state.bid.useCurrentLocation;
+export const selectBidFormTotal = createSelector(
+  selectBidFormVolume,
+  selectBidFormPrice,
+  (volume, price) => numeral(volume * price).format(USD)
+);
 
 // LAYERS
 export const selectLayer = state => state.layers.layer;
@@ -593,3 +667,4 @@ export const selectChartAsks = createSelector(
       filter(ask => ask.coin === coin)
     )(asks)
 );
+

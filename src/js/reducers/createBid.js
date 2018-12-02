@@ -7,7 +7,8 @@ import {
   RESET_BID,
   SET_BID_LATITUDE,
   SET_BID_LONGITUDE,
-  SET_BID_USE_CURRENT_LOCATION
+  SET_BID_USE_CURRENT_LOCATION,
+  SET_BID_CONTACT_INFO
 } from "../actions";
 
 const initialState = {
@@ -16,6 +17,7 @@ const initialState = {
   price: 1,
   lat: 40.564714,
   lng: -105.09065,
+  contactInfo: "",
   useCurrentLocation: false
 };
 
@@ -37,6 +39,9 @@ const handlers = {
   }),
   [SET_BID_USE_CURRENT_LOCATION]: (state, action) => ({
     useCurrentLocation: action.data
+  }),
+  [SET_BID_CONTACT_INFO]: (state, action) => ({
+    contactInfo: action.data
   }),
   [RESET_BID]: () => ({ ...initialState })
 };

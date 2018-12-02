@@ -27,6 +27,7 @@ import {
 } from "../../actions/layers";
 import CreateBidOffer from "../../components/Flyout/CreateBidOffer";
 import { loadOffersByUser } from "../../actions/offers";
+import {selectBidHasButton} from "../../selectors";
 
 const styles = () => ({
   root: {
@@ -53,7 +54,8 @@ const Bid = ({
   layer,
   handleOffer,
   bidHasOffer,
-  buttonText
+  buttonText,
+  showButton
 }) => (
   <div>
     {loaded && (
@@ -74,15 +76,17 @@ const Bid = ({
             <br />
             <DetailList items={items} />
           </div>
-          <Button
-            className={classes.buttons}
-            color="primary"
-            disabled={bidHasOffer}
-            variant="extendedFab"
-            onClick={handleOffer}
-          >
-            {buttonText}
-          </Button>
+          {showButton &&
+            <Button
+              className={classes.buttons}
+              color="primary"
+              disabled={bidHasOffer}
+              variant="extendedFab"
+              onClick={handleOffer}
+            >
+              {buttonText}
+            </Button>
+          }
         </Grid>
         <Grid />
       </div>
@@ -105,7 +109,8 @@ const propMap = {
   bidHasOffer: selectBidHasOffer,
   buttonText: selectBidOfferButtonText,
   myOffersLoaded: selectMyOffersLoaded,
-  userId: selectUserId
+  userId: selectUserId,
+  showButton: selectBidHasButton
 };
 
 const actionMap = {

@@ -3,13 +3,14 @@ import { compose, withHandlers } from "recompose";
 import withStyles from "@material-ui/core/styles/withStyles";
 import mapper from "../../../utils/connect";
 
+import theme from "../../../../theme";
 import Grid from "@material-ui/core/Grid/Grid";
 import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
 
 import {
   selectLayerOpen,
   selectOffer,
-  selectOfferPostTime,
+  selectOfferPostTime, selectOfferTotal,
   selectUserId,
   selectWindowHeight,
   selectWindowWidth
@@ -48,6 +49,11 @@ const styles = () => ({
   },
   rate: {
     margin: "3px 0px 0px 3px"
+  },
+  bid: {
+    position: "relative",
+    top: "4px",
+    marginRight: "5px"
   }
 });
 
@@ -59,7 +65,8 @@ const OfferDetails = ({
   offer,
   open,
   time,
-  handleDelete
+  handleDelete,
+  total
 }) => (
   <Flyout
     onClose={() => {
@@ -77,12 +84,12 @@ const OfferDetails = ({
         <Paper className={classes.paper}>
           <Grid container className={classes.box}>
             <Grid item>
-              <Typography variant="subheading">
-                {offer.bid ? "Sell" : "Buy"}
-              </Typography>
-            </Grid>
-            <Grid item>
               <Grid container direction="row">
+                <Grid className={classes.bid} item>
+                  <Typography variant="title">
+                    {offer.bid ? "Sell" : "Buy"}
+                  </Typography>
+                </Grid>
                 <Grid item>
                   <Typography variant="headline">{offer.volume}</Typography>
                 </Grid>
@@ -108,6 +115,11 @@ const OfferDetails = ({
               </Grid>
             </Grid>
             <Grid item>
+              <Typography variant="subheading">
+                for {total}
+              </Typography>
+            </Grid>
+            <Grid item>
               <Typography
                 style={getStatusColor(offer.status)}
                 className={classes.rate}
@@ -130,6 +142,8 @@ const OfferDetails = ({
             <Button
               variant="contained"
               disabled={offer.status === "ACCEPTED"}
+              style={theme.palette.errorButton}
+              classes={{disabled: classes.disabled}}
               onClick={() => handleDelete(offer._id)}
             >
               Delete Offer
@@ -145,6 +159,7 @@ const OfferDetails = ({
 const propMap = {
   open: selectLayerOpen,
   userId: selectUserId,
+  total: selectOfferTotal,
   offer: selectOffer,
   windowHeight: selectWindowHeight,
   windowWidth: selectWindowWidth,

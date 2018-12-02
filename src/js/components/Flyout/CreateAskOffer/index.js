@@ -30,9 +30,9 @@ import {
   selectAskPrice,
   selectAskFormVolume,
   selectContactInfo,
-  selectOfferVolume,
+  selectOfferFormVolume,
   selectUserId,
-  selectAskVolume
+  selectAskVolume, selectUsername
 } from "../../../selectors";
 
 const styles = theme => ({
@@ -119,13 +119,14 @@ CreateAskOffer.propTypes = {
 const propMap = {
   coin: selectAskFormCoin,
   max: selectAskVolume,
-  volume: selectOfferVolume,
+  volume: selectOfferFormVolume,
   contactInfo: selectContactInfo,
   price: selectAskPrice,
   userId: selectUserId,
   owner: selectAskOwner,
   total: selectAskOfferTotal,
-  postId: selectAskId
+  postId: selectAskId,
+  username: selectUsername,
 };
 
 const actionMap = {
@@ -151,7 +152,8 @@ export default compose(
       setActiveIndex,
       setLayerOpen,
       resetOffer,
-      history
+      history,
+      username
     }) => () => {
       const offer = {
         volume,
@@ -160,7 +162,8 @@ export default compose(
         price,
         coin,
         contactInfo,
-        postId
+        postId,
+        username
       };
       createAskOffer(offer);
       setTimeout(() => {

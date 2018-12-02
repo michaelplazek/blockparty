@@ -23,7 +23,7 @@ import {
   selectBidFormPrice,
   selectBidFormVolume,
   selectUserId,
-  selectUsername
+  selectUsername, selectContactInfo, selectBidFormContactInfo
 } from "../../../selectors";
 import {
   createBid as createBidAction,
@@ -112,6 +112,7 @@ const propMap = {
   coin: selectBidFormCoin,
   volume: selectBidFormVolume,
   price: selectBidFormPrice,
+  contactInfo: selectBidFormContactInfo,
   lat: selectBidLatitude,
   lng: selectBidLongitude,
   username: selectUsername,
@@ -142,12 +143,14 @@ export default compose(
       loadMyBids,
       setLayerOpen,
       resetBid,
-      setActiveIndex
+      setActiveIndex,
+      contactInfo
     }) => () => {
       const bid = {
         coin,
         volume: parseFloat(volume),
         price,
+        contactInfo,
         owner: username,
         lat,
         lng

@@ -6,7 +6,8 @@ import {
   SET_ASK_LATITUDE,
   SET_ASK_LONGITUDE,
   RESET_ASK,
-  SET_ASK_USE_CURRENT_LOCATION
+  SET_ASK_USE_CURRENT_LOCATION,
+  SET_ASK_CONTACT_INFO
 } from "../actions";
 import numeral from "numeral";
 
@@ -16,6 +17,7 @@ const initialState = {
   price: 1,
   lat: 40.564714,
   lng: -105.09065,
+  contactInfo: "",
   useCurrentLocation: false
 };
 
@@ -37,6 +39,9 @@ const handlers = {
   }),
   [SET_ASK_USE_CURRENT_LOCATION]: (state, action) => ({
     useCurrentLocation: action.data
+  }),
+  [SET_ASK_CONTACT_INFO]: (state, action) => ({
+    contactInfo: action.data
   }),
   [RESET_ASK]: () => ({ ...initialState })
 };

@@ -5,7 +5,8 @@ import {
   RESET_ASK,
   SET_ASK_LATITUDE,
   SET_ASK_LONGITUDE,
-  SET_ASK_USE_CURRENT_LOCATION
+  SET_ASK_USE_CURRENT_LOCATION,
+  SET_ASK_CONTACT_INFO
 } from "./index";
 
 export const setAskCoin = data => dispatch =>
@@ -25,5 +26,8 @@ export const setAskLongitude = data => dispatch =>
 
 export const setAskUseCurrentLocation = data => dispatch =>
   dispatch({ type: SET_ASK_USE_CURRENT_LOCATION, data });
+
+export const setAskContactInfo = data => dispatch =>
+  dispatch({ type: SET_ASK_CONTACT_INFO, data });
 
 export const resetAsk = () => dispatch => dispatch({ type: RESET_ASK });

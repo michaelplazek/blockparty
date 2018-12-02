@@ -3,5 +3,6 @@ export const STEPS = [
   "Enter volume",
   "Enter price in USD",
   "Select location",
+  "Enter contact information",
   "Confirm"
 ];

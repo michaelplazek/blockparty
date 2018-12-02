@@ -8,9 +8,8 @@ import Grid from "@material-ui/core/Grid/Grid";
 import {
   selectBidFormCoin,
   selectBidOfferTotal,
-  selectBidFormVolume,
   selectContactInfo,
-  selectOfferVolume,
+  selectOfferFormVolume,
   selectBidDisplayPrice
 } from "../../../selectors/index";
 import mapper from "../../../utils/connect";
@@ -93,7 +92,7 @@ const CreateBidOfferContent = ({
 const propMap = {
   coin: selectBidFormCoin,
   max: selectBidVolume,
-  volume: selectOfferVolume,
+  volume: selectOfferFormVolume,
   contactInfo: selectContactInfo,
   price: selectBidDisplayPrice,
   total: selectBidOfferTotal

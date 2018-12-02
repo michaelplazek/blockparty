@@ -5,6 +5,7 @@ import {
   RESET_BID,
   SET_BID_LATITUDE,
   SET_BID_LONGITUDE,
+  SET_BID_CONTACT_INFO,
   SET_BID_USE_CURRENT_LOCATION
 } from "./index";
 
@@ -25,5 +26,8 @@ export const setBidLongitude = data => dispatch =>
 
 export const setBidUseCurrentLocation = data => dispatch =>
   dispatch({ type: SET_BID_USE_CURRENT_LOCATION, data });
+
+export const setBidContactInfo = data => dispatch =>
+  dispatch({ type: SET_BID_CONTACT_INFO, data });
 
 export const resetBid = () => dispatch => dispatch({ type: RESET_BID });

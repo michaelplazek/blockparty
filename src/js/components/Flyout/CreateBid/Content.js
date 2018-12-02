@@ -14,11 +14,12 @@ import {
   selectBidFormVolume,
   selectFormattedBidFormPrice,
   selectWindowWidth,
-  selectBidCoin
+  selectBidCoin,
+  selectBidFormTotal, selectBidFormContactInfo
 } from "../../../selectors";
 import mapper from "../../../utils/connect";
 import {
-  setBidCoin as setBidCoinAction,
+  setBidCoin as setBidCoinAction, setBidContactInfo,
   setBidLatitude as setBidLatitudeAction,
   setBidLongitude as setBidLongitudeAction,
   setBidPrice as setBidPriceAction,
@@ -35,6 +36,8 @@ const CreateBidContent = ({
   coin,
   volume,
   price,
+  total,
+  contactInfo,
   lat,
   lng,
   width,
@@ -43,7 +46,8 @@ const CreateBidContent = ({
   handleToggle,
   setBidCoin,
   setBidPrice,
-  setBidVolume
+  setBidVolume,
+  setBidContactInfo
 }) => {
   switch (index) {
     case 0:
@@ -126,10 +130,24 @@ const CreateBidContent = ({
       );
     case 4:
       return (
+        <FormControl margin="dense" fullWidth={true}>
+          <TextField
+            id="contactInfo"
+            value={contactInfo}
+            onChange={({ target }) => setBidContactInfo(target.value)}
+            margin="dense"
+            helperText="Usually a phone number"
+            variant="standard"
+          />
+        </FormControl>
+      );
+    case 5:
+      return (
         <Grid container direction="column">
           <Typography>Type: {coin}</Typography>
           <Typography>Volume: {volume}</Typography>
           <Typography>Price: {price}</Typography>
+          <Typography variant="subheading">Total: {total}</Typography>
         </Grid>
       );
   }
@@ -139,6 +157,8 @@ const propMap = {
   coin: selectBidCoin,
   volume: selectBidFormVolume,
   price: selectFormattedBidFormPrice,
+  total: selectBidFormTotal,
+  contactInfo: selectBidFormContactInfo,
   lat: selectBidLatitude,
   lng: selectBidLongitude,
   useCurrentLocation: selectBidUseCurrentLocation,
@@ -151,7 +171,8 @@ const actionMap = {
   setBidPrice: setBidPriceAction,
   setBidLatitude: setBidLatitudeAction,
   setBidLongitude: setBidLongitudeAction,
-  setUseCurrentLocation: setBidUseCurrentLocationAction
+  setUseCurrentLocation: setBidUseCurrentLocationAction,
+  setBidContactInfo
 };
 
 export default compose(

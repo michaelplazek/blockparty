@@ -32,7 +32,7 @@ const styles = () => ({
 
 const ListTile = ({ classes, onClick, item }) => (
   <div className={classes.root} onClick={onClick}>
-    <Paper elevation={1}>
+    <Paper elevation={2}>
       <ListItem button onClick={onClick}>
         <ListItemText
           disableTypography={true}

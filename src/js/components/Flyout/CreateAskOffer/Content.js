@@ -8,7 +8,7 @@ import Grid from "@material-ui/core/Grid/Grid";
 import {
   selectAskOfferTotal,
   selectContactInfo,
-  selectOfferVolume,
+  selectOfferFormVolume,
   selectAskVolume,
   selectAskDisplayPrice,
   selectAskCoin
@@ -92,7 +92,7 @@ const CreateAskContent = ({
 const propMap = {
   coin: selectAskCoin,
   max: selectAskVolume,
-  volume: selectOfferVolume,
+  volume: selectOfferFormVolume,
   contactInfo: selectContactInfo,
   price: selectAskDisplayPrice,
   total: selectAskOfferTotal

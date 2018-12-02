@@ -23,7 +23,7 @@ import {
   selectAskFormPrice,
   selectAskFormVolume,
   selectUserId,
-  selectUsername
+  selectUsername, selectAskFormContactInfo
 } from "../../../selectors";
 import {
   createAsk as createAskAction,
@@ -115,7 +115,8 @@ const propMap = {
   lat: selectAskLatitude,
   lng: selectAskLongitude,
   username: selectUsername,
-  userId: selectUserId
+  userId: selectUserId,
+  contactInfo: selectAskFormContactInfo,
 };
 
 const actionMap = {
@@ -142,11 +143,13 @@ export default compose(
       loadMyAsks,
       setLayerOpen,
       resetAsk,
-      setActiveIndex
+      setActiveIndex,
+      contactInfo
     }) => () => {
       const ask = {
         coin,
         volume: parseFloat(volume),
+        contactInfo,
         price,
         owner: username,
         lat,
