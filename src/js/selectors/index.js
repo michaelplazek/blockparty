@@ -382,12 +382,10 @@ export const selectBidOfferButtonText = createSelector(
 export const selectMapMarkers = createSelector(
   selectAsks,
   selectBids,
-  selectFilterType,
-  selectFilterCoin,
-  selectFilterDistance,
+  selectFilter,
   selectCurrentLocation,
-  (asks, bids, type, coin, filterDistance, currentLocation) => {
-    const items = type === "ASK" ? asks : bids;
+  (asks, bids, filters, currentLocation) => {
+    const items = filters.type === "ASK" ? asks : bids;
     return compose(
       fpMap(ask => ({
         lat: ask.lat,
@@ -403,9 +401,9 @@ export const selectMapMarkers = createSelector(
           { latitude: currentLocation.lat, longitude: currentLocation.lng }
         );
         const distanceInMiles = getMilesFromMeters(distance);
-        return distanceInMiles < filterDistance;
+        return distanceInMiles < filters.distanceAway;
       }),
-      filter(ask => ask.coin === coin)
+      filter(ask => ask.coin === filters.coin)
     )(items);
   }
 );

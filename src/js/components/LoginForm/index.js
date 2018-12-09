@@ -69,7 +69,6 @@ export default compose(
   withHandlers({
     handleSubmit: ({ onClick, username, password }) => () => {
       const inputs = cleanInputs(username, password);
-      console.log(inputs);
       onClick(inputs[username], inputs[password]);
     }
   })
