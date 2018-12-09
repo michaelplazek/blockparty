@@ -12,17 +12,12 @@ import withAuthentification from "../HOCs/withAuthentification";
 import {
   selectAsksForDisplay,
   selectBidsForDisplay,
-  selectChartData,
-  selectChartListType,
   selectFilterCoin,
   selectFilterType,
   selectFormattedFilterPrice,
-  selectHasData,
   selectHeaderHeight,
   selectLayer,
-  selectMapMarkers,
   selectMarketLoaded,
-  selectMidPoint,
   selectNavHeight,
   selectWindowHeight,
   selectWindowWidth
@@ -36,9 +31,9 @@ import {
 import { loadCurrentLocation as loadCurrentLocationAction } from "../actions/session";
 import { setMarketView as setMarketViewAction } from "../actions/app";
 import { MAP } from "../constants/app";
-import DepthChart from "../components/DepthChart";
+import AnalysisChart from "../components/AnalysisChart";
 import ChartHeader from "../components/ChartHeader";
-import PriceMarker from "../components/DepthChart/PriceMarker";
+import PriceMarker from "../components/AnalysisChart/PriceMarker";
 import Placeholder from "../components/DepthChart/Placeholder";
 import withDimensions from "../HOCs/withDimensions";
 import Button from "@material-ui/core/Button/Button";
@@ -47,6 +42,7 @@ import Grow from "@material-ui/core/Grow/Grow";
 import { setFilterPrice } from "../actions/filters";
 import BidChartList from "../components/Flyout/BidChartList";
 import AskChartList from "../components/Flyout/AskChartList";
+import {selectFullBins, selectMidMarketPrice, selectHasData} from "../components/AnalysisChart/selectors";
 
 const styles = () => ({
   actionButton: {
@@ -55,21 +51,23 @@ const styles = () => ({
 });
 
 const Analysis = ({
-  handleMarketView,
-  chartData,
-  headerHeight,
-  navHeight,
-  windowWidth,
-  windowHeight,
-  midMarketPrice,
-  hasData,
-  handleTouch,
-  touched,
-  subheading,
-  price,
-  handleSelect,
-  handleButtonClick,
-  layer
+                    handleMarketView,
+                    chartData,
+                    headerHeight,
+                    navHeight,
+                    windowWidth,
+                    windowHeight,
+                    midMarketPrice,
+                    hasData,
+                    handleTouch,
+                    touched,
+                    subheading,
+                    price,
+                    handleSelect,
+                    handleButtonClick,
+                    layer,
+                    askInfo,
+                    bidInfo
 }) => (
   <div>
     {layer === "LIST_BIDS" && <BidChartList />}
@@ -84,10 +82,11 @@ const Analysis = ({
       <div>
         <PriceMarker
           price={touched ? price : midMarketPrice}
-          subheading={subheading}
+          askInfo={askInfo}
+          bidInfo={bidInfo}
           top={headerHeight + 50}
         />
-        <DepthChart
+        <AnalysisChart
           data={chartData}
           height={windowHeight - navHeight - headerHeight}
           width={windowWidth}
@@ -117,20 +116,18 @@ const Analysis = ({
 const propMap = {
   asks: selectAsksForDisplay,
   bids: selectBidsForDisplay,
-  markers: selectMapMarkers,
   navHeight: selectNavHeight,
   headerHeight: selectHeaderHeight,
   windowHeight: selectWindowHeight,
   windowWidth: selectWindowWidth,
   type: selectFilterType,
   loaded: selectMarketLoaded, // for withLoader
-  chartData: selectChartData,
-  midMarketPrice: selectMidPoint,
+  chartData: selectFullBins,
+  midMarketPrice: selectMidMarketPrice,
   hasData: selectHasData,
   price: selectFormattedFilterPrice,
   coin: selectFilterCoin,
   layer: selectLayer,
-  selectedType: selectChartListType
 };
 
 const actionMap = {
@@ -150,7 +147,8 @@ export default compose(
   withRouter,
   withStyles(styles),
   withState("touched", "setTouched", false),
-  withState("subheading", "setSubheading", "Mid Market Price"),
+  withState("askInfo", "setAskInfo", undefined),
+  withState("bidInfo", "setBidInfo", undefined),
   lifecycle({
     componentDidMount() {
       this.props.loadAsks();
@@ -162,36 +160,38 @@ export default compose(
       setMarketView(MAP);
       history.push("/");
     },
-    handleTouch: ({ setTouched, setFilterPrice, setSubheading, coin }) => ({
-      activePayload
-    }) => {
+    handleTouch: ({
+                    setTouched,
+                    setFilterPrice,
+                    setAskInfo,
+                    setBidInfo,
+                    coin
+                  }) => ({ activePayload }) => {
       if (!activePayload) return;
       const payload = get("payload")(activePayload[0]);
-      const { count } = payload;
+      const { totalVolume } = payload;
 
-      if (count > 0) {
-        const { price } = payload;
-        const type = !payload.bid ? "asks" : "bids";
-        const total = !payload.bid ? payload.ask : payload.bid;
-        const message = `${total} ${coin} available in ${count} ${type}`;
-        setFilterPrice(price);
-        setSubheading(message);
-        setTouched(true);
-      } else {
+      if (totalVolume === 0) {
         setTouched(false);
-        setSubheading("Mid Market Price");
-      }
-    },
-    handleSelect: ({ setTouched, setSubheading }) => () => {
-      setTouched(false);
-      setSubheading("Mid Market Price");
-    },
-    handleButtonClick: ({ setLayer, setLayerOpen, selectedType }) => () => {
-      if (selectedType === "ASK") {
-        setLayer("LIST_ASKS");
+        setAskInfo("Mid Market Price");
+        setBidInfo(undefined);
       } else {
-        setLayer("LIST_BIDS");
+        const { price, askVolume, bidVolume, askCount, bidCount } = payload;
+        const askInfo = askVolume > 0 ? `${askVolume} ${coin} available in ${askCount} asks` : undefined;
+        const bidInfo = bidVolume > 0 ? `${bidVolume} ${coin} available in ${bidCount} bids` : undefined;
+        setFilterPrice(price);
+        setAskInfo(askInfo);
+        setBidInfo(bidInfo);
+        setTouched(true);
       }
+    },
+    handleSelect: ({ setTouched, setAskInfo, setBidInfo }) => () => {
+      setTouched(false);
+      setAskInfo("Mid Market Price");
+      setBidInfo(undefined);
+    },
+    handleButtonClick: ({ setLayer, setLayerOpen }) => () => {
+      setLayer("ASKS_OR_BIDS");
       setLayerOpen(true);
     }
   })
