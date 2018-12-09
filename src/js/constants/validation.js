@@ -14,8 +14,8 @@ export const PASSWORD_CONFIRM = {
 };
 
 export const DISTANCE = {
-  VALIDATORS: ["isPositive", "required", "maxNumber: 500"],
-  MESSAGES: ["invalid distance", "this field is required", "distance too far"]
+  VALIDATORS: ["isPositive", "required", "maxNumber: 500", 'minFloat: 0.001'],
+  MESSAGES: ["invalid distance", "this field is required", "distance too far", 'invalid distance']
 };
 
 export const cleanInputs = (...args) => {
