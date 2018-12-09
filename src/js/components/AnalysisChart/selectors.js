@@ -58,7 +58,7 @@ export const selectPriceRange = createSelector(
       orderBy("price", "asc"),
       concat(asks)
     )(bids);
-    return { start: head(data) - 20, end: last(data) + 20 };
+    return { start: head(data) - 10, end: last(data) + 10 };
   }
 );
 
