@@ -57,7 +57,7 @@ import {
   unloadOffers
 } from "../actions/offers";
 import OfferDetails from "../components/Flyout/OfferDetails";
-import {loadTransaction, loadTransactions} from "../actions/transactions";
+import { loadTransaction, loadTransactions } from "../actions/transactions";
 import TransactionDetails from "../components/Flyout/TransactionDetail";
 
 const styles = () => ({
@@ -136,11 +136,7 @@ const Dashboard = ({
         />
       ))}
     </Tile>
-    <Tile
-      title="My Asks"
-      count={numberOfAsks}
-      description="looking to sell"
-    >
+    <Tile title="My Asks" count={numberOfAsks} description="looking to sell">
       {myAsks.map(item => (
         <ListTile
           item={item}
@@ -149,11 +145,7 @@ const Dashboard = ({
         />
       ))}
     </Tile>
-    <Tile
-      title="My Bids"
-      count={numberOfBids}
-      description="looking to buy"
-    >
+    <Tile title="My Bids" count={numberOfBids} description="looking to buy">
       {myBids.map(item => (
         <ListTile
           item={item}
@@ -303,7 +295,9 @@ export default compose(
       setLayer("VIEW_OFFER");
       setLayerOpen(true);
     },
-    handleTransactionClick: ({ loadTransaction, setLayer, setLayerOpen }) => ({ _id }) => {
+    handleTransactionClick: ({ loadTransaction, setLayer, setLayerOpen }) => ({
+      _id
+    }) => {
       loadTransaction(_id);
       setLayer("VIEW_TRANSACTION");
       setLayerOpen(true);

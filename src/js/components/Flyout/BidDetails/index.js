@@ -8,17 +8,15 @@ import Flyout from "../index";
 import DetailBox from "../../DetailBox";
 
 import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
-import {
-  deleteBid,
-  loadMyBids
-} from "../../../actions/bids";
+import { deleteBid, loadMyBids } from "../../../actions/bids";
 import {
   selectBid,
   selectBidLoaded,
   selectBidOfferTotal,
   selectBidPostTime,
   selectLayerOpen,
-  selectOffers, selectUserId,
+  selectOffers,
+  selectUserId,
   selectWindowHeight,
   selectWindowWidth
 } from "../../../selectors";
@@ -26,8 +24,8 @@ import OfferWidgetList from "../../OfferWidgetList/index";
 import Grid from "@material-ui/core/Grid/Grid";
 import Typography from "@material-ui/core/Typography/Typography";
 import Button from "@material-ui/core/Button/Button";
-import {loadOffersByUser} from "../../../actions/offers";
-import {loadMyAsks} from "../../../actions/asks";
+import { loadOffersByUser } from "../../../actions/offers";
+import { loadMyAsks } from "../../../actions/asks";
 
 const styles = () => ({
   paper: {
@@ -47,7 +45,7 @@ const styles = () => ({
   },
   time: {
     marginTop: "6px"
-  },
+  }
 });
 
 const DeleteBid = ({
@@ -94,7 +92,11 @@ const DeleteBid = ({
             <Button
               variant="contained"
               disabled={offers.length > 0}
-              style={!(offers.length > 0) ? theme.palette.errorButton : theme.palette.disabledErrorButton}
+              style={
+                !(offers.length > 0)
+                  ? theme.palette.errorButton
+                  : theme.palette.disabledErrorButton
+              }
               onClick={() => handleDelete(bid._id)}
             >
               Delete Bid
@@ -133,13 +135,13 @@ export default compose(
   withRouter,
   withHandlers({
     handleDelete: ({
-     deleteBid,
-     loadOffersByUser,
-     userId,
-     setLayerOpen,
-     loadMyAsks,
-     loadMyBids
-   }) => (id) => {
+      deleteBid,
+      loadOffersByUser,
+      userId,
+      setLayerOpen,
+      loadMyAsks,
+      loadMyBids
+    }) => id => {
       deleteBid(id).then(() => {
         loadOffersByUser(userId);
         loadMyBids(userId);
@@ -147,5 +149,5 @@ export default compose(
       });
       setLayerOpen(false);
     }
-  }),
+  })
 )(DeleteBid);

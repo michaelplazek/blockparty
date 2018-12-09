@@ -20,7 +20,8 @@ import {
 } from "../../../selectors";
 import mapper from "../../../utils/connect";
 import {
-  setBidCoin as setBidCoinAction, setBidContactInfo,
+  setBidCoin as setBidCoinAction,
+  setBidContactInfo,
   setBidLatitude as setBidLatitudeAction,
   setBidLongitude as setBidLongitudeAction,
   setBidPrice as setBidPriceAction,

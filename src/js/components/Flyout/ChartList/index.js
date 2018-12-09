@@ -4,11 +4,11 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import mapper from "../../../utils/connect";
 
 import Flyout from "../index";
-import PostList from "../../PostList";
+import PostList from "./PostList";
 import Grid from "@material-ui/core/Grid/Grid";
 
 import {
-  selectChartBids,
+  selectFilterType,
   selectFormattedFilterPrice
 } from "../../../selectors";
 import {
@@ -17,11 +17,10 @@ import {
 } from "../../../actions/asks";
 import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
 import { resetAsk as resetAskAction } from "../../../actions/createAsk";
+import PostFilters from "./PostFilters";
+import {selectListItems} from "./selectors";
 
 const styles = theme => ({
-  root: {
-    margin: "20px 10px 10px 10px"
-  },
   button: {
     marginTop: theme.spacing.unit,
     marginRight: theme.spacing.unit
@@ -31,26 +30,42 @@ const styles = theme => ({
   },
   resetContainer: {
     padding: theme.spacing.unit * 3
+  },
+  filters: {
+    paddingTop: "1.5em"
   }
 });
 
-const BidChartList = ({ classes, onSubmit, setLayerOpen, bids, price }) => (
+const ChartList = ({
+                     classes,
+                     onSubmit,
+                     setLayerOpen,
+                     items,
+                     price,
+  type
+}) => (
   <Flyout
     onClose={() => {
       setLayerOpen(false);
     }}
     size={8}
-    title={`Bids under ${price}`}
+    title={`Price: ${price}`}
   >
     <Grid className={classes.root}>
-      <PostList items={bids} type="BID" />
+      <Grid item className={classes.filters}>
+        <PostFilters />
+      </Grid>
+      <Grid item>
+        <PostList items={items} type={type} />
+      </Grid>
     </Grid>
   </Flyout>
 );
 
 const propMap = {
-  bids: selectChartBids,
-  price: selectFormattedFilterPrice
+  items: selectListItems,
+  price: selectFormattedFilterPrice,
+  type: selectFilterType
 };
 
 const actionMap = {
@@ -67,4 +82,4 @@ export default compose(
     handleClick: () => () => {}
   }),
   withHandlers({})
-)(BidChartList);
+)(ChartList);

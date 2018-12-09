@@ -24,7 +24,6 @@ import FormControl from "@material-ui/core/FormControl/FormControl";
 import InputLabel from "@material-ui/core/InputLabel/InputLabel";
 import Select from "@material-ui/core/Select/Select";
 import TextField from "@material-ui/core/TextField/TextField";
-import Button from "@material-ui/core/Button/Button";
 import { selectFilterType } from "../../../selectors";
 import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
 
@@ -90,9 +89,6 @@ const FilterMap = ({
           }}
         />
         <br />
-        {/*<Button variant="contained" onClick={handleSubmit}>*/}
-        {/*Filter*/}
-        {/*</Button>*/}
       </FormControl>
     </Grid>
   </Flyout>
@@ -115,11 +111,5 @@ const actionMap = {
 
 export default compose(
   mapper(propMap, actionMap),
-  // withHandlers({
-  //   handleSubmit: ({ setFilter, setLayerOpen }) => () => {
-  //     setFilter();
-  //     setLayerOpen(false);
-  //   }
-  // }),
   withStyles(styles)
 )(FilterMap);

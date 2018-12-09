@@ -2,8 +2,7 @@ import React from "react";
 import { compose } from "recompose";
 import numeral from "numeral";
 
-import PropTypes from "prop-types";
-import { Area, AreaChart, Tooltip, XAxis, YAxis } from "recharts";
+import { Tooltip, XAxis, YAxis, AreaChart, Area } from "recharts";
 import { ASK_COLOR, BID_COLOR } from "../../constants/colors";
 import { USD } from "../../constants/currency";
 import ToolTip from "./ToolTip";
@@ -26,6 +25,7 @@ const XTick = ({ payload, x, y, fill }) => {
 const YTick = ({ payload, x, y, fill }) => {
   return (
     <text
+      style={{ position: "relative", zIndex: 1000 }}
       x={x}
       y={y}
       fontSize="11"
@@ -38,36 +38,30 @@ const YTick = ({ payload, x, y, fill }) => {
   );
 };
 
-const DepthChart = ({ height, width, data, handleTouch }) => (
-  <div style={{ zIndex: 500 }}>
+const AnalysisChartBase = ({ height, width, data, handleTouch }) => (
+  <div>
     <AreaChart
       width={width}
       height={height}
       data={data}
-      onMouseMove={handleTouch}
+      onMouseMove={payload => payload && handleTouch(payload)}
     >
       <XAxis
         dataKey="price"
         interval="preserveStartEnd"
+        type='number'
+        domain={['auto', 'auto']}
         tickMargin={20}
-        minTickGap={9}
         tick={<XTick />}
       />
       <YAxis
         mirror={true}
         tickMargin={15}
         orientation="left"
-        yAxisId="left"
-        tick={<YTick />}
-      />
-      <YAxis
-        mirror={true}
-        tickMargin={15}
-        orientation="right"
-        yAxisId="right"
         tick={<YTick />}
       />
       <Tooltip content={<ToolTip />} />
+
       <defs>
         <linearGradient id="bidId" x1="0" y1="0" x2="0" y2="1">
           <stop offset="5%" stopColor={BID_COLOR} stopOpacity={0.8} />
@@ -79,9 +73,8 @@ const DepthChart = ({ height, width, data, handleTouch }) => (
         </linearGradient>
       </defs>
       <Area
-        yAxisId="left"
         type="linear"
-        dataKey="bid"
+        dataKey="bidVolume"
         stroke={BID_COLOR}
         fillOpacity={1}
         strokeWidth={2}
@@ -89,9 +82,8 @@ const DepthChart = ({ height, width, data, handleTouch }) => (
         isAnimationActive={false}
       />
       <Area
-        yAxisId="right"
         type="linear"
-        dataKey="ask"
+        dataKey="askVolume"
         stroke={ASK_COLOR}
         strokeWidth={1}
         fillOpacity={1}
@@ -102,11 +94,4 @@ const DepthChart = ({ height, width, data, handleTouch }) => (
   </div>
 );
 
-DepthChart.propTypes = {
-  data: PropTypes.array,
-  width: PropTypes.number,
-  height: PropTypes.number,
-  handleTouch: PropTypes.func
-};
-
-export default compose()(DepthChart);
+export default compose()(AnalysisChartBase);

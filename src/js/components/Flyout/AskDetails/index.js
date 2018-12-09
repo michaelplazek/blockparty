@@ -1,5 +1,5 @@
 import React from "react";
-import {compose, withHandlers} from "recompose";
+import { compose, withHandlers } from "recompose";
 import { withRouter } from "react-router-dom";
 import withStyles from "@material-ui/core/styles/withStyles";
 import mapper from "../../../utils/connect";
@@ -7,17 +7,15 @@ import Flyout from "../index";
 import DetailBox from "../../DetailBox";
 
 import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
-import {
-  deleteAsk,
-  loadMyAsks
-} from "../../../actions/asks";
+import { deleteAsk, loadMyAsks } from "../../../actions/asks";
 import {
   selectAsk,
   selectAskLoaded,
   selectAskOfferTotal,
   selectAskPostTime,
   selectLayerOpen,
-  selectOffers, selectUserId,
+  selectOffers,
+  selectUserId,
   selectWindowHeight,
   selectWindowWidth
 } from "../../../selectors";
@@ -25,8 +23,8 @@ import OfferWidgetList from "../../OfferWidgetList/index";
 import Grid from "@material-ui/core/Grid/Grid";
 import Typography from "@material-ui/core/Typography/Typography";
 import Button from "@material-ui/core/Button/Button";
-import {loadMyBids} from "../../../actions/bids";
-import {loadOffersByUser} from "../../../actions/offers";
+import { loadMyBids } from "../../../actions/bids";
+import { loadOffersByUser } from "../../../actions/offers";
 import theme from "../../../../theme";
 
 const styles = () => ({
@@ -94,7 +92,11 @@ const AskDetails = ({
             <Button
               variant="contained"
               disabled={offers.length > 0}
-              style={!(offers.length > 0) ? theme.palette.errorButton : theme.palette.disabledErrorButton}
+              style={
+                !(offers.length > 0)
+                  ? theme.palette.errorButton
+                  : theme.palette.disabledErrorButton
+              }
               onClick={() => handleDelete(ask._id)}
             >
               Delete Ask
@@ -133,13 +135,13 @@ export default compose(
   withRouter,
   withHandlers({
     handleDelete: ({
-     deleteAsk,
-     loadOffersByUser,
-     userId,
-     setLayerOpen,
-     loadMyAsks,
-     loadMyBids
-   }) => (id) => {
+      deleteAsk,
+      loadOffersByUser,
+      userId,
+      setLayerOpen,
+      loadMyAsks,
+      loadMyBids
+    }) => id => {
       deleteAsk(id).then(() => {
         loadOffersByUser(userId);
         loadMyBids(userId);
@@ -147,5 +149,5 @@ export default compose(
       });
       setLayerOpen(false);
     }
-  }),
+  })
 )(AskDetails);

@@ -15,7 +15,8 @@ import {
   selectAskFormVolume,
   selectFormattedAskPrice,
   selectWindowWidth,
-  selectAskFormTotal, selectAskFormContactInfo
+  selectAskFormTotal,
+  selectAskFormContactInfo
 } from "../../../selectors";
 import mapper from "../../../utils/connect";
 import {
@@ -24,7 +25,8 @@ import {
   setAskVolume as setAskVolumeAction,
   setAskLatitude as setAskLatitudeAction,
   setAskLongitude as setAskLongitudeAction,
-  setAskUseCurrentLocation as setAskUseCurrentLocationAction, setAskContactInfo
+  setAskUseCurrentLocation as setAskUseCurrentLocationAction,
+  setAskContactInfo
 } from "../../../actions/createAsk";
 import FormControlLabel from "@material-ui/core/FormControlLabel/FormControlLabel";
 import Switch from "@material-ui/core/Switch/Switch";
@@ -49,7 +51,7 @@ const CreateAskContent = ({
   useCurrentLocation,
   handleToggle,
   contactInfo,
-  setAskContactInfo,
+  setAskContactInfo
 }) => {
   switch (index) {
     case 0:

@@ -15,18 +15,28 @@ const styles = () => ({
   }
 });
 
-const ButtonContainer = ({ id, classes, handleComplete, handleCancel, disabled }) => (
+const ButtonContainer = ({
+  id,
+  classes,
+  handleComplete,
+  handleCancel,
+  disabled
+}) => (
   <Grid
     container
-    direction='row'
-    justify='center'
+    direction="row"
+    justify="center"
     className={classes.container}
   >
     <Grid item className={classes.button}>
       <Button
         variant="contained"
         onClick={handleComplete}
-        style={!disabled ? theme.palette.submitButton : theme.palette.disabledSubmitButton}
+        style={
+          !disabled
+            ? theme.palette.submitButton
+            : theme.palette.disabledSubmitButton
+        }
         disabled={disabled}
       >
         {disabled ? "Marked as completed" : "Mark as completed"}

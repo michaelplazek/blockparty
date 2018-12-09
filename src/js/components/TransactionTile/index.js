@@ -9,7 +9,7 @@ import { getCoinIcon } from "../List/utils";
 import ListItemText from "@material-ui/core/ListItemText/ListItemText";
 import ListItem from "@material-ui/core/ListItem/ListItem";
 import theme from "../../../theme";
-import {getStatusIcon} from "../../utils/status";
+import { getStatusIcon } from "../../utils/status";
 
 const styles = () => ({
   root: {
@@ -72,9 +72,9 @@ const TransactionTile = ({ classes, item, onClick }) => (
             <Grid
               className={classes.status}
               container
-              direction='row'
-              alignItems='center'
-              justify='flex-end'
+              direction="row"
+              alignItems="center"
+              justify="flex-end"
             >
               <Grid item>
                 <Typography
@@ -96,6 +96,4 @@ const TransactionTile = ({ classes, item, onClick }) => (
   </div>
 );
 
-export default compose(
-  withStyles(styles),
-)(TransactionTile);
+export default compose(withStyles(styles))(TransactionTile);

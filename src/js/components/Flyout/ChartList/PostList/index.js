@@ -6,10 +6,17 @@ import { withRouter } from "react-router";
 import ListItem from "./ListItem";
 import Placeholder from "./Placeholder";
 import List from "@material-ui/core/List/List";
-import mapper from "../../utils/connect";
+import mapper from "../../../../utils/connect";
+import withStyles from "@material-ui/core/styles/withStyles";
 
-const ListBase = ({ items, type, handleClick }) => (
-  <div>
+const styles = () => ({
+  root: {
+    margin: "0em 1em 1em 1em"
+  }
+});
+
+const ListBase = ({ items, type, handleClick, classes }) => (
+  <div className={classes.root}>
     {items.length > 0 && (
       <List>
         {items.map(item => (
@@ -36,6 +43,7 @@ const actionMap = {};
 
 export default compose(
   mapper(propMap, actionMap),
+  withStyles(styles),
   withRouter,
   withHandlers({
     handleClick: ({ history, type }) => item => {

@@ -1,11 +1,11 @@
 import React from "react";
-import { compose, lifecycle } from "recompose";
+import { compose } from "recompose";
 import numeral from "numeral";
 import Typography from "@material-ui/core/Typography/Typography";
 import { USD } from "../../constants/currency";
 import Grid from "@material-ui/core/Grid/Grid";
 
-const PriceMarker = ({ classes, price, subheading, top }) => (
+const PriceMarker = ({ classes, price, askInfo, bidInfo, top }) => (
   <Grid
     container
     justify="center"
@@ -23,7 +23,10 @@ const PriceMarker = ({ classes, price, subheading, top }) => (
           </Typography>
         </Grid>
         <Grid item>
-          <Typography variant="caption">{subheading}</Typography>
+          <Typography variant="caption">{askInfo}</Typography>
+        </Grid>
+        <Grid item>
+          <Typography variant="caption">{bidInfo}</Typography>
         </Grid>
       </Grid>
     </Grid>

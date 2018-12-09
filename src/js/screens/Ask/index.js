@@ -28,7 +28,7 @@ import {
 } from "../../actions/layers";
 import CreateAskOffer from "../../components/Flyout/CreateAskOffer";
 import { loadOffersByUser } from "../../actions/offers";
-import {selectAskHasButton} from "../../selectors";
+import { selectAskHasButton } from "../../selectors";
 
 const styles = () => ({
   root: {
@@ -77,7 +77,7 @@ const Ask = ({
             <br />
             <DetailList items={items} />
           </div>
-          {showButton &&
+          {showButton && (
             <Button
               className={classes.buttons}
               variant="extendedFab"
@@ -87,7 +87,7 @@ const Ask = ({
             >
               {buttonText}
             </Button>
-          }
+          )}
         </Grid>
         <Grid />
       </div>

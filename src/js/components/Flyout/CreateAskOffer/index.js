@@ -32,7 +32,8 @@ import {
   selectContactInfo,
   selectOfferFormVolume,
   selectUserId,
-  selectAskVolume, selectUsername
+  selectAskVolume,
+  selectUsername
 } from "../../../selectors";
 
 const styles = theme => ({
@@ -126,7 +127,7 @@ const propMap = {
   owner: selectAskOwner,
   total: selectAskOfferTotal,
   postId: selectAskId,
-  username: selectUsername,
+  username: selectUsername
 };
 
 const actionMap = {

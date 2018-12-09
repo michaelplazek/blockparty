@@ -12,9 +12,9 @@ import Typography from "@material-ui/core/Typography/Typography";
 import ListItemText from "@material-ui/core/ListItemText/ListItemText";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Grid from "@material-ui/core/Grid/Grid";
-import { USD } from "../../constants/currency";
+import { USD } from "../../../../constants/currency";
 import Paper from "@material-ui/core/Paper/Paper";
-import { ADMIN_1, LOCALITY, POLITICAL } from "../../constants/maps";
+import { ADMIN_1, LOCALITY, POLITICAL } from "../../../../constants/maps";
 
 const styles = () => ({
   root: {

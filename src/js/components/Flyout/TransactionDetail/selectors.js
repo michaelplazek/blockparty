@@ -14,26 +14,21 @@ import {
   selectTransactionCompletedByBuyer,
   selectTransactionCompletedBySeller,
   selectTransactionDisplayPrice,
-  selectTransactionSellerContactInfo, selectTransactionBuyerContactInfo,
+  selectTransactionSellerContactInfo,
+  selectTransactionBuyerContactInfo
 } from "../../../selectors";
 
-export const selectTypeDetail = createSelector(
-  selectTransactionType,
-  type => ({
-    name: "Type",
-    value: type,
-    onClick: undefined
-  })
-);
+export const selectTypeDetail = createSelector(selectTransactionType, type => ({
+  name: "Type",
+  value: type,
+  onClick: undefined
+}));
 
-export const selectCoinDetail = createSelector(
-  selectTransactionCoin,
-  coin => ({
-    name: "Coin",
-    value: coin,
-    onClick: undefined
-  })
-);
+export const selectCoinDetail = createSelector(selectTransactionCoin, coin => ({
+  name: "Coin",
+  value: coin,
+  onClick: undefined
+}));
 
 export const selectVolumeDetail = createSelector(
   selectTransactionVolume,
@@ -55,11 +50,12 @@ export const selectPriceDetail = createSelector(
 
 export const selectTotalDetail = createSelector(
   selectTransactionFormattedTotal,
-    total => ({
-  name: "Total",
-  value: total,
-  onClick: undefined
-}));
+  total => ({
+    name: "Total",
+    value: total,
+    onClick: undefined
+  })
+);
 
 const selectContactInfo = createSelector(
   selectUserIsBuyer,
@@ -67,7 +63,7 @@ const selectContactInfo = createSelector(
   selectTransactionSellerContactInfo,
   selectTransactionBuyerContactInfo,
   (isBuyer, isSeller, sellerInfo, buyerInfo) => {
-    if(isBuyer) return sellerInfo;
+    if (isBuyer) return sellerInfo;
     else return buyerInfo;
   }
 );
@@ -82,7 +78,8 @@ export const selectContactDetail = createSelector(
     value: username === buyer ? seller : buyer,
     onClick: undefined,
     contact: contactInfo
-  }));
+  })
+);
 
 export const selectTransactionDetails = createSelector(
   selectTypeDetail,
@@ -100,7 +97,7 @@ export const selectCompleteButtonIsDisabled = createSelector(
   selectTransactionCompletedByBuyer,
   selectTransactionCompletedBySeller,
   (userIsBuyer, userIsSeller, completedByBuyer, completedBySeller) => {
-    if(userIsBuyer) return completedByBuyer;
-    else if(userIsSeller) return completedBySeller;
+    if (userIsBuyer) return completedByBuyer;
+    else if (userIsSeller) return completedBySeller;
   }
 );
