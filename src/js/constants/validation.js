@@ -1,4 +1,3 @@
-
 export const USERNAME = {
   VALIDATORS: ['required'],
   MESSAGES: ['this field is required']

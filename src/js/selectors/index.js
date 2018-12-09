@@ -421,3 +421,6 @@ export const selectDashboardLoaded = createSelector(
   (asksLoaded, bidsLoaded) => asksLoaded && bidsLoaded
 );
 
+// Errors
+export const selectError = state => state.errors.error;
+export const selectErrorMessage = state => state.errors.message;

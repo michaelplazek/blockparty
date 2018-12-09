@@ -11,6 +11,7 @@ import bids from "./bids";
 import offers from "./offers";
 import offer from "./createOffer";
 import transactions from "./transactions";
+import errors from "./errors";
 
 export default combineReducers({
   app,
@@ -23,5 +24,6 @@ export default combineReducers({
   bid,
   offers,
   offer,
-  transactions
+  transactions,
+  errors
 });
