@@ -40,8 +40,7 @@ import Button from "@material-ui/core/Button/Button";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Grow from "@material-ui/core/Grow/Grow";
 import { setFilterPrice } from "../actions/filters";
-import BidChartList from "../components/Flyout/BidChartList";
-import AskChartList from "../components/Flyout/AskChartList";
+import ChartList from "../components/Flyout/ChartList";
 import {
   selectFullBins,
   selectMidMarketPrice,
@@ -74,8 +73,7 @@ const Analysis = ({
   bidInfo
 }) => (
   <div>
-    {layer === "LIST_BIDS" && <BidChartList />}
-    {layer === "LIST_ASKS" && <AskChartList />}
+    {layer === "CHART_LIST" && <ChartList />}
     <PageHeader
       leftHandButton="Go to map view"
       leftHandAction={handleMarketView}
@@ -201,7 +199,7 @@ export default compose(
       setBidInfo(undefined);
     },
     handleButtonClick: ({ setLayer, setLayerOpen }) => () => {
-      setLayer("ASKS_OR_BIDS");
+      setLayer("CHART_LIST");
       setLayerOpen(true);
     }
   })

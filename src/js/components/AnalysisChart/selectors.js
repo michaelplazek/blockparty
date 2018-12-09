@@ -118,7 +118,7 @@ export const selectChartBids = createSelector(
   selectFilterCoin,
   (bids, price, coin) =>
     compose(
-      filter(bid => bid.price <= price),
+      filter(bid => bid.price >= price),
       filter(bid => bid.coin === coin)
     )(bids)
 );
