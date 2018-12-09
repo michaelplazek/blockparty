@@ -1,4 +1,6 @@
 import { createSelector } from "reselect";
+import numeral from "numeral";
+
 import {
   selectAsks,
   selectBids,
@@ -16,6 +18,7 @@ import reduce from "lodash/fp/reduce";
 import maxBy from "lodash/fp/maxBy";
 import minBy from "lodash/fp/minBy";
 import getOr from "lodash/fp/getOr";
+import {USD} from "../../constants/currency";
 
 const NUMBER_OF_BINS = 100;
 
@@ -146,6 +149,6 @@ export const selectMidMarketPrice = createSelector(
       getOr(0, "price"),
       minBy(item => item.price)
     )(asks);
-    return ((max + min) / 2).toFixed(2);
+    return numeral((max + min) / 2).format(USD);
   }
 );
