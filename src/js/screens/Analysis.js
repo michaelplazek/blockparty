@@ -34,7 +34,7 @@ import { MAP } from "../constants/app";
 import AnalysisChart from "../components/AnalysisChart";
 import ChartHeader from "../components/ChartHeader";
 import PriceMarker from "../components/AnalysisChart/PriceMarker";
-import Placeholder from "../components/DepthChart/Placeholder";
+import Placeholder from "../components/AnalysisChart/Placeholder";
 import withDimensions from "../HOCs/withDimensions";
 import Button from "@material-ui/core/Button/Button";
 import withStyles from "@material-ui/core/styles/withStyles";
