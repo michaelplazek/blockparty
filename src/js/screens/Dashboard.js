@@ -185,7 +185,7 @@ const Dashboard = ({
                 setLayerOpen(true);
               }}
             >
-              Create a new bid
+              Create new bid
             </Button>
             <Button
               className={classes.buttons}
@@ -195,7 +195,7 @@ const Dashboard = ({
                 setLayerOpen(true);
               }}
             >
-              Create a new ask
+              Create new ask
             </Button>
           </div>
         </Grow>
