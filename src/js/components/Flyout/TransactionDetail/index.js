@@ -1,5 +1,5 @@
 import React from "react";
-import {compose, withHandlers} from "recompose";
+import { compose, withHandlers } from "recompose";
 import { withRouter } from "react-router-dom";
 import withStyles from "@material-ui/core/styles/withStyles";
 import mapper from "../../../utils/connect";
@@ -8,18 +8,27 @@ import Flyout from "../index";
 import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
 import {
   selectLayerOpen,
-  selectTransactionId, selectUserId,
+  selectTransactionId,
+  selectUserId,
   selectWindowHeight,
   selectWindowWidth
 } from "../../../selectors";
 import Grid from "@material-ui/core/Grid/Grid";
-import {cancelTransaction, completeTransaction, loadTransaction, loadTransactions} from "../../../actions/transactions";
-import {selectCompleteButtonIsDisabled, selectTransactionDetails} from "./selectors";
+import {
+  cancelTransaction,
+  completeTransaction,
+  loadTransaction,
+  loadTransactions
+} from "../../../actions/transactions";
+import {
+  selectCompleteButtonIsDisabled,
+  selectTransactionDetails
+} from "./selectors";
 import DetailList from "./DetailList";
 import ButtonContainer from "./ButtonContainer";
-import {loadMyAsks} from "../../../actions/asks";
-import {loadMyBids} from "../../../actions/bids";
-import {loadOffersByUser} from "../../../actions/offers";
+import { loadMyAsks } from "../../../actions/asks";
+import { loadMyBids } from "../../../actions/bids";
+import { loadOffersByUser } from "../../../actions/offers";
 
 const styles = () => ({
   list: {
@@ -101,7 +110,7 @@ export default compose(
         loadMyBids(userId);
         loadOffersByUser(userId);
         setLayerOpen(false);
-      })
+      });
     },
     handleCancel: ({
       id,
@@ -119,7 +128,7 @@ export default compose(
         loadMyBids(userId);
         loadOffersByUser(userId);
         setLayerOpen(false);
-      })
+      });
     }
-  }),
+  })
 )(TransactionDetails);

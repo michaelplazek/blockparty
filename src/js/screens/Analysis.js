@@ -42,7 +42,11 @@ import Grow from "@material-ui/core/Grow/Grow";
 import { setFilterPrice } from "../actions/filters";
 import BidChartList from "../components/Flyout/BidChartList";
 import AskChartList from "../components/Flyout/AskChartList";
-import {selectFullBins, selectMidMarketPrice, selectHasData} from "../components/AnalysisChart/selectors";
+import {
+  selectFullBins,
+  selectMidMarketPrice,
+  selectHasData
+} from "../components/AnalysisChart/selectors";
 
 const styles = () => ({
   actionButton: {
@@ -51,23 +55,23 @@ const styles = () => ({
 });
 
 const Analysis = ({
-                    handleMarketView,
-                    chartData,
-                    headerHeight,
-                    navHeight,
-                    windowWidth,
-                    windowHeight,
-                    midMarketPrice,
-                    hasData,
-                    handleTouch,
-                    touched,
-                    subheading,
-                    price,
-                    handleSelect,
-                    handleButtonClick,
-                    layer,
-                    askInfo,
-                    bidInfo
+  handleMarketView,
+  chartData,
+  headerHeight,
+  navHeight,
+  windowWidth,
+  windowHeight,
+  midMarketPrice,
+  hasData,
+  handleTouch,
+  touched,
+  subheading,
+  price,
+  handleSelect,
+  handleButtonClick,
+  layer,
+  askInfo,
+  bidInfo
 }) => (
   <div>
     {layer === "LIST_BIDS" && <BidChartList />}
@@ -127,7 +131,7 @@ const propMap = {
   hasData: selectHasData,
   price: selectFormattedFilterPrice,
   coin: selectFilterCoin,
-  layer: selectLayer,
+  layer: selectLayer
 };
 
 const actionMap = {
@@ -161,12 +165,12 @@ export default compose(
       history.push("/");
     },
     handleTouch: ({
-                    setTouched,
-                    setFilterPrice,
-                    setAskInfo,
-                    setBidInfo,
-                    coin
-                  }) => ({ activePayload }) => {
+      setTouched,
+      setFilterPrice,
+      setAskInfo,
+      setBidInfo,
+      coin
+    }) => ({ activePayload }) => {
       if (!activePayload) return;
       const payload = get("payload")(activePayload[0]);
       const { totalVolume } = payload;
@@ -177,8 +181,14 @@ export default compose(
         setBidInfo(undefined);
       } else {
         const { price, askVolume, bidVolume, askCount, bidCount } = payload;
-        const askInfo = askVolume > 0 ? `${askVolume} ${coin} available in ${askCount} asks` : undefined;
-        const bidInfo = bidVolume > 0 ? `${bidVolume} ${coin} available in ${bidCount} bids` : undefined;
+        const askInfo =
+          askVolume > 0
+            ? `${askVolume} ${coin} available in ${askCount} asks`
+            : undefined;
+        const bidInfo =
+          bidVolume > 0
+            ? `${bidVolume} ${coin} available in ${bidCount} bids`
+            : undefined;
         setFilterPrice(price);
         setAskInfo(askInfo);
         setBidInfo(bidInfo);

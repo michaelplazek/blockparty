@@ -27,7 +27,7 @@ import {
 } from "../../actions/layers";
 import CreateBidOffer from "../../components/Flyout/CreateBidOffer";
 import { loadOffersByUser } from "../../actions/offers";
-import {selectBidHasButton} from "../../selectors";
+import { selectBidHasButton } from "../../selectors";
 
 const styles = () => ({
   root: {
@@ -76,7 +76,7 @@ const Bid = ({
             <br />
             <DetailList items={items} />
           </div>
-          {showButton &&
+          {showButton && (
             <Button
               className={classes.buttons}
               color="primary"
@@ -86,7 +86,7 @@ const Bid = ({
             >
               {buttonText}
             </Button>
-          }
+          )}
         </Grid>
         <Grid />
       </div>

@@ -23,7 +23,9 @@ import {
   selectBidFormPrice,
   selectBidFormVolume,
   selectUserId,
-  selectUsername, selectContactInfo, selectBidFormContactInfo
+  selectUsername,
+  selectContactInfo,
+  selectBidFormContactInfo
 } from "../../../selectors";
 import {
   createBid as createBidAction,

@@ -2,7 +2,7 @@ import React from "react";
 import { compose } from "recompose";
 import numeral from "numeral";
 
-import {Tooltip, XAxis, YAxis, AreaChart, Area} from "recharts";
+import { Tooltip, XAxis, YAxis, AreaChart, Area } from "recharts";
 import { ASK_COLOR, BID_COLOR } from "../../constants/colors";
 import { USD } from "../../constants/currency";
 import ToolTip from "./ToolTip";
@@ -44,7 +44,7 @@ const AnalysisChartBase = ({ height, width, data, handleTouch }) => (
       width={width}
       height={height}
       data={data}
-      onMouseMove={(payload) => payload && handleTouch(payload)}
+      onMouseMove={payload => payload && handleTouch(payload)}
     >
       <XAxis
         dataKey="price"

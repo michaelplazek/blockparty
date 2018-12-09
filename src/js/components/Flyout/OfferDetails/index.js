@@ -10,7 +10,8 @@ import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
 import {
   selectLayerOpen,
   selectOffer,
-  selectOfferPostTime, selectOfferTotal,
+  selectOfferPostTime,
+  selectOfferTotal,
   selectUserId,
   selectWindowHeight,
   selectWindowWidth
@@ -22,9 +23,9 @@ import Flyout from "../index";
 import Paper from "@material-ui/core/Paper/Paper";
 import { getStatusColor } from "../../../utils/status";
 import Button from "@material-ui/core/Button/Button";
-import {deleteOffer, loadOffersByUser} from "../../../actions/offers";
-import {loadMyAsks} from "../../../actions/asks";
-import {loadMyBids} from "../../../actions/bids";
+import { deleteOffer, loadOffersByUser } from "../../../actions/offers";
+import { loadMyAsks } from "../../../actions/asks";
+import { loadMyBids } from "../../../actions/bids";
 
 const styles = () => ({
   button: {
@@ -115,9 +116,7 @@ const OfferDetails = ({
               </Grid>
             </Grid>
             <Grid item>
-              <Typography variant="subheading">
-                for {total}
-              </Typography>
+              <Typography variant="subheading">for {total}</Typography>
             </Grid>
             <Grid item>
               <Typography
@@ -143,7 +142,7 @@ const OfferDetails = ({
               variant="contained"
               disabled={offer.status === "ACCEPTED"}
               style={theme.palette.errorButton}
-              classes={{disabled: classes.disabled}}
+              classes={{ disabled: classes.disabled }}
               onClick={() => handleDelete(offer._id)}
             >
               Delete Offer
@@ -185,7 +184,7 @@ export default compose(
       setLayerOpen,
       loadMyAsks,
       loadMyBids
-    }) => (id) => {
+    }) => id => {
       deleteOffer(id).then(() => {
         loadOffersByUser(userId);
         loadMyBids(userId);
@@ -193,5 +192,5 @@ export default compose(
       });
       setLayerOpen(false);
     }
-  }),
+  })
 )(OfferDetails);

@@ -13,9 +13,9 @@ import orderBy from "lodash/fp/orderBy";
 import filter from "lodash/fp/filter";
 import concat from "lodash/fp/concat";
 import reduce from "lodash/fp/reduce";
-import maxBy from 'lodash/fp/maxBy';
-import minBy from 'lodash/fp/minBy';
-import getOr from 'lodash/fp/getOr';
+import maxBy from "lodash/fp/maxBy";
+import minBy from "lodash/fp/minBy";
+import getOr from "lodash/fp/getOr";
 
 const NUMBER_OF_BINS = 100;
 
@@ -58,7 +58,7 @@ export const selectPriceRange = createSelector(
       orderBy("price", "asc"),
       concat(asks)
     )(bids);
-    return { start: head(data) - 2, end: last(data) + 2 };
+    return { start: head(data) - 20, end: last(data) + 20 };
   }
 );
 
@@ -139,13 +139,13 @@ export const selectMidMarketPrice = createSelector(
   selectFilteredAsks,
   (bids, asks) => {
     const min = compose(
-      getOr(0, 'price'),
+      getOr(0, "price"),
       maxBy(item => item.price)
     )(bids);
     const max = compose(
-      getOr(0, 'price'),
+      getOr(0, "price"),
       minBy(item => item.price)
     )(asks);
-    return ((max + min)/2).toFixed(2);
+    return ((max + min) / 2).toFixed(2);
   }
 );

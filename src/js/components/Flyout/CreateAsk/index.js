@@ -23,7 +23,8 @@ import {
   selectAskFormPrice,
   selectAskFormVolume,
   selectUserId,
-  selectUsername, selectAskFormContactInfo
+  selectUsername,
+  selectAskFormContactInfo
 } from "../../../selectors";
 import {
   createAsk as createAskAction,
@@ -116,7 +117,7 @@ const propMap = {
   lng: selectAskLongitude,
   username: selectUsername,
   userId: selectUserId,
-  contactInfo: selectAskFormContactInfo,
+  contactInfo: selectAskFormContactInfo
 };
 
 const actionMap = {

@@ -35,11 +35,13 @@ export const createTransaction = (offerId, owner) => dispatch =>
   });
 
 export const completeTransaction = (id, userId) => dispatch =>
-  wrappedFetch("transaction_complete", { id, userId }, "POST").then(response => {
-    dispatch({ type: COMPLETE_TRANSACTION });
-  });
+  wrappedFetch("transaction_complete", { id, userId }, "POST").then(
+    response => {
+      dispatch({ type: COMPLETE_TRANSACTION });
+    }
+  );
 
-export const cancelTransaction = (id) => dispatch =>
+export const cancelTransaction = id => dispatch =>
   wrappedFetch("transaction_cancelled", { id }, "POST").then(response => {
     dispatch({ type: CANCEL_TRANSACTION });
   });

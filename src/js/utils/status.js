@@ -1,7 +1,6 @@
-import React from 'react';
+import React from "react";
 import theme from "../../theme";
-import CheckIcon from '@material-ui/icons/CheckCircleOutline';
-
+import CheckIcon from "@material-ui/icons/CheckCircleOutline";
 
 export const getStatusColor = status => {
   if (status === "DECLINED") {
@@ -12,5 +11,6 @@ export const getStatusColor = status => {
 };
 
 export const getStatusIcon = status => {
-  if(status === "ACCEPTED") return <CheckIcon style={theme.palette.statusOK} />;
+  if (status === "ACCEPTED")
+    return <CheckIcon style={theme.palette.statusOK} />;
 };
