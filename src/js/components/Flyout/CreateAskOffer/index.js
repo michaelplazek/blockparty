@@ -89,29 +89,28 @@ const CreateAskOffer = ({
                     onError={handleError}
                     instantValidate={true}
                   >
-                  <Content index={index} />
-                  <div className={classes.actionsContainer}>
-                    <div>
-                      <Button
-                        disabled={activeIndex === 0}
-                        onClick={handleBack}
-                        className={classes.button}
-                      >
-                        Back
-                      </Button>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        type='submit'
-                        className={classes.button}
-                      >
-                        {activeIndex === STEPS.length - 1 ? "Finish" : "Next"}
-                      </Button>
+                    <Content index={index} />
+                    <div className={classes.actionsContainer}>
+                      <div>
+                        <Button
+                          disabled={activeIndex === 0}
+                          onClick={handleBack}
+                          className={classes.button}
+                        >
+                          Back
+                        </Button>
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          type='submit'
+                          className={classes.button}
+                        >
+                          {activeIndex === STEPS.length - 1 ? "Finish" : "Next"}
+                        </Button>
+                      </div>
                     </div>
-                  </div>
-              </ValidatorForm>
+                  </ValidatorForm>
                 </StepContent>
-
             </Step>
           );
         })}

@@ -34,6 +34,8 @@ import {
   selectUserId,
   selectUsername
 } from "../../../selectors/index";
+import {ValidatorForm} from "react-material-ui-form-validator";
+import {cleanInputs} from "../../../constants/validation";
 
 const styles = theme => ({
   root: {
@@ -59,7 +61,9 @@ const CreateBidOffer = ({
   handleBack,
   handleNext,
   setLayerOpen,
-  resetOffer
+  resetOffer,
+                          handleSubmit,
+                          handleError
 }) => (
   <Flyout
     onClose={() => {
@@ -77,26 +81,34 @@ const CreateBidOffer = ({
             <Step key={index}>
               <StepLabel>{step}</StepLabel>
               <StepContent>
-                <Content index={index} />
-                <div className={classes.actionsContainer}>
-                  <div>
-                    <Button
-                      disabled={activeIndex === 0}
-                      onClick={handleBack}
-                      className={classes.button}
-                    >
-                      Back
-                    </Button>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={handleNext}
-                      className={classes.button}
-                    >
-                      {activeIndex === STEPS.length - 1 ? "Finish" : "Next"}
-                    </Button>
+                <ValidatorForm
+                  ref="form"
+                  autoComplete="on"
+                  onSubmit={handleNext}
+                  onError={handleError}
+                  instantValidate={true}
+                >
+                  <Content index={index} />
+                  <div className={classes.actionsContainer}>
+                    <div>
+                      <Button
+                        disabled={activeIndex === 0}
+                        onClick={handleBack}
+                        className={classes.button}
+                      >
+                        Back
+                      </Button>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        type='submit'
+                        className={classes.button}
+                      >
+                        {activeIndex === STEPS.length - 1 ? "Finish" : "Next"}
+                      </Button>
+                    </div>
                   </div>
-                </div>
+                </ValidatorForm>
               </StepContent>
             </Step>
           );
@@ -155,13 +167,17 @@ export default compose(
       history,
       username
     }) => () => {
+
+      // clean the text inputs
+      const inputs = cleanInputs(contactInfo);
+
       const offer = {
         volume,
         userId,
         owner,
         price,
         coin,
-        contactInfo,
+        contactInfo: inputs[contactInfo],
         postId,
         username
       };
@@ -184,6 +200,12 @@ export default compose(
       if (activeIndex === STEPS.length - 1) {
         handleSubmit();
       }
-    }
+    },
+    handleError: () => () => {
+
+    },
+    handleSubmit: () => () => {
+
+    },
   })
 )(CreateBidOffer);
