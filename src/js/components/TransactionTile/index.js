@@ -69,15 +69,21 @@ const TransactionTile = ({ classes, item, onClick }) => (
         />
         <ListItemText
           primary={
-            <Grid className={classes.status} container direction='row' alignItems='center'>
+            <Grid
+              className={classes.status}
+              container
+              direction='row'
+              alignItems='center'
+              justify='flex-end'
+            >
               <Grid item>
-              <Typography
-                style={theme.palette.statusOK}
-                align="right"
-                variant="caption"
-              >
-                {item.status}
-              </Typography>
+                <Typography
+                  style={theme.palette.statusOK}
+                  align="right"
+                  variant="caption"
+                >
+                  {item.status}
+                </Typography>
               </Grid>
               <Grid className={classes.statusIcon} item>
                 {getStatusIcon(item.status)}
