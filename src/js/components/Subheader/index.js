@@ -1,5 +1,5 @@
 import React from "react";
-import { compose, lifecycle } from "recompose";
+import { compose, withHandlers } from "recompose";
 
 import withStyles from "@material-ui/core/styles/withStyles";
 import Chip from "@material-ui/core/Chip/Chip";
@@ -15,6 +15,7 @@ import mapper from "../../utils/connect";
 import IconButton from "@material-ui/core/IconButton/IconButton";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import Grid from "@material-ui/core/Grid/Grid";
+import {setFilterItems} from "../../actions/filters";
 
 const styles = () => ({
   root: {
@@ -30,27 +31,27 @@ const styles = () => ({
   filterButton: {}
 });
 
-const Subheader = ({ classes, setLayerOpen, filter }) => (
+const Subheader = ({ classes, filter, handleOpen }) => (
   <div className={classes.root}>
     <Grid container justify="space-between">
       <Grid item>
         <Chip
           clickable={true}
-          onClick={() => setLayerOpen(true)}
+          onClick={handleOpen}
           label={`Type: ${filter.type}`}
           className={classes.chip}
           variant="outlined"
         />
         <Chip
           clickable={true}
-          onClick={() => setLayerOpen(true)}
+          onClick={handleOpen}
           label={`Coin: ${filter.coin}`}
           className={classes.chip}
           variant="outlined"
         />
         <Chip
           clickable={true}
-          onClick={() => setLayerOpen(true)}
+          onClick={handleOpen}
           label={`Distance: ${filter.distanceAway || 0} mi`}
           className={classes.chip}
           variant="outlined"
@@ -58,7 +59,7 @@ const Subheader = ({ classes, setLayerOpen, filter }) => (
       </Grid>
       <Grid item className={classes.filterButton}>
         <IconButton
-          onClick={() => setLayerOpen(true)}
+          onClick={handleOpen}
           className={classes.menuButton}
           aria-label="Menu"
         >
@@ -77,10 +78,17 @@ const propMap = {
 };
 
 const actionMap = {
-  setLayerOpen: setLayerOpenAction
+  setLayerOpen: setLayerOpenAction,
+  setFilterItems
 };
 
 export default compose(
   withStyles(styles),
-  mapper(propMap, actionMap)
+  mapper(propMap, actionMap),
+  withHandlers({
+    handleOpen: ({ setFilterItems, setLayerOpen }) => () => {
+      setFilterItems();
+      setLayerOpen(true);
+    },
+  }),
 )(Subheader);

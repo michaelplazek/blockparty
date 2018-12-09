@@ -3,7 +3,8 @@ import {
   SET_FILTER_COIN,
   SET_FILTER,
   SET_FILTER_TYPE,
-  SET_FILTER_PRICE
+  SET_FILTER_PRICE,
+  SET_FILTER_ITEMS
 } from "./";
 
 export const setFilterDistance = data => dispatch =>
@@ -19,3 +20,6 @@ export const setFilterPrice = data => dispatch =>
   dispatch({ type: SET_FILTER_PRICE, data });
 
 export const setFilter = () => dispatch => dispatch({ type: SET_FILTER });
+
+export const setFilterItems = () => dispatch => dispatch({ type: SET_FILTER_ITEMS });
+
