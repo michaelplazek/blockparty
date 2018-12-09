@@ -9,7 +9,7 @@ import Button from "@material-ui/core/Button/Button";
 
 const styles = theme => ({
   root: {
-    padding: "10px 40px 10px 40px"
+    padding: "10px 20px 10px 20px"
   },
   submitButton: {
     marginTop: "10px"
@@ -35,6 +35,7 @@ const RegisterForm = ({
       className={classes.root}
       justify="center"
       direction="column"
+      alignItems='center'
     >
       <TextField
         id="username-field"
@@ -64,12 +65,15 @@ const RegisterForm = ({
         variant="outlined"
       />
       <br />
-      <Recaptcha
-        sitekey="6LfFsn8UAAAAAHTnG7NwOVTX9pD4H63_6F6bY1Jj"
-        render="explicit"
-        verifyCallback={handleVerification}
-        expiredCallback={handleExpiration}
-      />
+      <Grid item>
+        <Recaptcha
+          sitekey="6LfFsn8UAAAAAHTnG7NwOVTX9pD4H63_6F6bY1Jj"
+          render="explicit"
+          verifyCallback={handleVerification}
+          expiredCallback={handleExpiration}
+          size='compact'
+        />
+      </Grid>
       <br />
       <Button
         className="submitButton"
