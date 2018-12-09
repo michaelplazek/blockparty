@@ -7,7 +7,7 @@ import Grid from "@material-ui/core/Grid/Grid";
 import Button from "@material-ui/core/Button/Button";
 import {cleanInputs} from "../../constants/validation";
 
-const styles = theme => ({
+const styles = () => ({
   root: {
     padding: "10px 40px 10px 40px"
   },
@@ -69,7 +69,8 @@ export default compose(
   withHandlers({
     handleSubmit: ({ onClick, username, password }) => () => {
       const inputs = cleanInputs(username, password);
-      onClick(inputs.username, inputs.password);
+      console.log(inputs);
+      onClick(inputs[username], inputs[password]);
     }
   })
 )(LoginForm);

@@ -121,7 +121,7 @@ export default compose(
     handleSubmit: ({ onClick, username, password, verified }) => () => {
       if(verified) {
         const inputs = cleanInputs(username, password);
-        onClick(inputs.username, inputs.password);
+        onClick(inputs[username], inputs[password]);
       }
     },
     handleVerification: ({ setVerified }) => (response) => {
