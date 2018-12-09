@@ -1,11 +1,12 @@
 import React from "react";
-import { compose, withState, withHandlers } from "recompose";
+import { compose, withState, withHandlers, lifecycle } from "recompose";
 import Recaptcha from 'react-recaptcha';
 
 import withStyles from "@material-ui/core/styles/withStyles";
-import TextField from "@material-ui/core/TextField/TextField";
+import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import Grid from "@material-ui/core/Grid/Grid";
 import Button from "@material-ui/core/Button/Button";
+import {PASSWORD, PASSWORD_CONFIRM, USERNAME} from "../../constants/validation";
 
 const styles = () => ({
   root: {
@@ -29,7 +30,12 @@ const RegisterForm = ({
   handleExpiration,
   classes
 }) => (
-  <form noValidate autoComplete="on">
+  <ValidatorForm
+    ref="form"
+    autoComplete="on"
+    onSubmit={handleSubmit}
+    onError={errors => console.log(errors)}
+  >
     <Grid
       container
       className={classes.root}
@@ -37,30 +43,39 @@ const RegisterForm = ({
       direction="column"
       alignItems='center'
     >
-      <TextField
+      <TextValidator
         id="username-field"
+        name="username"
         label="Username"
         value={username}
         onChange={({ target }) => setUsername(target.value)}
+        validators={USERNAME.VALIDATORS}
+        errorMessages={USERNAME.MESSAGES}
         margin="dense"
         variant="outlined"
       />
       <br />
-      <TextField
+      <TextValidator
         id="password-field"
+        name="password"
         type="password"
         label="Password"
         value={password}
         onChange={({ target }) => setPassword(target.value)}
+        validators={PASSWORD.VALIDATORS}
+        errorMessages={PASSWORD.MESSAGES}
         margin="dense"
         variant="outlined"
       />
-      <TextField
+      <TextValidator
         id="password-field-confirm"
+        name="confirmPassword"
         type="password"
         label="Confirm password"
         value={passwordConfirm}
         onChange={({ target }) => setPasswordConfirm(target.value)}
+        validators={PASSWORD_CONFIRM.VALIDATORS}
+        errorMessages={PASSWORD_CONFIRM.MESSAGES}
         margin="dense"
         variant="outlined"
       />
@@ -79,12 +94,12 @@ const RegisterForm = ({
         className="submitButton"
         variant="raised"
         color="primary"
-        onClick={handleSubmit}
+        type='submit'
       >
         Submit
       </Button>
     </Grid>
-  </form>
+  </ValidatorForm>
 );
 
 export default compose(
@@ -93,9 +108,18 @@ export default compose(
   withState("password", "setPassword", ""),
   withState("passwordConfirm", "setPasswordConfirm", ""),
   withState("verified", "setVerified", false),
+  lifecycle({
+    componentDidMount(){
+      ValidatorForm.addValidationRule('isPasswordMatch', (value) => {
+        return value === this.props.password
+      });
+
+      // TODO: add rule to check for duplicate usernames
+    },
+  }),
   withHandlers({
-    handleSubmit: ({ onClick, username, password, passwordConfirm, verified }) => () => {
-      onClick(username, password, passwordConfirm);
+    handleSubmit: ({ onClick, username, password, verified }) => () => {
+      if(verified) onClick(username, password);
     },
     handleVerification: ({ setVerified }) => (response) => {
       if(response.length !== 0) setVerified(true);
