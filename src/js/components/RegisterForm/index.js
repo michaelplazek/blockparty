@@ -7,7 +7,7 @@ import TextField from "@material-ui/core/TextField/TextField";
 import Grid from "@material-ui/core/Grid/Grid";
 import Button from "@material-ui/core/Button/Button";
 
-const styles = theme => ({
+const styles = () => ({
   root: {
     padding: "10px 20px 10px 20px"
   },
@@ -25,8 +25,8 @@ const RegisterForm = ({
   setPasswordConfirm,
   onClick,
   handleSubmit,
-                        handleVerification,
-                        handleExpiration,
+  handleVerification,
+  handleExpiration,
   classes
 }) => (
   <form noValidate autoComplete="on">
