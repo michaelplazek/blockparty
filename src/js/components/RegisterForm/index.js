@@ -6,7 +6,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import Grid from "@material-ui/core/Grid/Grid";
 import Button from "@material-ui/core/Button/Button";
-import {PASSWORD, PASSWORD_CONFIRM, USERNAME} from "../../constants/validation";
+import {cleanInputs, PASSWORD, PASSWORD_CONFIRM, USERNAME} from "../../constants/validation";
 
 const styles = () => ({
   root: {
@@ -119,7 +119,10 @@ export default compose(
   }),
   withHandlers({
     handleSubmit: ({ onClick, username, password, verified }) => () => {
-      if(verified) onClick(username, password);
+      if(verified) {
+        const inputs = cleanInputs(username, password);
+        onClick(inputs.username, inputs.password);
+      }
     },
     handleVerification: ({ setVerified }) => (response) => {
       if(response.length !== 0) setVerified(true);
