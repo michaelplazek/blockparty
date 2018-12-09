@@ -34,14 +34,14 @@ import FormControlLabel from "@material-ui/core/FormControlLabel/FormControlLabe
 import Switch from "@material-ui/core/Switch/Switch";
 import LocationSelector from "../../LocationSelector";
 import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
-import {getMinimalUnit} from "../../../utils/validate";
+import { getMinimalUnit } from "../../../utils/validate";
 
 const CreateBidContent = ({
   index,
   coin,
   volume,
   price,
-                            formattedPrice,
+  formattedPrice,
   total,
   contactInfo,
   lat,
@@ -78,7 +78,7 @@ const CreateBidContent = ({
         <FormControl margin="dense" fullWidth={true}>
           <TextValidator
             id="volume"
-            name='volume'
+            name="volume"
             value={volume}
             onChange={({ target }) => setBidVolume(target.value)}
             validators={[
@@ -106,14 +106,10 @@ const CreateBidContent = ({
         <FormControl margin="dense" fullWidth={true}>
           <TextValidator
             id="price"
-            name='price'
+            name="price"
             value={price}
             onChange={({ target }) => setBidPrice(target.value)}
-            validators={[
-              "isPositive",
-              `minFloat:0.01`,
-              "required"
-            ]}
+            validators={["isPositive", `minFloat:0.01`, "required"]}
             errorMessages={[
               "invalid number",
               "under minimum volume",
@@ -162,7 +158,7 @@ const CreateBidContent = ({
         <FormControl margin="dense" fullWidth={true}>
           <TextValidator
             id="contactInfo"
-            name='contactInfo'
+            name="contactInfo"
             value={contactInfo}
             onChange={({ target }) => setBidContactInfo(target.value)}
             validators={["required"]}

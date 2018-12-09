@@ -32,8 +32,8 @@ import {
 } from "../../../actions/bids";
 import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
 import { resetBid as resetBidAction } from "../../../actions/createBid";
-import {ValidatorForm} from "react-material-ui-form-validator";
-import {cleanInputs} from "../../../constants/validation";
+import { ValidatorForm } from "react-material-ui-form-validator";
+import { cleanInputs } from "../../../constants/validation";
 
 const styles = theme => ({
   root: {
@@ -60,8 +60,8 @@ const CreateBid = ({
   handleNext,
   resetBid,
   setLayerOpen,
-                     handleSubmit,
-                     handleError
+  handleSubmit,
+  handleError
 }) => (
   <Flyout
     onClose={() => {
@@ -99,7 +99,7 @@ const CreateBid = ({
                       <Button
                         variant="contained"
                         color="primary"
-                        type='submit'
+                        type="submit"
                         className={classes.button}
                       >
                         {activeIndex === STEPS.length - 1 ? "Finish" : "Next"}
@@ -159,7 +159,6 @@ export default compose(
       setActiveIndex,
       contactInfo
     }) => () => {
-
       const inputs = cleanInputs(contactInfo);
 
       const bid = {

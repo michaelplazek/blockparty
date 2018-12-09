@@ -6,7 +6,7 @@ import find from "lodash/fp/find";
 import filter from "lodash/fp/filter";
 import moment from "moment";
 import numeral from "numeral";
-import {USD, USD_DECIMALS} from "../constants/currency";
+import { USD, USD_DECIMALS } from "../constants/currency";
 import { getDistance } from "geolib";
 import { getMilesFromMeters } from "../utils/location";
 import orderBy from "lodash/fp/orderBy";
