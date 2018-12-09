@@ -32,10 +32,10 @@ import {
   selectOfferFormVolume,
   selectUserId,
   selectAskVolume,
-  selectUsername,
+  selectUsername
 } from "../../../selectors";
-import {ValidatorForm} from "react-material-ui-form-validator";
-import {cleanInputs} from "../../../constants/validation";
+import { ValidatorForm } from "react-material-ui-form-validator";
+import { cleanInputs } from "../../../constants/validation";
 
 const styles = theme => ({
   root: {
@@ -81,36 +81,36 @@ const CreateAskOffer = ({
           return (
             <Step key={index}>
               <StepLabel>{step}</StepLabel>
-                <StepContent>
-                  <ValidatorForm
-                    ref="form"
-                    autoComplete="on"
-                    onSubmit={handleNext}
-                    onError={handleError}
-                    instantValidate={true}
-                  >
-                    <Content index={index} />
-                    <div className={classes.actionsContainer}>
-                      <div>
-                        <Button
-                          disabled={activeIndex === 0}
-                          onClick={handleBack}
-                          className={classes.button}
-                        >
-                          Back
-                        </Button>
-                        <Button
-                          variant="contained"
-                          color="primary"
-                          type='submit'
-                          className={classes.button}
-                        >
-                          {activeIndex === STEPS.length - 1 ? "Finish" : "Next"}
-                        </Button>
-                      </div>
+              <StepContent>
+                <ValidatorForm
+                  ref="form"
+                  autoComplete="on"
+                  onSubmit={handleNext}
+                  onError={handleError}
+                  instantValidate={true}
+                >
+                  <Content index={index} />
+                  <div className={classes.actionsContainer}>
+                    <div>
+                      <Button
+                        disabled={activeIndex === 0}
+                        onClick={handleBack}
+                        className={classes.button}
+                      >
+                        Back
+                      </Button>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        type="submit"
+                        className={classes.button}
+                      >
+                        {activeIndex === STEPS.length - 1 ? "Finish" : "Next"}
+                      </Button>
                     </div>
-                  </ValidatorForm>
-                </StepContent>
+                  </div>
+                </ValidatorForm>
+              </StepContent>
             </Step>
           );
         })}
@@ -139,12 +139,12 @@ const propMap = {
   owner: selectAskOwner,
   total: selectAskOfferTotal,
   postId: selectAskId,
-  username: selectUsername,
+  username: selectUsername
 };
 
 const actionMap = {
   setLayerOpen: setLayerOpenAction,
-  resetOffer,
+  resetOffer
 };
 
 export default compose(
@@ -168,7 +168,6 @@ export default compose(
       history,
       username
     }) => () => {
-
       // clean the text inputs
       const inputs = cleanInputs(contactInfo);
 
@@ -201,11 +200,7 @@ export default compose(
         handleSubmit();
       }
     },
-    handleError: () => () => {
-
-    },
-    handleSubmit: () => () => {
-
-    },
+    handleError: () => () => {},
+    handleSubmit: () => () => {}
   })
 )(CreateAskOffer);

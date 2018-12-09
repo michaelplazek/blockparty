@@ -15,7 +15,7 @@ import {
   setFilter as setFilterAction
 } from "../../../actions/filters";
 import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
-import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import coins from "../../../constants/coins";
 import { types } from "../../../constants/filters";
 import Flyout from "../index";
@@ -27,7 +27,7 @@ import Select from "@material-ui/core/Select/Select";
 import { selectFilterType } from "../../../selectors";
 import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
 import Button from "@material-ui/core/Button/Button";
-import {cleanInputs, DISTANCE, USERNAME} from "../../../constants/validation";
+import { cleanInputs, DISTANCE, USERNAME } from "../../../constants/validation";
 
 const styles = () => ({
   root: {
@@ -88,7 +88,7 @@ const FilterMap = ({
           <br />
           <TextValidator
             id="distance"
-            name='distance'
+            name="distance"
             label="Distance Away"
             value={distance}
             onChange={({ target }) => handleSetDistance(target.value)}
@@ -102,8 +102,10 @@ const FilterMap = ({
           />
           <br />
         </FormControl>
-        <Grid container justify='center'>
-          <Button variant='raised' color='primary' type="submit">Submit</Button>
+        <Grid container justify="center">
+          <Button variant="raised" color="primary" type="submit">
+            Submit
+          </Button>
         </Grid>
       </ValidatorForm>
     </Grid>
@@ -129,13 +131,13 @@ export default compose(
   mapper(propMap, actionMap),
   withStyles(styles),
   withHandlers({
-    handleSetDistance: ({ setFilterDistance }) => (distance) => {
+    handleSetDistance: ({ setFilterDistance }) => distance => {
       const inputs = cleanInputs(distance);
       setFilterDistance(inputs[distance]);
     },
     handleSubmit: ({ setFilter, setLayerOpen }) => () => {
       setFilter();
       setLayerOpen(false);
-    },
-  }),
+    }
+  })
 )(FilterMap);

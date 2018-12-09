@@ -2,16 +2,13 @@ import React from "react";
 import { compose } from "recompose";
 import withStyles from "@material-ui/core/styles/withStyles";
 
-import {
-
-  selectFilterType
-} from "../../../../selectors";
+import { selectFilterType } from "../../../../selectors";
 import mapper from "../../../../utils/connect";
 import InputLabel from "@material-ui/core/InputLabel/InputLabel";
 import Select from "@material-ui/core/Select/Select";
-import {types} from "../../../../constants/filters";
+import { types } from "../../../../constants/filters";
 import FormControl from "@material-ui/core/FormControl/FormControl";
-import {setFilterType} from "../../../../actions/filters";
+import { setFilterType } from "../../../../actions/filters";
 
 const styles = () => ({
   root: {
@@ -47,7 +44,7 @@ const PostFilters = ({ classes, setFilterType, type }) => (
 );
 
 const propMap = {
-  type: selectFilterType,
+  type: selectFilterType
 };
 
 const actionMap = {

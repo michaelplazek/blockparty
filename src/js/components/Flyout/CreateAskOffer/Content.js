@@ -1,7 +1,7 @@
 import React from "react";
 import { compose } from "recompose";
 
-import { TextValidator } from 'react-material-ui-form-validator';
+import { TextValidator } from "react-material-ui-form-validator";
 import FormControl from "@material-ui/core/FormControl/FormControl";
 import Typography from "@material-ui/core/Typography/Typography";
 import Grid from "@material-ui/core/Grid/Grid";
@@ -17,8 +17,8 @@ import mapper from "../../../utils/connect";
 import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
 import { setContactInfo, setOfferVolume } from "../../../actions/createOffer";
 import withStyles from "@material-ui/core/styles/withStyles";
-import {getMinimalUnit} from "../../../utils/validate";
-import {setError} from "../../../actions/errors";
+import { getMinimalUnit } from "../../../utils/validate";
+import { setError } from "../../../actions/errors";
 
 const styles = () => ({
   info: {
@@ -37,7 +37,7 @@ const CreateAskContent = ({
   max,
   contactInfo,
   setOfferVolume,
-  setContactInfo,
+  setContactInfo
 }) => {
   switch (index) {
     case 0:
@@ -46,11 +46,21 @@ const CreateAskContent = ({
           <FormControl margin="dense" fullWidth={true}>
             <TextValidator
               id="volume"
-              name='volume'
+              name="volume"
               value={volume}
               onChange={({ target }) => setOfferVolume(target.value)}
-              validators={[`maxFloat:${max}`, 'isPositive', `minFloat:${getMinimalUnit()}`, 'required']}
-              errorMessages={['over max volume', 'invalid number', 'under minimum volume', 'this field is required']}
+              validators={[
+                `maxFloat:${max}`,
+                "isPositive",
+                `minFloat:${getMinimalUnit()}`,
+                "required"
+              ]}
+              errorMessages={[
+                "over max volume",
+                "invalid number",
+                "under minimum volume",
+                "this field is required"
+              ]}
               margin="dense"
               variant="standard"
               helperText={`Max of ${max}`}
@@ -77,8 +87,8 @@ const CreateAskContent = ({
             name="contactInfo"
             value={contactInfo}
             onChange={({ target }) => setContactInfo(target.value)}
-            validators={['required']}
-            errorMessages={['this field is required']}
+            validators={["required"]}
+            errorMessages={["this field is required"]}
             margin="dense"
             helperText="Usually a phone number"
             variant="standard"
@@ -114,5 +124,5 @@ const actionMap = {
 
 export default compose(
   withStyles(styles),
-  mapper(propMap, actionMap),
+  mapper(propMap, actionMap)
 )(CreateAskContent);

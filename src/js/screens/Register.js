@@ -51,10 +51,7 @@ export default compose(
   withRouter,
   mapper(propMap, actionMap),
   withHandlers({
-    handleSignUp: ({ registerUser, history }) => (
-      username,
-      password,
-    ) => {
+    handleSignUp: ({ registerUser, history }) => (username, password) => {
       registerUser(username, password, history);
     }
   })

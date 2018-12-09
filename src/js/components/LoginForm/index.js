@@ -5,7 +5,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import TextField from "@material-ui/core/TextField/TextField";
 import Grid from "@material-ui/core/Grid/Grid";
 import Button from "@material-ui/core/Button/Button";
-import {cleanInputs} from "../../constants/validation";
+import { cleanInputs } from "../../constants/validation";
 
 const styles = () => ({
   root: {

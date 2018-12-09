@@ -15,7 +15,7 @@ import mapper from "../../utils/connect";
 import IconButton from "@material-ui/core/IconButton/IconButton";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import Grid from "@material-ui/core/Grid/Grid";
-import {setFilterItems} from "../../actions/filters";
+import { setFilterItems } from "../../actions/filters";
 
 const styles = () => ({
   root: {
@@ -89,6 +89,6 @@ export default compose(
     handleOpen: ({ setFilterItems, setLayerOpen }) => () => {
       setFilterItems();
       setLayerOpen(true);
-    },
-  }),
+    }
+  })
 )(Subheader);

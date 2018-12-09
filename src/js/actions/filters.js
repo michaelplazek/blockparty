@@ -21,5 +21,5 @@ export const setFilterPrice = data => dispatch =>
 
 export const setFilter = () => dispatch => dispatch({ type: SET_FILTER });
 
-export const setFilterItems = () => dispatch => dispatch({ type: SET_FILTER_ITEMS });
-
+export const setFilterItems = () => dispatch =>
+  dispatch({ type: SET_FILTER_ITEMS });

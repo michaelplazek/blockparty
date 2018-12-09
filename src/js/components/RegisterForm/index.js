@@ -1,12 +1,17 @@
 import React from "react";
 import { compose, withState, withHandlers, lifecycle } from "recompose";
-import Recaptcha from 'react-recaptcha';
+import Recaptcha from "react-recaptcha";
 
 import withStyles from "@material-ui/core/styles/withStyles";
-import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
+import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import Grid from "@material-ui/core/Grid/Grid";
 import Button from "@material-ui/core/Button/Button";
-import {cleanInputs, PASSWORD, PASSWORD_CONFIRM, USERNAME} from "../../constants/validation";
+import {
+  cleanInputs,
+  PASSWORD,
+  PASSWORD_CONFIRM,
+  USERNAME
+} from "../../constants/validation";
 
 const styles = () => ({
   root: {
@@ -41,7 +46,7 @@ const RegisterForm = ({
       className={classes.root}
       justify="center"
       direction="column"
-      alignItems='center'
+      alignItems="center"
     >
       <TextValidator
         id="username-field"
@@ -87,7 +92,7 @@ const RegisterForm = ({
           render="explicit"
           verifyCallback={handleVerification}
           expiredCallback={handleExpiration}
-          size='compact'
+          size="compact"
         />
       </Grid>
       <br />
@@ -95,7 +100,7 @@ const RegisterForm = ({
         className="submitButton"
         variant="raised"
         color="primary"
-        type='submit'
+        type="submit"
       >
         Submit
       </Button>
@@ -110,27 +115,27 @@ export default compose(
   withState("passwordConfirm", "setPasswordConfirm", ""),
   withState("verified", "setVerified", false),
   lifecycle({
-    componentDidMount(){
-      ValidatorForm.addValidationRule('isPasswordMatch', (value) => {
-        return value === this.props.password
+    componentDidMount() {
+      ValidatorForm.addValidationRule("isPasswordMatch", value => {
+        return value === this.props.password;
       });
 
       // TODO: add rule to check for duplicate usernames
-    },
+    }
   }),
   withHandlers({
     handleSubmit: ({ onClick, username, password, verified }) => () => {
-      if(verified) {
+      if (verified) {
         const inputs = cleanInputs(username, password);
         onClick(inputs[username], inputs[password]);
       }
     },
-    handleVerification: ({ setVerified }) => (response) => {
-      if(response.length !== 0) setVerified(true);
+    handleVerification: ({ setVerified }) => response => {
+      if (response.length !== 0) setVerified(true);
       else setVerified(false);
     },
     handleExpiration: ({ setVerified }) => () => {
       setVerified(false);
-    },
+    }
   })
 )(RegisterForm);

@@ -34,8 +34,8 @@ import {
   selectUserId,
   selectUsername
 } from "../../../selectors/index";
-import {ValidatorForm} from "react-material-ui-form-validator";
-import {cleanInputs} from "../../../constants/validation";
+import { ValidatorForm } from "react-material-ui-form-validator";
+import { cleanInputs } from "../../../constants/validation";
 
 const styles = theme => ({
   root: {
@@ -62,8 +62,8 @@ const CreateBidOffer = ({
   handleNext,
   setLayerOpen,
   resetOffer,
-                          handleSubmit,
-                          handleError
+  handleSubmit,
+  handleError
 }) => (
   <Flyout
     onClose={() => {
@@ -101,7 +101,7 @@ const CreateBidOffer = ({
                       <Button
                         variant="contained"
                         color="primary"
-                        type='submit'
+                        type="submit"
                         className={classes.button}
                       >
                         {activeIndex === STEPS.length - 1 ? "Finish" : "Next"}
@@ -167,7 +167,6 @@ export default compose(
       history,
       username
     }) => () => {
-
       // clean the text inputs
       const inputs = cleanInputs(contactInfo);
 
@@ -201,11 +200,7 @@ export default compose(
         handleSubmit();
       }
     },
-    handleError: () => () => {
-
-    },
-    handleSubmit: () => () => {
-
-    },
+    handleError: () => () => {},
+    handleSubmit: () => () => {}
   })
 )(CreateBidOffer);
