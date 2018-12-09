@@ -7,12 +7,11 @@ import LoginForm from "../components/LoginForm";
 import Grid from "@material-ui/core/Grid/Grid";
 import Typography from "@material-ui/core/Typography/Typography";
 
-import { validateInput } from "../utils/validate";
 import { logInUser } from "../actions/session";
 import mapper from "../utils/connect";
 import Button from "@material-ui/core/Button/Button";
 
-const styles = theme => ({
+const styles = () => ({
   root: {
     background: "white",
     height: "90vh",
@@ -60,9 +59,7 @@ export default compose(
   mapper(propMap, actionMap),
   withHandlers({
     handleLogIn: ({ logInUser, history }) => (username, password) => {
-      if (validateInput(username, password)) {
-        logInUser(username, password, history);
-      }
+      logInUser(username, password, history);
     }
   })
 )(Login);
