@@ -1,10 +1,10 @@
 import React from "react";
 import { compose, withHandlers } from "recompose";
 
+import { TextValidator } from "react-material-ui-form-validator";
 import FormControl from "@material-ui/core/FormControl/FormControl";
 import Select from "@material-ui/core/Select/Select";
 import coins from "../../../constants/coins";
-import TextField from "@material-ui/core/TextField/TextField";
 import Typography from "@material-ui/core/Typography/Typography";
 import Grid from "@material-ui/core/Grid/Grid";
 import {
@@ -13,10 +13,11 @@ import {
   selectAskLongitude,
   selectAskUseCurrentLocation,
   selectAskFormVolume,
-  selectFormattedAskPrice,
   selectWindowWidth,
   selectAskFormTotal,
-  selectAskFormContactInfo
+  selectAskFormContactInfo,
+  selectAskFormPrice,
+  selectFormattedAskFormPrice
 } from "../../../selectors";
 import mapper from "../../../utils/connect";
 import {
@@ -32,6 +33,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel/FormControlLabe
 import Switch from "@material-ui/core/Switch/Switch";
 import LocationSelector from "../../LocationSelector";
 import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
+import {getMinimalUnit} from "../../../utils/validate";
 
 const CreateAskContent = ({
   index,
@@ -40,6 +42,7 @@ const CreateAskContent = ({
   coin,
   volume,
   price,
+                            formattedPrice,
   total,
   width,
   lat,
@@ -74,10 +77,21 @@ const CreateAskContent = ({
     case 1:
       return (
         <FormControl margin="dense" fullWidth={true}>
-          <TextField
+          <TextValidator
             id="volume"
+            name='volume'
             value={volume}
-            onChange={({ target }) => setAskVolume(target.value || 0)}
+            onChange={({ target }) => setAskVolume(target.value)}
+            validators={[
+              "isPositive",
+              `minFloat:${getMinimalUnit()}`,
+              "required"
+            ]}
+            errorMessages={[
+              "invalid number",
+              "under minimum volume",
+              "this field is required"
+            ]}
             margin="dense"
             variant="standard"
             InputProps={{
@@ -91,10 +105,22 @@ const CreateAskContent = ({
     case 2:
       return (
         <FormControl margin="dense" fullWidth={true}>
-          <TextField
+          <TextValidator
             id="price"
+            name='price'
             value={price}
             onChange={({ target }) => setAskPrice(target.value)}
+            validators={[
+              "isPositive",
+              `minFloat:0.01`,
+              "required"
+            ]}
+            errorMessages={[
+              "invalid number",
+              "under minimum volume",
+              "this field is required"
+            ]}
+            helperText={formattedPrice}
             margin="dense"
             variant="standard"
             InputProps={{
@@ -135,10 +161,13 @@ const CreateAskContent = ({
     case 4:
       return (
         <FormControl margin="dense" fullWidth={true}>
-          <TextField
+          <TextValidator
             id="contactInfo"
+            name='contactInfo'
             value={contactInfo}
             onChange={({ target }) => setAskContactInfo(target.value)}
+            validators={["required"]}
+            errorMessages={["this field is required"]}
             margin="dense"
             helperText="Usually a phone number"
             variant="standard"
@@ -150,7 +179,7 @@ const CreateAskContent = ({
         <Grid container direction="column">
           <Typography>Type: {coin}</Typography>
           <Typography>Volume: {volume}</Typography>
-          <Typography>Price: {price}</Typography>
+          <Typography>Price: {formattedPrice}</Typography>
           <Typography variant="subheading">Total: {total}</Typography>
         </Grid>
       );
@@ -160,7 +189,8 @@ const CreateAskContent = ({
 const propMap = {
   coin: selectAskFormCoin,
   volume: selectAskFormVolume,
-  price: selectFormattedAskPrice,
+  price: selectAskFormPrice,
+  formattedPrice: selectFormattedAskFormPrice,
   total: selectAskFormTotal,
   contactInfo: selectAskFormContactInfo,
   lat: selectAskLatitude,

@@ -3,7 +3,6 @@ import { compose } from "recompose";
 
 import { TextValidator } from "react-material-ui-form-validator";
 import FormControl from "@material-ui/core/FormControl/FormControl";
-import TextField from "@material-ui/core/TextField/TextField";
 import Typography from "@material-ui/core/Typography/Typography";
 import Grid from "@material-ui/core/Grid/Grid";
 import {

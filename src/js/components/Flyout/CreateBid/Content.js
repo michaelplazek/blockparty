@@ -1,6 +1,7 @@
 import React from "react";
 import { compose, withHandlers } from "recompose";
 
+import { TextValidator } from "react-material-ui-form-validator";
 import FormControl from "@material-ui/core/FormControl/FormControl";
 import Select from "@material-ui/core/Select/Select";
 import coins from "../../../constants/coins";
@@ -16,7 +17,8 @@ import {
   selectWindowWidth,
   selectBidFormTotal,
   selectBidFormContactInfo,
-  selectBidFormCoin
+  selectBidFormCoin,
+  selectBidFormPrice
 } from "../../../selectors";
 import mapper from "../../../utils/connect";
 import {
@@ -32,12 +34,14 @@ import FormControlLabel from "@material-ui/core/FormControlLabel/FormControlLabe
 import Switch from "@material-ui/core/Switch/Switch";
 import LocationSelector from "../../LocationSelector";
 import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
+import {getMinimalUnit} from "../../../utils/validate";
 
 const CreateBidContent = ({
   index,
   coin,
   volume,
   price,
+                            formattedPrice,
   total,
   contactInfo,
   lat,
@@ -72,10 +76,21 @@ const CreateBidContent = ({
     case 1:
       return (
         <FormControl margin="dense" fullWidth={true}>
-          <TextField
+          <TextValidator
             id="volume"
+            name='volume'
             value={volume}
-            onChange={({ target }) => setBidVolume(target.value || 0)}
+            onChange={({ target }) => setBidVolume(target.value)}
+            validators={[
+              "isPositive",
+              `minFloat:${getMinimalUnit()}`,
+              "required"
+            ]}
+            errorMessages={[
+              "invalid number",
+              "under minimum volume",
+              "this field is required"
+            ]}
             margin="dense"
             variant="standard"
             InputProps={{
@@ -89,10 +104,22 @@ const CreateBidContent = ({
     case 2:
       return (
         <FormControl margin="dense" fullWidth={true}>
-          <TextField
+          <TextValidator
             id="price"
+            name='price'
             value={price}
             onChange={({ target }) => setBidPrice(target.value)}
+            validators={[
+              "isPositive",
+              `minFloat:0.01`,
+              "required"
+            ]}
+            errorMessages={[
+              "invalid number",
+              "under minimum volume",
+              "this field is required"
+            ]}
+            helperText={formattedPrice}
             margin="dense"
             variant="standard"
             InputProps={{
@@ -133,10 +160,13 @@ const CreateBidContent = ({
     case 4:
       return (
         <FormControl margin="dense" fullWidth={true}>
-          <TextField
+          <TextValidator
             id="contactInfo"
+            name='contactInfo'
             value={contactInfo}
             onChange={({ target }) => setBidContactInfo(target.value)}
+            validators={["required"]}
+            errorMessages={["this field is required"]}
             margin="dense"
             helperText="Usually a phone number"
             variant="standard"
@@ -148,7 +178,7 @@ const CreateBidContent = ({
         <Grid container direction="column">
           <Typography>Type: {coin}</Typography>
           <Typography>Volume: {volume}</Typography>
-          <Typography>Price: {price}</Typography>
+          <Typography>Price: {formattedPrice}</Typography>
           <Typography variant="subheading">Total: {total}</Typography>
         </Grid>
       );
@@ -158,7 +188,8 @@ const CreateBidContent = ({
 const propMap = {
   coin: selectBidFormCoin,
   volume: selectBidFormVolume,
-  price: selectFormattedBidFormPrice,
+  price: selectBidFormPrice,
+  formattedPrice: selectFormattedBidFormPrice,
   total: selectBidFormTotal,
   contactInfo: selectBidFormContactInfo,
   lat: selectBidLatitude,

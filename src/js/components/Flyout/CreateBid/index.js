@@ -24,7 +24,6 @@ import {
   selectBidFormVolume,
   selectUserId,
   selectUsername,
-  selectContactInfo,
   selectBidFormContactInfo
 } from "../../../selectors";
 import {
@@ -33,6 +32,8 @@ import {
 } from "../../../actions/bids";
 import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
 import { resetBid as resetBidAction } from "../../../actions/createBid";
+import {ValidatorForm} from "react-material-ui-form-validator";
+import {cleanInputs} from "../../../constants/validation";
 
 const styles = theme => ({
   root: {
@@ -58,7 +59,9 @@ const CreateBid = ({
   handleBack,
   handleNext,
   resetBid,
-  setLayerOpen
+  setLayerOpen,
+                     handleSubmit,
+                     handleError
 }) => (
   <Flyout
     onClose={() => {
@@ -76,26 +79,34 @@ const CreateBid = ({
             <Step key={index}>
               <StepLabel>{step}</StepLabel>
               <StepContent>
-                <Content index={index} />
-                <div className={classes.actionsContainer}>
-                  <div>
-                    <Button
-                      disabled={activeIndex === 0}
-                      onClick={handleBack}
-                      className={classes.button}
-                    >
-                      Back
-                    </Button>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={handleNext}
-                      className={classes.button}
-                    >
-                      {activeIndex === STEPS.length - 1 ? "Finish" : "Next"}
-                    </Button>
+                <ValidatorForm
+                  ref="form"
+                  autoComplete="on"
+                  onSubmit={handleNext}
+                  onError={handleError}
+                  instantValidate={true}
+                >
+                  <Content index={index} />
+                  <div className={classes.actionsContainer}>
+                    <div>
+                      <Button
+                        disabled={activeIndex === 0}
+                        onClick={handleBack}
+                        className={classes.button}
+                      >
+                        Back
+                      </Button>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        type='submit'
+                        className={classes.button}
+                      >
+                        {activeIndex === STEPS.length - 1 ? "Finish" : "Next"}
+                      </Button>
+                    </div>
                   </div>
-                </div>
+                </ValidatorForm>
               </StepContent>
             </Step>
           );
@@ -148,11 +159,14 @@ export default compose(
       setActiveIndex,
       contactInfo
     }) => () => {
+
+      const inputs = cleanInputs(contactInfo);
+
       const bid = {
         coin,
         volume: parseFloat(volume),
-        price,
-        contactInfo,
+        price: parseFloat(price),
+        contactInfo: inputs[contactInfo],
         owner: username,
         lat,
         lng
@@ -175,6 +189,8 @@ export default compose(
       if (activeIndex === STEPS.length - 1) {
         handleSubmit();
       }
-    }
+    },
+    handleError: () => () => {},
+    handleSubmit: () => () => {}
   })
 )(CreateBid);
