@@ -1,5 +1,5 @@
 import React from "react";
-import { compose } from "recompose";
+import { compose, withHandlers } from "recompose";
 import { withRouter } from "react-router-dom";
 import theme from "../../../theme";
 import { VERSION } from "../../constants/app";
@@ -20,6 +20,7 @@ import {
 import Typography from "@material-ui/core/Typography/Typography";
 import Button from "@material-ui/core/Button/Button";
 import TextField from "@material-ui/core/TextField/TextField";
+import {ValidatorForm} from "react-material-ui-form-validator";
 
 const styles = () => ({
   top: {
@@ -40,7 +41,8 @@ const Settings = ({
   username,
   bio,
   items,
-  history
+  history,
+                    handleUpdate
 }) => (
   <div>
     <PageHeader
@@ -58,7 +60,12 @@ const Settings = ({
         alignItems="center"
       >
         <Grid item>
-          <form noValidate autoComplete="off">
+          <ValidatorForm
+            ref="form"
+            autoComplete="off"
+            onSubmit={handleUpdate}
+            onError={errors => console.log(errors)}
+          >
             <Grid
               container
               className={classes.top}
@@ -78,12 +85,16 @@ const Settings = ({
                 />
               </Grid>
               <Grid item>
-                <Button variant="raised" color="primary" type="submit">
+                <Button
+                  variant="raised"
+                  color="primary"
+                  type="submit"
+                >
                   Update
                 </Button>
               </Grid>
             </Grid>
-          </form>
+          </ValidatorForm>
         </Grid>
         <Grid item className={classes.bottom}>
           <Grid container direction="column" alignItems="center">
@@ -121,5 +132,10 @@ export default compose(
   mapper(propMap, actionMap),
   withRouter,
   withStyles(styles),
+  withHandlers({
+    handleUpdate: () => () => {
+      const text = document.getElementById('bio-field').value;
+    }
+  }),
   withDimensions
 )(Settings);

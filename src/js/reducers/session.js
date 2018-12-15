@@ -5,7 +5,8 @@ import {
   REGISTER_USER,
   USER_FROM_TOKEN,
   SESSION_LOAD,
-  CURRENT_LOCATION_LOAD
+  CURRENT_LOCATION_LOAD,
+  UPDATE_USER
 } from "../actions";
 
 const initialState = {
@@ -65,6 +66,10 @@ const handlers = {
   }),
   [SESSION_LOAD]: () => ({
     sessionLoaded: true
+  }),
+  [UPDATE_USER]: () => ({
+    username: action.data.username,
+    bio: action.data.bio,
   }),
   [LOG_OUT]: () => ({ ...initialState })
 };

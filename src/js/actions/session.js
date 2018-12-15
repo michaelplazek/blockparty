@@ -6,7 +6,8 @@ import {
   REGISTER_USER,
   USER_FROM_TOKEN,
   SESSION_LOAD,
-  CURRENT_LOCATION_LOAD
+  CURRENT_LOCATION_LOAD,
+  UPDATE_USER
 } from "./index";
 
 const setSession = token => window.sessionStorage.setItem("session", token);
@@ -69,5 +70,11 @@ export const logOutUser = () => dispatch => {
   wrappedFetch("users/logout", undefined, "POST").then(() => {
     removeSession();
     dispatch({ type: LOG_OUT });
+  });
+};
+
+export const updateUser = data => dispatch => {
+  wrappedFetch("user", data, "PUT").then(response => {
+    dispatch({ type: UPDATE_USER, data: response });
   });
 };
