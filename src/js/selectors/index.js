@@ -443,8 +443,7 @@ export const totalActionItems = createSelector(
   selectNumberOfMyBids,
   selectNumberOfMyOffers,
   selectNumberOfMyTransactions,
-  (asks, bids, offers, transactions) =>
-    asks + bids + offers + transactions
+  (asks, bids, offers, transactions) => asks + bids + offers + transactions
 );
 
 export const selectUserCanDelete = createSelector(
@@ -455,5 +454,3 @@ export const selectUserCanDelete = createSelector(
 // Errors
 export const selectError = state => state.errors.error;
 export const selectErrorMessage = state => state.errors.message;
-
-

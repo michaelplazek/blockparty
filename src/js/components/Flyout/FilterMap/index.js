@@ -49,11 +49,7 @@ const FilterMap = ({
 }) => (
   <Flyout size={3}>
     <Grid className={classes.root}>
-      <ValidatorForm
-        ref="form"
-        autoComplete="on"
-        onSubmit={handleSubmit}
-      >
+      <ValidatorForm ref="form" autoComplete="on" onSubmit={handleSubmit}>
         <FormControl margin="dense" fullWidth={true}>
           <InputLabel>Type</InputLabel>
           <Select

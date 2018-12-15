@@ -1,5 +1,5 @@
 import md5 from "md5";
-import {fetchToken, wrappedFetch, wrappedFetchWithParams} from "../api/utils";
+import { fetchToken, wrappedFetch, wrappedFetchWithParams } from "../api/utils";
 import {
   LOG_IN,
   LOG_OUT,

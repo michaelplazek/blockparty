@@ -67,7 +67,7 @@ const handlers = {
   }),
   [UPDATE_USER]: (state, action) => ({
     username: action.data.username,
-    bio: action.data.bio,
+    bio: action.data.bio
   }),
   [SESSION_LOAD]: () => ({
     sessionLoaded: true
