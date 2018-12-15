@@ -1,11 +1,12 @@
 import React from "react";
 import { compose, withState, withHandlers } from "recompose";
 
+import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import withStyles from "@material-ui/core/styles/withStyles";
 import TextField from "@material-ui/core/TextField/TextField";
 import Grid from "@material-ui/core/Grid/Grid";
 import Button from "@material-ui/core/Button/Button";
-import { cleanInputs } from "../../constants/validation";
+import {cleanInputs, PASSWORD, USERNAME} from "../../constants/validation";
 
 const styles = () => ({
   root: {
@@ -25,27 +26,38 @@ const LoginForm = ({
   handleSubmit,
   classes
 }) => (
-  <form noValidate autoComplete="on">
+  <ValidatorForm
+    ref="form"
+    autoComplete="on"
+    onSubmit={handleSubmit}
+    onError={errors => console.log(errors)}
+  >
     <Grid
       container
       className={classes.root}
       justify="center"
       direction="column"
     >
-      <TextField
+      <TextValidator
         id="username-field"
+        name="username"
         label="Username"
         value={username}
         onChange={({ target }) => setUsername(target.value)}
+        validators={USERNAME.VALIDATORS}
+        errorMessages={USERNAME.MESSAGES}
         margin="dense"
         variant="outlined"
       />
-      <TextField
+      <TextValidator
         id="password-field"
+        name="password"
         label="Password"
         type="password"
         value={password}
         onChange={({ target }) => setPassword(target.value)}
+        validators={PASSWORD.VALIDATORS}
+        errorMessages={PASSWORD.MESSAGES}
         margin="dense"
         variant="outlined"
       />
@@ -54,12 +66,12 @@ const LoginForm = ({
         className="submitButton"
         variant="raised"
         color="primary"
-        onClick={handleSubmit}
+        type='submit'
       >
         Submit
       </Button>
     </Grid>
-  </form>
+  </ValidatorForm>
 );
 
 export default compose(
