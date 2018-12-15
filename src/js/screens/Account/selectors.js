@@ -13,7 +13,7 @@ export const selectStarRating = createSelector(
   selectUserReputation,
   reputation => <StarRating
     rating={reputation}
-    starRatedColor="blue"
+    starRatedColor="#ffc107"
     numberOfStars={5}
     starDimension="1em"
     starSpacing="0.1em"

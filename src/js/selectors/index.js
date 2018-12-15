@@ -31,7 +31,7 @@ export const selectUserReputation = createSelector(
   selectUserCancelledTransactions,
   (completed, cancelled) => {
     const total = completed + cancelled;
-    return total > 0 ? ((completed/total)*5).toFixed(2) : 0
+    return total > 0 ? ((completed/total)*5) : 0
   }
 
 );
