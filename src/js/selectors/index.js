@@ -24,8 +24,17 @@ export const selectUserId = state => state.session.userId;
 export const selectUserCreated = state => state.session.created;
 export const selectUserCompletedTransactions = state => state.session.completedTransactions;
 export const selectUserCancelledTransactions = state => state.session.cancelledTransactions;
-export const selectUserBio = state => state.session.cancelledTransactions;
+export const selectUserBio = state => state.session.bio;
 export const selectCurrentLocation = state => state.session.location;
+export const selectUserReputation = createSelector(
+  selectUserCompletedTransactions,
+  selectUserCancelledTransactions,
+  (completed, cancelled) => {
+    const total = completed + cancelled;
+    return total > 0 ? ((completed/total)*5).toFixed(2) : 0
+  }
+
+);
 
 // FILTERS
 export const selectFilterDistance = state => state.filters.distanceAway;
