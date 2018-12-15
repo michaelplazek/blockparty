@@ -7,6 +7,7 @@ import Login from "../screens/Login";
 import Register from "../screens/Register";
 import Account from "../screens/Account";
 import Analysis from "../screens/Analysis";
+import Settings from "../screens/Settings";
 import Oops from "../screens/Oops";
 
 export const protectedRoutes = [
@@ -58,6 +59,13 @@ export const protectedRoutes = [
     protected: true,
     component: Analysis,
     index: 6
+  },
+  {
+    path: "/settings",
+    exact: false,
+    protected: true,
+    component: Settings,
+    index: 7
   }
 ];
 
@@ -67,21 +75,21 @@ export const unprotectedRoutes = [
     exact: false,
     protected: false,
     component: Register,
-    index: 7
+    index: 8
   },
   {
     path: "/login",
     exact: false,
     protected: false,
     component: Login,
-    index: 8
+    index: 9
   },
   {
     path: "*",
     exact: true,
     protected: true,
     component: Oops,
-    index: 9
+    index: 10
   }
 ];
 

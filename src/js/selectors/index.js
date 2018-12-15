@@ -351,6 +351,12 @@ export const selectLayerOpen = state => state.layers.open;
 export const selectNavHeight = state => state.app.navigationBarHeight;
 export const selectHeaderHeight = state => state.app.headerHeight;
 export const selectWindowHeight = state => state.app.windowHeight;
+export const selectScreenHeight = createSelector(
+  selectNavHeight,
+  selectHeaderHeight,
+  selectWindowHeight,
+  (nav, header, window) => window - nav - header
+);
 export const selectWindowWidth = state => state.app.windowWidth;
 export const selectMarketView = state => state.app.marketView;
 

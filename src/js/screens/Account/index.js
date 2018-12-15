@@ -1,6 +1,6 @@
 import React from "react";
 import { compose } from "recompose";
-
+import { withRouter } from "react-router-dom";
 import {faCog} from "@fortawesome/free-solid-svg-icons";
 
 import mapper from "../../utils/connect";
@@ -8,7 +8,6 @@ import { logOutUser as logOutUserAction } from "../../actions/session";
 import { setLayerOpen as setLayerOpenAction } from "../../actions/layers";
 
 import PageHeader from "../../components/PageHeader";
-import CreateAsk from "../../components/Flyout/CreateAsk";
 import withDimensions from "../../HOCs/withDimensions";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Grid from "@material-ui/core/Grid/Grid";
@@ -37,14 +36,14 @@ const Account = ({
                    height,
                    username,
   bio,
-  items
+  items,
+  history
 }) => (
   <div>
-    <CreateAsk />
     <PageHeader
       leftHandLabel="Account"
       rightHandIcon={<FontAwesomeIcon icon={faCog} />}
-      // rightHandAction={logOut}
+      rightHandAction={() => history.push('/settings')}
     />
     <Grid
       container
@@ -98,6 +97,7 @@ const actionMap = {
 
 export default compose(
   mapper(propMap, actionMap),
+  withRouter,
   withStyles(styles),
   withDimensions
 )(Account);

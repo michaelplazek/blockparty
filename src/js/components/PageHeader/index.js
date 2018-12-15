@@ -75,6 +75,7 @@ class PageHeader extends Component {
               {this.props.leftHandLabel}
             </Typography>
             <IconButton
+              onClick={this.props.rightHandAction}
               className={this.props.classes.menuButton}
               color="inherit"
             >
