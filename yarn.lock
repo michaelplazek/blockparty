@@ -4184,6 +4184,12 @@ react-fontawesome@^1.6.1:
   dependencies:
     prop-types "^15.5.6"
 
+react-form-validator-core@0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/react-form-validator-core/-/react-form-validator-core-0.5.1.tgz#45338782249a7801c688cee540bbe2c11a69031b"
+  dependencies:
+    react-lifecycles-compat "^3.0.2"
+
 react-google-maps@^9.4.5:
   version "9.4.5"
   resolved "https://registry.yarnpkg.com/react-google-maps/-/react-google-maps-9.4.5.tgz#920c199bdc925e0ce93880edffb09428d263aafa"
@@ -4235,6 +4241,12 @@ react-jss@^8.1.0:
 react-lifecycles-compat@^3.0.0, react-lifecycles-compat@^3.0.2, react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
+
+react-material-ui-form-validator@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/react-material-ui-form-validator/-/react-material-ui-form-validator-2.0.3.tgz#24e3ab4d2ef45d1223877c5d62ee86586679b785"
+  dependencies:
+    react-form-validator-core "0.5.1"
 
 react-modal@^3.1.10:
   version "3.6.1"

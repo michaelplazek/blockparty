@@ -15,6 +15,7 @@ import {
   setFilter as setFilterAction
 } from "../../../actions/filters";
 import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
+import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import coins from "../../../constants/coins";
 import { types } from "../../../constants/filters";
 import Flyout from "../index";
@@ -23,9 +24,10 @@ import Grid from "@material-ui/core/Grid/Grid";
 import FormControl from "@material-ui/core/FormControl/FormControl";
 import InputLabel from "@material-ui/core/InputLabel/InputLabel";
 import Select from "@material-ui/core/Select/Select";
-import TextField from "@material-ui/core/TextField/TextField";
 import { selectFilterType } from "../../../selectors";
 import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
+import Button from "@material-ui/core/Button/Button";
+import { cleanInputs, DISTANCE, USERNAME } from "../../../constants/validation";
 
 const styles = () => ({
   root: {
@@ -42,54 +44,70 @@ const FilterMap = ({
   setFilterCoin,
   setFilterType,
   handleSubmit,
+  handleSetDistance,
   type
 }) => (
   <Flyout size={3}>
     <Grid className={classes.root}>
-      <FormControl margin="dense" fullWidth={true}>
-        <InputLabel>Type</InputLabel>
-        <Select
-          variant="outlined"
-          native
-          value={type}
-          onChange={({ target }) => setFilterType(target.value)}
-        >
-          {types.map(item => (
-            <option key={item} value={item}>
-              {item}
-            </option>
-          ))}
-        </Select>
-      </FormControl>
-      <br />
-      <FormControl margin="dense" fullWidth={true}>
-        <InputLabel>Coin</InputLabel>
-        <Select
-          variant="outlined"
-          native
-          value={coin}
-          onChange={({ target }) => setFilterCoin(target.value)}
-        >
-          {coins.map(item => (
-            <option key={item} value={item}>
-              {item}
-            </option>
-          ))}
-        </Select>
+      <ValidatorForm
+        ref="form"
+        autoComplete="on"
+        onSubmit={handleSubmit}
+        onError={errors => console.log(errors)}
+      >
+        <FormControl margin="dense" fullWidth={true}>
+          <InputLabel>Type</InputLabel>
+          <Select
+            variant="outlined"
+            native
+            value={type}
+            onChange={({ target }) => setFilterType(target.value)}
+          >
+            {types.map(item => (
+              <option key={item} value={item}>
+                {item}
+              </option>
+            ))}
+          </Select>
+        </FormControl>
         <br />
-        <TextField
-          id="distance"
-          label="Distance Away"
-          value={distance}
-          onChange={({ target }) => setFilterDistance(target.value)}
-          margin="dense"
-          variant="standard"
-          InputProps={{
-            endAdornment: <InputAdornment position="start">mi</InputAdornment>
-          }}
-        />
-        <br />
-      </FormControl>
+        <FormControl margin="dense" fullWidth={true}>
+          <InputLabel>Coin</InputLabel>
+          <Select
+            variant="outlined"
+            native
+            value={coin}
+            onChange={({ target }) => setFilterCoin(target.value)}
+          >
+            {coins.map(item => (
+              <option key={item} value={item}>
+                {item}
+              </option>
+            ))}
+          </Select>
+          <br />
+          <TextValidator
+            id="distance"
+            name="distance"
+            label="Distance Away"
+            value={distance}
+            onChange={({ target }) => handleSetDistance(target.value)}
+            validators={DISTANCE.VALIDATORS}
+            errorMessages={DISTANCE.MESSAGES}
+            margin="dense"
+            variant="standard"
+            InputProps={{
+              endAdornment: <InputAdornment position="start">mi</InputAdornment>
+            }}
+          />
+          <br />
+        </FormControl>
+        <Grid container justify="center">
+          <Button variant="raised" color="primary" type="submit">
+            Submit
+          </Button>
+        </Grid>
+      </ValidatorForm>
     </Grid>
   </Flyout>
 );
@@ -111,5 +129,15 @@ const actionMap = {
 
 export default compose(
   mapper(propMap, actionMap),
-  withStyles(styles)
+  withStyles(styles),
+  withHandlers({
+    handleSetDistance: ({ setFilterDistance }) => distance => {
+      const inputs = cleanInputs(distance);
+      setFilterDistance(inputs[distance]);
+    },
+    handleSubmit: ({ setFilter, setLayerOpen }) => () => {
+      setFilter();
+      setLayerOpen(false);
+    }
+  })
 )(FilterMap);

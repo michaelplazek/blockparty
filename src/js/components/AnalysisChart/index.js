@@ -49,8 +49,8 @@ const AnalysisChartBase = ({ height, width, data, handleTouch }) => (
       <XAxis
         dataKey="price"
         interval="preserveStartEnd"
-        type='number'
-        domain={['auto', 'auto']}
+        type="number"
+        domain={["auto", "auto"]}
         tickMargin={20}
         tick={<XTick />}
       />

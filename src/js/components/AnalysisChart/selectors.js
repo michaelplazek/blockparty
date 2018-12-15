@@ -18,7 +18,7 @@ import reduce from "lodash/fp/reduce";
 import maxBy from "lodash/fp/maxBy";
 import minBy from "lodash/fp/minBy";
 import getOr from "lodash/fp/getOr";
-import {USD} from "../../constants/currency";
+import { USD } from "../../constants/currency";
 
 const NUMBER_OF_BINS = 100;
 

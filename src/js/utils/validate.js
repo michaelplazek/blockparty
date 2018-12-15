@@ -31,3 +31,7 @@ export const validatePasswordRegistry = (input, confirmInput) => {
   }
   return result;
 };
+
+export const getMinimalUnit = () => {
+  return 0.00000001;
+};

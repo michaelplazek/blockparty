@@ -9,7 +9,6 @@ import {
   SET_ASK_USE_CURRENT_LOCATION,
   SET_ASK_CONTACT_INFO
 } from "../actions";
-import numeral from "numeral";
 
 const initialState = {
   coin: "BTC",
@@ -29,7 +28,7 @@ const handlers = {
     volume: action.data
   }),
   [SET_ASK_PRICE]: (state, action) => ({
-    price: numeral(action.data).value()
+    price: action.data
   }),
   [SET_ASK_LATITUDE]: (state, action) => ({
     lat: action.data

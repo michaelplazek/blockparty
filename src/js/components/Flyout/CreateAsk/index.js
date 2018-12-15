@@ -32,6 +32,8 @@ import {
 } from "../../../actions/asks";
 import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
 import { resetAsk as resetAskAction } from "../../../actions/createAsk";
+import { ValidatorForm } from "react-material-ui-form-validator";
+import { cleanInputs } from "../../../constants/validation";
 
 const styles = theme => ({
   root: {
@@ -57,7 +59,9 @@ const CreateAsk = ({
   handleBack,
   handleNext,
   resetAsk,
-  setLayerOpen
+  setLayerOpen,
+  handleSubmit,
+  handleError
 }) => (
   <Flyout
     onClose={() => {
@@ -75,26 +79,34 @@ const CreateAsk = ({
             <Step key={index}>
               <StepLabel>{step}</StepLabel>
               <StepContent>
-                <Content index={index} />
-                <div className={classes.actionsContainer}>
-                  <div>
-                    <Button
-                      disabled={activeIndex === 0}
-                      onClick={handleBack}
-                      className={classes.button}
-                    >
-                      Back
-                    </Button>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={handleNext}
-                      className={classes.button}
-                    >
-                      {activeIndex === STEPS.length - 1 ? "Finish" : "Next"}
-                    </Button>
+                <ValidatorForm
+                  ref="form"
+                  autoComplete="on"
+                  onSubmit={handleNext}
+                  onError={handleError}
+                  instantValidate={true}
+                >
+                  <Content index={index} />
+                  <div className={classes.actionsContainer}>
+                    <div>
+                      <Button
+                        disabled={activeIndex === 0}
+                        onClick={handleBack}
+                        className={classes.button}
+                      >
+                        Back
+                      </Button>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        type="submit"
+                        className={classes.button}
+                      >
+                        {activeIndex === STEPS.length - 1 ? "Finish" : "Next"}
+                      </Button>
+                    </div>
                   </div>
-                </div>
+                </ValidatorForm>
               </StepContent>
             </Step>
           );
@@ -147,11 +159,13 @@ export default compose(
       setActiveIndex,
       contactInfo
     }) => () => {
+      const inputs = cleanInputs(contactInfo);
+
       const ask = {
         coin,
         volume: parseFloat(volume),
-        contactInfo,
-        price,
+        contactInfo: inputs[contactInfo],
+        price: parseFloat(price),
         owner: username,
         lat,
         lng
@@ -174,6 +188,8 @@ export default compose(
       if (activeIndex === STEPS.length - 1) {
         handleSubmit();
       }
-    }
+    },
+    handleError: () => () => {},
+    handleSubmit: () => () => {}
   })
 )(CreateAsk);

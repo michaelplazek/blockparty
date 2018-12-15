@@ -1,8 +1,8 @@
 import React from "react";
 import { compose } from "recompose";
 
+import { TextValidator } from "react-material-ui-form-validator";
 import FormControl from "@material-ui/core/FormControl/FormControl";
-import TextField from "@material-ui/core/TextField/TextField";
 import Typography from "@material-ui/core/Typography/Typography";
 import Grid from "@material-ui/core/Grid/Grid";
 import {
@@ -17,6 +17,7 @@ import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
 import { setContactInfo, setOfferVolume } from "../../../actions/createOffer";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { selectBidVolume } from "../../../selectors";
+import { getMinimalUnit } from "../../../utils/validate";
 
 const styles = () => ({
   info: {
@@ -42,10 +43,23 @@ const CreateBidOfferContent = ({
       return (
         <div>
           <FormControl margin="dense" fullWidth={true}>
-            <TextField
+            <TextValidator
               id="volume"
+              name="volume"
               value={volume}
-              onChange={({ target }) => setOfferVolume(target.value || 0)}
+              onChange={({ target }) => setOfferVolume(target.value)}
+              validators={[
+                `maxFloat:${max}`,
+                "isPositive",
+                `minFloat:${getMinimalUnit()}`,
+                "required"
+              ]}
+              errorMessages={[
+                "over max volume",
+                "invalid number",
+                "under minimum volume",
+                "this field is required"
+              ]}
               margin="dense"
               variant="standard"
               helperText={`Max of ${max}`}
@@ -67,10 +81,13 @@ const CreateBidOfferContent = ({
     case 1:
       return (
         <FormControl margin="dense" fullWidth={true}>
-          <TextField
+          <TextValidator
             id="contactInfo"
+            name="contactInfo"
             value={contactInfo}
             onChange={({ target }) => setContactInfo(target.value)}
+            validators={["required"]}
+            errorMessages={["this field is required"]}
             margin="dense"
             helperText="Usually a phone number"
             variant="standard"

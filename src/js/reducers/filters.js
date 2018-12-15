@@ -4,7 +4,8 @@ import {
   SET_FILTER_COIN,
   SET_FILTER,
   SET_FILTER_TYPE,
-  SET_FILTER_PRICE
+  SET_FILTER_PRICE,
+  SET_FILTER_ITEMS
 } from "../actions";
 import { DEFAULT_FILTER } from "../constants/filters";
 
@@ -32,6 +33,11 @@ const handlers = {
       distanceAway: state.distanceAway,
       type: state.type
     }
+  }),
+  [SET_FILTER_ITEMS]: state => ({
+    coin: state.filter.coin,
+    distanceAway: state.filter.distanceAway,
+    type: state.filter.type
   }),
   [SET_FILTER_PRICE]: (_, action) => ({
     price: action.data

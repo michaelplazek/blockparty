@@ -6,7 +6,7 @@ import find from "lodash/fp/find";
 import filter from "lodash/fp/filter";
 import moment from "moment";
 import numeral from "numeral";
-import { USD } from "../constants/currency";
+import { USD, USD_DECIMALS } from "../constants/currency";
 import { getDistance } from "geolib";
 import { getMilesFromMeters } from "../utils/location";
 import orderBy from "lodash/fp/orderBy";
@@ -300,9 +300,9 @@ export const selectAskFormCoin = state => state.ask.coin;
 export const selectAskFormContactInfo = state => state.ask.contactInfo;
 export const selectAskFormVolume = state => state.ask.volume;
 export const selectAskFormPrice = state => state.ask.price;
-export const selectFormattedAskPrice = createSelector(
+export const selectFormattedAskFormPrice = createSelector(
   selectAskFormPrice,
-  price => numeral(price).format(USD)
+  price => numeral(price).format(USD_DECIMALS)
 );
 export const selectAskLatitude = state => state.ask.lat;
 export const selectAskLongitude = state => state.ask.lng;
@@ -382,12 +382,10 @@ export const selectBidOfferButtonText = createSelector(
 export const selectMapMarkers = createSelector(
   selectAsks,
   selectBids,
-  selectFilterType,
-  selectFilterCoin,
-  selectFilterDistance,
+  selectFilter,
   selectCurrentLocation,
-  (asks, bids, type, coin, filterDistance, currentLocation) => {
-    const items = type === "ASK" ? asks : bids;
+  (asks, bids, filters, currentLocation) => {
+    const items = filters.type === "ASK" ? asks : bids;
     return compose(
       fpMap(ask => ({
         lat: ask.lat,
@@ -403,9 +401,9 @@ export const selectMapMarkers = createSelector(
           { latitude: currentLocation.lat, longitude: currentLocation.lng }
         );
         const distanceInMiles = getMilesFromMeters(distance);
-        return distanceInMiles < filterDistance;
+        return distanceInMiles < filters.distanceAway;
       }),
-      filter(ask => ask.coin === coin)
+      filter(ask => ask.coin === filters.coin)
     )(items);
   }
 );
@@ -423,3 +421,6 @@ export const selectDashboardLoaded = createSelector(
   (asksLoaded, bidsLoaded) => asksLoaded && bidsLoaded
 );
 
+// Errors
+export const selectError = state => state.errors.error;
+export const selectErrorMessage = state => state.errors.message;

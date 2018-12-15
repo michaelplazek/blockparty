@@ -18,7 +18,7 @@ import {
 import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
 import { resetAsk as resetAskAction } from "../../../actions/createAsk";
 import PostFilters from "./PostFilters";
-import {selectListItems} from "./selectors";
+import { selectListItems } from "./selectors";
 
 const styles = theme => ({
   button: {
@@ -36,14 +36,7 @@ const styles = theme => ({
   }
 });
 
-const ChartList = ({
-                     classes,
-                     onSubmit,
-                     setLayerOpen,
-                     items,
-                     price,
-  type
-}) => (
+const ChartList = ({ classes, onSubmit, setLayerOpen, items, price, type }) => (
   <Flyout
     onClose={() => {
       setLayerOpen(false);
