@@ -53,7 +53,7 @@ const FilterMap = ({
         ref="form"
         autoComplete="on"
         onSubmit={handleSubmit}
-        onError={errors => console.log(errors)}
+        onError={}
       >
         <FormControl margin="dense" fullWidth={true}>
           <InputLabel>Type</InputLabel>

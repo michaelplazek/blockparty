@@ -6,7 +6,8 @@ import {
   USER_FROM_TOKEN,
   SESSION_LOAD,
   CURRENT_LOCATION_LOAD,
-  UPDATE_USER
+  UPDATE_USER,
+  DELETE_USER
 } from "../actions";
 
 const initialState = {
@@ -71,7 +72,8 @@ const handlers = {
   [SESSION_LOAD]: () => ({
     sessionLoaded: true
   }),
-  [LOG_OUT]: () => ({ ...initialState })
+  [LOG_OUT]: () => ({ ...initialState }),
+  [DELETE_USER]: () => ({ ...initialState })
 };
 
 export default stateReducer(initialState, handlers);

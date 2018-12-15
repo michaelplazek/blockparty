@@ -30,7 +30,8 @@ const LoginForm = ({
     ref="form"
     autoComplete="on"
     onSubmit={handleSubmit}
-    onError={errors => console.log(errors)}
+    onError={}
+    instantValidate={false}
   >
     <Grid
       container

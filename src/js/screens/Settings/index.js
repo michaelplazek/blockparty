@@ -5,7 +5,7 @@ import theme from "../../../theme";
 import { VERSION } from "../../constants/app";
 
 import mapper from "../../utils/connect";
-import {logOutUser as logOutUserAction, updateUser} from "../../actions/session";
+import {deleteUser, logOutUser as logOutUserAction, updateUser} from "../../actions/session";
 
 import PageHeader from "../../components/PageHeader";
 import withDimensions from "../../HOCs/withDimensions";
@@ -13,8 +13,8 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import Grid from "@material-ui/core/Grid/Grid";
 import {
   selectScreenHeight,
-  selectUserBio, selectUserId,
-  selectUsername
+  selectUserBio, selectUserCanDelete, selectUserId,
+  selectUsername, totalActionItems
 } from "../../selectors";
 import Typography from "@material-ui/core/Typography/Typography";
 import Button from "@material-ui/core/Button/Button";
@@ -41,7 +41,11 @@ const Settings = ({
   bio,
   items,
   history,
-                    handleUpdate
+                    handleUpdate,
+                    handleDelete,
+  canDelete,
+                    totalItems,
+
 }) => (
   <div>
     <PageHeader
@@ -63,7 +67,7 @@ const Settings = ({
             ref="form"
             autoComplete="off"
             onSubmit={handleUpdate}
-            onError={errors => console.log(errors)}
+            onError={}
           >
             <Grid
               container
@@ -100,8 +104,13 @@ const Settings = ({
             <Grid item>
               <Button
                 variant="raised"
-                style={theme.palette.errorButton}
-                type="submit"
+                style={
+                  (totalItems === 0)
+                    ? theme.palette.errorButton
+                    : theme.palette.disabledErrorButton
+                }
+                onClick={handleDelete}
+                disabled={!canDelete}
               >
                 Delete Account
               </Button>
@@ -120,12 +129,15 @@ const propMap = {
   height: selectScreenHeight,
   username: selectUsername,
   userId: selectUserId,
-  bio: selectUserBio
+  bio: selectUserBio,
+  canDelete: selectUserCanDelete,
+  totalItems: totalActionItems
 };
 
 const actionMap = {
   logOut: logOutUserAction,
-  updateUser
+  updateUser,
+  deleteUser
 };
 
 export default compose(
@@ -137,6 +149,9 @@ export default compose(
       const text = document.getElementById('bio-field').value;
       const update = { id: userId, bio: text };
       updateUser(update);
+    },
+    handleDelete: ({ userId, deleteUser }) => () => {
+      deleteUser(userId);
     }
   }),
   withDimensions

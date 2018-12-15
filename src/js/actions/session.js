@@ -1,5 +1,5 @@
 import md5 from "md5";
-import { fetchToken, wrappedFetch } from "../api/utils";
+import {fetchToken, wrappedFetch, wrappedFetchWithParams} from "../api/utils";
 import {
   LOG_IN,
   LOG_OUT,
@@ -7,7 +7,8 @@ import {
   USER_FROM_TOKEN,
   SESSION_LOAD,
   CURRENT_LOCATION_LOAD,
-  UPDATE_USER
+  UPDATE_USER,
+  DELETE_USER
 } from "./index";
 
 const setSession = token => window.sessionStorage.setItem("session", token);
@@ -70,6 +71,13 @@ export const logOutUser = () => dispatch => {
   wrappedFetch("users/logout", undefined, "POST").then(() => {
     removeSession();
     dispatch({ type: LOG_OUT });
+  });
+};
+
+export const deleteUser = id => dispatch => {
+  wrappedFetchWithParams("user", undefined, "DELETE", `/${id}`).then(() => {
+    removeSession();
+    dispatch({ type: DELETE_USER });
   });
 };
 

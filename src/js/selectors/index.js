@@ -438,6 +438,22 @@ export const selectDashboardLoaded = createSelector(
   (asksLoaded, bidsLoaded) => asksLoaded && bidsLoaded
 );
 
+export const totalActionItems = createSelector(
+  selectNumberOfMyAsks,
+  selectNumberOfMyBids,
+  selectNumberOfMyOffers,
+  selectNumberOfMyTransactions,
+  (asks, bids, offers, transactions) =>
+    asks + bids + offers + transactions
+);
+
+export const selectUserCanDelete = createSelector(
+  totalActionItems,
+  count => count === 0
+);
+
 // Errors
 export const selectError = state => state.errors.error;
 export const selectErrorMessage = state => state.errors.message;
+
+

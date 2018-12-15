@@ -49,6 +49,7 @@ export const USER_FROM_TOKEN = "USER_FROM_TOKEN";
 export const SESSION_LOAD = "SESSION_LOAD";
 export const CURRENT_LOCATION_LOAD = "CURRENT_LOCATION_LOAD";
 export const UPDATE_USER = "UPDATE_USER";
+export const DELETE_USER = "DELETE_USER";
 
 // APP
 export const LOAD_NAV_HEIGHT = "LOAD_NAV_HEIGHT";
