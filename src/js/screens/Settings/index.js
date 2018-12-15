@@ -67,7 +67,6 @@ const Settings = ({
             ref="form"
             autoComplete="off"
             onSubmit={handleUpdate}
-            onError={}
           >
             <Grid
               container
