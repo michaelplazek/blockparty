@@ -64,12 +64,12 @@ const handlers = {
     error: "",
     loggedIn: true
   }),
-  [SESSION_LOAD]: () => ({
-    sessionLoaded: true
-  }),
-  [UPDATE_USER]: () => ({
+  [UPDATE_USER]: (state, action) => ({
     username: action.data.username,
     bio: action.data.bio,
+  }),
+  [SESSION_LOAD]: () => ({
+    sessionLoaded: true
   }),
   [LOG_OUT]: () => ({ ...initialState })
 };

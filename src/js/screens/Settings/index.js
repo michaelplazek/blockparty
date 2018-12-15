@@ -5,8 +5,7 @@ import theme from "../../../theme";
 import { VERSION } from "../../constants/app";
 
 import mapper from "../../utils/connect";
-import { logOutUser as logOutUserAction } from "../../actions/session";
-import { setLayerOpen as setLayerOpenAction } from "../../actions/layers";
+import {logOutUser as logOutUserAction, updateUser} from "../../actions/session";
 
 import PageHeader from "../../components/PageHeader";
 import withDimensions from "../../HOCs/withDimensions";
@@ -14,7 +13,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import Grid from "@material-ui/core/Grid/Grid";
 import {
   selectScreenHeight,
-  selectUserBio,
+  selectUserBio, selectUserId,
   selectUsername
 } from "../../selectors";
 import Typography from "@material-ui/core/Typography/Typography";
@@ -120,12 +119,13 @@ const Settings = ({
 const propMap = {
   height: selectScreenHeight,
   username: selectUsername,
+  userId: selectUserId,
   bio: selectUserBio
 };
 
 const actionMap = {
   logOut: logOutUserAction,
-  setLayerOpen: setLayerOpenAction
+  updateUser
 };
 
 export default compose(
@@ -133,8 +133,10 @@ export default compose(
   withRouter,
   withStyles(styles),
   withHandlers({
-    handleUpdate: () => () => {
+    handleUpdate: ({ userId, updateUser }) => () => {
       const text = document.getElementById('bio-field').value;
+      const update = { id: userId, bio: text };
+      updateUser(update);
     }
   }),
   withDimensions

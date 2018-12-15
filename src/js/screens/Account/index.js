@@ -5,7 +5,6 @@ import { faCog } from "@fortawesome/free-solid-svg-icons";
 
 import mapper from "../../utils/connect";
 import { logOutUser as logOutUserAction } from "../../actions/session";
-import { setLayerOpen as setLayerOpenAction } from "../../actions/layers";
 
 import PageHeader from "../../components/PageHeader";
 import withDimensions from "../../HOCs/withDimensions";
@@ -81,7 +80,6 @@ const propMap = {
 
 const actionMap = {
   logOut: logOutUserAction,
-  setLayerOpen: setLayerOpenAction
 };
 
 export default compose(
