@@ -11,6 +11,12 @@ import {
 const initialState = {
   loggedIn: false,
   username: "",
+  bio: "",
+  completedTransactions: 0,
+  cancelledTransactions: 0,
+  created: {
+    $date: ""
+  },
   userId: 0,
   error: "",
   sessionLoaded: false,
@@ -24,6 +30,20 @@ const handlers = {
   [LOG_IN]: (state, action) => ({
     username: action.data.user.username,
     userId: action.data.user._id,
+    bio: action.data.user.bio,
+    completedTransactions: action.data.user.completedTransactions,
+    cancelledTransactions: action.data.user.cancelledTransactions,
+    created: action.data.user.created,
+    error: "",
+    loggedIn: true
+  }),
+  [REGISTER_USER]: (state, action) => ({
+    username: action.data.user.username,
+    userId: action.data.user._id,
+    bio: action.data.user.bio,
+    completedTransactions: action.data.user.completedTransactions,
+    cancelledTransactions: action.data.user.cancelledTransactions,
+    created: action.data.user.created,
     error: "",
     loggedIn: true
   }),
@@ -33,15 +53,13 @@ const handlers = {
       lng: action.data.longitude
     }
   }),
-  [REGISTER_USER]: (state, action) => ({
-    username: action.data.user.username,
-    userId: action.data.user._id,
-    error: "",
-    loggedIn: true
-  }),
   [USER_FROM_TOKEN]: (state, action) => ({
     username: action.data.user.username,
     userId: action.data.user._id,
+    bio: action.data.user.bio,
+    completedTransactions: action.data.user.completedTransactions,
+    cancelledTransactions: action.data.user.cancelledTransactions,
+    created: action.data.user.created,
     error: "",
     loggedIn: true
   }),

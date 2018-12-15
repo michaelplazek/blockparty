@@ -81,7 +81,6 @@ const RegisterForm = ({
         onChange={({ target }) => setPasswordConfirm(target.value)}
         validators={PASSWORD_CONFIRM.VALIDATORS}
         errorMessages={PASSWORD_CONFIRM.MESSAGES}
-        instantValidate={false}
         margin="dense"
         variant="outlined"
       />
