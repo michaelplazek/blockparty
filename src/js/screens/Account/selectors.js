@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 import StarRating from "react-star-ratings";
 
-import {createSelector} from "reselect";
+import { createSelector } from "reselect";
 import {
   intoArray,
   selectUserCancelledTransactions,
@@ -11,14 +11,16 @@ import {
 
 export const selectStarRating = createSelector(
   selectUserReputation,
-  reputation => <StarRating
-    rating={reputation}
-    starRatedColor="#ffc107"
-    numberOfStars={5}
-    starDimension="1em"
-    starSpacing="0.1em"
-    name='rating'
-  />
+  reputation => (
+    <StarRating
+      rating={reputation}
+      starRatedColor="#ffc107"
+      numberOfStars={5}
+      starDimension="1em"
+      starSpacing="0.1em"
+      name="rating"
+    />
+  )
 );
 
 export const selectReputationDetail = createSelector(

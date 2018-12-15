@@ -6,7 +6,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import TextField from "@material-ui/core/TextField/TextField";
 import Grid from "@material-ui/core/Grid/Grid";
 import Button from "@material-ui/core/Button/Button";
-import {cleanInputs, PASSWORD, USERNAME} from "../../constants/validation";
+import { cleanInputs, PASSWORD, USERNAME } from "../../constants/validation";
 
 const styles = () => ({
   root: {
@@ -66,7 +66,7 @@ const LoginForm = ({
         className="submitButton"
         variant="raised"
         color="primary"
-        type='submit'
+        type="submit"
       >
         Submit
       </Button>

@@ -15,7 +15,7 @@ import Grid from "@material-ui/core/Grid/Grid";
 import {
   selectScreenHeight,
   selectUserBio,
-  selectUsername,
+  selectUsername
 } from "../../selectors";
 import Typography from "@material-ui/core/Typography/Typography";
 import Button from "@material-ui/core/Button/Button";
@@ -26,18 +26,18 @@ const styles = () => ({
     paddingTop: "1em"
   },
   bottom: {
-    marginBottom: '0.5em',
+    marginBottom: "0.5em"
   },
   version: {
-    marginTop: '0.2em'
+    marginTop: "0.2em"
   }
 });
 
 const Settings = ({
-                   logOut,
-                   classes,
-                   height,
-                   username,
+  logOut,
+  classes,
+  height,
+  username,
   bio,
   items,
   history
@@ -45,28 +45,25 @@ const Settings = ({
   <div>
     <PageHeader
       leftHandLabel="Settings"
-      rightHandButton='Back'
+      rightHandButton="Back"
       rightHandAction={() => history.goBack()}
     />
-    <div >
+    <div>
       <Grid
         container
         className={classes.top}
         style={{ height: `${height}px` }}
-        direction='column'
-        justify='space-between'
-        alignItems='center'
+        direction="column"
+        justify="space-between"
+        alignItems="center"
       >
         <Grid item>
-          <form
-            noValidate
-            autoComplete="off"
-          >
+          <form noValidate autoComplete="off">
             <Grid
               container
               className={classes.top}
               direction="column"
-              alignItems='center'
+              alignItems="center"
             >
               <Grid item>
                 <TextField
@@ -81,11 +78,7 @@ const Settings = ({
                 />
               </Grid>
               <Grid item>
-                <Button
-                  variant='raised'
-                  color="primary"
-                  type='submit'
-                >
+                <Button variant="raised" color="primary" type="submit">
                   Update
                 </Button>
               </Grid>
@@ -93,22 +86,18 @@ const Settings = ({
           </form>
         </Grid>
         <Grid item className={classes.bottom}>
-          <Grid
-            container
-            direction='column'
-            alignItems='center'
-          >
+          <Grid container direction="column" alignItems="center">
             <Grid item>
               <Button
-                variant='raised'
+                variant="raised"
                 style={theme.palette.errorButton}
-                type='submit'
+                type="submit"
               >
                 Delete Account
               </Button>
             </Grid>
             <Grid item className={classes.version}>
-              <Typography variant='caption'>{VERSION}</Typography>
+              <Typography variant="caption">{VERSION}</Typography>
             </Grid>
           </Grid>
         </Grid>
@@ -120,7 +109,7 @@ const Settings = ({
 const propMap = {
   height: selectScreenHeight,
   username: selectUsername,
-  bio: selectUserBio,
+  bio: selectUserBio
 };
 
 const actionMap = {
