@@ -1,5 +1,6 @@
 import React from "react";
 import { compose } from "recompose";
+
 import mapper from "../../utils/connect";
 
 import { logOutUser as logOutUserAction } from "../../actions/session";
@@ -10,7 +11,7 @@ import CreateAsk from "../../components/Flyout/CreateAsk";
 import withDimensions from "../../HOCs/withDimensions";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Grid from "@material-ui/core/Grid/Grid";
-import {selectUserBio, selectUsername, selectWindowHeight} from "../../selectors";
+import {selectUserBio, selectUsername, selectUserReputation, selectWindowHeight} from "../../selectors";
 import Typography from "@material-ui/core/Typography/Typography";
 import DetailList from "../../components/DetailList";
 import Paper from "@material-ui/core/Paper/Paper";
@@ -76,6 +77,7 @@ const propMap = {
   height: selectWindowHeight,
   username: selectUsername,
   bio: selectUserBio,
+  reputation: selectUserReputation,
   items: selectUserDetails
 };
 
