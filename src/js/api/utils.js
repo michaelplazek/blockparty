@@ -1,5 +1,8 @@
 import { getSession } from "../actions/session";
 
+import { store } from "../../index";
+import {SET_ERROR, SET_ERROR_MESSAGE} from "../actions";
+
 const BASE_URL = "http://localhost:8000";
 
 export const wrappedFetch = (url = "", data = {}, type = "GET") => {
@@ -20,10 +23,15 @@ export const wrappedFetch = (url = "", data = {}, type = "GET") => {
       : fetch(newUrl, { method: "GET", Authorization: `Bearer ${token}` });
 
   return promise
-    .then(
-      response =>
-        response.ok ? Promise.resolve(response) : Promise.reject(response)
-    )
+    .then(response => {
+      if(!response.ok) {
+        response.json().then(object => {
+          store.dispatch({ type: SET_ERROR, data: true });
+          store.dispatch({ type: SET_ERROR_MESSAGE, data: object.message });
+        });
+      }
+      return response;
+    })
     .then(response => {
       if (response.status === 200) {
         return response.json();
@@ -62,6 +70,9 @@ export const wrappedFetchWithParams = (
     .then(response => {
       if (response.status === 200) {
         return response.json();
+      } else {
+        store.dispatch({ type: SET_ERROR, data: true });
+        store.dispatch({ type: SET_ERROR_MESSAGE, data: response.json() });
       }
     })
     .catch(e => console.log(e));

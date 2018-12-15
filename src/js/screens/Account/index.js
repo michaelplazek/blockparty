@@ -79,7 +79,7 @@ const propMap = {
 };
 
 const actionMap = {
-  logOut: logOutUserAction,
+  logOut: logOutUserAction
 };
 
 export default compose(

@@ -7,6 +7,7 @@ import { Switch, withRouter } from "react-router";
 import FooterNav from "./components/FooterNav";
 import routes from "./config/routes";
 import withAuthentification from "./HOCs/withAuthentification";
+import withErrors from "./HOCs/withErrors";
 
 const Routes = () => (
   <div>
@@ -28,5 +29,6 @@ const Routes = () => (
 
 export default compose(
   withRouter,
-  withAuthentification
+  withAuthentification,
+  withErrors
 )(Routes);
