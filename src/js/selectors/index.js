@@ -9,10 +9,7 @@ import numeral from "numeral";
 import { USD, USD_DECIMALS } from "../constants/currency";
 import { getDistance } from "geolib";
 import { getMilesFromMeters } from "../utils/location";
-import orderBy from "lodash/fp/orderBy";
-import head from "lodash/head";
-import last from "lodash/last";
-import { binify } from "./utils";
+
 import { ADMIN_1, LOCALITY, POLITICAL } from "../constants/maps";
 
 const NUMBER_OF_BINS = 100;
@@ -24,6 +21,10 @@ export const selectIsLoggedIn = state => state.session.loggedIn;
 export const selectSessionLoaded = state => state.session.sessionLoaded;
 export const selectUsername = state => state.session.username;
 export const selectUserId = state => state.session.userId;
+export const selectUserCreated = state => state.session.created;
+export const selectUserCompletedTransactions = state => state.session.completedTransactions;
+export const selectUserCancelledTransactions = state => state.session.cancelledTransactions;
+export const selectUserBio = state => state.session.cancelledTransactions;
 export const selectCurrentLocation = state => state.session.location;
 
 // FILTERS
