@@ -10,6 +10,7 @@ import Typography from "@material-ui/core/Typography/Typography";
 import { logInUser } from "../actions/session";
 import mapper from "../utils/connect";
 import Button from "@material-ui/core/Button/Button";
+import ErrorNotification from "../components/ErrorNotification";
 
 const styles = () => ({
   root: {
@@ -26,6 +27,7 @@ const styles = () => ({
 
 const Login = ({ handleLogIn, handleSignUp, classes, history }) => (
   <Grid className={classes.root} container justify="center" direction="column">
+    <ErrorNotification />
     <Grid item>
       <Grid container direction="column" justify="center">
         <Typography align="center" variant="display1">

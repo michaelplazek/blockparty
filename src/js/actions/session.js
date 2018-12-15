@@ -28,7 +28,7 @@ export const logInUser = (username, password, history) => dispatch => {
       dispatch({ type: LOG_IN, data: response });
     })
     .then(() => dispatch({ type: SESSION_LOAD }))
-    .then(() => history.push("/"));
+    .then(() => history.push("/"))
 };
 
 export const registerUser = (username, password, history) => dispatch => {

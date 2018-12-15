@@ -13,10 +13,11 @@ import reducers from "./js/reducers";
 import App from "./js/App";
 import theme from "./theme";
 
-const store = createStore(
+export const store = createStore(
   reducers,
   composeWithDevTools(applyMiddleware(thunk))
 );
+
 let content = document.getElementById("content");
 ReactDOM.render(
   <AppContainer>
