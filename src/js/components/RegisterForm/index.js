@@ -36,7 +36,6 @@ const RegisterForm = ({
   classes
 }) => (
   <ValidatorForm
-    ref="form"
     autoComplete="on"
     onSubmit={handleSubmit}
     instantValidate={false}

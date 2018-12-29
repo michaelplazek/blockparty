@@ -21,13 +21,16 @@ class GoogleMapsWrapper extends Component {
     this.state = {
       zoom: props.zoom,
       currentLocation: {
-        lat: props.initialCenter.lat,
-        lng: props.initialCenter.lng
+        // lat: props.initialCenter.lat,
+        // lng: props.initialCenter.lng
       }
     };
   }
 
   componentDidMount() {
+    console.log('navigator', navigator);
+    console.log('geo', navigator.geolocation);
+
     if (this.props.centerAroundCurrentLocation) {
       if (navigator && navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(pos => {

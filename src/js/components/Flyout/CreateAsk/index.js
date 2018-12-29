@@ -80,7 +80,6 @@ const CreateAsk = ({
               <StepLabel>{step}</StepLabel>
               <StepContent>
                 <ValidatorForm
-                  ref="form"
                   autoComplete="on"
                   onSubmit={handleNext}
                   onError={handleError}
