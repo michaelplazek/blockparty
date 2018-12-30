@@ -1,15 +1,12 @@
 import React from "react";
 import { compose, lifecycle } from "recompose";
-import { Redirect, withRouter } from "react-router";
+import { withRouter } from "react-router";
 
 import {
-    getSession,
-    loadUserFromToken as loadUserFromTokenAction
+    loadCurrentLocation,
 } from "../actions/session";
 import mapper from "../utils/connect";
-import { selectIsLoggedIn, selectSessionLoaded } from "../selectors";
-
-import Loading from "../components/Loading";
+import {selectCurrentLocation} from "../selectors";
 
 /**
  * This HOC gets the users current location, using the navigation API.
@@ -18,27 +15,15 @@ import Loading from "../components/Loading";
  */
 export default ProtectedRoute => {
     const LocationHOC = props => {
-        const path = props.history.location.pathname;
-        const shouldRedirect = !(path === "/login" || path === "/register");
-
-        if (!props.sessionLoaded && getSession()) {
-            return <Loading />;
-        } else {
-            return shouldRedirect && !props.loggedIn ? (
-                <Redirect to="/login" />
-            ) : (
-                <ProtectedRoute {...props} />
-            );
-        }
+        return <ProtectedRoute {...props} />
     };
 
     const propMap = {
-        loggedIn: selectIsLoggedIn,
-        sessionLoaded: selectSessionLoaded
+        currentLocation: selectCurrentLocation
     };
 
     const actionMap = {
-        loadUserFromToken: loadUserFromTokenAction
+        loadCurrentLocation
     };
 
     return compose(
@@ -47,15 +32,7 @@ export default ProtectedRoute => {
         lifecycle({
             componentDidMount() {
                 if (navigator && navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(pos => {
-                        const coords = pos.coords;
-                        this.setState({
-                            currentLocation: {
-                                lat: coords.latitude,
-                                lng: coords.longitude
-                            }
-                        });
-                    });
+                    this.props.loadCurrentLocation();
                 }
             }
         })

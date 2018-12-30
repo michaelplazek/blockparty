@@ -25,7 +25,8 @@ const initialState = {
   location: {
     lat: 40.564714,
     lng: -105.09065
-  }
+  },
+  locationLoaded: false,
 };
 
 const handlers = {
@@ -53,7 +54,8 @@ const handlers = {
     location: {
       lat: action.data.latitude,
       lng: action.data.longitude
-    }
+    },
+    locationLoaded: true
   }),
   [USER_FROM_TOKEN]: (state, action) => ({
     username: action.data.user.username,

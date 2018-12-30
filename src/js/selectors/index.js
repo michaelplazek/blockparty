@@ -28,6 +28,7 @@ export const selectUserCancelledTransactions = state =>
   state.session.cancelledTransactions;
 export const selectUserBio = state => state.session.bio;
 export const selectCurrentLocation = state => state.session.location;
+export const selectCurrentLocationLoaded = state => state.session.locationLoaded;
 export const selectUserReputation = createSelector(
   selectUserCompletedTransactions,
   selectUserCancelledTransactions,
@@ -427,9 +428,11 @@ export const selectMapMarkers = createSelector(
 export const selectMarketLoaded = createSelector(
   selectAsksLoaded,
   selectBidsLoaded,
+    selectCurrentLocationLoaded,
   selectFilterType,
-  (asksLoaded, bidsLoaded, type) =>
-    (asksLoaded && type === "ASK") || (bidsLoaded && type === "BID")
+  (asksLoaded, bidsLoaded, locationLoaded, type) =>
+      (locationLoaded && ((asksLoaded && type === "ASK") || (bidsLoaded && type === "BID")))
+
 );
 
 export const selectDashboardLoaded = createSelector(

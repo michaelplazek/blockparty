@@ -25,6 +25,7 @@ import withDimensions from "../HOCs/withDimensions";
 import withLoader from "../HOCs/withLoader";
 import { setMarketView as setMarketViewAction } from "../actions/app";
 import { CHART } from "../constants/app";
+import withLocation from "../HOCs/withLocation";
 
 class Market extends Component {
   constructor(props) {
@@ -38,7 +39,8 @@ class Market extends Component {
       headerHeight,
       windowHeight,
       handleMarkerClick,
-      handleMarketView
+      handleMarketView,
+      currentLocation
     } = this.props;
 
     return (
@@ -52,6 +54,7 @@ class Market extends Component {
           subheader={<Subheader />}
         />
         <GoogleMapsWrapper
+            currentLocation={currentLocation}
           showLabels={true}
           markers={markers}
           onMarkerClick={handleMarkerClick}
@@ -76,7 +79,6 @@ const actionMap = {
   loadAsks: loadAsksAction,
   loadBids: loadBidsAction,
   setLayerOpen: setLayerOpenAction,
-  loadCurrentLocation: loadCurrentLocationAction,
   setMarketView: setMarketViewAction
 };
 
@@ -97,11 +99,12 @@ export default compose(
   }),
   lifecycle({
     componentWillMount() {
-      const { loadAsks, loadBids, loadCurrentLocation } = this.props;
-      loadCurrentLocation();
+      const { loadAsks, loadBids } = this.props;
       loadAsks();
       loadBids();
     }
   }),
-  withLoader
+    withLocation,
+  withLoader,
+
 )(Market);

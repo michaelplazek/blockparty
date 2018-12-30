@@ -5,7 +5,6 @@ import {
   LOAD_WINDOW_HEIGHT,
   LOAD_WINDOW_WIDTH,
   SET_MARKET_VIEW,
-    LOAD_LOCATION
 } from "../actions";
 import { MAP } from "../constants/app";
 
@@ -14,10 +13,6 @@ const initialState = {
   headerHeight: 0,
   windowHeight: 0,
   windowWidth: 0,
-  location: {
-    lat: 40.564714,
-    lng: -105.09065
-  },
   marketView: MAP
 };
 
@@ -33,12 +28,6 @@ const handlers = {
   }),
   [LOAD_WINDOW_WIDTH]: (_, action) => ({
     windowWidth: action.data
-  }),
-  [LOAD_LOCATION]: (_, action) => ({
-    location: {
-      lat: action.data.lat,
-      lng: action.data.lng
-    }
   }),
   [SET_MARKET_VIEW]: (_, action) => ({
     marketView: action.data

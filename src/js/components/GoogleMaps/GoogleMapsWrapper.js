@@ -21,26 +21,10 @@ class GoogleMapsWrapper extends Component {
     this.state = {
       zoom: props.zoom,
       currentLocation: {
-        lat: props.initialCenter.lat,
-        lng: props.initialCenter.lng
+        lat: props.currentLocation.lat,
+        lng: props.currentLocation.lng
       }
     };
-  }
-
-  componentDidMount() {
-    if (this.props.centerAroundCurrentLocation) {
-      if (navigator && navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(pos => {
-          const coords = pos.coords;
-          this.setState({
-            currentLocation: {
-              lat: coords.latitude,
-              lng: coords.longitude
-            }
-          });
-        });
-      }
-    }
   }
 
   render() {
@@ -142,7 +126,7 @@ GoogleMapsWrapper.propTypes = {
   zoom: PropTypes.number.isRequired,
   position: PropTypes.string.isRequired,
   width: PropTypes.string.isRequired,
-  initialCenter: PropTypes.object,
+  currentLocation: PropTypes.object,
   markers: PropTypes.array,
   onMarkerClick: PropTypes.func,
   movable: PropTypes.string,
@@ -160,10 +144,10 @@ GoogleMapsWrapper.defaultProps = {
   zoom: 10,
   position: "absolute",
   width: "100%",
-  initialCenter: {
-    lat: 40.564714,
-    lng: -105.09065
-  },
+  // currentLocation: {
+  //   lat: 40.564714,
+  //   lng: -105.09065
+  // },
   centerAroundCurrentLocation: true,
   markers: [],
   onMarkerClick: () => {},

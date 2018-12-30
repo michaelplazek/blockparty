@@ -3,7 +3,6 @@ import {
   LOAD_HEADER_HEIGHT,
   LOAD_WINDOW_HEIGHT,
   LOAD_WINDOW_WIDTH,
-    LOAD_LOCATION,
   SET_MARKET_VIEW
 } from "./index";
 
@@ -18,9 +17,6 @@ export const setWindowHeight = data => dispatch =>
 
 export const setWindowWidth = data => dispatch =>
   dispatch({ type: LOAD_WINDOW_WIDTH, data });
-
-export const setLocation = data => dispatch =>
-    dispatch({ type: LOAD_LOCATION, data });
 
 export const setMarketView = data => dispatch =>
   dispatch({ type: SET_MARKET_VIEW, data });

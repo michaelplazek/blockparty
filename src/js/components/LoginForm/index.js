@@ -27,7 +27,6 @@ const LoginForm = ({
   classes
 }) => (
   <ValidatorForm
-    ref="form"
     autoComplete="on"
     onSubmit={handleSubmit}
     instantValidate={false}
