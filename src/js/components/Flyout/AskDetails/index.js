@@ -32,7 +32,7 @@ const styles = () => ({
     width: "100%",
     display: "flex",
     flexDirection: "column",
-    alignItems: "center"
+    alignItems: "start"
   },
   button: {
     marginTop: "10px"

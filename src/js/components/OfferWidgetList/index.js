@@ -19,7 +19,7 @@ import { loadMyAsks } from "../../actions/asks";
 import { loadMyBids } from "../../actions/bids";
 
 const OfferWidgetList = ({ offers, post, handleAccept, handleDecline }) => (
-  <Tile color="#f2f2f2" title="Offers" count={offers.length}>
+  <Tile title="Offers" count={offers.length}>
     <Grid container direction="column">
       {offers.map((item, index) => (
         <OfferWidget
