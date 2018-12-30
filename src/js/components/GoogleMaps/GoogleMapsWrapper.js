@@ -144,10 +144,10 @@ GoogleMapsWrapper.defaultProps = {
   zoom: 10,
   position: "absolute",
   width: "100%",
-  // currentLocation: {
-  //   lat: 40.564714,
-  //   lng: -105.09065
-  // },
+  currentLocation: {
+    lat: 40.564714,
+    lng: -105.09065
+  },
   centerAroundCurrentLocation: true,
   markers: [],
   onMarkerClick: () => {},

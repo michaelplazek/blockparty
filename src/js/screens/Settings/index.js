@@ -69,7 +69,7 @@ const Settings = ({
         alignItems="center"
       >
         <Grid item>
-          <ValidatorForm ref="form" autoComplete="off" onSubmit={handleUpdate}>
+          <ValidatorForm autoComplete="off" onSubmit={handleUpdate}>
             <Grid
               container
               className={classes.top}

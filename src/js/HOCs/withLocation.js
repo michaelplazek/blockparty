@@ -23,7 +23,7 @@ export default ProtectedRoute => {
     };
 
     const actionMap = {
-        loadCurrentLocation
+        loadCurrentLocation,
     };
 
     return compose(

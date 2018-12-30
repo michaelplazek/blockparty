@@ -1,5 +1,5 @@
 import React from "react";
-import { compose, withHandlers } from "recompose";
+import {compose, lifecycle, withHandlers} from "recompose";
 
 import { TextValidator } from "react-material-ui-form-validator";
 import FormControl from "@material-ui/core/FormControl/FormControl";
@@ -8,16 +8,16 @@ import coins from "../../../constants/coins";
 import Typography from "@material-ui/core/Typography/Typography";
 import Grid from "@material-ui/core/Grid/Grid";
 import {
-  selectAskFormCoin,
-  selectAskLatitude,
-  selectAskLongitude,
-  selectAskUseCurrentLocation,
-  selectAskFormVolume,
-  selectWindowWidth,
-  selectAskFormTotal,
-  selectAskFormContactInfo,
-  selectAskFormPrice,
-  selectFormattedAskFormPrice
+    selectAskFormCoin,
+    selectAskLatitude,
+    selectAskLongitude,
+    selectAskUseCurrentLocation,
+    selectAskFormVolume,
+    selectWindowWidth,
+    selectAskFormTotal,
+    selectAskFormContactInfo,
+    selectAskFormPrice,
+    selectFormattedAskFormPrice, selectCurrentLocation
 } from "../../../selectors";
 import mapper from "../../../utils/connect";
 import {
@@ -54,7 +54,8 @@ const CreateAskContent = ({
   useCurrentLocation,
   handleToggle,
   contactInfo,
-  setAskContactInfo
+  setAskContactInfo,
+                              currentLocation
 }) => {
   switch (index) {
     case 0:
@@ -150,6 +151,7 @@ const CreateAskContent = ({
               width={`${width - width / 9}px`}
               position="relative"
               onDrag={coords => handleDrag(coords)}
+              currentLocation={currentLocation}
             />
           )}
         </div>
@@ -192,7 +194,8 @@ const propMap = {
   lat: selectAskLatitude,
   lng: selectAskLongitude,
   width: selectWindowWidth,
-  useCurrentLocation: selectAskUseCurrentLocation
+  useCurrentLocation: selectAskUseCurrentLocation,
+    currentLocation: selectCurrentLocation
 };
 
 const actionMap = {
@@ -212,20 +215,22 @@ export default compose(
       useCurrentLocation,
       setUseCurrentLocation,
       setAskLatitude,
-      setAskLongitude
+      setAskLongitude,
+                       currentLocation
     }) => () => {
       setUseCurrentLocation(!useCurrentLocation);
-      if (navigator && navigator.geolocation && !useCurrentLocation) {
-        navigator.geolocation.getCurrentPosition(pos => {
-          const coords = pos.coords;
-          setAskLatitude(coords.latitude);
-          setAskLongitude(coords.longitude);
-        });
-      }
+        setAskLatitude(currentLocation.lat);
+        setAskLongitude(currentLocation.lng);
     },
     handleDrag: ({ setAskLatitude, setAskLongitude }) => item => {
       setAskLatitude(item.latLng.lat());
       setAskLongitude(item.latLng.lng());
     }
-  })
+  }),
+    lifecycle({
+        componentDidMount(){
+            this.props.setAskLatitude(this.props.currentLocation.lat);
+            this.props.setAskLongitude(this.props.currentLocation.lng);
+        }
+    }),
 )(CreateAskContent);
