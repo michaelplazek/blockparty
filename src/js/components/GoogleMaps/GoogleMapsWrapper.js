@@ -28,8 +28,6 @@ class GoogleMapsWrapper extends Component {
   }
 
   componentDidMount() {
-    console.log('navigator', navigator);
-    console.log('geo', navigator.geolocation);
 
     if (this.props.centerAroundCurrentLocation) {
       if (navigator && navigator.geolocation) {
