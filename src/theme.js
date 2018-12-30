@@ -36,4 +36,9 @@ export default createMuiTheme({
       color: "#f2f2f2",
     }
   },
+  typography: {
+    display1: {
+      color: "rgba(0, 0, 0, 0.82)"
+    }
+  }
 });

@@ -81,7 +81,7 @@ const Bid = ({
           {showButton && (
             <Button
               className={classes.buttons}
-              color="primary"
+              // color="secondary"
               disabled={bidHasOffer}
               variant="extendedFab"
               onClick={handleOffer}

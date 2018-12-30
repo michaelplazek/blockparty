@@ -84,7 +84,7 @@ const Ask = ({
               className={classes.buttons}
               variant="extendedFab"
               disabled={hasAskOffer}
-              color="primary"
+              // color="secondary"
               onClick={handleOffer}
             >
               {buttonText}
