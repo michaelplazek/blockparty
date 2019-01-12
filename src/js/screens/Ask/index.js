@@ -12,7 +12,8 @@ import {
   selectAskHasOffer,
   selectAskOfferButtonText,
   selectMyOffersLoaded,
-  selectUserId, selectWindowHeight
+  selectUserId,
+  selectWindowHeight
 } from "../../selectors/index";
 import { loadAsk as loadAskAction } from "../../actions/asks";
 import Grid from "@material-ui/core/Grid/Grid";
@@ -34,10 +35,10 @@ import { selectAskHasButton } from "../../selectors";
 const styles = () => ({
   root: {
     textAlign: "center",
-    marginTop: "40px",
+    marginTop: "40px"
   },
   body: {
-    marginTop: "10px",
+    marginTop: "10px"
   },
   buttons: {
     position: "fixed",
@@ -60,18 +61,29 @@ const Ask = ({
   showButton,
   height
 }) => (
-  <div style={{ background: theme.palette.inverse.background, height: `${height}px` }}>
+  <div
+    style={{
+      background: theme.palette.inverse.background,
+      height: `${height}px`
+    }}
+  >
     {loaded && (
       <div>
-        {open &&
-          layer === "CREATE_ASK_OFFER" && (
-            <CreateAskOffer handleClose={() => {}} handleSubmit={() => {}} />
-          )}
+        {open && layer === "CREATE_ASK_OFFER" && (
+          <CreateAskOffer handleClose={() => {}} handleSubmit={() => {}} />
+        )}
         <Grid>
-          <Button style={theme.palette.inverse} onClick={() => history.goBack()}>Go Back</Button>
+          <Button
+            style={theme.palette.inverse}
+            onClick={() => history.goBack()}
+          >
+            Go Back
+          </Button>
           <div className={classes.root}>
             <Grid item className={classes.body}>
-              <Typography style={theme.palette.inverse} variant="display1">Ask for</Typography>
+              <Typography style={theme.palette.inverse} variant="display1">
+                Ask for
+              </Typography>
               <Typography style={theme.palette.inverse} variant="display2">
                 {ask.volume} {ask.coin}
               </Typography>

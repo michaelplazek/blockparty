@@ -47,7 +47,7 @@ class Market extends Component {
       <div>
         <FilterMap />
         <PageHeader
-            leftHandLabel="Market"
+          leftHandLabel="Market"
           leftHandAction={() => this.props.setLayerOpen(true)}
           rightHandAction={handleMarketView}
           rightHandButton="Go to chart view"
@@ -55,7 +55,7 @@ class Market extends Component {
           subheader={<Subheader />}
         />
         <GoogleMapsWrapper
-            currentLocation={currentLocation}
+          currentLocation={currentLocation}
           showLabels={true}
           markers={markers}
           onMarkerClick={handleMarkerClick}
@@ -105,7 +105,6 @@ export default compose(
       loadBids();
     }
   }),
-    withLocation,
-  withLoader,
-
+  withLocation,
+  withLoader
 )(Market);

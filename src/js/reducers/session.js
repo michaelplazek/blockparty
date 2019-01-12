@@ -26,7 +26,7 @@ const initialState = {
     lat: 40.564714,
     lng: -105.09065
   },
-  locationLoaded: false,
+  locationLoaded: false
 };
 
 const handlers = {

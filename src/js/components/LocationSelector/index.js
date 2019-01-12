@@ -9,11 +9,11 @@ const LocationSelector = ({
   width,
   position,
   showLabels,
-                              currentLocation
+  currentLocation
 }) => (
   <div>
     <GoogleMapsWrapper
-        zoom={11}
+      zoom={11}
       markers={markers}
       height={height}
       width={width}

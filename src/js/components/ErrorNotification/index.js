@@ -6,13 +6,12 @@ import { selectError, selectErrorMessage } from "../../selectors";
 import { setError, setErrorMessage } from "../../actions/errors";
 import Snackbar from "@material-ui/core/Snackbar/Snackbar";
 import IconButton from "@material-ui/core/IconButton/IconButton";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faTimes} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import withStyles from "@material-ui/core/styles/withStyles";
 
 const styles = theme => ({
   root: theme.palette.errorButton
-
 });
 
 const ErrorNotification = ({ open, handleClose, message, classes }) => (
@@ -21,11 +20,11 @@ const ErrorNotification = ({ open, handleClose, message, classes }) => (
     onClose={handleClose}
     autoHideDuration={3000}
     ContentProps={{
-      'aria-describedby': 'message-id',
+      "aria-describedby": "message-id",
       className: classes.root
     }}
     message={<span id="message-id">{message}</span>}
-    anchorOrigin={{ vertical: 'top', horizontal: 'center',}}
+    anchorOrigin={{ vertical: "top", horizontal: "center" }}
     action={
       <IconButton
         key="close"
@@ -37,7 +36,7 @@ const ErrorNotification = ({ open, handleClose, message, classes }) => (
       </IconButton>
     }
   />
-  );
+);
 
 const propMap = {
   message: selectErrorMessage,

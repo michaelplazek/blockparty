@@ -9,16 +9,17 @@ import TextField from "@material-ui/core/TextField/TextField";
 import Typography from "@material-ui/core/Typography/Typography";
 import Grid from "@material-ui/core/Grid/Grid";
 import {
-    selectBidLatitude,
-    selectBidLongitude,
-    selectBidUseCurrentLocation,
-    selectBidFormVolume,
-    selectFormattedBidFormPrice,
-    selectWindowWidth,
-    selectBidFormTotal,
-    selectBidFormContactInfo,
-    selectBidFormCoin,
-    selectBidFormPrice, selectCurrentLocation
+  selectBidLatitude,
+  selectBidLongitude,
+  selectBidUseCurrentLocation,
+  selectBidFormVolume,
+  selectFormattedBidFormPrice,
+  selectWindowWidth,
+  selectBidFormTotal,
+  selectBidFormContactInfo,
+  selectBidFormCoin,
+  selectBidFormPrice,
+  selectCurrentLocation
 } from "../../../selectors";
 import mapper from "../../../utils/connect";
 import {
@@ -54,7 +55,7 @@ const CreateBidContent = ({
   setBidPrice,
   setBidVolume,
   setBidContactInfo,
-                              currentLocation
+  currentLocation
 }) => {
   switch (index) {
     case 0:
@@ -194,7 +195,7 @@ const propMap = {
   lng: selectBidLongitude,
   useCurrentLocation: selectBidUseCurrentLocation,
   width: selectWindowWidth,
-    currentLocation: selectCurrentLocation
+  currentLocation: selectCurrentLocation
 };
 
 const actionMap = {
@@ -215,21 +216,21 @@ export default compose(
       setUseCurrentLocation,
       setBidLatitude,
       setBidLongitude,
-        currentLocation
+      currentLocation
     }) => () => {
       setUseCurrentLocation(!useCurrentLocation);
-        setBidLatitude(currentLocation.lat);
-        setBidLongitude(currentLocation.lng);
+      setBidLatitude(currentLocation.lat);
+      setBidLongitude(currentLocation.lng);
     },
     handleDrag: ({ setBidLatitude, setBidLongitude }) => item => {
       setBidLatitude(item.latLng.lat());
       setBidLongitude(item.latLng.lng());
     }
   }),
-    lifecycle({
-        componentDidMount(){
-            this.props.setBidLatitude(this.props.currentLocation.lat);
-            this.props.setBidLongitude(this.props.currentLocation.lng);
-        }
-    }),
+  lifecycle({
+    componentDidMount() {
+      this.props.setBidLatitude(this.props.currentLocation.lat);
+      this.props.setBidLongitude(this.props.currentLocation.lng);
+    }
+  })
 )(CreateBidContent);

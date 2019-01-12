@@ -65,15 +65,18 @@ export const selectPriceRange = createSelector(
   }
 );
 
-export const selectRange = createSelector(selectPriceRange, range => {
-  const { start, end } = range;
-  const step = (end - start) / NUMBER_OF_BINS;
-  let bins = [];
-  for (let i = start; i <= end; i += step) {
-    bins.push(i);
+export const selectRange = createSelector(
+  selectPriceRange,
+  range => {
+    const { start, end } = range;
+    const step = (end - start) / NUMBER_OF_BINS;
+    let bins = [];
+    for (let i = start; i <= end; i += step) {
+      bins.push(i);
+    }
+    return bins;
   }
-  return bins;
-});
+);
 
 export const selectFullBins = createSelector(
   selectRange,

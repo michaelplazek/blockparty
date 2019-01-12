@@ -75,8 +75,9 @@ const Analysis = ({
   <div>
     {layer === "CHART_LIST" && <ChartList />}
     <PageHeader
-      leftHandButton="Go to map view"
-      leftHandAction={handleMarketView}
+        leftHandLabel="Market"
+      rightHandButton="Go to map view"
+      rightHandAction={handleMarketView}
       showSubheader={true}
       subheader={<ChartHeader onSelect={handleSelect} />}
     />

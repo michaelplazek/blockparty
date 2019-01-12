@@ -12,7 +12,8 @@ import {
   selectBidHasOffer,
   selectBidOfferButtonText,
   selectMyOffersLoaded,
-  selectUserId, selectWindowHeight
+  selectUserId,
+  selectWindowHeight
 } from "../../selectors/index";
 import { loadBid as loadBidAction } from "../../actions/bids";
 import Grid from "@material-ui/core/Grid/Grid";
@@ -59,18 +60,29 @@ const Bid = ({
   showButton,
   height
 }) => (
-  <div style={{ background: theme.palette.inverse.background, height: `${height}px` }}>
+  <div
+    style={{
+      background: theme.palette.inverse.background,
+      height: `${height}px`
+    }}
+  >
     {loaded && (
       <div>
-        {open &&
-          layer === "poop" && (
-            <CreateBidOffer handleClose={() => {}} handleSubmit={() => {}} />
-          )}
+        {open && layer === "poop" && (
+          <CreateBidOffer handleClose={() => {}} handleSubmit={() => {}} />
+        )}
         <Grid>
-          <Button style={theme.palette.inverse} onClick={() => history.goBack()}>Go Back</Button>
+          <Button
+            style={theme.palette.inverse}
+            onClick={() => history.goBack()}
+          >
+            Go Back
+          </Button>
           <div className={classes.root}>
             <Grid item className={classes.body}>
-              <Typography style={theme.palette.inverse} variant="display1">Bid for</Typography>
+              <Typography style={theme.palette.inverse} variant="display1">
+                Bid for
+              </Typography>
               <Typography style={theme.palette.inverse} variant="display2">
                 {bid.volume} {bid.coin}
               </Typography>

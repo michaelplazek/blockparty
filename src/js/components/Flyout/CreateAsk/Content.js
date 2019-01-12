@@ -1,5 +1,5 @@
 import React from "react";
-import {compose, lifecycle, withHandlers} from "recompose";
+import { compose, lifecycle, withHandlers } from "recompose";
 
 import { TextValidator } from "react-material-ui-form-validator";
 import FormControl from "@material-ui/core/FormControl/FormControl";
@@ -8,16 +8,17 @@ import coins from "../../../constants/coins";
 import Typography from "@material-ui/core/Typography/Typography";
 import Grid from "@material-ui/core/Grid/Grid";
 import {
-    selectAskFormCoin,
-    selectAskLatitude,
-    selectAskLongitude,
-    selectAskUseCurrentLocation,
-    selectAskFormVolume,
-    selectWindowWidth,
-    selectAskFormTotal,
-    selectAskFormContactInfo,
-    selectAskFormPrice,
-    selectFormattedAskFormPrice, selectCurrentLocation
+  selectAskFormCoin,
+  selectAskLatitude,
+  selectAskLongitude,
+  selectAskUseCurrentLocation,
+  selectAskFormVolume,
+  selectWindowWidth,
+  selectAskFormTotal,
+  selectAskFormContactInfo,
+  selectAskFormPrice,
+  selectFormattedAskFormPrice,
+  selectCurrentLocation
 } from "../../../selectors";
 import mapper from "../../../utils/connect";
 import {
@@ -55,7 +56,7 @@ const CreateAskContent = ({
   handleToggle,
   contactInfo,
   setAskContactInfo,
-                              currentLocation
+  currentLocation
 }) => {
   switch (index) {
     case 0:
@@ -195,7 +196,7 @@ const propMap = {
   lng: selectAskLongitude,
   width: selectWindowWidth,
   useCurrentLocation: selectAskUseCurrentLocation,
-    currentLocation: selectCurrentLocation
+  currentLocation: selectCurrentLocation
 };
 
 const actionMap = {
@@ -216,21 +217,21 @@ export default compose(
       setUseCurrentLocation,
       setAskLatitude,
       setAskLongitude,
-                       currentLocation
+      currentLocation
     }) => () => {
       setUseCurrentLocation(!useCurrentLocation);
-        setAskLatitude(currentLocation.lat);
-        setAskLongitude(currentLocation.lng);
+      setAskLatitude(currentLocation.lat);
+      setAskLongitude(currentLocation.lng);
     },
     handleDrag: ({ setAskLatitude, setAskLongitude }) => item => {
       setAskLatitude(item.latLng.lat());
       setAskLongitude(item.latLng.lng());
     }
   }),
-    lifecycle({
-        componentDidMount(){
-            this.props.setAskLatitude(this.props.currentLocation.lat);
-            this.props.setAskLongitude(this.props.currentLocation.lng);
-        }
-    }),
+  lifecycle({
+    componentDidMount() {
+      this.props.setAskLatitude(this.props.currentLocation.lat);
+      this.props.setAskLongitude(this.props.currentLocation.lng);
+    }
+  })
 )(CreateAskContent);
