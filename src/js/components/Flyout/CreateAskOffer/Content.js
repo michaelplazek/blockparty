@@ -127,7 +127,7 @@ const CreateAskContent = ({
           </FormControl>
           <Grid container direction="column" className={classes.info}>
             <Typography>Type: {coin}</Typography>
-            <Typography>Price: {price}</Typography>
+            <Typography>Price: {formattedPrice}</Typography>
             <Typography>Amount: {volume}</Typography>
             <Typography variant="subheading">Total: {total}</Typography>
           </Grid>

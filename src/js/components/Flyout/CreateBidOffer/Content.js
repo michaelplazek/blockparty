@@ -122,7 +122,7 @@ const CreateBidOfferContent = ({
           <Grid container direction="column" className={classes.info}>
             <Typography>Type: {coin}</Typography>
             <Typography>Price: {formattedPrice}</Typography>
-            <Typography>Volume: {volume}</Typography>
+            <Typography>Amount: {volume}</Typography>
             <Typography variant="subheading">Total: {total}</Typography>
           </Grid>
         </div>
@@ -147,7 +147,7 @@ const CreateBidOfferContent = ({
       return (
         <Grid container direction="column">
           <Typography>Type: {coin}</Typography>
-          <Typography>Price: {price}</Typography>
+          <Typography>Price: {formattedPrice}</Typography>
           <Typography>Amount: {volume}</Typography>
           <Typography variant="subheading">Total: {total}</Typography>
         </Grid>
