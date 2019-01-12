@@ -344,6 +344,11 @@ export const selectAskFormTotal = createSelector(
 export const selectBidFormCoin = state => state.bid.coin;
 export const selectBidFormContactInfo = state => state.bid.contactInfo;
 export const selectBidFormVolume = state => state.bid.volume;
+export const selectBidFormVolumeInUSD = state => state.bid.volumeInUSD;
+export const selectFormattedBidFormVolume = createSelector(
+  selectBidFormVolumeInUSD,
+  price => numeral(price).format(USD_DECIMALS)
+);
 export const selectBidFormPrice = state => state.bid.price;
 export const selectFormattedBidFormPrice = createSelector(
   selectBidFormPrice,

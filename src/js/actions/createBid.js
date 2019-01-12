@@ -6,7 +6,8 @@ import {
   SET_BID_LATITUDE,
   SET_BID_LONGITUDE,
   SET_BID_CONTACT_INFO,
-  SET_BID_USE_CURRENT_LOCATION
+  SET_BID_USE_CURRENT_LOCATION,
+  SET_BID_VOLUME_IN_USD,
 } from "./index";
 
 export const setBidCoin = data => dispatch =>
@@ -14,6 +15,9 @@ export const setBidCoin = data => dispatch =>
 
 export const setBidVolume = data => dispatch =>
   dispatch({ type: SET_BID_VOLUME, data });
+
+export const setBidVolumeInUSD = data => dispatch =>
+  dispatch({ type: SET_BID_VOLUME_IN_USD, data });
 
 export const setBidPrice = data => dispatch =>
   dispatch({ type: SET_BID_PRICE, data });
