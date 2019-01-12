@@ -320,9 +320,14 @@ export const selectBidOfferTotal = createSelector(
 export const selectAskFormCoin = state => state.ask.coin;
 export const selectAskFormContactInfo = state => state.ask.contactInfo;
 export const selectAskFormVolume = state => state.ask.volume;
+export const selectAskFormVolumeInUSD = state => state.ask.volumeInUSD;
 export const selectAskFormPrice = state => state.ask.price;
 export const selectFormattedAskFormPrice = createSelector(
   selectAskFormPrice,
+  price => numeral(price).format(USD_DECIMALS)
+);
+export const selectFormattedAskFormVolume = createSelector(
+  selectAskFormVolumeInUSD,
   price => numeral(price).format(USD_DECIMALS)
 );
 export const selectAskLatitude = state => state.ask.lat;
