@@ -35,6 +35,8 @@ import LocationSelector from "../../LocationSelector";
 import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
 import { getMinimalUnit } from "../../../utils/validate";
 import {loadLastPrice} from "../../../actions/metrics";
+import numeral from "numeral";
+import {USD_DECIMALS} from "../../../constants/currency";
 
 const CreateBidContent = ({
   index,
@@ -71,7 +73,10 @@ const CreateBidContent = ({
             native
             value={coin}
             onChange={({ target }) => {
-              loadLastPrice(target.value);
+              loadLastPrice(target.value)
+                .then(response => {
+                  setBidPrice(response.data)
+                });
               setBidCoin(target.value);
             }}
           >
@@ -86,7 +91,7 @@ const CreateBidContent = ({
     case 1:
       return (
         <FormControl margin="dense" fullWidth={true}>
-          <Typography variant='caption'>{`Suggested price: ${lastPrice}`}</Typography>
+          <Typography variant='caption'>{`Suggested price: ${numeral(lastPrice).format(USD_DECIMALS)}`}</Typography>
           <TextValidator
             id="price"
             name="price"

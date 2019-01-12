@@ -1,5 +1,6 @@
 import React from "react";
 import { compose, lifecycle, withHandlers } from "recompose";
+import numeral from 'numeral';
 
 import { TextValidator } from "react-material-ui-form-validator";
 import FormControl from "@material-ui/core/FormControl/FormControl";
@@ -36,6 +37,7 @@ import LocationSelector from "../../LocationSelector";
 import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
 import { getMinimalUnit } from "../../../utils/validate";
 import {loadLastPrice} from "../../../actions/metrics";
+import {USD_DECIMALS} from "../../../constants/currency";
 
 const CreateAskContent = ({
   index,
@@ -74,7 +76,10 @@ const CreateAskContent = ({
             native
             value={coin}
             onChange={({ target }) => {
-              loadLastPrice(target.value);
+              loadLastPrice(target.value)
+                .then(response => {
+                  setAskPrice(response.data)
+                });
               setAskCoin(target.value);
             }}
           >
@@ -89,7 +94,7 @@ const CreateAskContent = ({
     case 1:
       return (
         <FormControl margin="dense" fullWidth={true}>
-          <Typography variant='caption'>{`Suggested price: ${lastPrice}`}</Typography>
+          <Typography variant='caption'>{`Suggested price: ${numeral(lastPrice).format(USD_DECIMALS)}`}</Typography>
           <TextValidator
             id="price"
             name="price"
@@ -257,7 +262,7 @@ const actionMap = {
   setUseCurrentLocation: setAskUseCurrentLocationAction,
   setAskContactInfo,
   setAskVolumeInUSD,
-  loadLastPrice
+  loadLastPrice,
 };
 
 export default compose(

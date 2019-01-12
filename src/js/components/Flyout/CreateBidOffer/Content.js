@@ -166,7 +166,7 @@ const propMap = {
   price: selectBidPrice,
   total: selectBidOfferTotal,
   totalInUSD: selectBidOfferTotalInUSD,
-  totalFormattedInUSD: selectFormattedBidOfferTotalInUSD
+  totalFormattedInUSD: selectFormattedBidOfferTotalInUSD,
 };
 
 const actionMap = {
