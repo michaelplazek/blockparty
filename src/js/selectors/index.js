@@ -500,3 +500,7 @@ export const selectUserCanDelete = createSelector(
 // Errors
 export const selectError = state => state.errors.error;
 export const selectErrorMessage = state => state.errors.message;
+
+// Metrics
+export const selectCurrencyNames = state => state.metrics.currencies;
+export const selectCurrencyNamesLoaded = state => state.metrics.currenciesLoaded;

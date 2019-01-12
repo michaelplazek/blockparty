@@ -1,5 +1,5 @@
 import React from "react";
-import { compose } from "recompose";
+import { compose, lifecycle } from "recompose";
 
 import { Route } from "react-router-dom";
 import { Switch, withRouter } from "react-router";
@@ -8,6 +8,7 @@ import FooterNav from "./components/FooterNav";
 import routes from "./config/routes";
 import withAuthentification from "./HOCs/withAuthentification";
 import withErrors from "./HOCs/withErrors";
+import withCurrencyData from "./HOCs/withCurrencyData";
 
 const Routes = () => (
   <div>
@@ -30,5 +31,6 @@ const Routes = () => (
 export default compose(
   withRouter,
   withAuthentification,
-  withErrors
+  withErrors,
+  withCurrencyData,
 )(Routes);

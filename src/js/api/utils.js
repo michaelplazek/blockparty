@@ -101,7 +101,12 @@ export const fetchFromBlocktap = query => {
   const newUrl = `${BLOCKTAP_URL}`;
   const promise = fetch(newUrl, {
     method: "POST",
-    Authorization: `Bearer ${process.env.BLOCKTAP_TOKEN}`
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${process.env.BLOCKTAP_TOKEN}`
+
+    },
+    body: JSON.stringify(query),
   });
 
   return promise
@@ -111,6 +116,9 @@ export const fetchFromBlocktap = query => {
     .then(response => {
       if (response.status === 200) {
         return response.json();
+      } else {
+        store.dispatch({ type: SET_ERROR, data: true });
+        store.dispatch({ type: SET_ERROR_MESSAGE, data: response.json() });
       }
     })
     .catch(e => console.log(e));
