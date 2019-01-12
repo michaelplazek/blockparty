@@ -14,7 +14,6 @@ import {
 } from "../selectors";
 import { loadAsks as loadAsksAction } from "../actions/asks";
 import { loadBids as loadBidsAction } from "../actions/bids";
-import { loadCurrentLocation as loadCurrentLocationAction } from "../actions/session";
 import { setLayerOpen as setLayerOpenAction } from "../actions/layers";
 
 import Subheader from "../components/Subheader";

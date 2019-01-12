@@ -1,7 +1,6 @@
 import React from "react";
 import { compose, withHandlers } from "recompose";
 import withStyles from "@material-ui/core/styles/withStyles";
-import find from 'lodash/find';
 import mapper from "../../../utils/connect";
 
 import {

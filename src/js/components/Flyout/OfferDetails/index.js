@@ -31,19 +31,22 @@ const styles = () => ({
   button: {
     marginTop: "10px"
   },
+  header: {
+    marginBottom: "0.5em"
+  },
   time: {
     marginTop: "8px"
   },
   paper: {
     margin: "40px 30px 0px 30px",
-    padding: "20px",
+    padding: "30px",
     cursor: "pointer"
   },
   box: {
     width: "100%",
     display: "flex",
     flexDirection: "column",
-    alignItems: "center"
+    alignItems: "start"
   },
   coin: {
     margin: "6px 0px 0px 6px"
@@ -84,18 +87,15 @@ const OfferDetails = ({
       <Grid item>
         <Paper className={classes.paper}>
           <Grid container className={classes.box}>
-            <Grid item>
+            <Grid item className={classes.header}>
               <Grid container direction="row">
                 <Grid className={classes.bid} item>
-                  <Typography variant="title">
-                    {offer.bid ? "Sell" : "Buy"}
+                  <Typography variant="h3">
+                    {offer.bid ? "Sell" : "Buy"} {offer.volume}
                   </Typography>
                 </Grid>
                 <Grid item>
-                  <Typography variant="headline">{offer.volume}</Typography>
-                </Grid>
-                <Grid item>
-                  <Typography variant="subheading" className={classes.coin}>
+                  <Typography variant="headline" className={classes.coin}>
                     {offer.coin}
                   </Typography>
                 </Grid>
@@ -104,7 +104,7 @@ const OfferDetails = ({
             <Grid item>
               <Grid container direction="row">
                 <Grid item>
-                  <Typography variant="subheading">
+                  <Typography variant="headline">
                     at {numeral(offer.price).format(USD)}
                   </Typography>
                 </Grid>
@@ -116,7 +116,7 @@ const OfferDetails = ({
               </Grid>
             </Grid>
             <Grid item>
-              <Typography variant="subheading">for {total}</Typography>
+              <Typography variant="headline">for {total}</Typography>
             </Grid>
             <Grid item>
               <Typography
