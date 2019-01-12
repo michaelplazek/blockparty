@@ -36,7 +36,7 @@ import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
 import { getMinimalUnit } from "../../../utils/validate";
 import {loadLastPrice} from "../../../actions/metrics";
 import numeral from "numeral";
-import {USD_DECIMALS} from "../../../constants/currency";
+import {COST, USD_DECIMALS} from "../../../constants/currency";
 
 const CreateBidContent = ({
   index,
@@ -75,7 +75,7 @@ const CreateBidContent = ({
             onChange={({ target }) => {
               loadLastPrice(target.value)
                 .then(response => {
-                  setBidPrice(response.data)
+                  setBidPrice(numeral(response.data).format(COST))
                 });
               setBidCoin(target.value);
             }}

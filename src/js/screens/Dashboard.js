@@ -63,6 +63,8 @@ import withLocation from "../HOCs/withLocation";
 import {loadLastPrice} from "../actions/metrics";
 import {setBidPrice} from "../actions/createBid";
 import {setAskPrice} from "../actions/createAsk";
+import numeral from "numeral";
+import {COST} from "../constants/currency";
 
 const styles = () => ({
   root: {
@@ -181,7 +183,7 @@ const Dashboard = ({
               variant="extendedFab"
               onClick={() => {
                 loadLastPrice("BTC")
-                  .then(response => setBidPrice(response.data));
+                  .then(response => setBidPrice(numeral(response.data).format(COST)));
                 setLayer("CREATE_BID");
                 setLayerOpen(true);
               }}
@@ -193,7 +195,7 @@ const Dashboard = ({
               variant="extendedFab"
               onClick={() => {
                 loadLastPrice("BTC")
-                  .then(response => setAskPrice(response.data));
+                  .then(response => setAskPrice(numeral(response.data).format(COST)));
                 setLayer("CREATE_ASK");
                 setLayerOpen(true);
               }}

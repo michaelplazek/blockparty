@@ -37,7 +37,7 @@ import LocationSelector from "../../LocationSelector";
 import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
 import { getMinimalUnit } from "../../../utils/validate";
 import {loadLastPrice} from "../../../actions/metrics";
-import {USD_DECIMALS} from "../../../constants/currency";
+import {COST, USD_DECIMALS} from "../../../constants/currency";
 
 const CreateAskContent = ({
   index,
@@ -78,7 +78,7 @@ const CreateAskContent = ({
             onChange={({ target }) => {
               loadLastPrice(target.value)
                 .then(response => {
-                  setAskPrice(response.data)
+                  setAskPrice(numeral(response.data).format(COST))
                 });
               setAskCoin(target.value);
             }}
