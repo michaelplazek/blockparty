@@ -314,11 +314,20 @@ export const selectFormattedOfferFormVolume = createSelector(
   selectOfferFormVolumeInUSD,
   price => numeral(price).format(USD_DECIMALS)
 );
-
 export const selectBidOfferTotal = createSelector(
   selectBidPrice,
   selectOfferFormVolume,
   (price, volume) => numeral(price * volume).format(USD)
+);
+export const selectFormattedBidOfferTotalInUSD = createSelector(
+  selectBidPrice,
+  selectBidVolume,
+  (price, volume) => numeral(price * volume).format(USD)
+);
+export const selectBidOfferTotalInUSD = createSelector(
+  selectBidPrice,
+  selectBidVolume,
+  (price, volume) => price * volume
 );
 
 // TEMPORARY ASK
