@@ -31,7 +31,7 @@ import CreateBidOffer from "../../components/Flyout/CreateBidOffer";
 import { loadOffersByUser } from "../../actions/offers";
 import { selectBidHasButton } from "../../selectors";
 
-const styles = () => ({
+const styles = theme => ({
   root: {
     textAlign: "center",
     marginTop: "40px"
@@ -42,7 +42,8 @@ const styles = () => ({
   buttons: {
     position: "fixed",
     bottom: "7em",
-    right: "2em"
+    right: "2em",
+    background: theme.palette.createButton.background,
   }
 });
 
