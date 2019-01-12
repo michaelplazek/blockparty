@@ -4,7 +4,6 @@ import { compose, lifecycle, withHandlers } from "recompose";
 import { TextValidator } from "react-material-ui-form-validator";
 import FormControl from "@material-ui/core/FormControl/FormControl";
 import Select from "@material-ui/core/Select/Select";
-import coins from "../../../constants/coins";
 import Typography from "@material-ui/core/Typography/Typography";
 import Grid from "@material-ui/core/Grid/Grid";
 import {
@@ -19,7 +18,7 @@ import {
   selectAskFormPrice,
   selectFormattedAskFormPrice,
   selectCurrentLocation,
-  selectAskFormVolumeInUSD, selectFormattedAskFormVolume
+  selectAskFormVolumeInUSD, selectFormattedAskFormVolume, selectCurrencyItems
 } from "../../../selectors";
 import mapper from "../../../utils/connect";
 import {
@@ -42,6 +41,7 @@ const CreateAskContent = ({
   checked,
   toggle,
   coin,
+                            coins,
   volume,
   volumeInUSD,
   price,
@@ -73,8 +73,8 @@ const CreateAskContent = ({
             onChange={({ target }) => setAskCoin(target.value)}
           >
             {coins.map(coin => (
-              <option key={coin} value={coin}>
-                {coin}
+              <option key={coin.value} value={coin.value}>
+                {coin.label}
               </option>
             ))}
           </Select>
@@ -225,6 +225,7 @@ const CreateAskContent = ({
 
 const propMap = {
   coin: selectAskFormCoin,
+  coins: selectCurrencyItems,
   volume: selectAskFormVolume,
   price: selectAskFormPrice,
   formattedPrice: selectFormattedAskFormPrice,

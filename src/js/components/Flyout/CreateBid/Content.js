@@ -4,8 +4,6 @@ import { compose, withHandlers, lifecycle } from "recompose";
 import { TextValidator } from "react-material-ui-form-validator";
 import FormControl from "@material-ui/core/FormControl/FormControl";
 import Select from "@material-ui/core/Select/Select";
-import coins from "../../../constants/coins";
-import TextField from "@material-ui/core/TextField/TextField";
 import Typography from "@material-ui/core/Typography/Typography";
 import Grid from "@material-ui/core/Grid/Grid";
 import {
@@ -19,7 +17,7 @@ import {
   selectBidFormContactInfo,
   selectBidFormCoin,
   selectBidFormPrice,
-  selectCurrentLocation, selectBidFormVolumeInUSD, selectFormattedBidFormVolume
+  selectCurrentLocation, selectBidFormVolumeInUSD, selectFormattedBidFormVolume, selectCurrencyItems
 } from "../../../selectors";
 import mapper from "../../../utils/connect";
 import {
@@ -40,6 +38,7 @@ import { getMinimalUnit } from "../../../utils/validate";
 const CreateBidContent = ({
   index,
   coin,
+  coins,
   volume,
   volumeInUSD,
   price,
@@ -71,8 +70,8 @@ const CreateBidContent = ({
             onChange={({ target }) => setBidCoin(target.value)}
           >
             {coins.map(coin => (
-              <option key={coin} value={coin}>
-                {coin}
+              <option key={coin.value} value={coin.value}>
+                {coin.label}
               </option>
             ))}
           </Select>
@@ -223,6 +222,7 @@ const CreateBidContent = ({
 
 const propMap = {
   coin: selectBidFormCoin,
+  coins: selectCurrencyItems,
   volume: selectBidFormVolume,
   volumeInUSD: selectBidFormVolumeInUSD,
   price: selectBidFormPrice,
