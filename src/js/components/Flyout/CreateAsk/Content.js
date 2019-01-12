@@ -18,7 +18,8 @@ import {
   selectAskFormContactInfo,
   selectAskFormPrice,
   selectFormattedAskFormPrice,
-  selectCurrentLocation
+  selectCurrentLocation,
+  selectAskFormVolumeInUSD, selectFormattedAskFormVolume
 } from "../../../selectors";
 import mapper from "../../../utils/connect";
 import {
@@ -28,7 +29,7 @@ import {
   setAskLatitude as setAskLatitudeAction,
   setAskLongitude as setAskLongitudeAction,
   setAskUseCurrentLocation as setAskUseCurrentLocationAction,
-  setAskContactInfo
+  setAskContactInfo, setAskVolumeInUSD
 } from "../../../actions/createAsk";
 import FormControlLabel from "@material-ui/core/FormControlLabel/FormControlLabel";
 import Switch from "@material-ui/core/Switch/Switch";
@@ -42,8 +43,10 @@ const CreateAskContent = ({
   toggle,
   coin,
   volume,
+  volumeInUSD,
   price,
   formattedPrice,
+  formattedVolume,
   total,
   width,
   lat,
@@ -56,6 +59,7 @@ const CreateAskContent = ({
   handleToggle,
   contactInfo,
   setAskContactInfo,
+  setAskVolumeInUSD,
   currentLocation
 }) => {
   switch (index) {
@@ -80,34 +84,6 @@ const CreateAskContent = ({
       return (
         <FormControl margin="dense" fullWidth={true}>
           <TextValidator
-            id="volume"
-            name="volume"
-            value={volume}
-            onChange={({ target }) => setAskVolume(target.value)}
-            validators={[
-              "isPositive",
-              `minFloat:${getMinimalUnit()}`,
-              "required"
-            ]}
-            errorMessages={[
-              "invalid number",
-              "under minimum volume",
-              "this field is required"
-            ]}
-            margin="dense"
-            variant="standard"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="start">{coin}</InputAdornment>
-              )
-            }}
-          />
-        </FormControl>
-      );
-    case 2:
-      return (
-        <FormControl margin="dense" fullWidth={true}>
-          <TextValidator
             id="price"
             name="price"
             value={price}
@@ -127,6 +103,68 @@ const CreateAskContent = ({
               )
             }}
           />
+        </FormControl>
+      );
+    case 2:
+      return (
+        <FormControl margin="dense" fullWidth={true}>
+          <Grid container>
+            <Grid item>
+              <TextValidator
+                id="volume"
+                name="volume"
+                value={volume}
+                onChange={({ target }) => {
+                  const totalInUSD = price * target.value;
+                  setAskVolume(target.value);
+                  setAskVolumeInUSD(totalInUSD);
+                }}
+                validators={[
+                  "isPositive",
+                  `minFloat:${getMinimalUnit()}`,
+                  "required"
+                ]}
+                errorMessages={[
+                  "invalid number",
+                  "under minimum volume",
+                  "this field is required"
+                ]}
+                margin="dense"
+                variant="standard"
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="start">{coin}</InputAdornment>
+                  )
+                }}
+              />
+            </Grid>
+            <Grid item>
+              <TextValidator
+                id="volumeInUSD"
+                name="volumeInUSD"
+                value={volumeInUSD}
+                onChange={({ target }) => {
+                  const total = (target.value/price).toFixed(8);
+                  setAskVolumeInUSD(target.value);
+                  setAskVolume(total);
+                }}
+                validators={["isPositive", `minFloat:0.01`, "required"]}
+                errorMessages={[
+                  "invalid number",
+                  "under minimum volume",
+                  "this field is required"
+                ]}
+                helperText={formattedVolume}
+                margin="dense"
+                variant="standard"
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="start">USD</InputAdornment>
+                  )
+                }}
+              />
+            </Grid>
+          </Grid>
         </FormControl>
       );
     case 3:
@@ -177,7 +215,7 @@ const CreateAskContent = ({
       return (
         <Grid container direction="column">
           <Typography>Type: {coin}</Typography>
-          <Typography>Volume: {volume}</Typography>
+          <Typography>Amount: {volume}</Typography>
           <Typography>Price: {formattedPrice}</Typography>
           <Typography variant="subheading">Total: {total}</Typography>
         </Grid>
@@ -190,13 +228,15 @@ const propMap = {
   volume: selectAskFormVolume,
   price: selectAskFormPrice,
   formattedPrice: selectFormattedAskFormPrice,
+  formattedVolume: selectFormattedAskFormVolume,
   total: selectAskFormTotal,
   contactInfo: selectAskFormContactInfo,
   lat: selectAskLatitude,
   lng: selectAskLongitude,
   width: selectWindowWidth,
   useCurrentLocation: selectAskUseCurrentLocation,
-  currentLocation: selectCurrentLocation
+  currentLocation: selectCurrentLocation,
+  volumeInUSD: selectAskFormVolumeInUSD,
 };
 
 const actionMap = {
@@ -206,7 +246,8 @@ const actionMap = {
   setAskLatitude: setAskLatitudeAction,
   setAskLongitude: setAskLongitudeAction,
   setUseCurrentLocation: setAskUseCurrentLocationAction,
-  setAskContactInfo
+  setAskContactInfo,
+  setAskVolumeInUSD
 };
 
 export default compose(

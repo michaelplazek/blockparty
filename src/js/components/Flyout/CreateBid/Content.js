@@ -19,7 +19,7 @@ import {
   selectBidFormContactInfo,
   selectBidFormCoin,
   selectBidFormPrice,
-  selectCurrentLocation
+  selectCurrentLocation, selectBidFormVolumeInUSD, selectFormattedBidFormVolume
 } from "../../../selectors";
 import mapper from "../../../utils/connect";
 import {
@@ -29,7 +29,7 @@ import {
   setBidLongitude as setBidLongitudeAction,
   setBidPrice as setBidPriceAction,
   setBidUseCurrentLocation as setBidUseCurrentLocationAction,
-  setBidVolume as setBidVolumeAction
+  setBidVolume as setBidVolumeAction, setBidVolumeInUSD
 } from "../../../actions/createBid";
 import FormControlLabel from "@material-ui/core/FormControlLabel/FormControlLabel";
 import Switch from "@material-ui/core/Switch/Switch";
@@ -41,8 +41,10 @@ const CreateBidContent = ({
   index,
   coin,
   volume,
+  volumeInUSD,
   price,
   formattedPrice,
+  formattedVolume,
   total,
   contactInfo,
   lat,
@@ -55,6 +57,7 @@ const CreateBidContent = ({
   setBidPrice,
   setBidVolume,
   setBidContactInfo,
+  setBidVolumeInUSD,
   currentLocation
 }) => {
   switch (index) {
@@ -79,34 +82,6 @@ const CreateBidContent = ({
       return (
         <FormControl margin="dense" fullWidth={true}>
           <TextValidator
-            id="volume"
-            name="volume"
-            value={volume}
-            onChange={({ target }) => setBidVolume(target.value)}
-            validators={[
-              "isPositive",
-              `minFloat:${getMinimalUnit()}`,
-              "required"
-            ]}
-            errorMessages={[
-              "invalid number",
-              "under minimum volume",
-              "this field is required"
-            ]}
-            margin="dense"
-            variant="standard"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="start">{coin}</InputAdornment>
-              )
-            }}
-          />
-        </FormControl>
-      );
-    case 2:
-      return (
-        <FormControl margin="dense" fullWidth={true}>
-          <TextValidator
             id="price"
             name="price"
             value={price}
@@ -126,6 +101,68 @@ const CreateBidContent = ({
               )
             }}
           />
+        </FormControl>
+      );
+    case 2:
+      return (
+        <FormControl margin="dense" fullWidth={true}>
+          <Grid container>
+            <Grid item>
+              <TextValidator
+                id="volume"
+                name="volume"
+                value={volume}
+                onChange={({ target }) => {
+                  const totalInUSD = price * target.value;
+                  setBidVolume(target.value);
+                  setBidVolumeInUSD(totalInUSD);
+                }}
+                validators={[
+                  "isPositive",
+                  `minFloat:${getMinimalUnit()}`,
+                  "required"
+                ]}
+                errorMessages={[
+                  "invalid number",
+                  "under minimum volume",
+                  "this field is required"
+                ]}
+                margin="dense"
+                variant="standard"
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="start">{coin}</InputAdornment>
+                  )
+                }}
+              />
+            </Grid>
+            <Grid item>
+              <TextValidator
+                id="volumeInUSD"
+                name="volumeInUSD"
+                value={volumeInUSD}
+                onChange={({ target }) => {
+                  const total = (target.value/price).toFixed(8);
+                  setBidVolumeInUSD(target.value);
+                  setBidVolume(total);
+                }}
+                validators={["isPositive", `minFloat:0.01`, "required"]}
+                errorMessages={[
+                  "invalid number",
+                  "under minimum volume",
+                  "this field is required"
+                ]}
+                helperText={formattedVolume}
+                margin="dense"
+                variant="standard"
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="start">USD</InputAdornment>
+                  )
+                }}
+              />
+            </Grid>
+          </Grid>
         </FormControl>
       );
     case 3:
@@ -176,7 +213,7 @@ const CreateBidContent = ({
       return (
         <Grid container direction="column">
           <Typography>Type: {coin}</Typography>
-          <Typography>Volume: {volume}</Typography>
+          <Typography>Amount: {volume}</Typography>
           <Typography>Price: {formattedPrice}</Typography>
           <Typography variant="subheading">Total: {total}</Typography>
         </Grid>
@@ -187,8 +224,10 @@ const CreateBidContent = ({
 const propMap = {
   coin: selectBidFormCoin,
   volume: selectBidFormVolume,
+  volumeInUSD: selectBidFormVolumeInUSD,
   price: selectBidFormPrice,
   formattedPrice: selectFormattedBidFormPrice,
+  formattedVolume: selectFormattedBidFormVolume,
   total: selectBidFormTotal,
   contactInfo: selectBidFormContactInfo,
   lat: selectBidLatitude,
@@ -201,6 +240,7 @@ const propMap = {
 const actionMap = {
   setBidCoin: setBidCoinAction,
   setBidVolume: setBidVolumeAction,
+  setBidVolumeInUSD,
   setBidPrice: setBidPriceAction,
   setBidLatitude: setBidLatitudeAction,
   setBidLongitude: setBidLongitudeAction,

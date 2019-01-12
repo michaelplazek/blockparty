@@ -85,7 +85,7 @@ const CreateBidOffer = ({
                   autoComplete="on"
                   onSubmit={handleNext}
                   onError={handleError}
-                  instantValidate={true}
+                  instantValidate={false}
                 >
                   <Content index={index} />
                   <div className={classes.actionsContainer}>

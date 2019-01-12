@@ -303,26 +303,55 @@ export const selectTransactionDisplayPrice = createSelector(
 
 // TEMPORARY OFFER
 export const selectOfferFormVolume = state => state.offer.volume;
+export const selectOfferFormVolumeInUSD = state => state.offer.volumeInUSD;
 export const selectContactInfo = state => state.offer.contactInfo;
 export const selectAskOfferTotal = createSelector(
   selectAskPrice,
   selectOfferFormVolume,
   (price, volume) => numeral(price * volume).format(USD)
 );
-
 export const selectBidOfferTotal = createSelector(
   selectBidPrice,
   selectOfferFormVolume,
   (price, volume) => numeral(price * volume).format(USD)
+);
+export const selectFormattedBidOfferTotalInUSD = createSelector(
+  selectBidPrice,
+  selectBidVolume,
+  (price, volume) => numeral(price * volume).format(USD)
+);
+export const selectBidOfferTotalInUSD = createSelector(
+  selectBidPrice,
+  selectBidVolume,
+  (price, volume) => price * volume
+);
+export const selectFormattedOfferFormVolume = createSelector(
+  selectOfferFormVolumeInUSD,
+  price => numeral(price).format(USD_DECIMALS)
+);
+export const selectFormattedAskOfferTotalInUSD = createSelector(
+  selectAskPrice,
+  selectAskVolume,
+  (price, volume) => numeral(price * volume).format(USD)
+);
+export const selectAskOfferTotalInUSD = createSelector(
+  selectAskPrice,
+  selectAskVolume,
+  (price, volume) => price * volume
 );
 
 // TEMPORARY ASK
 export const selectAskFormCoin = state => state.ask.coin;
 export const selectAskFormContactInfo = state => state.ask.contactInfo;
 export const selectAskFormVolume = state => state.ask.volume;
+export const selectAskFormVolumeInUSD = state => state.ask.volumeInUSD;
 export const selectAskFormPrice = state => state.ask.price;
 export const selectFormattedAskFormPrice = createSelector(
   selectAskFormPrice,
+  price => numeral(price).format(USD_DECIMALS)
+);
+export const selectFormattedAskFormVolume = createSelector(
+  selectAskFormVolumeInUSD,
   price => numeral(price).format(USD_DECIMALS)
 );
 export const selectAskLatitude = state => state.ask.lat;
@@ -339,6 +368,11 @@ export const selectAskFormTotal = createSelector(
 export const selectBidFormCoin = state => state.bid.coin;
 export const selectBidFormContactInfo = state => state.bid.contactInfo;
 export const selectBidFormVolume = state => state.bid.volume;
+export const selectBidFormVolumeInUSD = state => state.bid.volumeInUSD;
+export const selectFormattedBidFormVolume = createSelector(
+  selectBidFormVolumeInUSD,
+  price => numeral(price).format(USD_DECIMALS)
+);
 export const selectBidFormPrice = state => state.bid.price;
 export const selectFormattedBidFormPrice = createSelector(
   selectBidFormPrice,

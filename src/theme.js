@@ -27,6 +27,10 @@ export default createMuiTheme({
       background: "#357a38",
       color: "#f2f2f2"
     },
+    createButton: {
+      background: "#fff",
+      color: indigo[500]
+    },
     disabledErrorButton: {
       background: "#E57373",
       color: "#f2f2f2",

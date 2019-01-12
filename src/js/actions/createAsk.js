@@ -6,7 +6,8 @@ import {
   SET_ASK_LATITUDE,
   SET_ASK_LONGITUDE,
   SET_ASK_USE_CURRENT_LOCATION,
-  SET_ASK_CONTACT_INFO
+  SET_ASK_CONTACT_INFO,
+  SET_ASK_VOLUME_IN_USD,
 } from "./index";
 
 export const setAskCoin = data => dispatch =>
@@ -14,6 +15,9 @@ export const setAskCoin = data => dispatch =>
 
 export const setAskVolume = data => dispatch =>
   dispatch({ type: SET_ASK_VOLUME, data });
+
+export const setAskVolumeInUSD = data => dispatch =>
+  dispatch({ type: SET_ASK_VOLUME_IN_USD, data });
 
 export const setAskPrice = data => dispatch =>
   dispatch({ type: SET_ASK_PRICE, data });

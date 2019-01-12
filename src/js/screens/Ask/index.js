@@ -32,7 +32,7 @@ import CreateAskOffer from "../../components/Flyout/CreateAskOffer";
 import { loadOffersByUser } from "../../actions/offers";
 import { selectAskHasButton } from "../../selectors";
 
-const styles = () => ({
+const styles = theme => ({
   root: {
     textAlign: "center",
     marginTop: "40px"
@@ -43,7 +43,8 @@ const styles = () => ({
   buttons: {
     position: "fixed",
     bottom: "7em",
-    right: "2em"
+    right: "2em",
+    background: theme.palette.createButton.background,
   }
 });
 
