@@ -85,7 +85,7 @@ const OfferDetails = ({
   >
     <Grid container direction="column">
       <Grid item>
-        <Paper className={classes.paper}>
+        <Grid className={classes.paper}>
           <Grid container className={classes.box}>
             <Grid item className={classes.header}>
               <Grid container direction="row">
@@ -128,7 +128,7 @@ const OfferDetails = ({
               </Typography>
             </Grid>
           </Grid>
-        </Paper>
+        </Grid>
       </Grid>
       <Grid item>
         <Grid

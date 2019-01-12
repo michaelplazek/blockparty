@@ -30,7 +30,7 @@ const styles = () => ({
 });
 
 const DetailBox = ({ post, classes, time, onClick }) => (
-  <Paper onClick={onClick} className={classes.paper}>
+  <Grid onClick={onClick} className={classes.paper}>
     <Grid container className={classes.box}>
       <Grid item>
         <Grid container direction="row">
@@ -64,7 +64,7 @@ const DetailBox = ({ post, classes, time, onClick }) => (
         </Typography>
       </Grid>
     </Grid>
-  </Paper>
+  </Grid>
 );
 
 export default withStyles(styles)(DetailBox);
