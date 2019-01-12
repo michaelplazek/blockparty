@@ -303,11 +303,16 @@ export const selectTransactionDisplayPrice = createSelector(
 
 // TEMPORARY OFFER
 export const selectOfferFormVolume = state => state.offer.volume;
+export const selectOfferFormVolumeInUSD = state => state.offer.volumeInUSD;
 export const selectContactInfo = state => state.offer.contactInfo;
 export const selectAskOfferTotal = createSelector(
   selectAskPrice,
   selectOfferFormVolume,
   (price, volume) => numeral(price * volume).format(USD)
+);
+export const selectFormattedOfferFormVolume = createSelector(
+  selectOfferFormVolumeInUSD,
+  price => numeral(price).format(USD_DECIMALS)
 );
 
 export const selectBidOfferTotal = createSelector(
