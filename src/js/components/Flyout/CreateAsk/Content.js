@@ -80,34 +80,6 @@ const CreateAskContent = ({
       return (
         <FormControl margin="dense" fullWidth={true}>
           <TextValidator
-            id="volume"
-            name="volume"
-            value={volume}
-            onChange={({ target }) => setAskVolume(target.value)}
-            validators={[
-              "isPositive",
-              `minFloat:${getMinimalUnit()}`,
-              "required"
-            ]}
-            errorMessages={[
-              "invalid number",
-              "under minimum volume",
-              "this field is required"
-            ]}
-            margin="dense"
-            variant="standard"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="start">{coin}</InputAdornment>
-              )
-            }}
-          />
-        </FormControl>
-      );
-    case 2:
-      return (
-        <FormControl margin="dense" fullWidth={true}>
-          <TextValidator
             id="price"
             name="price"
             value={price}
@@ -127,6 +99,63 @@ const CreateAskContent = ({
               )
             }}
           />
+        </FormControl>
+      );
+    case 2:
+      return (
+        <FormControl margin="dense" fullWidth={true}>
+          <Grid container>
+            <Grid item>
+              <TextValidator
+                id="volume"
+                name="volume"
+                value={volume}
+                onChange={({ target }) => setAskVolume(target.value)}
+                validators={[
+                  "isPositive",
+                  `minFloat:${getMinimalUnit()}`,
+                  "required"
+                ]}
+                errorMessages={[
+                  "invalid number",
+                  "under minimum volume",
+                  "this field is required"
+                ]}
+                margin="dense"
+                variant="standard"
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="start">{coin}</InputAdornment>
+                  )
+                }}
+              />
+            </Grid>
+            <Grid item>
+              <TextValidator
+                id="volume"
+                name="volume"
+                value={volume}
+                onChange={({ target }) => setAskVolume(target.value)}
+                validators={[
+                  "isPositive",
+                  `minFloat:${getMinimalUnit()}`,
+                  "required"
+                ]}
+                errorMessages={[
+                  "invalid number",
+                  "under minimum volume",
+                  "this field is required"
+                ]}
+                margin="dense"
+                variant="standard"
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="start">{coin}</InputAdornment>
+                  )
+                }}
+              />
+            </Grid>
+          </Grid>
         </FormControl>
       );
     case 3:
