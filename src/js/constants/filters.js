@@ -1,5 +1,5 @@
 export const DEFAULT_FILTER = {
-  coin: "BTC",
+  coin: "Bitcoin - BTC",
   distanceAway: 25,
   type: "ASK"
 };
