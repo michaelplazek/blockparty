@@ -18,17 +18,23 @@ import {
   selectTransactionBuyerContactInfo
 } from "../../../selectors";
 
-export const selectTypeDetail = createSelector(selectTransactionType, type => ({
-  name: "Type",
-  value: type,
-  onClick: undefined
-}));
+export const selectTypeDetail = createSelector(
+  selectTransactionType,
+  type => ({
+    name: "Type",
+    value: type,
+    onClick: undefined
+  })
+);
 
-export const selectCoinDetail = createSelector(selectTransactionCoin, coin => ({
-  name: "Coin",
-  value: coin,
-  onClick: undefined
-}));
+export const selectCoinDetail = createSelector(
+  selectTransactionCoin,
+  coin => ({
+    name: "Coin",
+    value: coin,
+    onClick: undefined
+  })
+);
 
 export const selectVolumeDetail = createSelector(
   selectTransactionVolume,

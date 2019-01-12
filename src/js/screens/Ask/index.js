@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { compose, lifecycle, withHandlers } from "recompose";
 import { withRouter } from "react-router";
+import theme from "../../../theme";
 import mapper from "../../utils/connect";
 import {
   selectAsk,
@@ -11,7 +12,8 @@ import {
   selectAskHasOffer,
   selectAskOfferButtonText,
   selectMyOffersLoaded,
-  selectUserId
+  selectUserId,
+  selectWindowHeight
 } from "../../selectors/index";
 import { loadAsk as loadAskAction } from "../../actions/asks";
 import Grid from "@material-ui/core/Grid/Grid";
@@ -56,21 +58,33 @@ const Ask = ({
   handleOffer,
   hasAskOffer,
   buttonText,
-  showButton
+  showButton,
+  height
 }) => (
-  <div>
+  <div
+    style={{
+      background: theme.palette.inverse.background,
+      height: `${height}px`
+    }}
+  >
     {loaded && (
       <div>
-        {open &&
-          layer === "CREATE_ASK_OFFER" && (
-            <CreateAskOffer handleClose={() => {}} handleSubmit={() => {}} />
-          )}
+        {open && layer === "CREATE_ASK_OFFER" && (
+          <CreateAskOffer handleClose={() => {}} handleSubmit={() => {}} />
+        )}
         <Grid>
-          <Button onClick={() => history.goBack()}>Go Back</Button>
+          <Button
+            style={theme.palette.inverse}
+            onClick={() => history.goBack()}
+          >
+            Go Back
+          </Button>
           <div className={classes.root}>
             <Grid item className={classes.body}>
-              <Typography variant="display1">Ask for</Typography>
-              <Typography variant="display2">
+              <Typography style={theme.palette.inverse} variant="display1">
+                Ask for
+              </Typography>
+              <Typography style={theme.palette.inverse} variant="display2">
                 {ask.volume} {ask.coin}
               </Typography>
             </Grid>
@@ -82,7 +96,7 @@ const Ask = ({
               className={classes.buttons}
               variant="extendedFab"
               disabled={hasAskOffer}
-              color="primary"
+              // color="secondary"
               onClick={handleOffer}
             >
               {buttonText}
@@ -110,6 +124,7 @@ const propMap = {
   hasAskOffer: selectAskHasOffer,
   buttonText: selectAskOfferButtonText,
   myOffersLoaded: selectMyOffersLoaded,
+  height: selectWindowHeight,
   userId: selectUserId,
   showButton: selectAskHasButton
 };

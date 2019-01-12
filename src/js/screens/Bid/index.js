@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { compose, lifecycle, withHandlers } from "recompose";
 import { withRouter } from "react-router";
+import theme from "../../../theme";
 import mapper from "../../utils/connect";
 import {
   selectBid,
@@ -11,7 +12,8 @@ import {
   selectBidHasOffer,
   selectBidOfferButtonText,
   selectMyOffersLoaded,
-  selectUserId
+  selectUserId,
+  selectWindowHeight
 } from "../../selectors/index";
 import { loadBid as loadBidAction } from "../../actions/bids";
 import Grid from "@material-ui/core/Grid/Grid";
@@ -55,21 +57,33 @@ const Bid = ({
   handleOffer,
   bidHasOffer,
   buttonText,
-  showButton
+  showButton,
+  height
 }) => (
-  <div>
+  <div
+    style={{
+      background: theme.palette.inverse.background,
+      height: `${height}px`
+    }}
+  >
     {loaded && (
       <div>
-        {open &&
-          layer === "poop" && (
-            <CreateBidOffer handleClose={() => {}} handleSubmit={() => {}} />
-          )}
+        {open && layer === "poop" && (
+          <CreateBidOffer handleClose={() => {}} handleSubmit={() => {}} />
+        )}
         <Grid>
-          <Button onClick={() => history.goBack()}>Go Back</Button>
+          <Button
+            style={theme.palette.inverse}
+            onClick={() => history.goBack()}
+          >
+            Go Back
+          </Button>
           <div className={classes.root}>
             <Grid item className={classes.body}>
-              <Typography variant="display1">Bid for</Typography>
-              <Typography variant="display2">
+              <Typography style={theme.palette.inverse} variant="display1">
+                Bid for
+              </Typography>
+              <Typography style={theme.palette.inverse} variant="display2">
                 {bid.volume} {bid.coin}
               </Typography>
             </Grid>
@@ -79,7 +93,7 @@ const Bid = ({
           {showButton && (
             <Button
               className={classes.buttons}
-              color="primary"
+              // color="secondary"
               disabled={bidHasOffer}
               variant="extendedFab"
               onClick={handleOffer}
@@ -110,7 +124,8 @@ const propMap = {
   buttonText: selectBidOfferButtonText,
   myOffersLoaded: selectMyOffersLoaded,
   userId: selectUserId,
-  showButton: selectBidHasButton
+  showButton: selectBidHasButton,
+  height: selectWindowHeight
 };
 
 const actionMap = {

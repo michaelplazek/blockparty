@@ -1,5 +1,5 @@
 import React from "react";
-import { compose, withHandlers } from "recompose";
+import { compose, withHandlers, lifecycle } from "recompose";
 
 import { TextValidator } from "react-material-ui-form-validator";
 import FormControl from "@material-ui/core/FormControl/FormControl";
@@ -18,7 +18,8 @@ import {
   selectBidFormTotal,
   selectBidFormContactInfo,
   selectBidFormCoin,
-  selectBidFormPrice
+  selectBidFormPrice,
+  selectCurrentLocation
 } from "../../../selectors";
 import mapper from "../../../utils/connect";
 import {
@@ -53,7 +54,8 @@ const CreateBidContent = ({
   setBidCoin,
   setBidPrice,
   setBidVolume,
-  setBidContactInfo
+  setBidContactInfo,
+  currentLocation
 }) => {
   switch (index) {
     case 0:
@@ -146,9 +148,10 @@ const CreateBidContent = ({
               showLabels={false}
               markers={[{ id: 0, lat, lng }]}
               height="10em"
-              width={`${width - width / 9}px`}
+              width={`${width / 2}px`}
               position="relative"
               onDrag={coords => handleDrag(coords)}
+              currentLocation={currentLocation}
             />
           )}
         </div>
@@ -191,7 +194,8 @@ const propMap = {
   lat: selectBidLatitude,
   lng: selectBidLongitude,
   useCurrentLocation: selectBidUseCurrentLocation,
-  width: selectWindowWidth
+  width: selectWindowWidth,
+  currentLocation: selectCurrentLocation
 };
 
 const actionMap = {
@@ -211,20 +215,22 @@ export default compose(
       useCurrentLocation,
       setUseCurrentLocation,
       setBidLatitude,
-      setBidLongitude
+      setBidLongitude,
+      currentLocation
     }) => () => {
       setUseCurrentLocation(!useCurrentLocation);
-      if (navigator && navigator.geolocation && !useCurrentLocation) {
-        navigator.geolocation.getCurrentPosition(pos => {
-          const coords = pos.coords;
-          setBidLatitude(coords.latitude);
-          setBidLongitude(coords.longitude);
-        });
-      }
+      setBidLatitude(currentLocation.lat);
+      setBidLongitude(currentLocation.lng);
     },
     handleDrag: ({ setBidLatitude, setBidLongitude }) => item => {
       setBidLatitude(item.latLng.lat());
       setBidLongitude(item.latLng.lng());
+    }
+  }),
+  lifecycle({
+    componentDidMount() {
+      this.props.setBidLatitude(this.props.currentLocation.lat);
+      this.props.setBidLongitude(this.props.currentLocation.lng);
     }
   })
 )(CreateBidContent);

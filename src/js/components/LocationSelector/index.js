@@ -8,10 +8,12 @@ const LocationSelector = ({
   onDrag,
   width,
   position,
-  showLabels
+  showLabels,
+  currentLocation
 }) => (
   <div>
     <GoogleMapsWrapper
+      zoom={11}
       markers={markers}
       height={height}
       width={width}
@@ -19,6 +21,7 @@ const LocationSelector = ({
       onMarkerDrag={onDrag}
       markersDraggable={true}
       showLabels={showLabels}
+      currentLocation={currentLocation}
     />
   </div>
 );

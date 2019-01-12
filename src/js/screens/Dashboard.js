@@ -59,6 +59,7 @@ import {
 import OfferDetails from "../components/Flyout/OfferDetails";
 import { loadTransaction, loadTransactions } from "../actions/transactions";
 import TransactionDetails from "../components/Flyout/TransactionDetail";
+import withLocation from "../HOCs/withLocation";
 
 const styles = () => ({
   root: {
@@ -303,5 +304,6 @@ export default compose(
       setLayerOpen(true);
     }
   }),
+  withLocation,
   withLoader
 )(Dashboard);
