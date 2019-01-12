@@ -28,7 +28,7 @@ export default {
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.EnvironmentPlugin(['GOOGLE_MAPS_KEY'])
+        new webpack.EnvironmentPlugin(['GOOGLE_MAPS_KEY', 'BLOCKTAP_TOKEN']),
     ],
     devServer: {
         contentBase: path.resolve(__dirname, 'src')

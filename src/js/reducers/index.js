@@ -12,6 +12,7 @@ import offers from "./offers";
 import offer from "./createOffer";
 import transactions from "./transactions";
 import errors from "./errors";
+import metrics from "./metrics";
 
 export default combineReducers({
   app,
@@ -25,5 +26,6 @@ export default combineReducers({
   offers,
   offer,
   transactions,
-  errors
+  errors,
+  metrics
 });

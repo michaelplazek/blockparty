@@ -4,8 +4,6 @@ import { compose, withHandlers, lifecycle } from "recompose";
 import { TextValidator } from "react-material-ui-form-validator";
 import FormControl from "@material-ui/core/FormControl/FormControl";
 import Select from "@material-ui/core/Select/Select";
-import coins from "../../../constants/coins";
-import TextField from "@material-ui/core/TextField/TextField";
 import Typography from "@material-ui/core/Typography/Typography";
 import Grid from "@material-ui/core/Grid/Grid";
 import {
@@ -19,7 +17,7 @@ import {
   selectBidFormContactInfo,
   selectBidFormCoin,
   selectBidFormPrice,
-  selectCurrentLocation, selectBidFormVolumeInUSD, selectFormattedBidFormVolume
+  selectCurrentLocation, selectBidFormVolumeInUSD, selectFormattedBidFormVolume, selectCurrencyItems, selectLastPrice
 } from "../../../selectors";
 import mapper from "../../../utils/connect";
 import {
@@ -36,10 +34,12 @@ import Switch from "@material-ui/core/Switch/Switch";
 import LocationSelector from "../../LocationSelector";
 import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
 import { getMinimalUnit } from "../../../utils/validate";
+import {loadLastPrice} from "../../../actions/metrics";
 
 const CreateBidContent = ({
   index,
   coin,
+  coins,
   volume,
   volumeInUSD,
   price,
@@ -58,7 +58,9 @@ const CreateBidContent = ({
   setBidVolume,
   setBidContactInfo,
   setBidVolumeInUSD,
-  currentLocation
+  currentLocation,
+  loadLastPrice,
+  lastPrice,
 }) => {
   switch (index) {
     case 0:
@@ -68,11 +70,14 @@ const CreateBidContent = ({
             variant="outlined"
             native
             value={coin}
-            onChange={({ target }) => setBidCoin(target.value)}
+            onChange={({ target }) => {
+              loadLastPrice(target.value);
+              setBidCoin(target.value);
+            }}
           >
             {coins.map(coin => (
-              <option key={coin} value={coin}>
-                {coin}
+              <option key={coin.value} value={coin.value}>
+                {coin.label}
               </option>
             ))}
           </Select>
@@ -81,6 +86,7 @@ const CreateBidContent = ({
     case 1:
       return (
         <FormControl margin="dense" fullWidth={true}>
+          <Typography variant='caption'>{`Suggested price: ${lastPrice}`}</Typography>
           <TextValidator
             id="price"
             name="price"
@@ -223,6 +229,7 @@ const CreateBidContent = ({
 
 const propMap = {
   coin: selectBidFormCoin,
+  coins: selectCurrencyItems,
   volume: selectBidFormVolume,
   volumeInUSD: selectBidFormVolumeInUSD,
   price: selectBidFormPrice,
@@ -234,7 +241,8 @@ const propMap = {
   lng: selectBidLongitude,
   useCurrentLocation: selectBidUseCurrentLocation,
   width: selectWindowWidth,
-  currentLocation: selectCurrentLocation
+  currentLocation: selectCurrentLocation,
+  lastPrice: selectLastPrice,
 };
 
 const actionMap = {
@@ -245,7 +253,8 @@ const actionMap = {
   setBidLatitude: setBidLatitudeAction,
   setBidLongitude: setBidLongitudeAction,
   setUseCurrentLocation: setBidUseCurrentLocationAction,
-  setBidContactInfo
+  setBidContactInfo,
+  loadLastPrice,
 };
 
 export default compose(

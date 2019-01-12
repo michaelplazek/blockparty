@@ -1,6 +1,7 @@
 import React from "react";
 import { compose, withHandlers } from "recompose";
 import withStyles from "@material-ui/core/styles/withStyles";
+import find from 'lodash/find';
 import mapper from "../../../utils/connect";
 
 import {
@@ -16,7 +17,6 @@ import {
 } from "../../../actions/filters";
 import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
-import coins from "../../../constants/coins";
 import { types } from "../../../constants/filters";
 import Flyout from "../index";
 
@@ -24,10 +24,10 @@ import Grid from "@material-ui/core/Grid/Grid";
 import FormControl from "@material-ui/core/FormControl/FormControl";
 import InputLabel from "@material-ui/core/InputLabel/InputLabel";
 import Select from "@material-ui/core/Select/Select";
-import { selectFilterType } from "../../../selectors";
+import {selectCurrencyItems, selectFilterType} from "../../../selectors";
 import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
 import Button from "@material-ui/core/Button/Button";
-import { cleanInputs, DISTANCE, USERNAME } from "../../../constants/validation";
+import { cleanInputs, DISTANCE } from "../../../constants/validation";
 
 const styles = () => ({
   root: {
@@ -42,12 +42,17 @@ const FilterMap = ({
   setLayerOpen,
   setFilterDistance,
   setFilterCoin,
+  setFilter,
   setFilterType,
   handleSubmit,
   handleSetDistance,
+  coins,
   type
 }) => (
-  <Flyout size={3}>
+  <Flyout
+    size={3}
+    onClose={() => setLayerOpen(false)}
+  >
     <Grid className={classes.root}>
       <ValidatorForm autoComplete="on" onSubmit={handleSubmit}>
         <FormControl margin="dense" fullWidth={true}>
@@ -75,8 +80,8 @@ const FilterMap = ({
             onChange={({ target }) => setFilterCoin(target.value)}
           >
             {coins.map(item => (
-              <option key={item} value={item}>
-                {item}
+              <option key={item.value} value={item.value}>
+                {item.label}
               </option>
             ))}
           </Select>
@@ -110,6 +115,7 @@ const FilterMap = ({
 const propMap = {
   distance: selectFilterDistance,
   coin: selectFilterCoin,
+  coins: selectCurrencyItems,
   type: selectFilterType,
   filter: selectFilter
 };

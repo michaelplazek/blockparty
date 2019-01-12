@@ -500,3 +500,15 @@ export const selectUserCanDelete = createSelector(
 // Errors
 export const selectError = state => state.errors.error;
 export const selectErrorMessage = state => state.errors.message;
+
+// Metrics
+export const selectCurrencyNames = state => state.metrics.currencies;
+export const selectCurrencyNamesLoaded = state => state.metrics.currenciesLoaded;
+export const selectCurrencyItems = createSelector(
+  selectCurrencyNames,
+  fpMap(item => ({
+    label: `${item.currencyName} - ${item.currencySymbol}`,
+    value: item.currencySymbol,
+  }))
+);
+export const selectLastPrice = state => state.metrics.lastPrice;
