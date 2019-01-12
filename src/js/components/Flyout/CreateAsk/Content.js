@@ -18,7 +18,7 @@ import {
   selectAskFormPrice,
   selectFormattedAskFormPrice,
   selectCurrentLocation,
-  selectAskFormVolumeInUSD, selectFormattedAskFormVolume, selectCurrencyItems
+  selectAskFormVolumeInUSD, selectFormattedAskFormVolume, selectCurrencyItems, selectLastPrice
 } from "../../../selectors";
 import mapper from "../../../utils/connect";
 import {
@@ -35,6 +35,7 @@ import Switch from "@material-ui/core/Switch/Switch";
 import LocationSelector from "../../LocationSelector";
 import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
 import { getMinimalUnit } from "../../../utils/validate";
+import {loadLastPrice} from "../../../actions/metrics";
 
 const CreateAskContent = ({
   index,
@@ -42,6 +43,7 @@ const CreateAskContent = ({
   toggle,
   coin,
                             coins,
+                            lastPrice,
   volume,
   volumeInUSD,
   price,
@@ -60,7 +62,8 @@ const CreateAskContent = ({
   contactInfo,
   setAskContactInfo,
   setAskVolumeInUSD,
-  currentLocation
+  currentLocation,
+  loadLastPrice,
 }) => {
   switch (index) {
     case 0:
@@ -70,7 +73,10 @@ const CreateAskContent = ({
             variant="outlined"
             native
             value={coin}
-            onChange={({ target }) => setAskCoin(target.value)}
+            onChange={({ target }) => {
+              loadLastPrice(target.value);
+              setAskCoin(target.value);
+            }}
           >
             {coins.map(coin => (
               <option key={coin.value} value={coin.value}>
@@ -83,6 +89,7 @@ const CreateAskContent = ({
     case 1:
       return (
         <FormControl margin="dense" fullWidth={true}>
+          <Typography variant='caption'>{`Suggested price: ${lastPrice}`}</Typography>
           <TextValidator
             id="price"
             name="price"
@@ -238,6 +245,7 @@ const propMap = {
   useCurrentLocation: selectAskUseCurrentLocation,
   currentLocation: selectCurrentLocation,
   volumeInUSD: selectAskFormVolumeInUSD,
+  lastPrice: selectLastPrice,
 };
 
 const actionMap = {
@@ -248,7 +256,8 @@ const actionMap = {
   setAskLongitude: setAskLongitudeAction,
   setUseCurrentLocation: setAskUseCurrentLocationAction,
   setAskContactInfo,
-  setAskVolumeInUSD
+  setAskVolumeInUSD,
+  loadLastPrice
 };
 
 export default compose(

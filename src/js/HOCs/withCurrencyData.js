@@ -19,7 +19,7 @@ export default Component => {
   };
 
   const actionMap = {
-    loadCurrencyNames
+    loadCurrencyNames,
   };
 
   return compose(

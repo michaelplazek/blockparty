@@ -511,3 +511,4 @@ export const selectCurrencyItems = createSelector(
     value: item.currencySymbol,
   }))
 );
+export const selectLastPrice = state => state.metrics.lastPrice;

@@ -60,6 +60,7 @@ import OfferDetails from "../components/Flyout/OfferDetails";
 import { loadTransaction, loadTransactions } from "../actions/transactions";
 import TransactionDetails from "../components/Flyout/TransactionDetail";
 import withLocation from "../HOCs/withLocation";
+import {loadLastPrice} from "../actions/metrics";
 
 const styles = () => ({
   root: {
@@ -101,7 +102,8 @@ const Dashboard = ({
   handleAskClick,
   handleBidClick,
   handleOfferClick,
-  handleTransactionClick
+  handleTransactionClick,
+  loadLastPrice,
 }) => (
   <div className={classes.root}>
     {layer === "CREATE_ASK" && <CreateAsk />}
@@ -174,6 +176,7 @@ const Dashboard = ({
               className={classes.buttons}
               variant="extendedFab"
               onClick={() => {
+                loadLastPrice("BTC");
                 setLayer("CREATE_BID");
                 setLayerOpen(true);
               }}
@@ -184,6 +187,7 @@ const Dashboard = ({
               className={classes.buttons}
               variant="extendedFab"
               onClick={() => {
+                loadLastPrice("BTC");
                 setLayer("CREATE_ASK");
                 setLayerOpen(true);
               }}
@@ -239,7 +243,8 @@ const actionMap = {
   unloadOffers,
   loadOffersByBid,
   loadTransactions,
-  loadTransaction
+  loadTransaction,
+  loadLastPrice
 };
 
 export default compose(
@@ -268,7 +273,7 @@ export default compose(
       loadAsk,
       loadOffersByAsk,
       setLayer,
-      setLayerOpen
+      setLayerOpen,
     }) => ({ _id }) => {
       unloadOffers();
       loadAsk(_id).then(() => {
@@ -282,7 +287,7 @@ export default compose(
       loadBid,
       loadOffersByBid,
       setLayer,
-      setLayerOpen
+      setLayerOpen,
     }) => ({ _id }) => {
       unloadOffers();
       loadBid(_id).then(() => {
