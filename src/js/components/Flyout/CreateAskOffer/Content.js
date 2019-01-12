@@ -11,11 +11,16 @@ import {
   selectOfferFormVolume,
   selectAskVolume,
   selectAskDisplayPrice,
-  selectAskCoin
+  selectAskCoin,
+  selectAskOfferTotalInUSD,
+  selectFormattedAskOfferTotalInUSD,
+  selectAskPrice,
+  selectFormattedOfferFormVolume,
+  selectOfferFormVolumeInUSD
 } from "../../../selectors";
 import mapper from "../../../utils/connect";
 import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
-import { setContactInfo, setOfferVolume } from "../../../actions/createOffer";
+import {setContactInfo, setOfferVolume, setOfferVolumeInUSD} from "../../../actions/createOffer";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { getMinimalUnit } from "../../../utils/validate";
 import { setError } from "../../../actions/errors";
@@ -32,49 +37,98 @@ const CreateAskContent = ({
   classes,
   coin,
   volume,
+                            volumeInUSD,
+                            formattedVolume,
   price,
+                            formattedPrice,
   total,
   max,
   contactInfo,
   setOfferVolume,
-  setContactInfo
-}) => {
+                            setOfferVolumeInUSD,
+  setContactInfo,
+                            totalInUSD,
+                            totalFormattedInUSD,
+                          }) => {
   switch (index) {
     case 0:
       return (
         <div>
           <FormControl margin="dense" fullWidth={true}>
-            <TextValidator
-              id="volume"
-              name="volume"
-              value={volume}
-              onChange={({ target }) => setOfferVolume(target.value)}
-              validators={[
-                `maxFloat:${max}`,
-                "isPositive",
-                `minFloat:${getMinimalUnit()}`,
-                "required"
-              ]}
-              errorMessages={[
-                "over max volume",
-                "invalid number",
-                "under minimum volume",
-                "this field is required"
-              ]}
-              margin="dense"
-              variant="standard"
-              helperText={`Max of ${max}`}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="start">{coin}</InputAdornment>
-                )
-              }}
-            />
+            <Grid container>
+              <Grid item>
+                <TextValidator
+                  id="volume"
+                  name="volume"
+                  value={volume}
+                  onChange={({ target }) => {
+                    const totalInUSD = price * target.value;
+                    setOfferVolume(target.value);
+                    setOfferVolumeInUSD(totalInUSD);
+                  }}
+                  validators={[
+                    `maxFloat:${max}`,
+                    "isPositive",
+                    `minFloat:${getMinimalUnit()}`,
+                    "required"
+                  ]}
+                  errorMessages={[
+                    "over max volume",
+                    "invalid number",
+                    "under minimum volume",
+                    "this field is required"
+                  ]}
+                  margin="dense"
+                  variant="standard"
+                  helperText={`Max of ${max}`}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="start">{coin}</InputAdornment>
+                    )
+                  }}
+                />
+              </Grid>
+              <Grid item>
+                <TextValidator
+                  id="volumeInUSD"
+                  name="volumeInUSD"
+                  value={volumeInUSD}
+                  onChange={({ target }) => {
+                    const total = (target.value/price).toFixed(8);
+                    console.log('price', price);
+                    console.log('value', target.value);
+
+                    setOfferVolumeInUSD(target.value);
+                    setOfferVolume(total);
+                  }}
+                  validators={[
+                    "isPositive",
+                    `minFloat:0.01`,
+                    `maxFloat:${totalInUSD}`,
+                    "required"
+                  ]}
+                  errorMessages={[
+                    "invalid number",
+                    "under minimum volume",
+                    "over max volume",
+                    "this field is required"
+                  ]}
+                  helperText={`${formattedVolume} (Max of ${totalFormattedInUSD})`}
+                  margin="dense"
+                  variant="standard"
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="start">USD</InputAdornment>
+                    )
+                  }}
+                />
+              </Grid>
+            </Grid>
           </FormControl>
           <Grid container direction="column" className={classes.info}>
             <Typography>Type: {coin}</Typography>
             <Typography>Price: {price}</Typography>
-            <Typography>Volume: {volume}</Typography>
+            <Typography>Amount: {volume}</Typography>
             <Typography variant="subheading">Total: {total}</Typography>
           </Grid>
         </div>
@@ -99,8 +153,8 @@ const CreateAskContent = ({
       return (
         <Grid container direction="column">
           <Typography>Type: {coin}</Typography>
-          <Typography>Price: {price}</Typography>
-          <Typography>Volume: {volume}</Typography>
+          <Typography>Price: {formattedPrice}</Typography>
+          <Typography>Amount: {volume}</Typography>
           <Typography variant="subheading">Total: {total}</Typography>
         </Grid>
       );
@@ -111,15 +165,21 @@ const propMap = {
   coin: selectAskCoin,
   max: selectAskVolume,
   volume: selectOfferFormVolume,
+  formattedVolume: selectFormattedOfferFormVolume,
+  volumeInUSD: selectOfferFormVolumeInUSD,
   contactInfo: selectContactInfo,
-  price: selectAskDisplayPrice,
-  total: selectAskOfferTotal
+  price: selectAskPrice,
+  formattedPrice: selectAskDisplayPrice,
+  total: selectAskOfferTotal,
+  totalInUSD: selectAskOfferTotalInUSD,
+  totalFormattedInUSD: selectFormattedAskOfferTotalInUSD
 };
 
 const actionMap = {
   setOfferVolume,
   setContactInfo,
-  setError
+  setError,
+  setOfferVolumeInUSD
 };
 
 export default compose(

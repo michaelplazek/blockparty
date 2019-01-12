@@ -310,10 +310,6 @@ export const selectAskOfferTotal = createSelector(
   selectOfferFormVolume,
   (price, volume) => numeral(price * volume).format(USD)
 );
-export const selectFormattedOfferFormVolume = createSelector(
-  selectOfferFormVolumeInUSD,
-  price => numeral(price).format(USD_DECIMALS)
-);
 export const selectBidOfferTotal = createSelector(
   selectBidPrice,
   selectOfferFormVolume,
@@ -327,6 +323,20 @@ export const selectFormattedBidOfferTotalInUSD = createSelector(
 export const selectBidOfferTotalInUSD = createSelector(
   selectBidPrice,
   selectBidVolume,
+  (price, volume) => price * volume
+);
+export const selectFormattedOfferFormVolume = createSelector(
+  selectOfferFormVolumeInUSD,
+  price => numeral(price).format(USD_DECIMALS)
+);
+export const selectFormattedAskOfferTotalInUSD = createSelector(
+  selectAskPrice,
+  selectAskVolume,
+  (price, volume) => numeral(price * volume).format(USD)
+);
+export const selectAskOfferTotalInUSD = createSelector(
+  selectAskPrice,
+  selectAskVolume,
   (price, volume) => price * volume
 );
 
