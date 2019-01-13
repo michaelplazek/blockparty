@@ -98,7 +98,7 @@ const CreateAskContent = ({
                   name="volumeInUSD"
                   value={volumeInUSD}
                   onChange={({ target }) => {
-                    const total = (target.value / price).toFixed(8);
+                    const total = (target.value / price).toFixed(6);
                     console.log("price", price);
                     console.log("value", target.value);
 

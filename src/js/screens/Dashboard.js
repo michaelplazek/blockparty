@@ -68,7 +68,7 @@ import { COST } from "../constants/currency";
 
 const styles = () => ({
   root: {
-    paddingBottom: "50px"
+    paddingBottom: "4.5em"
   },
   buttonContainer: {
     display: "flex",

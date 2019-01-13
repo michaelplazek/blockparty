@@ -90,7 +90,7 @@ const OfferDetails = ({
             <Grid item className={classes.header}>
               <Grid container direction="row">
                 <Grid className={classes.bid} item>
-                  <Typography variant="h3">
+                  <Typography variant="h4">
                     {offer.bid ? "Sell" : "Buy"} {offer.volume}
                   </Typography>
                 </Grid>
