@@ -23,7 +23,8 @@ const styles = () => ({
     margin: "4px 0px 0px 4px"
   },
   icon: {
-    marginRight: "8px"
+    marginRight: "8px",
+    marginTop: "2px"
   },
   volume: {
     marginTop: "4px"
