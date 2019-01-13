@@ -44,7 +44,7 @@ const styles = theme => ({
     position: "fixed",
     bottom: "7em",
     right: "2em",
-    background: theme.palette.createButton.background,
+    background: theme.palette.createButton.background
   }
 });
 
@@ -70,9 +70,10 @@ const Ask = ({
   >
     {loaded && (
       <div>
-        {open && layer === "CREATE_ASK_OFFER" && (
-          <CreateAskOffer handleClose={() => {}} handleSubmit={() => {}} />
-        )}
+        {open &&
+          layer === "CREATE_ASK_OFFER" && (
+            <CreateAskOffer handleClose={() => {}} handleSubmit={() => {}} />
+          )}
         <Grid>
           <Button
             style={theme.palette.inverse}

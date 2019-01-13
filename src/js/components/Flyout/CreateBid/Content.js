@@ -17,7 +17,11 @@ import {
   selectBidFormContactInfo,
   selectBidFormCoin,
   selectBidFormPrice,
-  selectCurrentLocation, selectBidFormVolumeInUSD, selectFormattedBidFormVolume, selectCurrencyItems, selectLastPrice
+  selectCurrentLocation,
+  selectBidFormVolumeInUSD,
+  selectFormattedBidFormVolume,
+  selectCurrencyItems,
+  selectLastPrice
 } from "../../../selectors";
 import mapper from "../../../utils/connect";
 import {
@@ -27,14 +31,17 @@ import {
   setBidLongitude as setBidLongitudeAction,
   setBidPrice as setBidPriceAction,
   setBidUseCurrentLocation as setBidUseCurrentLocationAction,
-  setBidVolume as setBidVolumeAction, setBidVolumeInUSD
+  setBidVolume as setBidVolumeAction,
+  setBidVolumeInUSD
 } from "../../../actions/createBid";
 import FormControlLabel from "@material-ui/core/FormControlLabel/FormControlLabel";
 import Switch from "@material-ui/core/Switch/Switch";
 import LocationSelector from "../../LocationSelector";
 import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
 import { getMinimalUnit } from "../../../utils/validate";
-import {loadLastPrice} from "../../../actions/metrics";
+import { loadLastPrice } from "../../../actions/metrics";
+import numeral from "numeral";
+import { COST, USD_DECIMALS } from "../../../constants/currency";
 
 const CreateBidContent = ({
   index,
@@ -60,7 +67,7 @@ const CreateBidContent = ({
   setBidVolumeInUSD,
   currentLocation,
   loadLastPrice,
-  lastPrice,
+  lastPrice
 }) => {
   switch (index) {
     case 0:
@@ -71,7 +78,9 @@ const CreateBidContent = ({
             native
             value={coin}
             onChange={({ target }) => {
-              loadLastPrice(target.value);
+              loadLastPrice(target.value).then(response => {
+                setBidPrice(numeral(response.data).format(COST));
+              });
               setBidCoin(target.value);
             }}
           >
@@ -86,7 +95,9 @@ const CreateBidContent = ({
     case 1:
       return (
         <FormControl margin="dense" fullWidth={true}>
-          <Typography variant='caption'>{`Suggested price: ${lastPrice}`}</Typography>
+          <Typography variant="caption">{`Suggested price: ${numeral(
+            lastPrice
+          ).format(USD_DECIMALS)}`}</Typography>
           <TextValidator
             id="price"
             name="price"
@@ -148,7 +159,7 @@ const CreateBidContent = ({
                 name="volumeInUSD"
                 value={volumeInUSD}
                 onChange={({ target }) => {
-                  const total = (target.value/price).toFixed(8);
+                  const total = (target.value / price).toFixed(8);
                   setBidVolumeInUSD(target.value);
                   setBidVolume(total);
                 }}
@@ -242,7 +253,7 @@ const propMap = {
   useCurrentLocation: selectBidUseCurrentLocation,
   width: selectWindowWidth,
   currentLocation: selectCurrentLocation,
-  lastPrice: selectLastPrice,
+  lastPrice: selectLastPrice
 };
 
 const actionMap = {
@@ -254,7 +265,7 @@ const actionMap = {
   setBidLongitude: setBidLongitudeAction,
   setUseCurrentLocation: setBidUseCurrentLocationAction,
   setBidContactInfo,
-  loadLastPrice,
+  loadLastPrice
 };
 
 export default compose(

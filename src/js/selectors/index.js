@@ -98,13 +98,11 @@ export const selectNumberOfMyAsks = createSelector(
   selectMyAsks,
   (loaded, asks) => (loaded ? asks.length : 0)
 );
-export const selectAsksForDisplay = createSelector(
-  selectAsks,
-  asks =>
-    asks.map(item => ({
-      ...item,
-      timestamp: moment(item.timestamp).format("MMM D")
-    }))
+export const selectAsksForDisplay = createSelector(selectAsks, asks =>
+  asks.map(item => ({
+    ...item,
+    timestamp: moment(item.timestamp).format("MMM D")
+  }))
 );
 
 // BIDS
@@ -126,13 +124,11 @@ export const selectNumberOfMyBids = createSelector(
   selectMyBids,
   (loaded, bids) => (loaded ? bids.length : 0)
 );
-export const selectBidsForDisplay = createSelector(
-  selectBids,
-  bids =>
-    bids.map(item => ({
-      ...item,
-      timestamp: moment(item.timestamp).format("MMM D")
-    }))
+export const selectBidsForDisplay = createSelector(selectBids, bids =>
+  bids.map(item => ({
+    ...item,
+    timestamp: moment(item.timestamp).format("MMM D")
+  }))
 );
 
 // BID
@@ -144,9 +140,8 @@ export const selectBidPrice = state => state.bids.bid.price;
 export const selectBidOwner = state => state.bids.bid.owner;
 export const selectBidLocation = state => state.bids.bid.location;
 export const selectBidTimestamp = state => state.bids.bid.timestamp;
-export const selectBidPostTime = createSelector(
-  selectBidTimestamp,
-  timestamp => moment(timestamp).fromNow()
+export const selectBidPostTime = createSelector(selectBidTimestamp, timestamp =>
+  moment(timestamp).fromNow()
 );
 export const selectBidCity = createSelector(
   selectBidLocation,
@@ -164,9 +159,8 @@ export const selectBidState = createSelector(
     find(item => item.types.includes(ADMIN_1) && item.types.includes(POLITICAL))
   )
 );
-export const selectBidDisplayPrice = createSelector(
-  selectBid,
-  bid => numeral(bid.price).format(USD)
+export const selectBidDisplayPrice = createSelector(selectBid, bid =>
+  numeral(bid.price).format(USD)
 );
 
 export const selectBidTotal = createSelector(
@@ -189,9 +183,8 @@ export const selectAskTimestamp = state => state.asks.ask.timestamp;
 export const selectAskPrice = state => state.asks.ask.price;
 export const selectAskLocation = state => state.asks.ask.location;
 export const selectAskOwner = state => state.asks.ask.owner;
-export const selectAskPostTime = createSelector(
-  selectAskTimestamp,
-  timestamp => moment(timestamp).fromNow()
+export const selectAskPostTime = createSelector(selectAskTimestamp, timestamp =>
+  moment(timestamp).fromNow()
 );
 export const selectAskCity = createSelector(
   selectAskLocation,
@@ -209,9 +202,8 @@ export const selectAskState = createSelector(
     find(item => item.types.includes(ADMIN_1) && item.types.includes(POLITICAL))
   )
 );
-export const selectAskDisplayPrice = createSelector(
-  selectAsk,
-  ask => numeral(ask.price).format(USD)
+export const selectAskDisplayPrice = createSelector(selectAsk, ask =>
+  numeral(ask.price).format(USD)
 );
 
 export const selectAskTotal = createSelector(
@@ -503,12 +495,13 @@ export const selectErrorMessage = state => state.errors.message;
 
 // Metrics
 export const selectCurrencyNames = state => state.metrics.currencies;
-export const selectCurrencyNamesLoaded = state => state.metrics.currenciesLoaded;
+export const selectCurrencyNamesLoaded = state =>
+  state.metrics.currenciesLoaded;
 export const selectCurrencyItems = createSelector(
   selectCurrencyNames,
   fpMap(item => ({
     label: `${item.currencyName} - ${item.currencySymbol}`,
-    value: item.currencySymbol,
+    value: item.currencySymbol
   }))
 );
 export const selectLastPrice = state => state.metrics.lastPrice;

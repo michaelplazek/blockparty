@@ -8,7 +8,7 @@ import {
   RESET_ASK,
   SET_ASK_USE_CURRENT_LOCATION,
   SET_ASK_CONTACT_INFO,
-  SET_ASK_VOLUME_IN_USD,
+  SET_ASK_VOLUME_IN_USD
 } from "../actions";
 
 const initialState = {

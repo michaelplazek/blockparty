@@ -3,16 +3,15 @@ import { compose } from "recompose";
 
 import withStyles from "@material-ui/core/styles/withStyles";
 
-import { selectFilterCoin } from "../../selectors";
+import { selectCurrencyItems, selectFilterCoin } from "../../selectors";
 import mapper from "../../utils/connect";
 import InputLabel from "@material-ui/core/InputLabel/InputLabel";
 import Select from "@material-ui/core/Select/Select";
-import coins from "../../constants/coins";
 
 import FormControl from "@material-ui/core/FormControl/FormControl";
 import { setFilterCoin } from "../../actions/filters";
 
-const styles = theme => ({
+const styles = () => ({
   root: {
     height: "60px",
     borderBottom: "1px #CCC solid"
@@ -23,7 +22,7 @@ const styles = theme => ({
   }
 });
 
-const ChartHeader = ({ classes, coin, setFilterCoin, onSelect }) => (
+const ChartHeader = ({ classes, coin, coins, setFilterCoin, onSelect }) => (
   <div className={classes.root}>
     <FormControl margin="dense" className={classes.form} variant="standard">
       <InputLabel>Select coin</InputLabel>
@@ -36,8 +35,8 @@ const ChartHeader = ({ classes, coin, setFilterCoin, onSelect }) => (
         }}
       >
         {coins.map(item => (
-          <option key={item} value={item}>
-            {item}
+          <option key={item.value} value={item.value}>
+            {item.label}
           </option>
         ))}
       </Select>
@@ -46,7 +45,8 @@ const ChartHeader = ({ classes, coin, setFilterCoin, onSelect }) => (
 );
 
 const propMap = {
-  coin: selectFilterCoin
+  coin: selectFilterCoin,
+  coins: selectCurrencyItems
 };
 
 const actionMap = {

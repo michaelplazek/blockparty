@@ -1,5 +1,5 @@
 import React from "react";
-import { compose, withHandlers, withState } from "recompose";
+import { compose, withHandlers, withState, lifecycle } from "recompose";
 import withStyles from "@material-ui/core/styles/withStyles";
 import mapper from "../../../utils/connect";
 

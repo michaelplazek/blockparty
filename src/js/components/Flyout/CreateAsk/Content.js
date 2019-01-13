@@ -1,5 +1,6 @@
 import React from "react";
 import { compose, lifecycle, withHandlers } from "recompose";
+import numeral from "numeral";
 
 import { TextValidator } from "react-material-ui-form-validator";
 import FormControl from "@material-ui/core/FormControl/FormControl";
@@ -18,7 +19,10 @@ import {
   selectAskFormPrice,
   selectFormattedAskFormPrice,
   selectCurrentLocation,
-  selectAskFormVolumeInUSD, selectFormattedAskFormVolume, selectCurrencyItems, selectLastPrice
+  selectAskFormVolumeInUSD,
+  selectFormattedAskFormVolume,
+  selectCurrencyItems,
+  selectLastPrice
 } from "../../../selectors";
 import mapper from "../../../utils/connect";
 import {
@@ -28,22 +32,24 @@ import {
   setAskLatitude as setAskLatitudeAction,
   setAskLongitude as setAskLongitudeAction,
   setAskUseCurrentLocation as setAskUseCurrentLocationAction,
-  setAskContactInfo, setAskVolumeInUSD
+  setAskContactInfo,
+  setAskVolumeInUSD
 } from "../../../actions/createAsk";
 import FormControlLabel from "@material-ui/core/FormControlLabel/FormControlLabel";
 import Switch from "@material-ui/core/Switch/Switch";
 import LocationSelector from "../../LocationSelector";
 import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
 import { getMinimalUnit } from "../../../utils/validate";
-import {loadLastPrice} from "../../../actions/metrics";
+import { loadLastPrice } from "../../../actions/metrics";
+import { COST, USD_DECIMALS } from "../../../constants/currency";
 
 const CreateAskContent = ({
   index,
   checked,
   toggle,
   coin,
-                            coins,
-                            lastPrice,
+  coins,
+  lastPrice,
   volume,
   volumeInUSD,
   price,
@@ -63,7 +69,7 @@ const CreateAskContent = ({
   setAskContactInfo,
   setAskVolumeInUSD,
   currentLocation,
-  loadLastPrice,
+  loadLastPrice
 }) => {
   switch (index) {
     case 0:
@@ -74,7 +80,9 @@ const CreateAskContent = ({
             native
             value={coin}
             onChange={({ target }) => {
-              loadLastPrice(target.value);
+              loadLastPrice(target.value).then(response => {
+                setAskPrice(numeral(response.data).format(COST));
+              });
               setAskCoin(target.value);
             }}
           >
@@ -89,7 +97,9 @@ const CreateAskContent = ({
     case 1:
       return (
         <FormControl margin="dense" fullWidth={true}>
-          <Typography variant='caption'>{`Suggested price: ${lastPrice}`}</Typography>
+          <Typography variant="caption">{`Suggested price: ${numeral(
+            lastPrice
+          ).format(USD_DECIMALS)}`}</Typography>
           <TextValidator
             id="price"
             name="price"
@@ -151,7 +161,7 @@ const CreateAskContent = ({
                 name="volumeInUSD"
                 value={volumeInUSD}
                 onChange={({ target }) => {
-                  const total = (target.value/price).toFixed(8);
+                  const total = (target.value / price).toFixed(8);
                   setAskVolumeInUSD(target.value);
                   setAskVolume(total);
                 }}
@@ -245,7 +255,7 @@ const propMap = {
   useCurrentLocation: selectAskUseCurrentLocation,
   currentLocation: selectCurrentLocation,
   volumeInUSD: selectAskFormVolumeInUSD,
-  lastPrice: selectLastPrice,
+  lastPrice: selectLastPrice
 };
 
 const actionMap = {

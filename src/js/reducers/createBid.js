@@ -8,7 +8,7 @@ import {
   SET_BID_LONGITUDE,
   SET_BID_USE_CURRENT_LOCATION,
   SET_BID_CONTACT_INFO,
-  SET_BID_VOLUME_IN_USD,
+  SET_BID_VOLUME_IN_USD
 } from "../actions";
 
 const initialState = {

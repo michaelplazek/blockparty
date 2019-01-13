@@ -1,15 +1,10 @@
 import { stateReducer } from "./utils";
-import numeral from 'numeral';
-import {
-  CURRENCY_NAMES_LOAD,
-  LAST_PRICE_LOAD
-} from "../actions";
-import {USD_DECIMALS} from "../constants/currency";
+import { CURRENCY_NAMES_LOAD, LAST_PRICE_LOAD } from "../actions";
 
 const initialState = {
   currencies: [],
   currenciesLoaded: false,
-  lastPrice: '',
+  lastPrice: ""
 };
 
 const handlers = {
@@ -18,7 +13,7 @@ const handlers = {
     currenciesLoaded: true
   }),
   [LAST_PRICE_LOAD]: (state, action) => ({
-    lastPrice: numeral(action.data).format(USD_DECIMALS),
+    lastPrice: action.data
   })
 };
 
