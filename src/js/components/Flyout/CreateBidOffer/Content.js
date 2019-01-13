@@ -24,6 +24,7 @@ import {
 } from "../../../actions/createOffer";
 import withStyles from "@material-ui/core/styles/withStyles";
 import {
+  selectBidCoin,
   selectBidOfferTotalInUSD,
   selectBidVolume,
   selectFormattedBidOfferTotalInUSD
@@ -167,7 +168,7 @@ const CreateBidOfferContent = ({
 };
 
 const propMap = {
-  coin: selectBidFormCoin,
+  coin: selectBidCoin,
   max: selectBidVolume,
   volume: selectOfferFormVolume,
   volumeInUSD: selectOfferFormVolumeInUSD,
