@@ -35,7 +35,9 @@ const DetailBox = ({ post, classes, time, onClick }) => (
       <Grid item>
         <Grid container direction="row">
           <Grid item className={classes.heading}>
-            <Typography variant="h3">{post.isBid ? "Buy" : "Sell"} {post.volume}</Typography>
+            <Typography variant="h3">
+              {post.isBid ? "Buy" : "Sell"} {post.volume}
+            </Typography>
           </Grid>
           <Grid item>
             <Typography variant="headline" className={classes.coin}>

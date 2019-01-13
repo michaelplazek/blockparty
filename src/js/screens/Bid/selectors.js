@@ -19,14 +19,11 @@ export const selectPriceDetail = createSelector(
   })
 );
 
-export const selectTotalDetail = createSelector(
-  selectBidTotal,
-  total => ({
-    name: "Total",
-    value: total,
-    onClick: undefined
-  })
-);
+export const selectTotalDetail = createSelector(selectBidTotal, total => ({
+  name: "Total",
+  value: total,
+  onClick: undefined
+}));
 
 export const selectLocationDetail = createSelector(
   selectBidCity,
@@ -38,14 +35,11 @@ export const selectLocationDetail = createSelector(
   })
 );
 
-export const selectSellerDetail = createSelector(
-  selectBidOwner,
-  owner => ({
-    name: "Buyer",
-    value: owner,
-    onClick: undefined
-  })
-);
+export const selectSellerDetail = createSelector(selectBidOwner, owner => ({
+  name: "Buyer",
+  value: owner,
+  onClick: undefined
+}));
 
 export const selectLastUpdatedDetail = createSelector(
   selectBidPostTime,

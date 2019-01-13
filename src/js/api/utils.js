@@ -64,8 +64,9 @@ export const wrappedFetchWithParams = (
       : fetch(newUrl, { method: "GET", Authorization: `Bearer ${token}` });
 
   return promise
-    .then(response =>
-      response.ok ? Promise.resolve(response) : Promise.reject(response)
+    .then(
+      response =>
+        response.ok ? Promise.resolve(response) : Promise.reject(response)
     )
     .then(response => {
       if (response.status === 200) {
@@ -86,8 +87,9 @@ export const fetchToken = token => {
   });
 
   return promise
-    .then(response =>
-      response.ok ? Promise.resolve(response) : Promise.reject(response)
+    .then(
+      response =>
+        response.ok ? Promise.resolve(response) : Promise.reject(response)
     )
     .then(response => {
       if (response.status === 200) {
@@ -103,15 +105,15 @@ export const fetchFromBlocktap = query => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${process.env.BLOCKTAP_TOKEN}`
-
+      Authorization: `Bearer ${process.env.BLOCKTAP_TOKEN}`
     },
-    body: JSON.stringify(query),
+    body: JSON.stringify(query)
   });
 
   return promise
-    .then(response =>
-      response.ok ? Promise.resolve(response) : Promise.reject(response)
+    .then(
+      response =>
+        response.ok ? Promise.resolve(response) : Promise.reject(response)
     )
     .then(response => {
       if (response.status === 200) {

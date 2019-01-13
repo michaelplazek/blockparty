@@ -31,7 +31,7 @@ import {
   loadMyAsks as loadMyAsksAction
 } from "../../../actions/asks";
 import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
-import {resetAsk as resetAskAction} from "../../../actions/createAsk";
+import { resetAsk as resetAskAction } from "../../../actions/createAsk";
 import { ValidatorForm } from "react-material-ui-form-validator";
 import { cleanInputs } from "../../../constants/validation";
 
@@ -128,14 +128,14 @@ const propMap = {
   lng: selectAskLongitude,
   username: selectUsername,
   userId: selectUserId,
-  contactInfo: selectAskFormContactInfo,
+  contactInfo: selectAskFormContactInfo
 };
 
 const actionMap = {
   createAsk: createAskAction,
   loadMyAsks: loadMyAsksAction,
   setLayerOpen: setLayerOpenAction,
-  resetAsk: resetAskAction,
+  resetAsk: resetAskAction
 };
 
 export default compose(
@@ -190,5 +190,5 @@ export default compose(
     },
     handleError: () => () => {},
     handleSubmit: () => () => {}
-  }),
+  })
 )(CreateAsk);

@@ -43,7 +43,7 @@ const styles = theme => ({
     position: "fixed",
     bottom: "7em",
     right: "2em",
-    background: theme.palette.createButton.background,
+    background: theme.palette.createButton.background
   }
 });
 
@@ -69,9 +69,10 @@ const Bid = ({
   >
     {loaded && (
       <div>
-        {open && layer === "poop" && (
-          <CreateBidOffer handleClose={() => {}} handleSubmit={() => {}} />
-        )}
+        {open &&
+          layer === "poop" && (
+            <CreateBidOffer handleClose={() => {}} handleSubmit={() => {}} />
+          )}
         <Grid>
           <Button
             style={theme.palette.inverse}

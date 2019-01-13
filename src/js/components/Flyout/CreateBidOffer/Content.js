@@ -10,13 +10,24 @@ import {
   selectBidOfferTotal,
   selectContactInfo,
   selectOfferFormVolume,
-  selectBidDisplayPrice, selectOfferFormVolumeInUSD, selectFormattedOfferFormVolume, selectBidPrice
+  selectBidDisplayPrice,
+  selectOfferFormVolumeInUSD,
+  selectFormattedOfferFormVolume,
+  selectBidPrice
 } from "../../../selectors/index";
 import mapper from "../../../utils/connect";
 import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
-import {setContactInfo, setOfferVolume, setOfferVolumeInUSD} from "../../../actions/createOffer";
+import {
+  setContactInfo,
+  setOfferVolume,
+  setOfferVolumeInUSD
+} from "../../../actions/createOffer";
 import withStyles from "@material-ui/core/styles/withStyles";
-import {selectBidOfferTotalInUSD, selectBidVolume, selectFormattedBidOfferTotalInUSD} from "../../../selectors";
+import {
+  selectBidOfferTotalInUSD,
+  selectBidVolume,
+  selectFormattedBidOfferTotalInUSD
+} from "../../../selectors";
 import { getMinimalUnit } from "../../../utils/validate";
 
 const styles = () => ({
@@ -42,7 +53,7 @@ const CreateBidOfferContent = ({
   setOfferVolumeInUSD,
   setContactInfo,
   totalInUSD,
-                                 totalFormattedInUSD,
+  totalFormattedInUSD
 }) => {
   switch (index) {
     case 0:
@@ -88,9 +99,9 @@ const CreateBidOfferContent = ({
                   name="volumeInUSD"
                   value={volumeInUSD}
                   onChange={({ target }) => {
-                    const total = (target.value/price).toFixed(8);
-                    console.log('price', price);
-                    console.log('value', target.value);
+                    const total = (target.value / price).toFixed(8);
+                    console.log("price", price);
+                    console.log("value", target.value);
 
                     setOfferVolumeInUSD(target.value);
                     setOfferVolume(total);
@@ -166,13 +177,13 @@ const propMap = {
   price: selectBidPrice,
   total: selectBidOfferTotal,
   totalInUSD: selectBidOfferTotalInUSD,
-  totalFormattedInUSD: selectFormattedBidOfferTotalInUSD,
+  totalFormattedInUSD: selectFormattedBidOfferTotalInUSD
 };
 
 const actionMap = {
   setOfferVolume,
   setContactInfo,
-  setOfferVolumeInUSD,
+  setOfferVolumeInUSD
 };
 
 export default compose(

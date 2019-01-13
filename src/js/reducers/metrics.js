@@ -1,13 +1,10 @@
 import { stateReducer } from "./utils";
-import {
-  CURRENCY_NAMES_LOAD,
-  LAST_PRICE_LOAD
-} from "../actions";
+import { CURRENCY_NAMES_LOAD, LAST_PRICE_LOAD } from "../actions";
 
 const initialState = {
   currencies: [],
   currenciesLoaded: false,
-  lastPrice: '',
+  lastPrice: ""
 };
 
 const handlers = {
@@ -16,7 +13,7 @@ const handlers = {
     currenciesLoaded: true
   }),
   [LAST_PRICE_LOAD]: (state, action) => ({
-    lastPrice: action.data,
+    lastPrice: action.data
   })
 };
 

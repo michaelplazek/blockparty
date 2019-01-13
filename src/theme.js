@@ -1,5 +1,5 @@
-import {createMuiTheme} from "@material-ui/core";
-import {indigo} from "@material-ui/core/colors";
+import { createMuiTheme } from "@material-ui/core";
+import { indigo } from "@material-ui/core/colors";
 
 export default createMuiTheme({
   palette: {
@@ -21,7 +21,7 @@ export default createMuiTheme({
     },
     errorButton: {
       background: "#C62828",
-      color: "#f2f2f2",
+      color: "#f2f2f2"
     },
     submitButton: {
       background: "#357a38",
@@ -33,11 +33,11 @@ export default createMuiTheme({
     },
     disabledErrorButton: {
       background: "#E57373",
-      color: "#f2f2f2",
+      color: "#f2f2f2"
     },
     disabledSubmitButton: {
       background: "#A5D6A7",
-      color: "#f2f2f2",
+      color: "#f2f2f2"
     }
   },
   typography: {

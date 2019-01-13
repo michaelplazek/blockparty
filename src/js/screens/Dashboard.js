@@ -60,11 +60,11 @@ import OfferDetails from "../components/Flyout/OfferDetails";
 import { loadTransaction, loadTransactions } from "../actions/transactions";
 import TransactionDetails from "../components/Flyout/TransactionDetail";
 import withLocation from "../HOCs/withLocation";
-import {loadLastPrice} from "../actions/metrics";
-import {setBidPrice} from "../actions/createBid";
-import {setAskPrice} from "../actions/createAsk";
+import { loadLastPrice } from "../actions/metrics";
+import { setBidPrice } from "../actions/createBid";
+import { setAskPrice } from "../actions/createAsk";
 import numeral from "numeral";
-import {COST} from "../constants/currency";
+import { COST } from "../constants/currency";
 
 const styles = () => ({
   root: {
@@ -109,7 +109,7 @@ const Dashboard = ({
   handleTransactionClick,
   loadLastPrice,
   setAskPrice,
-  setBidPrice,
+  setBidPrice
 }) => (
   <div className={classes.root}>
     {layer === "CREATE_ASK" && <CreateAsk />}
@@ -182,8 +182,9 @@ const Dashboard = ({
               className={classes.buttons}
               variant="extendedFab"
               onClick={() => {
-                loadLastPrice("BTC")
-                  .then(response => setBidPrice(numeral(response.data).format(COST)));
+                loadLastPrice("BTC").then(response =>
+                  setBidPrice(numeral(response.data).format(COST))
+                );
                 setLayer("CREATE_BID");
                 setLayerOpen(true);
               }}
@@ -194,8 +195,9 @@ const Dashboard = ({
               className={classes.buttons}
               variant="extendedFab"
               onClick={() => {
-                loadLastPrice("BTC")
-                  .then(response => setAskPrice(numeral(response.data).format(COST)));
+                loadLastPrice("BTC").then(response =>
+                  setAskPrice(numeral(response.data).format(COST))
+                );
                 setLayer("CREATE_ASK");
                 setLayerOpen(true);
               }}
@@ -254,7 +256,7 @@ const actionMap = {
   loadTransaction,
   loadLastPrice,
   setAskPrice,
-  setBidPrice,
+  setBidPrice
 };
 
 export default compose(
@@ -283,7 +285,7 @@ export default compose(
       loadAsk,
       loadOffersByAsk,
       setLayer,
-      setLayerOpen,
+      setLayerOpen
     }) => ({ _id }) => {
       unloadOffers();
       loadAsk(_id).then(() => {
@@ -297,7 +299,7 @@ export default compose(
       loadBid,
       loadOffersByBid,
       setLayer,
-      setLayerOpen,
+      setLayerOpen
     }) => ({ _id }) => {
       unloadOffers();
       loadBid(_id).then(() => {

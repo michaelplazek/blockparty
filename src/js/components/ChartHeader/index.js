@@ -3,7 +3,7 @@ import { compose } from "recompose";
 
 import withStyles from "@material-ui/core/styles/withStyles";
 
-import {selectCurrencyItems, selectFilterCoin} from "../../selectors";
+import { selectCurrencyItems, selectFilterCoin } from "../../selectors";
 import mapper from "../../utils/connect";
 import InputLabel from "@material-ui/core/InputLabel/InputLabel";
 import Select from "@material-ui/core/Select/Select";
@@ -46,7 +46,7 @@ const ChartHeader = ({ classes, coin, coins, setFilterCoin, onSelect }) => (
 
 const propMap = {
   coin: selectFilterCoin,
-  coins: selectCurrencyItems,
+  coins: selectCurrencyItems
 };
 
 const actionMap = {

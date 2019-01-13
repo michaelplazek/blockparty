@@ -20,7 +20,11 @@ import {
 } from "../../../selectors";
 import mapper from "../../../utils/connect";
 import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
-import {setContactInfo, setOfferVolume, setOfferVolumeInUSD} from "../../../actions/createOffer";
+import {
+  setContactInfo,
+  setOfferVolume,
+  setOfferVolumeInUSD
+} from "../../../actions/createOffer";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { getMinimalUnit } from "../../../utils/validate";
 import { setError } from "../../../actions/errors";
@@ -37,19 +41,19 @@ const CreateAskContent = ({
   classes,
   coin,
   volume,
-                            volumeInUSD,
-                            formattedVolume,
+  volumeInUSD,
+  formattedVolume,
   price,
-                            formattedPrice,
+  formattedPrice,
   total,
   max,
   contactInfo,
   setOfferVolume,
-                            setOfferVolumeInUSD,
+  setOfferVolumeInUSD,
   setContactInfo,
-                            totalInUSD,
-                            totalFormattedInUSD,
-                          }) => {
+  totalInUSD,
+  totalFormattedInUSD
+}) => {
   switch (index) {
     case 0:
       return (
@@ -94,9 +98,9 @@ const CreateAskContent = ({
                   name="volumeInUSD"
                   value={volumeInUSD}
                   onChange={({ target }) => {
-                    const total = (target.value/price).toFixed(8);
-                    console.log('price', price);
-                    console.log('value', target.value);
+                    const total = (target.value / price).toFixed(8);
+                    console.log("price", price);
+                    console.log("value", target.value);
 
                     setOfferVolumeInUSD(target.value);
                     setOfferVolume(total);

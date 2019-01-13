@@ -19,14 +19,11 @@ export const selectPriceDetail = createSelector(
   })
 );
 
-export const selectTotalDetail = createSelector(
-  selectAskTotal,
-  total => ({
-    name: "Total",
-    value: total,
-    onClick: undefined
-  })
-);
+export const selectTotalDetail = createSelector(selectAskTotal, total => ({
+  name: "Total",
+  value: total,
+  onClick: undefined
+}));
 
 export const selectLocationDetail = createSelector(
   selectAskCity,
@@ -38,14 +35,11 @@ export const selectLocationDetail = createSelector(
   })
 );
 
-export const selectSellerDetail = createSelector(
-  selectAskOwner,
-  owner => ({
-    name: "Seller",
-    value: owner,
-    onClick: undefined
-  })
-);
+export const selectSellerDetail = createSelector(selectAskOwner, owner => ({
+  name: "Seller",
+  value: owner,
+  onClick: undefined
+}));
 
 export const selectLastUpdatedDetail = createSelector(
   selectAskPostTime,

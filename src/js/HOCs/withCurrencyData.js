@@ -2,8 +2,8 @@ import React from "react";
 import { compose, lifecycle } from "recompose";
 import { withRouter } from "react-router";
 import mapper from "../utils/connect";
-import {selectCurrencyNamesLoaded} from "../selectors";
-import {loadCurrencyNames} from "../actions/metrics";
+import { selectCurrencyNamesLoaded } from "../selectors";
+import { loadCurrencyNames } from "../actions/metrics";
 
 export default Component => {
   const DataHOC = props => {
@@ -15,11 +15,11 @@ export default Component => {
   };
 
   const propMap = {
-    loaded: selectCurrencyNamesLoaded,
+    loaded: selectCurrencyNamesLoaded
   };
 
   const actionMap = {
-    loadCurrencyNames,
+    loadCurrencyNames
   };
 
   return compose(
@@ -27,7 +27,7 @@ export default Component => {
     withRouter,
     lifecycle({
       componentDidMount() {
-        if(!this.props.loaded) {
+        if (!this.props.loaded) {
           this.props.loadCurrencyNames();
         }
       }

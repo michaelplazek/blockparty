@@ -23,7 +23,7 @@ import Grid from "@material-ui/core/Grid/Grid";
 import FormControl from "@material-ui/core/FormControl/FormControl";
 import InputLabel from "@material-ui/core/InputLabel/InputLabel";
 import Select from "@material-ui/core/Select/Select";
-import {selectCurrencyItems, selectFilterType} from "../../../selectors";
+import { selectCurrencyItems, selectFilterType } from "../../../selectors";
 import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
 import Button from "@material-ui/core/Button/Button";
 import { cleanInputs, DISTANCE } from "../../../constants/validation";
@@ -48,10 +48,7 @@ const FilterMap = ({
   coins,
   type
 }) => (
-  <Flyout
-    size={3}
-    onClose={() => setLayerOpen(false)}
-  >
+  <Flyout size={3} onClose={() => setLayerOpen(false)}>
     <Grid className={classes.root}>
       <ValidatorForm autoComplete="on" onSubmit={handleSubmit}>
         <FormControl margin="dense" fullWidth={true}>
