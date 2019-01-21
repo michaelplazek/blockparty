@@ -235,7 +235,7 @@ const propMap = {
   numberOfOffers: selectNumberOfMyOffers,
   numberOfTransactions: selectNumberOfMyTransactions,
   loaded: selectDashboardLoaded,
-  footerHeight: selectNavHeight
+  footerHeight: selectNavHeight,
 };
 
 const actionMap = {
@@ -309,16 +309,18 @@ export default compose(
       });
     },
     handleOfferClick: ({ loadOffer, setLayer, setLayerOpen }) => ({ _id }) => {
-      loadOffer(_id);
-      setLayer("VIEW_OFFER");
-      setLayerOpen(true);
+      loadOffer(_id).then(() => {
+        setLayer("VIEW_OFFER");
+        setLayerOpen(true);
+      });
     },
     handleTransactionClick: ({ loadTransaction, setLayer, setLayerOpen }) => ({
       _id
     }) => {
-      loadTransaction(_id);
-      setLayer("VIEW_TRANSACTION");
-      setLayerOpen(true);
+      loadTransaction(_id).then(() => {
+        setLayer("VIEW_TRANSACTION");
+        setLayerOpen(true);
+      });
     }
   }),
   withLocation,
