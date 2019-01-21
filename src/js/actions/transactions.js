@@ -22,7 +22,7 @@ export const unloadTransactions = () => dispatch =>
 export const loadTransaction = id => dispatch =>
   wrappedFetchWithParams("transaction", undefined, "GET", `/${id}`).then(
     response => {
-      dispatch({ type: LOAD_TRANSACTION, data: response });
+      if (response) dispatch({ type: LOAD_TRANSACTION, data: response });
     }
   );
 

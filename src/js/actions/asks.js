@@ -26,7 +26,7 @@ export const unloadAsks = () => dispatch => dispatch({ type: UNLOAD_ASKS });
 export const loadAsk = id => dispatch =>
   wrappedFetchWithParams("ask", undefined, "GET", `?id=${id}`).then(
     response => {
-      dispatch({ type: LOAD_ASK, data: response });
+      if (response) dispatch({ type: LOAD_ASK, data: response });
     }
   );
 

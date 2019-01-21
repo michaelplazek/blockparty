@@ -19,7 +19,7 @@ export const loadOffersByUser = id => dispatch =>
 export const loadOffer = id => dispatch =>
   wrappedFetchWithParams("offer", undefined, "GET", `?id=${id}`).then(
     response => {
-      dispatch({ type: LOAD_OFFER, data: response });
+      if (response) dispatch({ type: LOAD_OFFER, data: response });
     }
   );
 
