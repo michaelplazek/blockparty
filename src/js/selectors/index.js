@@ -500,8 +500,8 @@ export const selectCurrencyNamesLoaded = state =>
 export const selectCurrencyItems = createSelector(
   selectCurrencyNames,
   fpMap(item => ({
-    label: `${item.currencyName} - ${item.currencySymbol}`,
-    value: item.currencySymbol
+    label: `${item.assetName} - ${item.assetSymbol}`,
+    value: item.assetSymbol
   }))
 );
 export const selectLastPrice = state => state.metrics.lastPrice;
