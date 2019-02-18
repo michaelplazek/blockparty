@@ -3,10 +3,10 @@ import { fetchFromBlocktap } from "../api/utils";
 
 export const loadCurrencyNames = () => dispatch => {
   const query = {
-    query: `query all { currencies(sort: { marketCap: DESC }) { currencyName currencySymbol } }`
+    query: `query all { assets(sort: { marketCap: DESC }) { assetName assetSymbol } }`
   };
   return fetchFromBlocktap(query).then(response =>
-    dispatch({ type: CURRENCY_NAMES_LOAD, data: response.data.currencies })
+    dispatch({ type: CURRENCY_NAMES_LOAD, data: response.data.assets })
   );
 };
 
