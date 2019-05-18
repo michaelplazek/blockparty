@@ -57,17 +57,17 @@ class Market extends Component {
           showSubheader={true}
           subheader={<Subheader />}
         />
+        <Chart
+          height={(windowHeight - navHeight - headerHeight)/2}
+          markerLocation={navHeight}
+          width={windowWidth}
+        />
         <GoogleMapsWrapper
           currentLocation={currentLocation}
           showLabels={true}
           markers={markers}
           onMarkerClick={handleMarkerClick}
           height={(windowHeight - navHeight - headerHeight)/2}
-        />
-        <Chart
-          height={(windowHeight - navHeight - headerHeight)/2}
-          markerLocation={(windowHeight)/2}
-          width={windowWidth}
         />
       </div>
     );

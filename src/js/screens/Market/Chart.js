@@ -70,7 +70,7 @@ const Chart = ({
           price={touched ? price : midMarketPrice}
           askInfo={askInfo}
           bidInfo={bidInfo}
-          top={markerLocation + 40}
+          top={markerLocation + 50}
         />
         <AnalysisChart
           data={chartData}
