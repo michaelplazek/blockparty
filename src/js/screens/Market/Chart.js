@@ -1,5 +1,5 @@
 import React from "react";
-import { compose, withHandlers, withState, lifecycle } from "recompose";
+import { compose, withHandlers, withState } from "recompose";
 import { withRouter } from "react-router";
 import get from "lodash/fp/get";
 import mapper from "../../utils/connect";
@@ -29,7 +29,6 @@ import { setMarketView as setMarketViewAction } from "../../actions/app";
 import AnalysisChart from "../../components/AnalysisChart";
 import PriceMarker from "../../components/AnalysisChart/PriceMarker";
 import Placeholder from "../../components/AnalysisChart/Placeholder";
-import withDimensions from "../../HOCs/withDimensions";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { setFilterPrice } from "../../actions/filters";
 import {
@@ -37,7 +36,6 @@ import {
   selectMidMarketPrice,
   selectHasData
 } from "../../components/AnalysisChart/selectors";
-import GoogleMapsWrapper from "../../components/GoogleMaps/GoogleMapsWrapper";
 
 const styles = () => ({
   actionButton: {

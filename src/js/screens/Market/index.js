@@ -25,8 +25,6 @@ import withLoader from "../../HOCs/withLoader";
 import { setMarketView as setMarketViewAction } from "../../actions/app";
 import { CHART } from "../../constants/app";
 import withLocation from "../../HOCs/withLocation";
-import PriceMarker from "../../components/AnalysisChart/PriceMarker";
-import AnalysisChart from "../../components/AnalysisChart";
 import Chart from "./Chart";
 
 class Market extends Component {
@@ -42,7 +40,6 @@ class Market extends Component {
       windowHeight,
       windowWidth,
       handleMarkerClick,
-      handleMarketView,
       currentLocation
     } = this.props;
 
@@ -52,8 +49,6 @@ class Market extends Component {
         <PageHeader
           leftHandLabel="Market"
           leftHandAction={() => this.props.setLayerOpen(true)}
-          rightHandAction={handleMarketView}
-          rightHandButton="Go to chart view"
           showSubheader={true}
           subheader={<Subheader />}
         />

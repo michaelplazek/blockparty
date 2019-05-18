@@ -5,7 +5,7 @@ import Typography from "@material-ui/core/Typography/Typography";
 import { USD } from "../../constants/currency";
 import Grid from "@material-ui/core/Grid/Grid";
 
-const PriceMarker = ({ classes, price, askInfo, bidInfo, top }) => (
+const PriceMarker = ({ price, askInfo, bidInfo, top }) => (
   <Grid
     container
     justify="center"
