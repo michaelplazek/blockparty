@@ -8,7 +8,7 @@ const Placeholder = ({ classes, label, top }) => (
     container
     justify="center"
     style={{
-      position: "absolute",
+      position: "relative",
       top: `${top}px`,
       zIndex: 1000
     }}

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { compose, lifecycle, withHandlers } from "recompose";
 import { withRouter } from "react-router";
-import mapper from "../utils/connect";
+import mapper from "../../utils/connect";
 
 import {
   selectHeaderHeight,
@@ -11,20 +11,23 @@ import {
   selectBidsForDisplay,
   selectFilterType,
   selectMarketLoaded
-} from "../selectors";
-import { loadAsks as loadAsksAction } from "../actions/asks";
-import { loadBids as loadBidsAction } from "../actions/bids";
-import { setLayerOpen as setLayerOpenAction } from "../actions/layers";
+} from "../../selectors";
+import { loadAsks as loadAsksAction } from "../../actions/asks";
+import { loadBids as loadBidsAction } from "../../actions/bids";
+import { setLayerOpen as setLayerOpenAction } from "../../actions/layers";
 
-import Subheader from "../components/Subheader";
-import GoogleMapsWrapper from "../components/GoogleMaps/GoogleMapsWrapper";
-import PageHeader from "../components/PageHeader";
-import FilterMap from "../components/Flyout/FilterMap/index";
-import withDimensions from "../HOCs/withDimensions";
-import withLoader from "../HOCs/withLoader";
-import { setMarketView as setMarketViewAction } from "../actions/app";
-import { CHART } from "../constants/app";
-import withLocation from "../HOCs/withLocation";
+import Subheader from "../../components/Subheader";
+import GoogleMapsWrapper from "../../components/GoogleMaps/GoogleMapsWrapper";
+import PageHeader from "../../components/PageHeader";
+import FilterMap from "../../components/Flyout/FilterMap";
+import withDimensions from "../../HOCs/withDimensions";
+import withLoader from "../../HOCs/withLoader";
+import { setMarketView as setMarketViewAction } from "../../actions/app";
+import { CHART } from "../../constants/app";
+import withLocation from "../../HOCs/withLocation";
+import PriceMarker from "../../components/AnalysisChart/PriceMarker";
+import AnalysisChart from "../../components/AnalysisChart";
+import Chart from "./Chart";
 
 class Market extends Component {
   constructor(props) {
@@ -37,6 +40,7 @@ class Market extends Component {
       navHeight,
       headerHeight,
       windowHeight,
+      windowWidth,
       handleMarkerClick,
       handleMarketView,
       currentLocation
@@ -58,7 +62,12 @@ class Market extends Component {
           showLabels={true}
           markers={markers}
           onMarkerClick={handleMarkerClick}
-          height={windowHeight - navHeight - headerHeight}
+          height={(windowHeight - navHeight - headerHeight)/2}
+        />
+        <Chart
+          height={(windowHeight - navHeight - headerHeight)/2}
+          markerLocation={(windowHeight)/2}
+          width={windowWidth}
         />
       </div>
     );
