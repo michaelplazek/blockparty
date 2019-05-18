@@ -13,7 +13,7 @@ import {
   selectMarketLoaded
 } from "../../selectors";
 import { loadAsks as loadAsksAction } from "../../actions/asks";
-import { loadBids as loadBidsAction } from "../../actions/bids";
+import {loadBid, loadBids as loadBidsAction} from "../../actions/bids";
 import { setLayerOpen as setLayerOpenAction } from "../../actions/layers";
 
 import Subheader from "../../components/Subheader";
@@ -26,6 +26,7 @@ import { setMarketView as setMarketViewAction } from "../../actions/app";
 import { CHART } from "../../constants/app";
 import withLocation from "../../HOCs/withLocation";
 import Chart from "./Chart";
+import withPolling from "../../HOCs/withPolling";
 
 class Market extends Component {
   constructor(props) {
@@ -109,5 +110,12 @@ export default compose(
     }
   }),
   withLocation,
-  withLoader
+  withLoader,
+  withPolling(({
+    loadAsks,
+    loadBids,
+  }) => {
+    loadAsks();
+    loadBids();
+  }, 5000)
 )(Market);
