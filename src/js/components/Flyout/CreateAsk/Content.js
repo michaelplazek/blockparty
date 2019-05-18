@@ -42,11 +42,10 @@ import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
 import { getMinimalUnit } from "../../../utils/validate";
 import { loadLastPrice } from "../../../actions/metrics";
 import { COST, USD_DECIMALS } from "../../../constants/currency";
+import SelectCoin from "./SelectCoin";
 
 const CreateAskContent = ({
   index,
-  checked,
-  toggle,
   coin,
   coins,
   lastPrice,
@@ -69,31 +68,13 @@ const CreateAskContent = ({
   setAskContactInfo,
   setAskVolumeInUSD,
   currentLocation,
-  loadLastPrice
+  loadLastPrice,
+  setAskLatitude,
+  setAskLongitude,
 }) => {
   switch (index) {
     case 0:
-      return (
-        <FormControl margin="dense" fullWidth={true}>
-          <Select
-            variant="outlined"
-            native
-            value={coin}
-            onChange={({ target }) => {
-              loadLastPrice(target.value).then(response => {
-                setAskPrice(numeral(response.data).format(COST));
-              });
-              setAskCoin(target.value);
-            }}
-          >
-            {coins.map(coin => (
-              <option key={coin.value} value={coin.value}>
-                {coin.label}
-              </option>
-            ))}
-          </Select>
-        </FormControl>
-      );
+      return <SelectCoin />;
     case 1:
       return (
         <FormControl margin="dense" fullWidth={true}>
@@ -289,10 +270,4 @@ export default compose(
       setAskLongitude(item.latLng.lng());
     }
   }),
-  lifecycle({
-    componentDidMount() {
-      this.props.setAskLatitude(this.props.currentLocation.lat);
-      this.props.setAskLongitude(this.props.currentLocation.lng);
-    }
-  })
 )(CreateAskContent);
