@@ -37,6 +37,7 @@ import {
   selectMidMarketPrice,
   selectHasData
 } from "../../components/AnalysisChart/selectors";
+import GoogleMapsWrapper from "../../components/GoogleMaps/GoogleMapsWrapper";
 
 const styles = () => ({
   actionButton: {
@@ -64,6 +65,7 @@ const Chart = ({
         style={{
           height,
           width,
+          borderBottom: 'solid #CCC 1px'
         }}
       >
         <PriceMarker
@@ -135,6 +137,7 @@ export default compose(
         setTouched(false);
         setAskInfo("Mid Market Price");
         setBidInfo(undefined);
+        setFilterPrice(undefined)
       } else {
         const { price, askVolume, bidVolume, askCount, bidCount } = payload;
         const askInfo =

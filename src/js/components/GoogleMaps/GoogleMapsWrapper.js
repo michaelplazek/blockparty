@@ -176,7 +176,7 @@ export default compose(
             bottom: props.locationFromBottom,
             height: props.height,
             border: props.border,
-            width: props.width
+            width: props.width,
           }}
         />
       ),
