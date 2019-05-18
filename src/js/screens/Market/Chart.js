@@ -57,15 +57,15 @@ const Chart = ({
   width,
   markerLocation,
 }) => (
-  <div>
+  <div
+    style={{
+      height,
+      width,
+      borderBottom: 'solid #CCC 1px'
+    }}
+  >
     {hasData && (
-      <div
-        style={{
-          height,
-          width,
-          borderBottom: 'solid #CCC 1px'
-        }}
-      >
+      <div>
         <PriceMarker
           price={touched ? price : midMarketPrice}
           askInfo={askInfo}
@@ -80,7 +80,12 @@ const Chart = ({
         />
       </div>
     )}
-    {!hasData && <Placeholder label="No Data" top={headerHeight + 25} />}
+    {!hasData && (
+      <Placeholder
+        label="No Available Sales"
+        top={headerHeight}
+      />
+    )}
   </div>
 );
 

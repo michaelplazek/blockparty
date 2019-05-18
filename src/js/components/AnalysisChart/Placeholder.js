@@ -10,13 +10,13 @@ const Placeholder = ({ classes, label, top }) => (
     style={{
       position: "relative",
       top: `${top}px`,
-      zIndex: 1000
+      zIndex: 1000,
     }}
   >
     <Grid item>
       <Grid container direction="column" alignItems="center">
         <Grid item>
-          <Typography variant="display1">{label}</Typography>
+          <Typography variant="subheading">{label}</Typography>
         </Grid>
       </Grid>
     </Grid>
