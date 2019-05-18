@@ -101,9 +101,6 @@ const CreateBidOfferContent = ({
                   value={volumeInUSD}
                   onChange={({ target }) => {
                     const total = (target.value / price).toFixed(6);
-                    console.log("price", price);
-                    console.log("value", target.value);
-
                     setOfferVolumeInUSD(target.value);
                     setOfferVolume(total);
                   }}

@@ -174,8 +174,8 @@ export default compose(
       setTimeout(() => {
         setLayerOpen(false);
         setActiveIndex(0);
+        resetAsk();
       }, 1500);
-      resetAsk();
     }
   }),
   withHandlers({

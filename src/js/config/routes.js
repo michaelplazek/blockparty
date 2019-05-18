@@ -6,7 +6,6 @@ import Dashboard from "../screens/Dashboard";
 import Login from "../screens/Login";
 import Register from "../screens/Register";
 import Account from "../screens/Account";
-import Analysis from "../screens/Analysis";
 import Settings from "../screens/Settings";
 import Oops from "../screens/Oops";
 
@@ -54,18 +53,11 @@ export const protectedRoutes = [
     index: 5
   },
   {
-    path: "/analysis",
-    exact: false,
-    protected: true,
-    component: Analysis,
-    index: 6
-  },
-  {
     path: "/settings",
     exact: false,
     protected: true,
     component: Settings,
-    index: 7
+    index: 6
   }
 ];
 

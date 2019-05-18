@@ -432,15 +432,42 @@ export const selectBidOfferButtonText = createSelector(
   hasOffer => (hasOffer ? "Waiting for reply" : "Make an offer")
 );
 
+export const selectIsWithinRange = createSelector(
+  selectFilter,
+  selectCurrentLocation,
+  (filters, currentLocation) => ask => {
+    const distance = getDistance(
+      { latitude: ask.lat, longitude: ask.lng },
+      { latitude: currentLocation.lat, longitude: currentLocation.lng }
+    );
+    const distanceInMiles = getMilesFromMeters(distance);
+    return distanceInMiles < filters.distanceAway;
+  },
+);
+
+export const selectIsWithinPrice = createSelector(
+  selectFilterPrice,
+  (price) => item => !item.isBid ?
+    item.price <= price || price === undefined :
+    item.price >= price || price === undefined
+);
+
 export const selectMapMarkers = createSelector(
   selectAsks,
   selectBids,
   selectFilter,
-  selectCurrentLocation,
-  (asks, bids, filters, currentLocation) => {
-    const items = filters.type === "ASK" ? asks : bids;
+  selectIsWithinPrice,
+  selectIsWithinRange,
+  (asks, bids, filters, withinPrice, withinRange) => {
+    let items;
+    if (filters.type === "ALL") {
+      items = asks.concat(bids);
+    } else {
+      items = filters.type === "ASK" ? asks : bids;
+    }
     return compose(
       fpMap(ask => ({
+        isBid: ask.isBid,
         lat: ask.lat,
         lng: ask.lng,
         id: ask._id,
@@ -448,15 +475,9 @@ export const selectMapMarkers = createSelector(
         volume: ask.volume,
         coin: ask.coin
       })),
-      filter(ask => {
-        const distance = getDistance(
-          { latitude: ask.lat, longitude: ask.lng },
-          { latitude: currentLocation.lat, longitude: currentLocation.lng }
-        );
-        const distanceInMiles = getMilesFromMeters(distance);
-        return distanceInMiles < filters.distanceAway;
-      }),
-      filter(ask => ask.coin === filters.coin)
+      filter(withinPrice),
+      filter(withinRange),
+      filter(item => item.coin === filters.coin)
     )(items);
   }
 );
@@ -467,7 +488,7 @@ export const selectMarketLoaded = createSelector(
   selectFilterType,
   (asksLoaded, bidsLoaded, locationLoaded, type) =>
     locationLoaded &&
-    ((asksLoaded && type === "ASK") || (bidsLoaded && type === "BID"))
+    ((asksLoaded && type === "ASK") || (bidsLoaded && type === "BID")) || (asksLoaded && bidsLoaded && type === "ALL")
 );
 
 export const selectDashboardLoaded = createSelector(

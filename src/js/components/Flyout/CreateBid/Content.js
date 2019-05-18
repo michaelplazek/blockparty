@@ -42,6 +42,7 @@ import { getMinimalUnit } from "../../../utils/validate";
 import { loadLastPrice } from "../../../actions/metrics";
 import numeral from "numeral";
 import { COST, USD_DECIMALS } from "../../../constants/currency";
+import SelectCoin from "./SelectCoin";
 
 const CreateBidContent = ({
   index,
@@ -60,38 +61,16 @@ const CreateBidContent = ({
   useCurrentLocation,
   handleDrag,
   handleToggle,
-  setBidCoin,
   setBidPrice,
   setBidVolume,
   setBidContactInfo,
   setBidVolumeInUSD,
   currentLocation,
-  loadLastPrice,
   lastPrice
 }) => {
   switch (index) {
     case 0:
-      return (
-        <FormControl margin="dense" fullWidth={true}>
-          <Select
-            variant="outlined"
-            native
-            value={coin}
-            onChange={({ target }) => {
-              loadLastPrice(target.value).then(response => {
-                setBidPrice(numeral(response.data).format(COST));
-              });
-              setBidCoin(target.value);
-            }}
-          >
-            {coins.map(coin => (
-              <option key={coin.value} value={coin.value}>
-                {coin.label}
-              </option>
-            ))}
-          </Select>
-        </FormControl>
-      );
+      return <SelectCoin />;
     case 1:
       return (
         <FormControl margin="dense" fullWidth={true}>
@@ -287,10 +266,4 @@ export default compose(
       setBidLongitude(item.latLng.lng());
     }
   }),
-  lifecycle({
-    componentDidMount() {
-      this.props.setBidLatitude(this.props.currentLocation.lat);
-      this.props.setBidLongitude(this.props.currentLocation.lng);
-    }
-  })
 )(CreateBidContent);

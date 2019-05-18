@@ -3,9 +3,9 @@ import numeral from "numeral";
 
 import {
   selectAsks,
-  selectBids,
+  selectBids, selectFilter,
   selectFilterCoin,
-  selectFilterPrice
+  selectFilterPrice, selectFilterType, selectIsWithinRange
 } from "../../selectors";
 import compose from "lodash/fp/compose";
 import fpMap from "lodash/fp/map";
@@ -24,14 +24,24 @@ const NUMBER_OF_BINS = 100;
 
 export const selectFilteredBids = createSelector(
   selectBids,
-  selectFilterCoin,
-  (bids, coin) => filter(item => item.coin === coin)(bids)
+  selectFilter,
+  selectIsWithinRange,
+  (bids, filters, withinRange) => compose(
+    filter(withinRange),
+    filter(bid => bid.coin === filters.coin),
+    filter(() => filters.type === "BID" || filters.type === "ALL")
+  )(bids)
 );
 
 export const selectFilteredAsks = createSelector(
   selectAsks,
-  selectFilterCoin,
-  (asks, coin) => filter(item => item.coin === coin)(asks)
+  selectFilter,
+  selectIsWithinRange,
+  (asks, filters, withinRange) => compose(
+    filter(withinRange),
+    filter(ask => ask.coin === filters.coin),
+    filter(() => filters.type === "ASK" || filters.type === "ALL")
+  )(asks)
 );
 
 export const selectHasBids = createSelector(

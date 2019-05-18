@@ -73,7 +73,7 @@ class GoogleMapsWrapper extends Component {
                 onClick={() => onMarkerClick(item)}
                 style={{ cursor: "pointer" }}
               >
-                <Grid container direction="column">
+                <Grid container direction="column" alignItems="center">
                   <Grid item>
                     <Grid container direction="row">
                       <Grid item style={{ margin: "4px 4px 0px 0px" }}>
@@ -95,7 +95,7 @@ class GoogleMapsWrapper extends Component {
                   </Grid>
                   <Grid item>
                     <Typography variant="caption">
-                      at {numeral(item.price).format(USD)}/{item.coin}
+                      {item.isBid ? 'sell' : 'buy'} at {numeral(item.price).format(USD)}/{item.coin}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -176,7 +176,7 @@ export default compose(
             bottom: props.locationFromBottom,
             height: props.height,
             border: props.border,
-            width: props.width
+            width: props.width,
           }}
         />
       ),

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { compose, lifecycle, withHandlers } from "recompose";
 import { withRouter } from "react-router";
-import mapper from "../utils/connect";
+import mapper from "../../utils/connect";
 
 import {
   selectHeaderHeight,
@@ -11,20 +11,21 @@ import {
   selectBidsForDisplay,
   selectFilterType,
   selectMarketLoaded
-} from "../selectors";
-import { loadAsks as loadAsksAction } from "../actions/asks";
-import { loadBids as loadBidsAction } from "../actions/bids";
-import { setLayerOpen as setLayerOpenAction } from "../actions/layers";
+} from "../../selectors";
+import { loadAsks as loadAsksAction } from "../../actions/asks";
+import { loadBids as loadBidsAction } from "../../actions/bids";
+import { setLayerOpen as setLayerOpenAction } from "../../actions/layers";
 
-import Subheader from "../components/Subheader";
-import GoogleMapsWrapper from "../components/GoogleMaps/GoogleMapsWrapper";
-import PageHeader from "../components/PageHeader";
-import FilterMap from "../components/Flyout/FilterMap/index";
-import withDimensions from "../HOCs/withDimensions";
-import withLoader from "../HOCs/withLoader";
-import { setMarketView as setMarketViewAction } from "../actions/app";
-import { CHART } from "../constants/app";
-import withLocation from "../HOCs/withLocation";
+import Subheader from "../../components/Subheader";
+import GoogleMapsWrapper from "../../components/GoogleMaps/GoogleMapsWrapper";
+import PageHeader from "../../components/PageHeader";
+import FilterMap from "../../components/Flyout/FilterMap";
+import withDimensions from "../../HOCs/withDimensions";
+import withLoader from "../../HOCs/withLoader";
+import { setMarketView as setMarketViewAction } from "../../actions/app";
+import { CHART } from "../../constants/app";
+import withLocation from "../../HOCs/withLocation";
+import Chart from "./Chart";
 
 class Market extends Component {
   constructor(props) {
@@ -37,8 +38,8 @@ class Market extends Component {
       navHeight,
       headerHeight,
       windowHeight,
+      windowWidth,
       handleMarkerClick,
-      handleMarketView,
       currentLocation
     } = this.props;
 
@@ -48,17 +49,20 @@ class Market extends Component {
         <PageHeader
           leftHandLabel="Market"
           leftHandAction={() => this.props.setLayerOpen(true)}
-          rightHandAction={handleMarketView}
-          rightHandButton="Go to chart view"
           showSubheader={true}
           subheader={<Subheader />}
+        />
+        <Chart
+          height={(windowHeight - navHeight - headerHeight)/2}
+          markerLocation={navHeight}
+          width={windowWidth}
         />
         <GoogleMapsWrapper
           currentLocation={currentLocation}
           showLabels={true}
           markers={markers}
           onMarkerClick={handleMarkerClick}
-          height={windowHeight - navHeight - headerHeight}
+          height={(windowHeight - navHeight - headerHeight)/2}
         />
       </div>
     );
@@ -72,7 +76,7 @@ const propMap = {
   navHeight: selectNavHeight,
   headerHeight: selectHeaderHeight,
   type: selectFilterType,
-  loaded: selectMarketLoaded // for withLoader
+  loaded: selectMarketLoaded // from withLoader
 };
 
 const actionMap = {
@@ -87,9 +91,9 @@ export default compose(
   withRouter,
   withDimensions,
   withHandlers({
-    handleMarkerClick: ({ history, type }) => marker => {
-      const { id } = marker;
-      const url = type === "ASK" ? "/ask" : "/bid";
+    handleMarkerClick: ({ history }) => marker => {
+      const { id, isBid } = marker;
+      const url = !isBid ? "/ask" : "/bid";
       history.push(`${url}?${id}`);
     },
     handleMarketView: ({ history, setMarketView }) => () => {

@@ -1,14 +1,10 @@
 import React from "react";
-import { compose, withHandlers, withState, lifecycle } from "recompose";
+import { compose, withHandlers, withState } from "recompose";
 import { withRouter } from "react-router";
 import get from "lodash/fp/get";
-import mapper from "../utils/connect";
+import mapper from "../../utils/connect";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faList } from "@fortawesome/free-solid-svg-icons";
-
-import PageHeader from "../components/PageHeader";
-import withAuthentification from "../HOCs/withAuthentification";
+import withAuthentification from "../../HOCs/withAuthentification";
 import {
   selectAsksForDisplay,
   selectBidsForDisplay,
@@ -21,31 +17,25 @@ import {
   selectNavHeight,
   selectWindowHeight,
   selectWindowWidth
-} from "../selectors";
-import { loadAsks as loadAsksAction } from "../actions/asks";
-import { loadBids as loadBidsAction } from "../actions/bids";
+} from "../../selectors";
+import { loadAsks as loadAsksAction } from "../../actions/asks";
+import { loadBids as loadBidsAction } from "../../actions/bids";
 import {
   setLayer,
   setLayerOpen as setLayerOpenAction
-} from "../actions/layers";
-import { loadCurrentLocation as loadCurrentLocationAction } from "../actions/session";
-import { setMarketView as setMarketViewAction } from "../actions/app";
-import { MAP } from "../constants/app";
-import AnalysisChart from "../components/AnalysisChart";
-import ChartHeader from "../components/ChartHeader";
-import PriceMarker from "../components/AnalysisChart/PriceMarker";
-import Placeholder from "../components/AnalysisChart/Placeholder";
-import withDimensions from "../HOCs/withDimensions";
-import Button from "@material-ui/core/Button/Button";
+} from "../../actions/layers";
+import { loadCurrentLocation as loadCurrentLocationAction } from "../../actions/session";
+import { setMarketView as setMarketViewAction } from "../../actions/app";
+import AnalysisChart from "../../components/AnalysisChart";
+import PriceMarker from "../../components/AnalysisChart/PriceMarker";
+import Placeholder from "../../components/AnalysisChart/Placeholder";
 import withStyles from "@material-ui/core/styles/withStyles";
-import Grow from "@material-ui/core/Grow/Grow";
-import { setFilterPrice } from "../actions/filters";
-import ChartList from "../components/Flyout/ChartList";
+import { setFilterPrice } from "../../actions/filters";
 import {
   selectFullBins,
   selectMidMarketPrice,
   selectHasData
-} from "../components/AnalysisChart/selectors";
+} from "../../components/AnalysisChart/selectors";
 
 const styles = () => ({
   actionButton: {
@@ -53,65 +43,48 @@ const styles = () => ({
   }
 });
 
-const Analysis = ({
-  handleMarketView,
+const Chart = ({
   chartData,
   headerHeight,
-  navHeight,
-  windowWidth,
-  windowHeight,
   midMarketPrice,
   hasData,
   handleTouch,
   touched,
-  subheading,
   price,
-  handleSelect,
-  handleButtonClick,
-  layer,
   askInfo,
-  bidInfo
+  bidInfo,
+  height,
+  width,
+  markerLocation,
 }) => (
-  <div>
-    {layer === "CHART_LIST" && <ChartList />}
-    <PageHeader
-      leftHandLabel="Market"
-      rightHandButton="Go to map view"
-      rightHandAction={handleMarketView}
-      showSubheader={true}
-      subheader={<ChartHeader onSelect={handleSelect} />}
-    />
+  <div
+    style={{
+      height,
+      width,
+      borderBottom: 'solid #CCC 1px'
+    }}
+  >
     {hasData && (
       <div>
         <PriceMarker
           price={touched ? price : midMarketPrice}
           askInfo={askInfo}
           bidInfo={bidInfo}
-          top={headerHeight + 50}
+          top={markerLocation + 50}
         />
         <AnalysisChart
           data={chartData}
-          height={windowHeight - navHeight - headerHeight}
-          width={windowWidth}
+          height={height}
+          width={width}
           handleTouch={handleTouch}
         />
       </div>
     )}
-    {!hasData && <Placeholder label="No Data" top={headerHeight + 50} />}
-    {touched && (
-      <Grow in={touched}>
-        <div
-          style={{
-            position: "fixed",
-            right: "2em",
-            bottom: `${navHeight + 60}px`
-          }}
-        >
-          <Button variant="fab" onClick={handleButtonClick}>
-            <FontAwesomeIcon icon={faList} />
-          </Button>
-        </div>
-      </Grow>
+    {!hasData && (
+      <Placeholder
+        label="No Available Sales"
+        top={headerHeight}
+      />
     )}
   </div>
 );
@@ -146,30 +119,19 @@ const actionMap = {
 export default compose(
   mapper(propMap, actionMap),
   withAuthentification,
-  withDimensions,
   withRouter,
   withStyles(styles),
   withState("touched", "setTouched", false),
   withState("askInfo", "setAskInfo", undefined),
   withState("bidInfo", "setBidInfo", undefined),
-  lifecycle({
-    componentDidMount() {
-      this.props.loadAsks();
-      this.props.loadBids();
-    }
-  }),
   withHandlers({
-    handleMarketView: ({ history, setMarketView }) => () => {
-      setMarketView(MAP);
-      history.push("/");
-    },
     handleTouch: ({
-      setTouched,
-      setFilterPrice,
-      setAskInfo,
-      setBidInfo,
-      coin
-    }) => ({ activePayload }) => {
+        setTouched,
+        setFilterPrice,
+        setAskInfo,
+        setBidInfo,
+        coin
+      }) => ({ activePayload }) => {
       if (!activePayload) return;
       const payload = get("payload")(activePayload[0]);
       const { totalVolume } = payload;
@@ -178,6 +140,7 @@ export default compose(
         setTouched(false);
         setAskInfo("Mid Market Price");
         setBidInfo(undefined);
+        setFilterPrice(undefined)
       } else {
         const { price, askVolume, bidVolume, askCount, bidCount } = payload;
         const askInfo =
@@ -199,9 +162,5 @@ export default compose(
       setAskInfo("Mid Market Price");
       setBidInfo(undefined);
     },
-    handleButtonClick: ({ setLayer, setLayerOpen }) => () => {
-      setLayer("CHART_LIST");
-      setLayerOpen(true);
-    }
   })
-)(Analysis);
+)(Chart);

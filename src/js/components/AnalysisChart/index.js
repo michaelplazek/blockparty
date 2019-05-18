@@ -39,10 +39,10 @@ const YTick = ({ payload, x, y, fill }) => {
 };
 
 const AnalysisChartBase = ({ height, width, data, handleTouch }) => (
-  <div>
+  <div style={{ paddingTop: '10px', marginLeft: '10px', marginRight: '10px' }}>
     <AreaChart
-      width={width}
-      height={height}
+      width={width - 20}
+      height={height - 10}
       data={data}
       onMouseMove={payload => payload && handleTouch(payload)}
     >
