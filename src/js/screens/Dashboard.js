@@ -65,6 +65,7 @@ import { setBidPrice } from "../actions/createBid";
 import { setAskPrice } from "../actions/createAsk";
 import numeral from "numeral";
 import { COST } from "../constants/currency";
+import withPolling from "../HOCs/withPolling";
 
 const styles = () => ({
   root: {
@@ -324,5 +325,13 @@ export default compose(
     }
   }),
   withLocation,
-  withLoader
+  withLoader,
+  withPolling(({
+    loadOffersByUser,
+    loadTransactions,
+    userId,
+  }) => {
+    loadOffersByUser(userId);
+    loadTransactions(userId);
+  }, 5000)
 )(Dashboard);
