@@ -445,12 +445,20 @@ export const selectIsWithinRange = createSelector(
   },
 );
 
+export const selectIsWithinPrice = createSelector(
+  selectFilterPrice,
+  (price) => item => !item.isBid ?
+    item.price <= price || price === undefined :
+    item.price >= price || price === undefined
+);
+
 export const selectMapMarkers = createSelector(
   selectAsks,
   selectBids,
   selectFilter,
+  selectIsWithinPrice,
   selectIsWithinRange,
-  (asks, bids, filters, withinRange) => {
+  (asks, bids, filters, withinPrice, withinRange) => {
     let items;
     if (filters.type === "ALL") {
       items = asks.concat(bids);
@@ -467,8 +475,9 @@ export const selectMapMarkers = createSelector(
         volume: ask.volume,
         coin: ask.coin
       })),
+      filter(withinPrice),
       filter(withinRange),
-      filter(ask => ask.coin === filters.coin)
+      filter(item => item.coin === filters.coin)
     )(items);
   }
 );
