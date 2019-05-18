@@ -432,12 +432,25 @@ export const selectBidOfferButtonText = createSelector(
   hasOffer => (hasOffer ? "Waiting for reply" : "Make an offer")
 );
 
+export const selectIsWithinRange = createSelector(
+  selectFilter,
+  selectCurrentLocation,
+  (filters, currentLocation) => ask => {
+    const distance = getDistance(
+      { latitude: ask.lat, longitude: ask.lng },
+      { latitude: currentLocation.lat, longitude: currentLocation.lng }
+    );
+    const distanceInMiles = getMilesFromMeters(distance);
+    return distanceInMiles < filters.distanceAway;
+  },
+);
+
 export const selectMapMarkers = createSelector(
   selectAsks,
   selectBids,
   selectFilter,
-  selectCurrentLocation,
-  (asks, bids, filters, currentLocation) => {
+  selectIsWithinRange,
+  (asks, bids, filters, withinRange) => {
     let items;
     if (filters.type === "ALL") {
       items = asks.concat(bids);
@@ -454,14 +467,7 @@ export const selectMapMarkers = createSelector(
         volume: ask.volume,
         coin: ask.coin
       })),
-      filter(ask => {
-        const distance = getDistance(
-          { latitude: ask.lat, longitude: ask.lng },
-          { latitude: currentLocation.lat, longitude: currentLocation.lng }
-        );
-        const distanceInMiles = getMilesFromMeters(distance);
-        return distanceInMiles < filters.distanceAway;
-      }),
+      filter(withinRange),
       filter(ask => ask.coin === filters.coin)
     )(items);
   }
