@@ -1,7 +1,7 @@
 export const DEFAULT_FILTER = {
   coin: "BTC",
   distanceAway: 25,
-  type: "ASK"
+  type: "ALL"
 };
 
-export const types = ["ASK", "BID"];
+export const types = ["ALL", "ASK", "BID"];

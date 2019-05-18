@@ -438,9 +438,15 @@ export const selectMapMarkers = createSelector(
   selectFilter,
   selectCurrentLocation,
   (asks, bids, filters, currentLocation) => {
-    const items = filters.type === "ASK" ? asks : bids;
+    let items;
+    if (filters.type === "ALL") {
+      items = asks.concat(bids);
+    } else {
+      items = filters.type === "ASK" ? asks : bids;
+    }
     return compose(
       fpMap(ask => ({
+        isBid: ask.isBid,
         lat: ask.lat,
         lng: ask.lng,
         id: ask._id,
@@ -467,7 +473,7 @@ export const selectMarketLoaded = createSelector(
   selectFilterType,
   (asksLoaded, bidsLoaded, locationLoaded, type) =>
     locationLoaded &&
-    ((asksLoaded && type === "ASK") || (bidsLoaded && type === "BID"))
+    ((asksLoaded && type === "ASK") || (bidsLoaded && type === "BID")) || (asksLoaded && bidsLoaded && type === "ALL")
 );
 
 export const selectDashboardLoaded = createSelector(

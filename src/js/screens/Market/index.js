@@ -81,7 +81,7 @@ const propMap = {
   navHeight: selectNavHeight,
   headerHeight: selectHeaderHeight,
   type: selectFilterType,
-  loaded: selectMarketLoaded // for withLoader
+  loaded: selectMarketLoaded // from withLoader
 };
 
 const actionMap = {
@@ -96,9 +96,9 @@ export default compose(
   withRouter,
   withDimensions,
   withHandlers({
-    handleMarkerClick: ({ history, type }) => marker => {
-      const { id } = marker;
-      const url = type === "ASK" ? "/ask" : "/bid";
+    handleMarkerClick: ({ history }) => marker => {
+      const { id, isBid } = marker;
+      const url = !isBid ? "/ask" : "/bid";
       history.push(`${url}?${id}`);
     },
     handleMarketView: ({ history, setMarketView }) => () => {

@@ -12,7 +12,7 @@ import { DEFAULT_FILTER } from "../constants/filters";
 const initialState = {
   distanceAway: 25,
   coin: "BTC",
-  type: "ASK",
+  type: "ALL",
   filter: DEFAULT_FILTER,
   price: 0
 };
