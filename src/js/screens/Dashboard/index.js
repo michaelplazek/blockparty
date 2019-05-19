@@ -1,36 +1,34 @@
 import React from "react";
 import { compose, withState, lifecycle, withHandlers } from "recompose";
-import mapper from "../utils/connect";
+import mapper from "../../utils/connect";
 
-import Tile from "../components/Tile";
-import ListTile from "../components/ListTile/index";
-import TransactionTile from "../components/TransactionTile/index";
+import Tile from "../../components/Tile";
+import ListTile from "../../components/ListTile";
+import TransactionTile from "../../components/TransactionTile";
 
 import {
   setLayer as setLayerAction,
   setLayerOpen as setLayerOpenAction
-} from "../actions/layers";
+} from "../../actions/layers";
 import {
   loadAsk as loadAskAction,
   loadMyAsks as loadMyAsksAction,
   unloadAsk as unloadAskAction
-} from "../actions/asks";
+} from "../../actions/asks";
 import {
   loadBid as loadBidAction,
   loadMyBids as loadMyBidsAction,
   unloadBid as unloadBidAction
-} from "../actions/bids";
+} from "../../actions/bids";
 
-import PageHeader from "../components/PageHeader";
-import OfferTile from "../components/OfferTile";
-import AddIcon from "@material-ui/icons/Add";
-import CreateAsk from "../components/Flyout/CreateAsk/index";
-import CreateBid from "../components/Flyout/CreateBid/index";
-import DeleteAsk from "../components/Flyout/AskDetails";
-import DeleteBid from "../components/Flyout/BidDetails";
+import PageHeader from "../../components/PageHeader";
+import OfferTile from "../../components/OfferTile";
+import CreateAsk from "../../components/Flyout/CreateAsk";
+import CreateBid from "../../components/Flyout/CreateBid";
+import DeleteAsk from "../../components/Flyout/AskDetails";
+import DeleteBid from "../../components/Flyout/BidDetails";
 
-import withDimensions from "../HOCs/withDimensions";
-import Button from "@material-ui/core/Button/Button";
+import withDimensions from "../../HOCs/withDimensions";
 import withStyles from "@material-ui/core/styles/withStyles";
 import {
   selectDashboardLoaded,
@@ -46,26 +44,29 @@ import {
   selectTransactionsForDisplay,
   selectUserId,
   selectUsername
-} from "../selectors";
-import Grow from "@material-ui/core/Grow/Grow";
-import withLoader from "../HOCs/withLoader";
+} from "../../selectors";
+import withLoader from "../../HOCs/withLoader";
 import {
   loadOffer,
   loadOffersByAsk,
   loadOffersByBid,
   loadOffersByUser,
   unloadOffers
-} from "../actions/offers";
-import OfferDetails from "../components/Flyout/OfferDetails";
-import { loadTransaction, loadTransactions } from "../actions/transactions";
-import TransactionDetails from "../components/Flyout/TransactionDetail";
-import withLocation from "../HOCs/withLocation";
-import { loadLastPrice } from "../actions/metrics";
-import { setBidPrice } from "../actions/createBid";
-import { setAskPrice } from "../actions/createAsk";
+} from "../../actions/offers";
+import OfferDetails from "../../components/Flyout/OfferDetails";
+import { loadTransaction, loadTransactions } from "../../actions/transactions";
+import TransactionDetails from "../../components/Flyout/TransactionDetail";
+import withLocation from "../../HOCs/withLocation";
+import { loadLastPrice as loadLastPriceAction } from "../../actions/metrics";
+import { setBidPrice as setBidPriceAction } from "../../actions/createBid";
+import { setAskPrice as setAskPriceAction } from "../../actions/createAsk";
 import numeral from "numeral";
-import { COST } from "../constants/currency";
-import withPolling from "../HOCs/withPolling";
+import { COST } from "../../constants/currency";
+import withPolling from "../../HOCs/withPolling";
+import AddIcon from '@material-ui/icons/AddLocation';
+import AddAskIcon from '@material-ui/icons/AddLocationTwoTone';
+import SpeedDialButton from "../../components/SpeedDialButton";
+
 
 const styles = () => ({
   root: {
@@ -81,12 +82,8 @@ const styles = () => ({
 });
 
 const Dashboard = ({
-  setLayerOpen,
-  setLayer,
   classes,
   layer,
-  showButtons,
-  setShowButtons,
   numberOfBids,
   numberOfAsks,
   numberOfOffers,
@@ -95,31 +92,36 @@ const Dashboard = ({
   myAsks,
   myOffers,
   myTransactions,
-  loadAsk,
-  loadBid,
-  loadOffer,
-  unloadAsk,
-  unloadBid,
   footerHeight,
-  unloadOffers,
-  loadOffersByAsk,
-  loadOffersByBid,
   handleAskClick,
   handleBidClick,
   handleOfferClick,
   handleTransactionClick,
-  loadLastPrice,
-  setAskPrice,
-  setBidPrice
-}) => (
-  <div className={classes.root}>
-    {layer === "CREATE_ASK" && <CreateAsk />}
-    {layer === "CREATE_BID" && <CreateBid />}
-    {layer === "DELETE_ASK" && <DeleteAsk />}
-    {layer === "DELETE_BID" && <DeleteBid />}
-    {layer === "VIEW_OFFER" && <OfferDetails />}
-    {layer === "VIEW_TRANSACTION" && <TransactionDetails />}
-    <PageHeader leftHandLabel="Dashboard" />
+  handleCreateAsk,
+  handleCreateBid,
+}) => {
+
+  const actions = [
+    {
+      name: 'Create Bid',
+      icon: <AddIcon />,
+      onClick:  handleCreateBid,
+    },
+    {
+      name: 'Create Ask',
+      icon: <AddAskIcon />,
+      onClick: handleCreateAsk
+    }
+  ];
+
+  return <div className={classes.root}>
+    {layer === "CREATE_ASK" && <CreateAsk/>}
+    {layer === "CREATE_BID" && <CreateBid/>}
+    {layer === "DELETE_ASK" && <DeleteAsk/>}
+    {layer === "DELETE_BID" && <DeleteBid/>}
+    {layer === "VIEW_OFFER" && <OfferDetails/>}
+    {layer === "VIEW_TRANSACTION" && <TransactionDetails/>}
+    <PageHeader leftHandLabel="Dashboard"/>
     <Tile
       title="Accepted Offers"
       count={numberOfTransactions}
@@ -172,56 +174,12 @@ const Dashboard = ({
         zIndex: 100
       }}
     >
-      {showButtons && (
-        <Grow in={showButtons}>
-          <div
-            className={classes.buttonContainer}
-            onMouseLeave={() => setTimeout(() => setShowButtons(false), 3000)}
-            onMouseOver={() => setShowButtons(true)}
-          >
-            <Button
-              className={classes.buttons}
-              variant="extendedFab"
-              onClick={() => {
-                loadLastPrice("BTC").then(response =>
-                  setBidPrice(numeral(response.data).format(COST))
-                );
-                setLayer("CREATE_BID");
-                setLayerOpen(true);
-              }}
-            >
-              Create new bid
-            </Button>
-            <Button
-              className={classes.buttons}
-              variant="extendedFab"
-              onClick={() => {
-                loadLastPrice("BTC").then(response =>
-                  setAskPrice(numeral(response.data).format(COST))
-                );
-                setLayer("CREATE_ASK");
-                setLayerOpen(true);
-              }}
-            >
-              Create new ask
-            </Button>
-          </div>
-        </Grow>
-      )}
-
-      {!showButtons && (
-        <Button
-          className={classes.buttonContainer}
-          color="primary"
-          variant="fab"
-          onClick={() => setShowButtons(true)}
-        >
-          <AddIcon />
-        </Button>
-      )}
+      <SpeedDialButton
+        actions={actions}
+      />
     </div>
   </div>
-);
+};
 
 const propMap = {
   layer: selectLayer,
@@ -255,14 +213,13 @@ const actionMap = {
   loadOffersByBid,
   loadTransactions,
   loadTransaction,
-  loadLastPrice,
-  setAskPrice,
-  setBidPrice
+  loadLastPrice: loadLastPriceAction,
+  setAskPrice: setAskPriceAction,
+  setBidPrice: setBidPriceAction,
 };
 
 export default compose(
   mapper(propMap, actionMap),
-  withState("showButtons", "setShowButtons", false),
   withStyles(styles),
   withDimensions,
   lifecycle({
@@ -322,7 +279,33 @@ export default compose(
         setLayer("VIEW_TRANSACTION");
         setLayerOpen(true);
       });
-    }
+    },
+    handleCreateBid: ({
+      loadLastPrice,
+      setBidPrice,
+      setLayer,
+      setLayerOpen,
+    }) => () => {
+      loadLastPrice("BTC").then(response =>
+        setBidPrice(numeral(response.data).format(COST))
+      );
+      setLayer("CREATE_BID");
+      setLayerOpen(true);
+    },
+    handleCreateAsk: ({
+      loadLastPrice,
+      setAskPrice,
+      setLayer,
+      setLayerOpen,
+  }) => () => {
+      // console.log('clicked asked');
+      // console.log(setLayer);
+      loadLastPrice("BTC").then(response =>
+        setAskPrice(numeral(response.data).format(COST))
+      );
+      setLayer("CREATE_ASK");
+      setLayerOpen(true);
+    },
   }),
   withLocation,
   withLoader,
