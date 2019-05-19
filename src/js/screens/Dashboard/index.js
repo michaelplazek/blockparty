@@ -312,9 +312,13 @@ export default compose(
   withPolling(({
     loadOffersByUser,
     loadTransactions,
+    loadMyAsks,
+    loadMyBids,
     userId,
   }) => {
     loadOffersByUser(userId);
     loadTransactions(userId);
+    loadMyAsks(userId);
+    loadMyBids(userId);
   }, 5000)
 )(Dashboard);

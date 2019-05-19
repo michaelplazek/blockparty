@@ -4,7 +4,10 @@ import { withRouter } from "react-router-dom";
 import { faCog } from "@fortawesome/free-solid-svg-icons";
 
 import mapper from "../../utils/connect";
-import { logOutUser as logOutUserAction } from "../../actions/session";
+import {
+  loadUserFromToken as loadUserFromTokenAction,
+  logOutUser as logOutUserAction,
+} from "../../actions/session";
 
 import PageHeader from "../../components/PageHeader";
 import withDimensions from "../../HOCs/withDimensions";
@@ -21,6 +24,7 @@ import DetailList from "../../components/DetailList";
 import { selectUserDetails } from "./selectors";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "@material-ui/core/Button/Button";
+import withPolling from "../../HOCs/withPolling";
 
 const styles = () => ({
   body: {
@@ -37,7 +41,6 @@ const styles = () => ({
 const Account = ({
   logOut,
   classes,
-  height,
   username,
   bio,
   items,
@@ -79,12 +82,16 @@ const propMap = {
 };
 
 const actionMap = {
-  logOut: logOutUserAction
+  logOut: logOutUserAction,
+  loadUserFromToken: loadUserFromTokenAction,
 };
 
 export default compose(
   mapper(propMap, actionMap),
   withRouter,
   withStyles(styles),
-  withDimensions
+  withDimensions,
+  withPolling(({ loadUserFromToken }) => {
+    loadUserFromToken();
+  }, 5000),
 )(Account);
