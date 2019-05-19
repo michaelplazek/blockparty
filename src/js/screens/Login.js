@@ -29,7 +29,7 @@ const Login = ({ handleLogIn, handleSignUp, classes, history }) => (
     <Grid item>
       <Grid container direction="column" justify="center">
         <Typography align="center" variant="display1">
-          Login In
+          Log In
         </Typography>
         <LoginForm onClick={handleLogIn} />
       </Grid>
