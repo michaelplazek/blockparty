@@ -3,7 +3,7 @@ import { compose } from "recompose";
 import Typography from "@material-ui/core/Typography/Typography";
 import Grid from "@material-ui/core/Grid/Grid";
 
-const Placeholder = ({ classes, label, top }) => (
+const Placeholder = ({ label, top }) => (
   <Grid
     container
     justify="center"

@@ -24,7 +24,7 @@ const styles = () => ({
   }
 });
 
-const Login = ({ handleLogIn, handleSignUp, classes, history }) => (
+const Login = ({ handleLogIn, classes, history }) => (
   <Grid className={classes.root} container justify="center" direction="column">
     <Grid item>
       <Grid container direction="column" justify="center">
