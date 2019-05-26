@@ -3,7 +3,9 @@ import {
   LOAD_HEADER_HEIGHT,
   LOAD_WINDOW_HEIGHT,
   LOAD_WINDOW_WIDTH,
-  SET_MARKET_VIEW
+  SET_MARKET_VIEW,
+  SET_SW_REGISTRATION,
+  SET_SUBSCRIBED,
 } from "./index";
 
 export const setNavHeight = data => dispatch =>
@@ -20,3 +22,9 @@ export const setWindowWidth = data => dispatch =>
 
 export const setMarketView = data => dispatch =>
   dispatch({ type: SET_MARKET_VIEW, data });
+
+export const setSubscribed = data => dispatch =>
+  dispatch({ type: SET_SUBSCRIBED, data });
+
+export const setSwRegistration = data => dispatch =>
+  dispatch({ type: SET_SW_REGISTRATION, data });
