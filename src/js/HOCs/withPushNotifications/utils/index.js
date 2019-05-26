@@ -1,23 +1,24 @@
+import runtime from 'serviceworker-webpack-plugin/lib/runtime';
 
 const applicationServerPublicKey = process.env.PUBLIC_PUSH_KEY;
 
 let isSubscribed = false;
 
-const registerWorker = () => {
+export const registerWorker = () => {
   if ('serviceWorker' in navigator && 'PushManager' in window) {
     console.log('Service Worker and Push is supported');
-
-    navigator.serviceWorker.register('sw.js')
-      .then(function(swReg) {
-        console.log('Service Worker is registered', swReg);
-        getSubscription(swReg);
-      })
-      .catch(function(error) {
-        console.error('Service Worker Error', error);
-      });
-  } else {
-    console.warn('Push messaging is not supported');
   }
+    const swReg = runtime.register();
+  //     .then(function(swReg) {
+  //       console.log('Service Worker is registered', swReg);
+  //       getSubscription(swReg);
+  //     })
+  //     .catch(function(error) {
+  //       console.error('Service Worker Error', error);
+  //     });
+  // } else {
+  //   console.warn('Push messaging is not supported');
+  // }
 };
 
 const getSubscription = (swReg) => {

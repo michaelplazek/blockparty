@@ -1,19 +1,41 @@
 import React from "react";
+import { compose, lifecycle } from "recompose";
+
+import mapper from "../../utils/connect";
+import { registerWorker } from "./utils";
+import { selectIsSubscribed, selectSwRegistration } from "../../selectors";
+
+import {
+  setSubscribed as setSubscribedAction,
+  setSwRegistration as setSwRegistrationAction
+} from "../../actions/app";
 
 /**
- * This HOC provides a component that polls using the passed in function.
- * @param func: function to be polled
- * @param duration: the amount of time between polls
+ * This HOC sets a service worker for push notifications,
+ * @param Component
  * @returns {*}
  */
-export default () => Component => (
-  class extends React.Component {
-    componentDidMount() {
-      // set up push notifications
-    }
-    render() {
-      return <Component {...this.props}/>;
-    }
-  }
-);
+export default Component => {
+  const pushHOC = props => {
+    return <Component {...props} />;
+  };
 
+  const propMap = {
+    isSubscribed: selectIsSubscribed,
+    swReg: selectSwRegistration,
+  };
+
+  const actionMap = {
+    setSubscribed: setSubscribedAction,
+    setSwRegistration: setSwRegistrationAction
+  };
+
+  return compose(
+    mapper(propMap, actionMap),
+    lifecycle({
+      componentDidMount() {
+        // registerWorker();
+      },
+    })
+  )(pushHOC);
+};

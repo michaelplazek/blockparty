@@ -7,6 +7,7 @@ import { Switch, withRouter } from "react-router";
 import FooterNav from "./components/FooterNav";
 import routes from "./config/routes";
 import withAuthentification from "./HOCs/withAuthentification";
+import withPushNotifications from "./HOCs/withPushNotifications";
 import withErrors from "./HOCs/withErrors";
 import withCurrencyData from "./HOCs/withCurrencyData";
 
@@ -32,5 +33,6 @@ export default compose(
   withRouter,
   withAuthentification,
   withErrors,
-  withCurrencyData
+  withCurrencyData,
+  withPushNotifications,
 )(Routes);

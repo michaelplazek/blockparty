@@ -7,7 +7,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 
-import { AppContainer } from "react-hot-loader";
+// import { AppContainer } from "react-hot-loader";
 
 import reducers from "./js/reducers";
 import App from "./js/App";
@@ -20,31 +20,29 @@ export const store = createStore(
 
 let content = document.getElementById("content");
 ReactDOM.render(
-  <AppContainer>
     <Provider store={store}>
       <CssBaseline>
         <MuiThemeProvider theme={theme}>
           <App />
         </MuiThemeProvider>
       </CssBaseline>
-    </Provider>
-  </AppContainer>,
+    </Provider>,
   content
 );
 
-if (module.hot) {
-  module.hot.accept("./js/App.js", () => {
-    ReactDOM.render(
-      <AppContainer>
-        <Provider store={store}>
-          <CssBaseline>
-            <MuiThemeProvider theme={theme}>
-              <App />
-            </MuiThemeProvider>
-          </CssBaseline>
-        </Provider>
-      </AppContainer>,
-      content
-    );
-  });
-}
+// if (module.hot) {
+//   module.hot.accept("./js/App.js", () => {
+//     ReactDOM.render(
+//       <AppContainer>
+//         <Provider store={store}>
+//           <CssBaseline>
+//             <MuiThemeProvider theme={theme}>
+//               <App />
+//             </MuiThemeProvider>
+//           </CssBaseline>
+//         </Provider>
+//       </AppContainer>,
+//       content
+//     );
+//   });
+// }
