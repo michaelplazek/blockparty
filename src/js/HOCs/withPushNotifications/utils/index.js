@@ -7,19 +7,18 @@ let isSubscribed = false;
 export const registerWorker = () => {
   if ('serviceWorker' in navigator && 'PushManager' in window) {
     console.log('Service Worker and Push is supported');
+
+    runtime.register()
+      .then(function (swReg) {
+        console.log('Service Worker is registered', swReg);
+        getSubscription(swReg);
+      })
+      .catch(function (error) {
+        console.error('Service Worker Error', error);
+      });
+  } else {
+    console.warn('Push messaging is not supported');
   }
-    const swReg = runtime.register();
-  console.log(swReg);
-  //     .then(function(swReg) {
-  //       console.log('Service Worker is registered', swReg);
-  //       getSubscription(swReg);
-  //     })
-  //     .catch(function(error) {
-  //       console.error('Service Worker Error', error);
-  //     });
-  // } else {
-  //   console.warn('Push messaging is not supported');
-  // }
 };
 
 const getSubscription = (swReg) => {
