@@ -42,7 +42,8 @@ const checkSubscription = (swReg, userId, setSubscription, getSubscription) => {
       isSubscribed = !(subscription === null);
       if (isSubscribed) {
         console.log('User IS subscribed.');
-        getSubscription(userId);
+        const data = { userId };
+        getSubscription(data);
       } else {
         console.log('User is NOT subscribed.');
         const convertedVapidKey = urlB64ToUint8Array(applicationServerPublicKey);

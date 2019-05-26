@@ -25,12 +25,12 @@ export const setMarketView = data => dispatch =>
   dispatch({ type: SET_MARKET_VIEW, data });
 
 export const setSubscription = data => dispatch =>
-  wrappedFetch("notifications/subscriptions", data, "POST").then((response) => {
+  wrappedFetch("notifications/subscribe", data, "POST").then((response) => {
     dispatch({ type: SET_SUBSCRIPTION, data: response });
   });
 
 export const getSubscription = data => dispatch =>
-  wrappedFetch("notifications/subscriptions", data, "GET").then((response) => {
+  wrappedFetch("notifications/subscriptions", data, "POST").then((response) => {
     dispatch({ type: GET_SUBSCRIPTION, data: response });
   });
 
