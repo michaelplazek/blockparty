@@ -5,7 +5,8 @@ import {
   LOAD_WINDOW_HEIGHT,
   LOAD_WINDOW_WIDTH,
   SET_MARKET_VIEW,
-  SET_SUBSCRIBED,
+  SET_SUBSCRIPTION,
+  GET_SUBSCRIPTION,
 } from "../actions";
 import { MAP } from "../constants/app";
 
@@ -17,6 +18,7 @@ const initialState = {
   marketView: MAP,
   notifications: {
     isSubscribed: false,
+    subscription: {},
   },
 };
 
@@ -36,10 +38,18 @@ const handlers = {
   [SET_MARKET_VIEW]: (_, action) => ({
     marketView: action.data
   }),
-  [SET_SUBSCRIBED]: (state, action) => ({
+  [SET_SUBSCRIPTION]: (state, action) => ({
     notifications: {
       ...state.notifications,
-      isSubscribed: action.data,
+      isSubscribed: true,
+      subscription: action.data,
+    }
+  }),
+  [GET_SUBSCRIPTION]: (state, action) => ({
+    notifications: {
+      ...state.notifications,
+      isSubscribed: true,
+      subscription: action.data,
     }
   }),
 };

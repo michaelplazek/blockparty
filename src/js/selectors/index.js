@@ -528,5 +528,5 @@ export const selectCurrencyItems = createSelector(
 export const selectLastPrice = state => state.metrics.lastPrice;
 
 export const selectIsSubscribed = state => state.app.notifications.isSubscribed;
-export const selectSwRegistration = state => state.app.notifications.swReg;
+export const selectSubscription = state => state.app.notifications.subscription;
 

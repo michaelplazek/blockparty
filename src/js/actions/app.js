@@ -4,7 +4,8 @@ import {
   LOAD_WINDOW_HEIGHT,
   LOAD_WINDOW_WIDTH,
   SET_MARKET_VIEW,
-  SET_SUBSCRIBED,
+  SET_SUBSCRIPTION,
+  GET_SUBSCRIPTION,
 } from "./index";
 import {wrappedFetch} from "../api/utils";
 
@@ -24,6 +25,14 @@ export const setMarketView = data => dispatch =>
   dispatch({ type: SET_MARKET_VIEW, data });
 
 export const setSubscription = data => dispatch =>
-  wrappedFetch("notifications/subscribe", data, "POST").then(() => {
-    dispatch({ type: SET_SUBSCRIBED, data: true });
+  wrappedFetch("notifications/subscriptions", data, "POST").then((response) => {
+    dispatch({ type: SET_SUBSCRIPTION, data: response });
   });
+
+export const getSubscription = data => dispatch =>
+  wrappedFetch("notifications/subscriptions", data, "GET").then((response) => {
+    dispatch({ type: GET_SUBSCRIPTION, data: response });
+  });
+
+export const setNotification = (subscription, data) =>
+  wrappedFetch("notifications/notify", { subscription, ...data }, "POST");
