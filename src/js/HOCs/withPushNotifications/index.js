@@ -3,11 +3,10 @@ import { compose, lifecycle } from "recompose";
 
 import mapper from "../../utils/connect";
 import { registerWorker } from "./utils";
-import { selectIsSubscribed, selectSwRegistration } from "../../selectors";
+import {selectIsSubscribed, selectSwRegistration, selectUserId} from "../../selectors";
 
 import {
-  setSubscribed as setSubscribedAction,
-  setSwRegistration as setSwRegistrationAction
+  setSubscription as setSubscriptionAction,
 } from "../../actions/app";
 
 /**
@@ -23,18 +22,19 @@ export default Component => {
   const propMap = {
     isSubscribed: selectIsSubscribed,
     swReg: selectSwRegistration,
+    userId: selectUserId,
   };
 
   const actionMap = {
-    setSubscribed: setSubscribedAction,
-    setSwRegistration: setSwRegistrationAction
+    setSubscription: setSubscriptionAction,
   };
 
   return compose(
     mapper(propMap, actionMap),
     lifecycle({
       componentDidMount() {
-        registerWorker();
+        const { userId, setSubscription } = this.props;
+        registerWorker(userId, setSubscription);
       },
     })
   )(pushHOC);

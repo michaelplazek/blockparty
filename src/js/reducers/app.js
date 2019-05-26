@@ -5,7 +5,6 @@ import {
   LOAD_WINDOW_HEIGHT,
   LOAD_WINDOW_WIDTH,
   SET_MARKET_VIEW,
-  SET_SW_REGISTRATION,
   SET_SUBSCRIBED,
 } from "../actions";
 import { MAP } from "../constants/app";
@@ -17,7 +16,6 @@ const initialState = {
   windowWidth: 0,
   marketView: MAP,
   notifications: {
-    swReg: null,
     isSubscribed: false,
   },
 };
@@ -42,12 +40,6 @@ const handlers = {
     notifications: {
       ...state.notifications,
       isSubscribed: action.data,
-    }
-  }),
-  [SET_SW_REGISTRATION]: (_, action) => ({
-    notifications: {
-      ...state.notifications,
-      swReg: action.data,
     }
   }),
 };
