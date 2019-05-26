@@ -34,7 +34,7 @@ export default Component => {
     mapper(propMap, actionMap),
     lifecycle({
       componentDidMount() {
-        // registerWorker();
+        registerWorker();
       },
     })
   )(pushHOC);

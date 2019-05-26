@@ -9,6 +9,7 @@ export const registerWorker = () => {
     console.log('Service Worker and Push is supported');
   }
     const swReg = runtime.register();
+  console.log(swReg);
   //     .then(function(swReg) {
   //       console.log('Service Worker is registered', swReg);
   //       getSubscription(swReg);

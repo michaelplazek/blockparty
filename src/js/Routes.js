@@ -1,5 +1,5 @@
 import React from "react";
-import { compose, lifecycle } from "recompose";
+import { compose } from "recompose";
 
 import { Route } from "react-router-dom";
 import { Switch, withRouter } from "react-router";
