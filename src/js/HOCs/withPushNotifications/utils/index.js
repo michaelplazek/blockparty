@@ -38,9 +38,15 @@ const checkSubscription = (swReg, userId, setSubscription, getSubscription) => {
   swReg.pushManager.getSubscription()
     .then(function(subscription) {
       isSubscribed = !(subscription === null);
+      console.log(subscription);
       if (isSubscribed) {
-        const data = { userId };
-        getSubscription(data);
+        // const data = { userId };
+        // getSubscription(data);
+        const data = {
+          subscription,
+          userId,
+        };
+        setSubscription(data);
       } else {
         const convertedVapidKey = urlB64ToUint8Array(applicationServerPublicKey);
         swReg.pushManager.subscribe({

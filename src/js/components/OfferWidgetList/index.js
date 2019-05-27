@@ -69,7 +69,7 @@ export default compose(
       loadMyAsks,
       createTransaction,
       loadOffersByUser
-    }) => ({ _id, coin, price, owner }) => {
+    }) => ({ _id, coin, price, owner, username: offerer }) => {
       createTransaction(_id, username).then(() => {
         loadTransactions(userId);
         loadOffersByUser(userId);
@@ -79,7 +79,7 @@ export default compose(
         const data = {
           title: "Your offer was accepted!",
           body: `${username} accepted your offer of $${price} worth of ${coin}. Time to meet up!`,
-          owner,
+          owner: offerer
         };
         setNotification(data);
       });
@@ -93,7 +93,7 @@ export default compose(
       loadMyAsks,
       patchOffer,
       username,
-    }) => ({ _id, coin, price, owner }) => {
+    }) => ({ _id, coin, price, owner, username: offerer }) => {
       const items = { status: "DECLINED" };
       patchOffer(_id, items).then(() => {
         loadTransactions(userId);
@@ -104,7 +104,7 @@ export default compose(
         const data = {
           title: "Your offer was rejected",
           body: `${username} rejected your offer of $${price} worth of ${coin}.`,
-          owner,
+          owner: offerer,
         };
         setNotification(data);
       });
