@@ -17,6 +17,7 @@ import { setLayerOpen } from "../../actions/layers";
 import { selectUserId, selectUsername } from "../../selectors";
 import { loadMyAsks } from "../../actions/asks";
 import { loadMyBids } from "../../actions/bids";
+import {setNotification} from "../../actions/app";
 
 const OfferWidgetList = ({ offers, post, handleAccept, handleDecline }) => (
   <Tile title="Offers" count={offers.length}>
@@ -29,8 +30,8 @@ const OfferWidgetList = ({ offers, post, handleAccept, handleDecline }) => (
           price={post.price}
           coin={post.coin}
           time={moment(item.timestamp).fromNow()}
-          handleAccept={() => handleAccept(item._id)}
-          handleDecline={() => handleDecline(item._id)}
+          handleAccept={() => handleAccept(item)}
+          handleDecline={() => handleDecline(item)}
         />
       ))}
     </Grid>
@@ -68,13 +69,19 @@ export default compose(
       loadMyAsks,
       createTransaction,
       loadOffersByUser
-    }) => id => {
-      createTransaction(id, username).then(() => {
+    }) => ({ _id, coin, price, owner }) => {
+      createTransaction(_id, username).then(() => {
         loadTransactions(userId);
         loadOffersByUser(userId);
         loadMyAsks(userId);
         loadMyBids(userId);
         setLayerOpen(false);
+        const data = {
+          title: "Your offer was accepted!",
+          body: `${username} accepted your offer of $${price} worth of ${coin}. Time to meet up!`,
+          owner,
+        };
+        setNotification(data);
       });
     },
     handleDecline: ({
@@ -84,15 +91,22 @@ export default compose(
       loadTransactions,
       loadMyBids,
       loadMyAsks,
-      patchOffer
-    }) => id => {
+      patchOffer,
+      username,
+    }) => ({ _id, coin, price, owner }) => {
       const items = { status: "DECLINED" };
-      patchOffer(id, items).then(() => {
+      patchOffer(_id, items).then(() => {
         loadTransactions(userId);
         loadOffersByUser(userId);
         loadMyAsks(userId);
         loadMyBids(userId);
         setLayerOpen(false);
+        const data = {
+          title: "Your offer was rejected.",
+          body: `${username} rejected your offer of $${price} worth of ${coin}.`,
+          owner,
+        };
+        setNotification(data);
       });
     }
   })

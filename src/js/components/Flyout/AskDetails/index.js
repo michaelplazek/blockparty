@@ -51,8 +51,6 @@ const styles = () => ({
 const AskDetails = ({
   classes,
   setLayerOpen,
-  windowWidth,
-  windowHeight,
   ask,
   open,
   offers,

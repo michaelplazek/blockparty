@@ -51,8 +51,6 @@ const styles = () => ({
 const DeleteBid = ({
   classes,
   setLayerOpen,
-  windowWidth,
-  windowHeight,
   bid,
   open,
   offers,

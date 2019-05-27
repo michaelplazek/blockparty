@@ -38,18 +38,16 @@ const handlers = {
   [SET_MARKET_VIEW]: (_, action) => ({
     marketView: action.data
   }),
-  [SET_SUBSCRIPTION]: (state, action) => ({
+  [SET_SUBSCRIPTION]: (state) => ({
     notifications: {
       ...state.notifications,
       isSubscribed: true,
-      subscription: action.data,
     }
   }),
-  [GET_SUBSCRIPTION]: (state, action) => ({
+  [GET_SUBSCRIPTION]: (state) => ({
     notifications: {
       ...state.notifications,
       isSubscribed: true,
-      subscription: action.data,
     }
   }),
 };

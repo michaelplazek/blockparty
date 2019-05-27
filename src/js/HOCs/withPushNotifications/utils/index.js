@@ -21,11 +21,9 @@ const urlB64ToUint8Array = (base64String) => {
 
 export const registerWorker = (userId, setSubscription, getSubscription) => {
   if ('serviceWorker' in navigator && 'PushManager' in window) {
-    console.log('Service Worker and Push is supported');
 
     runtime.register()
       .then(function (swReg) {
-        console.log('Service Worker is registered', swReg);
         checkSubscription(swReg, userId, setSubscription, getSubscription);
       })
       .catch(function (error) {
@@ -41,11 +39,9 @@ const checkSubscription = (swReg, userId, setSubscription, getSubscription) => {
     .then(function(subscription) {
       isSubscribed = !(subscription === null);
       if (isSubscribed) {
-        console.log('User IS subscribed.');
         const data = { userId };
         getSubscription(data);
       } else {
-        console.log('User is NOT subscribed.');
         const convertedVapidKey = urlB64ToUint8Array(applicationServerPublicKey);
         swReg.pushManager.subscribe({
           applicationServerKey: convertedVapidKey,

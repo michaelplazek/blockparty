@@ -34,5 +34,5 @@ export const getSubscription = data => dispatch =>
     dispatch({ type: GET_SUBSCRIPTION, data: response });
   });
 
-export const setNotification = (subscription, data) =>
-  wrappedFetch("notifications/notify", { subscription, ...data }, "POST");
+export const setNotification = (data) =>
+  wrappedFetch("notifications/notify", data, "POST");
