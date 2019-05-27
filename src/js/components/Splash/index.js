@@ -6,7 +6,7 @@ import {selectVisited, selectWindowHeight, selectWindowWidth} from "../../select
 import {setVisited as setVisitedAction} from "../../actions/app";
 import Grid from "@material-ui/core/Grid";
 import {Typography} from "@material-ui/core";
-import { bounceIn } from 'react-animations';
+import { bounceIn, fadeIn } from 'react-animations';
 import styled, { keyframes } from 'styled-components';
 
 const styles = theme => ({
@@ -18,6 +18,13 @@ const styles = theme => ({
 });
 
 const Bounce = styled.div`animation: 3s ${keyframes`${bounceIn}`}`;
+const Fade = styled.div`
+  animation: 3s ${keyframes`${fadeIn} 1s`}
+  text-align: end;  
+  position: relative;
+  top: 5px;
+  right: 10px; 
+`;
 
 const Splash = ({
   width,
@@ -36,6 +43,8 @@ const Splash = ({
         style={{
           position: "relative",
           top: height/2.25,
+          color: "#f2f2f2",
+          fontFamily: 'Quicksand',
         }}
       >
         <Bounce>
@@ -49,6 +58,19 @@ const Splash = ({
             Blockparty
           </Typography>
         </Bounce>
+        <Grid alignContent='flex-end' item>
+          <Fade>
+            <Typography
+              variant='caption'
+              style={{
+                color: "#f2f2f2",
+                fontFamily: 'Quicksand',
+              }}
+            >
+              A P2P crypto exchange
+            </Typography>
+          </Fade>
+        </Grid>
       </Grid>
     </Grid>
   </div>
