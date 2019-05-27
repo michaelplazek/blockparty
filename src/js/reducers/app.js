@@ -7,6 +7,7 @@ import {
   SET_MARKET_VIEW,
   SET_SUBSCRIPTION,
   GET_SUBSCRIPTION,
+  SET_VISITED,
 } from "../actions";
 import { MAP } from "../constants/app";
 
@@ -20,6 +21,7 @@ const initialState = {
     isSubscribed: false,
     subscription: {},
   },
+  visited: false,
 };
 
 const handlers = {
@@ -49,6 +51,9 @@ const handlers = {
       ...state.notifications,
       isSubscribed: true,
     }
+  }),
+  [SET_VISITED]: () => ({
+    visited: true
   }),
 };
 

@@ -53,14 +53,12 @@ const styles = theme => ({
 
 const CreateBid = ({
   classes,
-  onSubmit,
   activeIndex,
   setActiveIndex,
   handleBack,
   handleNext,
   resetBid,
   setLayerOpen,
-  handleSubmit,
   handleError
 }) => (
   <Flyout

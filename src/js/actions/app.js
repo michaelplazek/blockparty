@@ -6,6 +6,7 @@ import {
   SET_MARKET_VIEW,
   SET_SUBSCRIPTION,
   GET_SUBSCRIPTION,
+  SET_VISITED,
 } from "./index";
 import {wrappedFetch} from "../api/utils";
 
@@ -36,3 +37,6 @@ export const getSubscription = data => dispatch =>
 
 export const setNotification = (data) =>
   wrappedFetch("notifications/notify", data, "POST");
+
+export const setVisited = () => dispatch =>
+  dispatch({ type: SET_VISITED });
