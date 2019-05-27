@@ -28,6 +28,7 @@ import withLocation from "../../HOCs/withLocation";
 import Chart from "./Chart";
 import withPolling from "../../HOCs/withPolling";
 import withPushNotifications from "../../HOCs/withPushNotifications";
+import withVisited from "../../HOCs/withVisited";
 
 class Market extends Component {
   constructor(props) {
@@ -120,4 +121,5 @@ export default compose(
     loadBids();
   }, 5000),
   withPushNotifications,
+  withVisited,
 )(Market);

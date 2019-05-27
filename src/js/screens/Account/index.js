@@ -25,6 +25,7 @@ import { selectUserDetails } from "./selectors";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "@material-ui/core/Button/Button";
 import withPolling from "../../HOCs/withPolling";
+import withVisited from "../../HOCs/withVisited";
 
 const styles = () => ({
   body: {
@@ -94,4 +95,5 @@ export default compose(
   withPolling(({ loadUserFromToken }) => {
     loadUserFromToken();
   }, 5000),
+  withVisited,
 )(Account);

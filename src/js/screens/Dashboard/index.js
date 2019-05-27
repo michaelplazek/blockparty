@@ -66,6 +66,7 @@ import withPolling from "../../HOCs/withPolling";
 import AddIcon from '@material-ui/icons/AddLocation';
 import AddAskIcon from '@material-ui/icons/AddLocationTwoTone';
 import SpeedDialButton from "../../components/SpeedDialButton";
+import withVisited from "../../HOCs/withVisited";
 
 
 const styles = () => ({
@@ -320,5 +321,6 @@ export default compose(
     loadTransactions(userId);
     loadMyAsks(userId);
     loadMyBids(userId);
-  }, 5000)
+  }, 5000),
+  withVisited,
 )(Dashboard);
