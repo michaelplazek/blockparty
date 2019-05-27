@@ -19,7 +19,7 @@ const styles = theme => ({
 
 const Bounce = styled.div`animation: 3s ${keyframes`${bounceIn}`}`;
 const Fade = styled.div`
-  animation: 3s ${keyframes`${fadeIn} 1s`}
+  animation: 4s ${keyframes`${fadeIn}`}
   text-align: end;  
   position: relative;
   top: 5px;
