@@ -19,12 +19,12 @@ const urlB64ToUint8Array = (base64String) => {
   return outputArray;
 };
 
-export const registerWorker = (userId, setSubscription, getSubscription) => {
+export const registerWorker = (userId, setSubscription) => {
   if ('serviceWorker' in navigator && 'PushManager' in window) {
 
     runtime.register()
       .then(function (swReg) {
-        checkSubscription(swReg, userId, setSubscription, getSubscription);
+        checkSubscription(swReg, userId, setSubscription);
       })
       .catch(function (error) {
         console.error('Service Worker Error', error);
@@ -34,14 +34,11 @@ export const registerWorker = (userId, setSubscription, getSubscription) => {
   }
 };
 
-const checkSubscription = (swReg, userId, setSubscription, getSubscription) => {
+const checkSubscription = (swReg, userId, setSubscription) => {
   swReg.pushManager.getSubscription()
     .then(function(subscription) {
       isSubscribed = !(subscription === null);
-      console.log(subscription);
       if (isSubscribed) {
-        // const data = { userId };
-        // getSubscription(data);
         const data = {
           subscription,
           userId,
