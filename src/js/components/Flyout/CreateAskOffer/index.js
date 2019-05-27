@@ -32,10 +32,11 @@ import {
   selectOfferFormVolume,
   selectUserId,
   selectAskVolume,
-  selectUsername
+  selectUsername,
 } from "../../../selectors";
 import { ValidatorForm } from "react-material-ui-form-validator";
 import { cleanInputs } from "../../../constants/validation";
+import { setNotification } from "../../../actions/app";
 
 const styles = theme => ({
   root: {
@@ -55,15 +56,12 @@ const styles = theme => ({
 
 const CreateAskOffer = ({
   classes,
-  onSubmit,
   activeIndex,
   setActiveIndex,
   handleBack,
   handleNext,
   setLayerOpen,
   resetOffer,
-  error,
-  handleSubmit,
   handleError
 }) => (
   <Flyout
@@ -138,7 +136,7 @@ const propMap = {
   owner: selectAskOwner,
   total: selectAskOfferTotal,
   postId: selectAskId,
-  username: selectUsername
+  username: selectUsername,
 };
 
 const actionMap = {
@@ -165,7 +163,7 @@ export default compose(
       setLayerOpen,
       resetOffer,
       history,
-      username
+      username,
     }) => () => {
       // clean the text inputs
       const inputs = cleanInputs(contactInfo);
@@ -185,6 +183,12 @@ export default compose(
         setLayerOpen(false);
         setActiveIndex(0);
         history.push("/dashboard");
+        const data = {
+          title: "You have a new offer!",
+          body: `${username} offered to buy $${price} worth of ${coin}.`,
+          owner,
+        };
+        setNotification(data);
       }, 1500);
       resetOffer();
     }

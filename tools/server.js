@@ -16,8 +16,6 @@ app.use(require('webpack-dev-middleware')(compiler, {
     publicPath: config.output.publicPath
 }));
 
-app.use(require("webpack-hot-middleware")(compiler));
-
 app.use(favicon(path.join(__dirname, 'favicon.ico')));
 
 app.get('*', function(req, res) {

@@ -4,7 +4,9 @@ import {
   LOAD_HEADER_HEIGHT,
   LOAD_WINDOW_HEIGHT,
   LOAD_WINDOW_WIDTH,
-  SET_MARKET_VIEW
+  SET_MARKET_VIEW,
+  SET_SUBSCRIPTION,
+  GET_SUBSCRIPTION,
 } from "../actions";
 import { MAP } from "../constants/app";
 
@@ -13,7 +15,11 @@ const initialState = {
   headerHeight: 0,
   windowHeight: 0,
   windowWidth: 0,
-  marketView: MAP
+  marketView: MAP,
+  notifications: {
+    isSubscribed: false,
+    subscription: {},
+  },
 };
 
 const handlers = {
@@ -31,7 +37,19 @@ const handlers = {
   }),
   [SET_MARKET_VIEW]: (_, action) => ({
     marketView: action.data
-  })
+  }),
+  [SET_SUBSCRIPTION]: (state) => ({
+    notifications: {
+      ...state.notifications,
+      isSubscribed: true,
+    }
+  }),
+  [GET_SUBSCRIPTION]: (state) => ({
+    notifications: {
+      ...state.notifications,
+      isSubscribed: true,
+    }
+  }),
 };
 
 export default stateReducer(initialState, handlers);

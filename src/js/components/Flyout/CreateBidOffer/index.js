@@ -36,6 +36,7 @@ import {
 } from "../../../selectors/index";
 import { ValidatorForm } from "react-material-ui-form-validator";
 import { cleanInputs } from "../../../constants/validation";
+import { setNotification } from "../../../actions/app";
 
 const styles = theme => ({
   root: {
@@ -55,14 +56,12 @@ const styles = theme => ({
 
 const CreateBidOffer = ({
   classes,
-  onSubmit,
   activeIndex,
   setActiveIndex,
   handleBack,
   handleNext,
   setLayerOpen,
   resetOffer,
-  handleSubmit,
   handleError
 }) => (
   <Flyout
@@ -185,6 +184,12 @@ export default compose(
         setLayerOpen(false);
         setActiveIndex(0);
         history.push("/dashboard");
+        const data = {
+          title: "You have a new offer!",
+          body: `${username} offered to sell $${price} worth of ${coin}.`,
+          owner,
+        };
+        setNotification(data);
       }, 1500);
       resetOffer();
     }
