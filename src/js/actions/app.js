@@ -6,6 +6,8 @@ import {
   SET_MARKET_VIEW,
   SET_SUBSCRIPTION,
   GET_SUBSCRIPTION,
+  SET_VISITED,
+  SET_NAV_INDEX,
 } from "./index";
 import {wrappedFetch} from "../api/utils";
 
@@ -36,3 +38,9 @@ export const getSubscription = data => dispatch =>
 
 export const setNotification = (data) =>
   wrappedFetch("notifications/notify", data, "POST");
+
+export const setVisited = () => dispatch =>
+  dispatch({ type: SET_VISITED });
+
+export const setNavIndex = (index) => dispatch =>
+  dispatch({ type: SET_NAV_INDEX, data: index });

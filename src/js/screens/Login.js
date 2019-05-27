@@ -10,6 +10,8 @@ import Typography from "@material-ui/core/Typography/Typography";
 import { logInUser } from "../actions/session";
 import mapper from "../utils/connect";
 import Button from "@material-ui/core/Button/Button";
+import withSplash from "../HOCs/withSplash";
+import Fade from "@material-ui/core/Fade";
 
 const styles = () => ({
   root: {
@@ -26,6 +28,12 @@ const styles = () => ({
 
 const Login = ({ handleLogIn, classes, history }) => (
   <Grid className={classes.root} container justify="center" direction="column">
+    <Fade
+      in={true}
+      timeout={{
+        enter: 1000,
+      }}
+    >
     <Grid item>
       <Grid container direction="column" justify="center">
         <Typography align="center" variant="display1">
@@ -44,6 +52,7 @@ const Login = ({ handleLogIn, classes, history }) => (
         </Button>
       </Typography>
     </Grid>
+    </Fade>
   </Grid>
 );
 
@@ -61,5 +70,6 @@ export default compose(
     handleLogIn: ({ logInUser, history }) => (username, password) => {
       logInUser(username, password, history);
     }
-  })
+  }),
+  withSplash,
 )(Login);

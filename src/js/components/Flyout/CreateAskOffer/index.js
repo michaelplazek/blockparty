@@ -36,7 +36,8 @@ import {
 } from "../../../selectors";
 import { ValidatorForm } from "react-material-ui-form-validator";
 import { cleanInputs } from "../../../constants/validation";
-import { setNotification } from "../../../actions/app";
+import {setNavIndex as setNavIndexAction, setNotification} from "../../../actions/app";
+import {getIndexFromPath} from "../../../utils/location";
 
 const styles = theme => ({
   root: {
@@ -141,7 +142,8 @@ const propMap = {
 
 const actionMap = {
   setLayerOpen: setLayerOpenAction,
-  resetOffer
+  resetOffer,
+  setNavIndex: setNavIndexAction,
 };
 
 export default compose(
@@ -164,6 +166,7 @@ export default compose(
       resetOffer,
       history,
       username,
+      setNavIndex,
     }) => () => {
       // clean the text inputs
       const inputs = cleanInputs(contactInfo);
@@ -183,6 +186,7 @@ export default compose(
         setLayerOpen(false);
         setActiveIndex(0);
         history.push("/dashboard");
+        setNavIndex(getIndexFromPath("/dashboard"));
         const data = {
           title: "You have a new offer!",
           body: `${username} offered to buy $${price} worth of ${coin}.`,

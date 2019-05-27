@@ -9,6 +9,7 @@ import routes from "./config/routes";
 import withAuthentification from "./HOCs/withAuthentification";
 import withErrors from "./HOCs/withErrors";
 import withCurrencyData from "./HOCs/withCurrencyData";
+import withDimensions from "./HOCs/withDimensions";
 
 const Routes = () => (
   <div>
@@ -30,6 +31,7 @@ const Routes = () => (
 
 export default compose(
   withRouter,
+  withDimensions,
   withAuthentification,
   withErrors,
   withCurrencyData,

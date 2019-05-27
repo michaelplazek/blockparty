@@ -68,12 +68,24 @@ class GoogleMapsWrapper extends Component {
                 lat: parseFloat(item.lat),
                 lng: parseFloat(item.lng)
               }}
+              padding={0}
             >
               <div
                 onClick={() => onMarkerClick(item)}
-                style={{ cursor: "pointer" }}
+                style={{
+                  cursor: "pointer",
+                }}
               >
-                <Grid container direction="column" alignItems="center">
+                <Grid
+                  container
+                  direction="column"
+                  alignItems="center"
+                  justify="center"
+                  // style={{
+                  //   cursor: "pointer",
+                  //   padding: "10px"
+                  // }}
+                >
                   <Grid item>
                     <Grid container direction="row">
                       <Grid item style={{ margin: "4px 4px 0px 0px" }}>

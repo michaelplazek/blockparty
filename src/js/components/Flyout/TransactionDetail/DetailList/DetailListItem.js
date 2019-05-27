@@ -7,7 +7,45 @@ import Typography from "@material-ui/core/Typography/Typography";
 import ListItem from "@material-ui/core/ListItem/ListItem";
 import ListItemText from "@material-ui/core/ListItemText/ListItemText";
 
-const ContactDetailItem = ({ name, value, isLast, onClick, contact }) => (
+import {isEmail, isPhoneNumber} from "../../../../utils/regex";
+
+const getLink = (contact) => {
+  if (isPhoneNumber(contact)) {
+    return (
+      <Typography
+        style={theme.palette.inverse}
+        component="a"
+        variant="headline"
+        href={`tel:${contact}`}
+      >
+        {contact}
+      </Typography>
+    );
+  }
+  if (isEmail(contact)) {
+    return (
+      <Typography
+        style={theme.palette.inverse}
+        component="a"
+        variant="headline"
+        href={`mailto:${contact}`}
+      >
+        {contact}
+      </Typography>
+    )
+  } else {
+    return (
+      <Typography
+        style={theme.palette.inverse}
+        variant="headline"
+      >
+        {contact}
+      </Typography>
+    )
+  }
+};
+
+const ContactDetailItem = ({ name, value, onClick, contact }) => (
   <ListItem style={theme.palette.inverse} divider={false}>
     <Grid direction="column" container>
       <Grid item>
@@ -42,9 +80,7 @@ const ContactDetailItem = ({ name, value, isLast, onClick, contact }) => (
           style={{ marginTop: "1em", marginBottom: "1em" }}
         >
           <Grid item>
-            <Typography style={theme.palette.inverse} variant="headline">
-              {contact}
-            </Typography>
+            {getLink(contact)}
           </Grid>
         </Grid>
       </Grid>
@@ -52,7 +88,7 @@ const ContactDetailItem = ({ name, value, isLast, onClick, contact }) => (
   </ListItem>
 );
 
-const UserDetailItem = ({ name, value, isLast, onClick }) => (
+const UserDetailItem = ({ name, value, onClick }) => (
   <ListItem divider={true}>
     <Grid direction="column" container>
       <Grid container justify="space-between" onClick={onClick}>

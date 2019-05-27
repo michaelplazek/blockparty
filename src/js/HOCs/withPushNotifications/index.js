@@ -35,8 +35,8 @@ export default Component => {
     mapper(propMap, actionMap),
     lifecycle({
       componentDidMount() {
-        const { userId, setSubscription, getSubscription } = this.props;
-        registerWorker(userId, setSubscription, getSubscription);
+        const { userId, setSubscription } = this.props;
+        registerWorker(userId, setSubscription);
       },
     })
   )(pushHOC);
