@@ -58,7 +58,7 @@ const Splash = ({
             Blockparty
           </Typography>
         </Bounce>
-        <Grid alignContent='flex-end' item>
+        <Grid align='flex-end' item>
           <Fade>
             <Typography
               variant='caption'
