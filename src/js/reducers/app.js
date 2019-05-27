@@ -11,10 +11,11 @@ import {
   SET_NAV_INDEX,
 } from "../actions";
 import { MAP } from "../constants/app";
+import {getIndexFromPath} from "../utils/location";
 
 const initialState = {
   navigationBarHeight: 0,
-  navigationIndex: 0,
+  navigationIndex: getIndexFromPath(window.location.pathname),
   headerHeight: 0,
   windowHeight: 0,
   windowWidth: 0,
