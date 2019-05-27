@@ -59,7 +59,7 @@ const CreateAskContent = ({
       return (
         <div>
           <FormControl margin="dense" fullWidth={true}>
-            <Grid container>
+            <Grid direction='column' container>
               <Grid item>
                 <TextValidator
                   id="volume"

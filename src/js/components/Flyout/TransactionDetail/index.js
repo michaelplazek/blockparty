@@ -7,9 +7,9 @@ import Flyout from "../index";
 
 import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
 import {
-  selectLayerOpen,
-  selectTransactionId,
-  selectUserId,
+  selectLayerOpen, selectTransactionBuyerUsername, selectTransactionCoin,
+  selectTransactionId, selectTransactionPrice, selectTransactionSellerUsername,
+  selectUserId, selectUsername,
   selectWindowHeight,
   selectWindowWidth
 } from "../../../selectors";
@@ -29,6 +29,7 @@ import ButtonContainer from "./ButtonContainer";
 import { loadMyAsks } from "../../../actions/asks";
 import { loadMyBids } from "../../../actions/bids";
 import { loadOffersByUser } from "../../../actions/offers";
+import {setNotification} from "../../../actions/app";
 
 const styles = () => ({
   list: {
@@ -39,12 +40,8 @@ const styles = () => ({
 const TransactionDetails = ({
   classes,
   setLayerOpen,
-  windowWidth,
-  windowHeight,
-  ask,
   open,
   items,
-  id,
   handleComplete,
   handleCancel,
   completeButtonIsDisabled
@@ -75,7 +72,12 @@ const propMap = {
   windowWidth: selectWindowWidth,
   items: selectTransactionDetails,
   id: selectTransactionId,
-  completeButtonIsDisabled: selectCompleteButtonIsDisabled
+  price: selectTransactionPrice,
+  coin: selectTransactionCoin,
+  buyer: selectTransactionBuyerUsername,
+  seller: selectTransactionSellerUsername,
+  completeButtonIsDisabled: selectCompleteButtonIsDisabled,
+  username: selectUsername,
 };
 
 const actionMap = {
@@ -102,7 +104,12 @@ export default compose(
       loadTransactions,
       loadMyAsks,
       loadMyBids,
-      loadOffersByUser
+      loadOffersByUser,
+      buyer,
+      seller,
+      username,
+      coin,
+      price,
     }) => () => {
       completeTransaction(id, userId).then(() => {
         loadTransactions(userId);
@@ -110,6 +117,12 @@ export default compose(
         loadMyBids(userId);
         loadOffersByUser(userId);
         setLayerOpen(false);
+        const data = {
+          title: "Offer marked as complete!",
+          body: `${username} marked your transaction for $${price} worth of ${coin} as complete.`,
+          owner: username === buyer ? seller : buyer,
+        };
+        setNotification(data);
       });
     },
     handleCancel: ({
@@ -120,7 +133,12 @@ export default compose(
       loadTransactions,
       loadMyAsks,
       loadMyBids,
-      loadOffersByUser
+      loadOffersByUser,
+      buyer,
+      seller,
+      username,
+      coin,
+      price,
     }) => () => {
       cancelTransaction(id).then(() => {
         loadTransactions(userId);
@@ -128,6 +146,12 @@ export default compose(
         loadMyBids(userId);
         loadOffersByUser(userId);
         setLayerOpen(false);
+        const data = {
+          title: "Offer marked as cancelled",
+          body: `${username} cancelled your transaction for $${price} worth of ${coin}.`,
+          owner: username === buyer ? seller : buyer,
+        };
+        setNotification(data);
       });
     }
   })

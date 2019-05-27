@@ -102,7 +102,7 @@ export default compose(
         loadMyBids(userId);
         setLayerOpen(false);
         const data = {
-          title: "Your offer was rejected.",
+          title: "Your offer was rejected",
           body: `${username} rejected your offer of $${price} worth of ${coin}.`,
           owner,
         };
