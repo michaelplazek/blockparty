@@ -45,7 +45,7 @@ const getLink = (contact) => {
   }
 };
 
-const ContactDetailItem = ({ name, value, isLast, onClick, contact }) => (
+const ContactDetailItem = ({ name, value, onClick, contact }) => (
   <ListItem style={theme.palette.inverse} divider={false}>
     <Grid direction="column" container>
       <Grid item>
@@ -88,7 +88,7 @@ const ContactDetailItem = ({ name, value, isLast, onClick, contact }) => (
   </ListItem>
 );
 
-const UserDetailItem = ({ name, value, isLast, onClick }) => (
+const UserDetailItem = ({ name, value, onClick }) => (
   <ListItem divider={true}>
     <Grid direction="column" container>
       <Grid container justify="space-between" onClick={onClick}>

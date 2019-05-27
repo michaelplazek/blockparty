@@ -3,18 +3,17 @@ import get from "lodash/get";
 
 import PropTypes from "prop-types";
 import { compose } from "recompose";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 
 import mapper from "../../utils/connect";
-import { setNavHeight as setNavHeightAction } from "../../actions/app";
+import {setNavHeight as setNavHeightAction, setNavIndex as setNavIndexAction} from "../../actions/app";
 import { footerNavigation as navigation } from "../../config/navigation";
 
 import AppBar from "@material-ui/core/AppBar/AppBar";
 import Tabs from "@material-ui/core/Tabs/Tabs";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Tab from "@material-ui/core/Tab/Tab";
-import { selectMarketView } from "../../selectors";
-import { MAP } from "../../constants/app";
+import {selectMarketView, selectNavIndex} from "../../selectors";
 
 const styles = () => ({
   root: {
@@ -31,7 +30,6 @@ class FooterNavBase extends Component {
 
     this.saveRef = ref => (this.containerNode = ref);
     this.state = {
-      index: this.getIndexFromPath(),
       width: 0,
       height: 0
     };
@@ -69,20 +67,13 @@ class FooterNavBase extends Component {
     return (
       this.state.width !== nextState.width ||
       this.state.height !== nextState.height ||
-      this.state.index !== nextState.index
+      this.props.index !== nextProps.index
     );
   }
 
   handleChange(value) {
-    const { view } = this.props;
-    let { path } = navigation[value];
-
-    if (value === 0) {
-      path = view === MAP ? "/" : "/analysis";
-    }
-
-    this.setState({ index: value });
-    this.props.history.push(path);
+    const { setNavIndex } = this.props;
+    setNavIndex(value);
   }
 
   render() {
@@ -90,14 +81,20 @@ class FooterNavBase extends Component {
       <div className={this.props.classes.root} ref={this.saveRef}>
         <AppBar position="static" color="default">
           <Tabs
-            value={this.state.index}
+            value={this.props.index}
             onChange={(_, value) => this.handleChange(value)}
             indicatorColor="primary"
             textColor="primary"
             fullWidth={true}
           >
             {navigation.map(item => (
-              <Tab icon={item.icon} label={item.label} key={item.index} />
+              <Tab
+                icon={item.icon}
+                label={item.label}
+                key={item.index}
+                component={Link}
+                to={item.path}
+              />
             ))}
           </Tabs>
         </AppBar>
@@ -111,11 +108,13 @@ FooterNavBase.propTypes = {
 };
 
 const propMap = {
-  view: selectMarketView
+  view: selectMarketView,
+  index: selectNavIndex,
 };
 
 const actionMap = {
-  setNavHeight: setNavHeightAction
+  setNavHeight: setNavHeightAction,
+  setNavIndex: setNavIndexAction
 };
 
 export default compose(

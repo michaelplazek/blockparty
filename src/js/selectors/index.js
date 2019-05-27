@@ -530,4 +530,6 @@ export const selectLastPrice = state => state.metrics.lastPrice;
 export const selectIsSubscribed = state => state.app.notifications.isSubscribed;
 export const selectSubscription = state => state.app.notifications.subscription;
 export const selectVisited = state => state.app.visited;
+export const selectNavIndex = state => state.app.navigationIndex;
+
 

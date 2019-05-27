@@ -1,3 +1,6 @@
+import get from "lodash/get";
+import {footerNavigation as navigation} from "../config/navigation";
+
 export function isLocationSet() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(isSet, isNotSet);
@@ -38,3 +41,7 @@ export function getMilesFromMeters(i) {
 export function getMetersFromMiles(i) {
   return i * 1609.344;
 }
+
+export const getIndexFromPath = (pathname) => {
+  return get(navigation.find(item => item.path === pathname), "index");
+};

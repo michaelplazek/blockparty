@@ -8,11 +8,13 @@ import {
   SET_SUBSCRIPTION,
   GET_SUBSCRIPTION,
   SET_VISITED,
+  SET_NAV_INDEX,
 } from "../actions";
 import { MAP } from "../constants/app";
 
 const initialState = {
   navigationBarHeight: 0,
+  navigationIndex: 0,
   headerHeight: 0,
   windowHeight: 0,
   windowWidth: 0,
@@ -55,6 +57,9 @@ const handlers = {
   [SET_VISITED]: () => ({
     visited: true
   }),
+  [SET_NAV_INDEX]: (_, action) => ({
+    navigationIndex: action.data,
+  })
 };
 
 export default stateReducer(initialState, handlers);
