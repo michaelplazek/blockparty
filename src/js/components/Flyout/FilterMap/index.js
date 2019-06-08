@@ -39,9 +39,7 @@ const FilterMap = ({
   distance,
   coin,
   setLayerOpen,
-  setFilterDistance,
   setFilterCoin,
-  setFilter,
   setFilterType,
   handleSubmit,
   handleSetDistance,
@@ -99,7 +97,7 @@ const FilterMap = ({
           <br />
         </FormControl>
         <Grid container justify="center">
-          <Button variant="raised" color="primary" type="submit">
+          <Button variant="contained" color="primary" type="submit">
             Submit
           </Button>
         </Grid>
