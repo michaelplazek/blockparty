@@ -49,6 +49,6 @@ export const getIndexFromPath = (pathname) => {
   return compose(
     defaultTo(0),
     get("index"),
-    find(item => item.path === pathname)
+    find(item => item.path === pathname || item.subpath === pathname)
   )(navigation)
 };

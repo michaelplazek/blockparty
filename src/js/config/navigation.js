@@ -9,18 +9,21 @@ import {
 export const footerNavigation = [
   {
     path: "/",
+    subpath: undefined,
     label: "Market",
     index: 0,
     icon: <FontAwesomeIcon icon={faDollarSign} />
   },
   {
     path: "/dashboard",
+    subpath: undefined,
     label: "Dashboard",
     index: 1,
     icon: <FontAwesomeIcon icon={faTachometerAlt} />
   },
   {
     path: "/account",
+    subpath: "/settings",
     label: "Account",
     index: 2,
     icon: <FontAwesomeIcon icon={faUser} />

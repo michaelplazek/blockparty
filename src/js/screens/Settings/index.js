@@ -41,12 +41,9 @@ const styles = () => ({
 });
 
 const Settings = ({
-  logOut,
   classes,
   height,
-  username,
   bio,
-  items,
   history,
   handleUpdate,
   handleDelete,
@@ -89,7 +86,7 @@ const Settings = ({
                 />
               </Grid>
               <Grid item>
-                <Button variant="raised" color="primary" type="submit">
+                <Button variant="contained" color="primary" type="submit">
                   Update
                 </Button>
               </Grid>
@@ -100,7 +97,7 @@ const Settings = ({
           <Grid container direction="column" alignItems="center">
             <Grid item>
               <Button
-                variant="raised"
+                variant="contained"
                 style={
                   totalItems === 0
                     ? theme.palette.errorButton
