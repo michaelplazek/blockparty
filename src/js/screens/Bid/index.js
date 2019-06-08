@@ -30,6 +30,7 @@ import {
 import CreateBidOffer from "../../components/Flyout/CreateBidOffer";
 import { loadOffersByUser } from "../../actions/offers";
 import { selectBidHasButton } from "../../selectors";
+import Fab from "@material-ui/core/Fab";
 
 const styles = theme => ({
   root: {
@@ -93,15 +94,14 @@ const Bid = ({
             <DetailList items={items} />
           </div>
           {showButton && (
-            <Button
+            <Fab
               className={classes.buttons}
-              // color="secondary"
               disabled={bidHasOffer}
-              variant="extendedFab"
+              variant="extended"
               onClick={handleOffer}
             >
               {buttonText}
-            </Button>
+            </Fab>
           )}
         </Grid>
         <Grid />

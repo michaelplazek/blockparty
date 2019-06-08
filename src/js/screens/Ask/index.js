@@ -31,6 +31,7 @@ import {
 import CreateAskOffer from "../../components/Flyout/CreateAskOffer";
 import { loadOffersByUser } from "../../actions/offers";
 import { selectAskHasButton } from "../../selectors";
+import Fab from "@material-ui/core/Fab";
 
 const styles = theme => ({
   root: {
@@ -94,15 +95,14 @@ const Ask = ({
             <DetailList items={items} />
           </div>
           {showButton && (
-            <Button
+            <Fab
               className={classes.buttons}
-              variant="extendedFab"
+              variant="extended"
               disabled={hasAskOffer}
-              // color="secondary"
               onClick={handleOffer}
             >
               {buttonText}
-            </Button>
+            </Fab>
           )}
         </Grid>
         <Grid />
