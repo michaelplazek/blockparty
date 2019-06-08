@@ -12,6 +12,7 @@ import mapper from "../utils/connect";
 import Button from "@material-ui/core/Button/Button";
 import withSplash from "../HOCs/withSplash";
 import Fade from "@material-ui/core/Fade";
+import {setNavIndex} from "../actions/app";
 
 const styles = () => ({
   root: {
@@ -59,7 +60,8 @@ const Login = ({ handleLogIn, classes, history }) => (
 const propMap = {};
 
 const actionMap = {
-  logInUser
+  logInUser,
+  setNavIndex,
 };
 
 export default compose(
@@ -67,8 +69,8 @@ export default compose(
   withRouter,
   mapper(propMap, actionMap),
   withHandlers({
-    handleLogIn: ({ logInUser, history }) => (username, password) => {
-      logInUser(username, password, history);
+    handleLogIn: ({ logInUser, setNavIndex, history }) => (username, password) => {
+      logInUser(username, password, history, setNavIndex);
     }
   }),
   withSplash,

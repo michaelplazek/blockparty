@@ -1,5 +1,5 @@
 import React from "react";
-import { compose } from "recompose";
+import {compose, withHandlers} from "recompose";
 
 import { TextValidator } from "react-material-ui-form-validator";
 import FormControl from "@material-ui/core/FormControl/FormControl";
@@ -28,11 +28,15 @@ import {
 import withStyles from "@material-ui/core/styles/withStyles";
 import { getMinimalUnit } from "../../../utils/validate";
 import { setError } from "../../../actions/errors";
+import Chip from "@material-ui/core/Chip";
 
 const styles = () => ({
   info: {
     padding: "5px",
     margin: "5px 5px 5px 0px"
+  },
+  chip: {
+    marginRight: "2px"
   }
 });
 
@@ -52,7 +56,8 @@ const CreateAskContent = ({
   setOfferVolumeInUSD,
   setContactInfo,
   totalInUSD,
-  totalFormattedInUSD
+  totalFormattedInUSD,
+  handleChipClick,
 }) => {
   switch (index) {
     case 0:
@@ -60,6 +65,37 @@ const CreateAskContent = ({
         <div>
           <FormControl margin="dense" fullWidth={true}>
             <Grid direction='column' container>
+              <Grid item>
+                <Grid container>
+                  <Grid className={classes.chip} item>
+                    <Chip
+                      clickable={true}
+                      onClick={() => handleChipClick(0.25)}
+                      label='25%'
+                      size='small'
+                      variant="outlined"
+                    />
+                  </Grid>
+                  <Grid className={classes.chip} item>
+                    <Chip
+                      clickable={true}
+                      onClick={() => handleChipClick(0.50)}
+                      label='50%'
+                      size='small'
+                      variant="outlined"
+                    />
+                  </Grid>
+                  <Grid className={classes.chip} item>
+                    <Chip
+                      clickable={true}
+                      onClick={() => handleChipClick(1)}
+                      label='100%'
+                      size='small'
+                      variant="outlined"
+                    />
+                  </Grid>
+                </Grid>
+              </Grid>
               <Grid item>
                 <TextValidator
                   id="volume"
@@ -185,5 +221,13 @@ const actionMap = {
 
 export default compose(
   withStyles(styles),
-  mapper(propMap, actionMap)
+  mapper(propMap, actionMap),
+  withHandlers({
+    handleChipClick: ({ setOfferVolume, setOfferVolumeInUSD, max, price }) => (percentage) => {
+      const updatedVolume = max * percentage;
+      const totalInUSD = (price * updatedVolume).toFixed(3);
+      setOfferVolume(updatedVolume);
+      setOfferVolumeInUSD(totalInUSD);
+    },
+  }),
 )(CreateAskContent);

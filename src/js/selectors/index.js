@@ -510,6 +510,16 @@ export const selectUserCanDelete = createSelector(
   count => count === 0
 );
 
+export const selectMyAskCoins = createSelector(
+  selectMyUnfilteredAsks,
+  fpMap(item => item.coin)
+);
+
+export const selectMyBidCoins = createSelector(
+  selectMyUnfilteredBids,
+  fpMap(item => item.coin)
+);
+
 // Errors
 export const selectError = state => state.errors.error;
 export const selectErrorMessage = state => state.errors.message;
@@ -518,12 +528,34 @@ export const selectErrorMessage = state => state.errors.message;
 export const selectCurrencyNames = state => state.metrics.currencies;
 export const selectCurrencyNamesLoaded = state =>
   state.metrics.currenciesLoaded;
+export const selectAskCurrencyItems = createSelector(
+  selectCurrencyNames,
+  selectMyAskCoins,
+  (names, coins) => compose(
+    fpMap(item => ({
+      label: `${item.assetName} - ${item.assetSymbol}`,
+      value: item.assetSymbol
+    })),
+    filter(coin => !coins.includes(coin.assetSymbol)),
+  )(names)
+);
+export const selectBidCurrencyItems = createSelector(
+  selectCurrencyNames,
+  selectMyBidCoins,
+  (names, coins) => compose(
+    fpMap(item => ({
+      label: `${item.assetName} - ${item.assetSymbol}`,
+      value: item.assetSymbol
+    })),
+    filter(coin => !coins.includes(coin.assetSymbol)),
+  )(names)
+);
 export const selectCurrencyItems = createSelector(
   selectCurrencyNames,
   fpMap(item => ({
     label: `${item.assetName} - ${item.assetSymbol}`,
     value: item.assetSymbol
-  }))
+  })),
 );
 export const selectLastPrice = state => state.metrics.lastPrice;
 
@@ -532,4 +564,5 @@ export const selectSubscription = state => state.app.notifications.subscription;
 export const selectVisited = state => state.app.visited;
 export const selectNavIndex = state => state.app.navigationIndex;
 
+export const selectUser = state => state.users.user;
 

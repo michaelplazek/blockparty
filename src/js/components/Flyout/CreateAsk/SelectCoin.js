@@ -5,7 +5,7 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import numeral from "numeral";
 import {COST} from "../../../constants/currency";
-import {selectAskFormCoin, selectCurrencyItems, selectCurrentLocation} from "../../../selectors";
+import {selectAskFormCoin, selectAskCurrencyItems, selectCurrentLocation} from "../../../selectors";
 import {
   setAskCoin as setAskCoinAction,
   setAskLatitude as setAskLatitudeAction,
@@ -43,7 +43,7 @@ const SelectCoin = ({
 );
 
 const propMap = {
-  coins: selectCurrencyItems,
+  coins: selectAskCurrencyItems,
   coin: selectAskFormCoin,
   currentLocation: selectCurrentLocation,
 };

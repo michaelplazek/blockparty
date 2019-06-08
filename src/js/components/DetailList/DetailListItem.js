@@ -6,7 +6,7 @@ import Typography from "@material-ui/core/Typography/Typography";
 import ListItem from "@material-ui/core/ListItem/ListItem";
 import ListItemText from "@material-ui/core/ListItemText/ListItemText";
 
-const DetailListItem = ({ name, value, isLast, onClick }) => (
+const DetailListItem = ({ className, name, value, isLast, onClick }) => (
   <ListItem divider={!isLast}>
     <Grid container justify="space-between" onClick={onClick}>
       <Grid item>
@@ -16,7 +16,7 @@ const DetailListItem = ({ name, value, isLast, onClick }) => (
         />
       </Grid>
       <Grid item>
-        <ListItemText>{value}</ListItemText>
+        <ListItemText className={className}>{value}</ListItemText>
       </Grid>
     </Grid>
   </ListItem>

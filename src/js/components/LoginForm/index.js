@@ -63,7 +63,7 @@ const LoginForm = ({
       <br />
       <Button
         className="submitButton"
-        variant="raised"
+        variant="contained"
         color="primary"
         type="submit"
       >

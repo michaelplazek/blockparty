@@ -1,4 +1,7 @@
-import get from "lodash/get";
+import get from "lodash/fp/get";
+import compose from 'lodash/fp/compose';
+import defaultTo from 'lodash/fp/defaultTo';
+import find from 'lodash/fp/find';
 import {footerNavigation as navigation} from "../config/navigation";
 
 export function isLocationSet() {
@@ -43,5 +46,9 @@ export function getMetersFromMiles(i) {
 }
 
 export const getIndexFromPath = (pathname) => {
-  return get(navigation.find(item => item.path === pathname), "index");
+  return compose(
+    defaultTo(0),
+    get("index"),
+    find(item => item.path === pathname || item.subpath === pathname)
+  )(navigation)
 };

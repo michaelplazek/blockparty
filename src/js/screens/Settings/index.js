@@ -1,5 +1,5 @@
 import React from "react";
-import { compose, withHandlers } from "recompose";
+import {compose, lifecycle, withHandlers} from "recompose";
 import { withRouter } from "react-router-dom";
 import theme from "../../../theme";
 import { VERSION } from "../../constants/app";
@@ -16,7 +16,11 @@ import withDimensions from "../../HOCs/withDimensions";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Grid from "@material-ui/core/Grid/Grid";
 import {
+  selectMyAsksLoaded,
+  selectMyBidsLoaded,
+  selectMyOffersLoaded,
   selectScreenHeight,
+  selectTransactionsLoaded,
   selectUserBio,
   selectUserCanDelete,
   selectUserId,
@@ -27,6 +31,10 @@ import Typography from "@material-ui/core/Typography/Typography";
 import Button from "@material-ui/core/Button/Button";
 import TextField from "@material-ui/core/TextField/TextField";
 import { ValidatorForm } from "react-material-ui-form-validator";
+import {loadMyAsks as loadMyAsksAction} from "../../actions/asks";
+import {loadMyBids as loadMyBidsAction} from "../../actions/bids";
+import {loadOffersByUser as loadOffersByUserAction} from "../../actions/offers";
+import {loadTransactions as loadTransactionsAction} from "../../actions/transactions";
 
 const styles = () => ({
   top: {
@@ -41,12 +49,9 @@ const styles = () => ({
 });
 
 const Settings = ({
-  logOut,
   classes,
   height,
-  username,
   bio,
-  items,
   history,
   handleUpdate,
   handleDelete,
@@ -89,7 +94,7 @@ const Settings = ({
                 />
               </Grid>
               <Grid item>
-                <Button variant="raised" color="primary" type="submit">
+                <Button variant="contained" color="primary" type="submit">
                   Update
                 </Button>
               </Grid>
@@ -100,7 +105,7 @@ const Settings = ({
           <Grid container direction="column" alignItems="center">
             <Grid item>
               <Button
-                variant="raised"
+                variant="contained"
                 style={
                   totalItems === 0
                     ? theme.palette.errorButton
@@ -128,19 +133,54 @@ const propMap = {
   userId: selectUserId,
   bio: selectUserBio,
   canDelete: selectUserCanDelete,
-  totalItems: totalActionItems
+  totalItems: totalActionItems,
+  asksLoaded: selectMyAsksLoaded,
+  bidsLoaded: selectMyBidsLoaded,
+  offersLoaded: selectMyOffersLoaded,
+  transactionsLoaded: selectTransactionsLoaded,
 };
 
 const actionMap = {
   logOut: logOutUserAction,
   updateUser,
-  deleteUser
+  deleteUser,
+  loadMyAsks: loadMyAsksAction,
+  loadMyBids: loadMyBidsAction,
+  loadOffersByUser: loadOffersByUserAction,
+  loadTransactions: loadTransactionsAction,
 };
 
 export default compose(
   mapper(propMap, actionMap),
   withRouter,
   withStyles(styles),
+  lifecycle({
+    componentDidMount() {
+      const {
+        loadMyAsks,
+        loadMyBids,
+        loadOffersByUser,
+        loadTransactions,
+        userId,
+        asksLoaded,
+        bidsLoaded,
+        offersLoaded,
+        transactionsLoaded
+      } = this.props;
+      if (!asksLoaded) {
+        loadMyAsks(userId);
+      }
+      if (!bidsLoaded) {
+        loadMyBids(userId);
+      }
+      if (!offersLoaded) {
+        loadOffersByUser(userId);
+      }
+      if (!transactionsLoaded) {
+        loadTransactions(userId);
+      }
+    }
+  }),
   withHandlers({
     handleUpdate: ({ userId, updateUser }) => () => {
       const text = document.getElementById("bio-field").value;

@@ -96,7 +96,7 @@ const RegisterForm = ({
       <br />
       <Button
         className="submitButton"
-        variant="raised"
+        variant="contained"
         color="primary"
         type="submit"
       >
@@ -117,8 +117,6 @@ export default compose(
       ValidatorForm.addValidationRule("isPasswordMatch", value => {
         return value === this.props.password;
       });
-
-      // TODO: add rule to check for duplicate usernames
     }
   }),
   withHandlers({
