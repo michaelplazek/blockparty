@@ -62,7 +62,7 @@ const Bid = ({
   buttonText,
   showButton,
   height,
-  handleUserClick,
+  handleUserClick
 }) => (
   <div
     style={{
@@ -75,11 +75,8 @@ const Bid = ({
         {open &&
           layer === "CREATE_BID_OFFER" && (
             <CreateBidOffer handleClose={() => {}} handleSubmit={() => {}} />
-        )}
-        {open &&
-          layer === "VIEW_USER_DETAILS" && (
-            <UserInfo id={bid.userId} />
-        )}
+          )}
+        {open && layer === "VIEW_USER_DETAILS" && <UserInfo id={bid.userId} />}
         <Grid>
           <Button
             style={theme.palette.inverse}
@@ -166,6 +163,6 @@ export default compose(
     handleUserClick: ({ setLayer, setLayerOpen }) => () => {
       setLayer("VIEW_USER_DETAILS");
       setLayerOpen(true);
-    },
+    }
   })
 )(Bid);

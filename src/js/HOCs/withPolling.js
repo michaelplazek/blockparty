@@ -6,7 +6,7 @@ import React from "react";
  * @param duration: the amount of time between polls
  * @returns {*}
  */
-export default (func, duration = 2000) => Component => (
+export default (func, duration = 2000) => Component =>
   class extends React.Component {
     componentDidMount() {
       const executeFunction = () => func(this.props);
@@ -16,8 +16,6 @@ export default (func, duration = 2000) => Component => (
       clearInterval(this.dataPolling);
     }
     render() {
-      return <Component {...this.props}/>;
+      return <Component {...this.props} />;
     }
-  }
-);
-
+  };

@@ -7,9 +7,9 @@ import {
   SET_SUBSCRIPTION,
   GET_SUBSCRIPTION,
   SET_VISITED,
-  SET_NAV_INDEX,
+  SET_NAV_INDEX
 } from "./index";
-import {wrappedFetch} from "../api/utils";
+import { wrappedFetch } from "../api/utils";
 
 export const setNavHeight = data => dispatch =>
   dispatch({ type: LOAD_NAV_HEIGHT, data });
@@ -27,20 +27,19 @@ export const setMarketView = data => dispatch =>
   dispatch({ type: SET_MARKET_VIEW, data });
 
 export const setSubscription = data => dispatch =>
-  wrappedFetch("notifications/subscribe", data, "POST").then((response) => {
+  wrappedFetch("notifications/subscribe", data, "POST").then(response => {
     dispatch({ type: SET_SUBSCRIPTION, data: response });
   });
 
 export const getSubscription = data => dispatch =>
-  wrappedFetch("notifications/subscriptions", data, "POST").then((response) => {
+  wrappedFetch("notifications/subscriptions", data, "POST").then(response => {
     dispatch({ type: GET_SUBSCRIPTION, data: response });
   });
 
-export const setNotification = (data) =>
+export const setNotification = data =>
   wrappedFetch("notifications/notify", data, "POST");
 
-export const setVisited = () => dispatch =>
-  dispatch({ type: SET_VISITED });
+export const setVisited = () => dispatch => dispatch({ type: SET_VISITED });
 
-export const setNavIndex = (index) => dispatch =>
+export const setNavIndex = index => dispatch =>
   dispatch({ type: SET_NAV_INDEX, data: index });

@@ -8,10 +8,10 @@ import {
   SET_SUBSCRIPTION,
   GET_SUBSCRIPTION,
   SET_VISITED,
-  SET_NAV_INDEX,
+  SET_NAV_INDEX
 } from "../actions";
 import { MAP } from "../constants/app";
-import {getIndexFromPath} from "../utils/location";
+import { getIndexFromPath } from "../utils/location";
 
 const initialState = {
   navigationBarHeight: 0,
@@ -22,9 +22,9 @@ const initialState = {
   marketView: MAP,
   notifications: {
     isSubscribed: false,
-    subscription: {},
+    subscription: {}
   },
-  visited: false,
+  visited: false
 };
 
 const handlers = {
@@ -43,23 +43,23 @@ const handlers = {
   [SET_MARKET_VIEW]: (_, action) => ({
     marketView: action.data
   }),
-  [SET_SUBSCRIPTION]: (state) => ({
+  [SET_SUBSCRIPTION]: state => ({
     notifications: {
       ...state.notifications,
-      isSubscribed: true,
+      isSubscribed: true
     }
   }),
-  [GET_SUBSCRIPTION]: (state) => ({
+  [GET_SUBSCRIPTION]: state => ({
     notifications: {
       ...state.notifications,
-      isSubscribed: true,
+      isSubscribed: true
     }
   }),
   [SET_VISITED]: () => ({
     visited: true
   }),
   [SET_NAV_INDEX]: (_, action) => ({
-    navigationIndex: action.data,
+    navigationIndex: action.data
   })
 };
 

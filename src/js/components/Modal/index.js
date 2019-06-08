@@ -16,7 +16,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import Typography from "@material-ui/core/Typography/Typography";
 import Grid from "@material-ui/core/Grid/Grid";
-import {Dialog} from "@material-ui/core";
+import { Dialog } from "@material-ui/core";
 
 const styles = () => ({
   root: {
@@ -45,7 +45,7 @@ const ModalBase = ({
   open,
   setLayerOpen,
   onClose,
-  title,
+  title
 }) => (
   <Dialog
     open={open}
@@ -55,7 +55,7 @@ const ModalBase = ({
     <Slide direction="up" in={open} mountOnEnter unmountOnExit>
       <div
         className={classes.root}
-        style={{ height: `${height/2}px`, width: `${width * 0.75}px` }}
+        style={{ height: `${height / 2}px`, width: `${width * 0.75}px` }}
       >
         <Grid direction="row" justify="space-between" container>
           <Grid className={classes.title} item>
@@ -74,11 +74,11 @@ const ModalBase = ({
 );
 
 ModalBase.propTypes = {
-  onClose: PropTypes.func,
+  onClose: PropTypes.func
 };
 
 ModalBase.defaultProps = {
-  onClose: () => {},
+  onClose: () => {}
 };
 
 const propMap = {

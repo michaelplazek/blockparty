@@ -7,9 +7,14 @@ import Flyout from "../index";
 
 import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
 import {
-  selectLayerOpen, selectTransactionBuyerUsername, selectTransactionCoin,
-  selectTransactionId, selectTransactionPrice, selectTransactionSellerUsername,
-  selectUserId, selectUsername,
+  selectLayerOpen,
+  selectTransactionBuyerUsername,
+  selectTransactionCoin,
+  selectTransactionId,
+  selectTransactionPrice,
+  selectTransactionSellerUsername,
+  selectUserId,
+  selectUsername,
   selectWindowHeight,
   selectWindowWidth
 } from "../../../selectors";
@@ -29,7 +34,7 @@ import ButtonContainer from "./ButtonContainer";
 import { loadMyAsks } from "../../../actions/asks";
 import { loadMyBids } from "../../../actions/bids";
 import { loadOffersByUser } from "../../../actions/offers";
-import {setNotification} from "../../../actions/app";
+import { setNotification } from "../../../actions/app";
 
 const styles = () => ({
   list: {
@@ -77,7 +82,7 @@ const propMap = {
   buyer: selectTransactionBuyerUsername,
   seller: selectTransactionSellerUsername,
   completeButtonIsDisabled: selectCompleteButtonIsDisabled,
-  username: selectUsername,
+  username: selectUsername
 };
 
 const actionMap = {
@@ -109,7 +114,7 @@ export default compose(
       seller,
       username,
       coin,
-      price,
+      price
     }) => () => {
       completeTransaction(id, userId).then(() => {
         loadTransactions(userId);
@@ -120,7 +125,7 @@ export default compose(
         const data = {
           title: "Offer marked as complete!",
           body: `${username} marked your transaction for $${price} worth of ${coin} as complete.`,
-          owner: username === buyer ? seller : buyer,
+          owner: username === buyer ? seller : buyer
         };
         setNotification(data);
       });
@@ -138,7 +143,7 @@ export default compose(
       seller,
       username,
       coin,
-      price,
+      price
     }) => () => {
       cancelTransaction(id).then(() => {
         loadTransactions(userId);
@@ -149,7 +154,7 @@ export default compose(
         const data = {
           title: "Offer marked as cancelled",
           body: `${username} cancelled your transaction for $${price} worth of ${coin}.`,
-          owner: username === buyer ? seller : buyer,
+          owner: username === buyer ? seller : buyer
         };
         setNotification(data);
       });

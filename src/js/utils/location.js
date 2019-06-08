@@ -1,8 +1,8 @@
 import get from "lodash/fp/get";
-import compose from 'lodash/fp/compose';
-import defaultTo from 'lodash/fp/defaultTo';
-import find from 'lodash/fp/find';
-import {footerNavigation as navigation} from "../config/navigation";
+import compose from "lodash/fp/compose";
+import defaultTo from "lodash/fp/defaultTo";
+import find from "lodash/fp/find";
+import { footerNavigation as navigation } from "../config/navigation";
 
 export function isLocationSet() {
   if (navigator.geolocation) {
@@ -45,10 +45,10 @@ export function getMetersFromMiles(i) {
   return i * 1609.344;
 }
 
-export const getIndexFromPath = (pathname) => {
+export const getIndexFromPath = pathname => {
   return compose(
     defaultTo(0),
     get("index"),
     find(item => item.path === pathname || item.subpath === pathname)
-  )(navigation)
+  )(navigation);
 };

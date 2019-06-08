@@ -13,7 +13,7 @@ import {
   selectMarketLoaded
 } from "../../selectors";
 import { loadAsks as loadAsksAction } from "../../actions/asks";
-import {loadBids as loadBidsAction} from "../../actions/bids";
+import { loadBids as loadBidsAction } from "../../actions/bids";
 import { setLayerOpen as setLayerOpenAction } from "../../actions/layers";
 
 import Subheader from "../../components/Subheader";
@@ -56,7 +56,7 @@ class Market extends Component {
           subheader={<Subheader />}
         />
         <Chart
-          height={(windowHeight - navHeight - headerHeight)/2}
+          height={(windowHeight - navHeight - headerHeight) / 2}
           markerLocation={navHeight}
           width={windowWidth}
         />
@@ -65,7 +65,7 @@ class Market extends Component {
           showLabels={true}
           markers={markers}
           onMarkerClick={handleMarkerClick}
-          height={(windowHeight - navHeight - headerHeight)/2}
+          height={(windowHeight - navHeight - headerHeight) / 2}
         />
       </div>
     );
@@ -113,13 +113,10 @@ export default compose(
   }),
   withLocation,
   withLoader,
-  withPolling(({
-    loadAsks,
-    loadBids,
-  }) => {
+  withPolling(({ loadAsks, loadBids }) => {
     loadAsks();
     loadBids();
   }, 5000),
   withPushNotifications,
-  withVisited,
+  withVisited
 )(Market);

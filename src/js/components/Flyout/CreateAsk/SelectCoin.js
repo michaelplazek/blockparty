@@ -1,25 +1,29 @@
-import React from 'react';
+import React from "react";
 import { compose, lifecycle } from "recompose";
 import mapper from "../../../utils/connect";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import numeral from "numeral";
-import {COST} from "../../../constants/currency";
-import {selectAskFormCoin, selectAskCurrencyItems, selectCurrentLocation} from "../../../selectors";
+import { COST } from "../../../constants/currency";
+import {
+  selectAskFormCoin,
+  selectAskCurrencyItems,
+  selectCurrentLocation
+} from "../../../selectors";
 import {
   setAskCoin as setAskCoinAction,
   setAskLatitude as setAskLatitudeAction,
   setAskLongitude as setAskLongitudeAction,
   setAskPrice as setAskPriceAction
 } from "../../../actions/createAsk";
-import {loadLastPrice as loadLastPriceAction} from "../../../actions/metrics";
+import { loadLastPrice as loadLastPriceAction } from "../../../actions/metrics";
 
 const SelectCoin = ({
   coins,
   coin,
   loadLastPrice,
   setAskPrice,
-  setAskCoin,
+  setAskCoin
 }) => (
   <FormControl margin="dense" fullWidth={true}>
     <Select
@@ -45,7 +49,7 @@ const SelectCoin = ({
 const propMap = {
   coins: selectAskCurrencyItems,
   coin: selectAskFormCoin,
-  currentLocation: selectCurrentLocation,
+  currentLocation: selectCurrentLocation
 };
 
 const actionMap = {
@@ -53,7 +57,7 @@ const actionMap = {
   loadLastPrice: loadLastPriceAction,
   setAskPrice: setAskPriceAction,
   setAskLatitude: setAskLatitudeAction,
-  setAskLongitude: setAskLongitudeAction,
+  setAskLongitude: setAskLongitudeAction
 };
 
 export default compose(
@@ -63,5 +67,5 @@ export default compose(
       this.props.setAskLatitude(this.props.currentLocation.lat);
       this.props.setAskLongitude(this.props.currentLocation.lng);
     }
-  }),
-)(SelectCoin)
+  })
+)(SelectCoin);

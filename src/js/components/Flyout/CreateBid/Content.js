@@ -263,5 +263,5 @@ export default compose(
       setBidLatitude(item.latLng.lat());
       setBidLongitude(item.latLng.lng());
     }
-  }),
+  })
 )(CreateBidContent);

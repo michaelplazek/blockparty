@@ -1,25 +1,29 @@
-import React from 'react';
+import React from "react";
 import { compose, lifecycle } from "recompose";
 import mapper from "../../../utils/connect";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import numeral from "numeral";
-import {COST} from "../../../constants/currency";
-import {selectBidFormCoin, selectBidCurrencyItems, selectCurrentLocation} from "../../../selectors";
+import { COST } from "../../../constants/currency";
+import {
+  selectBidFormCoin,
+  selectBidCurrencyItems,
+  selectCurrentLocation
+} from "../../../selectors";
 import {
   setBidCoin as setBidCoinAction,
   setBidLatitude as setBidLatitudeAction,
   setBidLongitude as setBidLongitudeAction,
   setBidPrice as setBidPriceAction
 } from "../../../actions/createBid";
-import {loadLastPrice as loadLastPriceAction} from "../../../actions/metrics";
+import { loadLastPrice as loadLastPriceAction } from "../../../actions/metrics";
 
 const SelectCoin = ({
   coins,
   coin,
   loadLastPrice,
   setBidPrice,
-  setBidCoin,
+  setBidCoin
 }) => (
   <FormControl margin="dense" fullWidth={true}>
     <Select
@@ -45,7 +49,7 @@ const SelectCoin = ({
 const propMap = {
   coins: selectBidCurrencyItems,
   coin: selectBidFormCoin,
-  currentLocation: selectCurrentLocation,
+  currentLocation: selectCurrentLocation
 };
 
 const actionMap = {
@@ -53,7 +57,7 @@ const actionMap = {
   loadLastPrice: loadLastPriceAction,
   setBidPrice: setBidPriceAction,
   setBidLatitude: setBidLatitudeAction,
-  setBidLongitude: setBidLongitudeAction,
+  setBidLongitude: setBidLongitudeAction
 };
 
 export default compose(
@@ -63,5 +67,5 @@ export default compose(
       this.props.setBidLatitude(this.props.currentLocation.lat);
       this.props.setBidLongitude(this.props.currentLocation.lng);
     }
-  }),
-)(SelectCoin)
+  })
+)(SelectCoin);

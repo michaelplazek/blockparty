@@ -1,7 +1,7 @@
 import React from "react";
 import * as Icon from "react-cryptocoins";
-import {faFileInvoiceDollar} from "@fortawesome/free-solid-svg-icons";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import { faFileInvoiceDollar } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const convertToLowercase = string => {
   return string.replace(/\w\S*/g, function(word) {
@@ -11,5 +11,9 @@ const convertToLowercase = string => {
 
 export const getCoinIcon = coin => {
   const Component = Icon[convertToLowercase(coin)];
-  return Component ? <Component /> : <FontAwesomeIcon icon={faFileInvoiceDollar} />;
+  return Component ? (
+    <Component />
+  ) : (
+    <FontAwesomeIcon icon={faFileInvoiceDollar} />
+  );
 };

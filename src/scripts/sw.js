@@ -1,9 +1,7 @@
-self.addEventListener('push', event => {
+self.addEventListener("push", event => {
   const data = event.data.json();
   const options = {
-    body: data.body,
+    body: data.body
   };
-  event.waitUntil(
-    self.registration.showNotification(data.title, options)
-  );
+  event.waitUntil(self.registration.showNotification(data.title, options));
 });

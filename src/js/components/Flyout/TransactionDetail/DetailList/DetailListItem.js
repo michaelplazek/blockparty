@@ -7,9 +7,9 @@ import Typography from "@material-ui/core/Typography/Typography";
 import ListItem from "@material-ui/core/ListItem/ListItem";
 import ListItemText from "@material-ui/core/ListItemText/ListItemText";
 
-import {isEmail, isPhoneNumber} from "../../../../utils/regex";
+import { isEmail, isPhoneNumber } from "../../../../utils/regex";
 
-const getLink = (contact) => {
+const getLink = contact => {
   if (isPhoneNumber(contact)) {
     return (
       <Typography
@@ -32,16 +32,13 @@ const getLink = (contact) => {
       >
         {contact}
       </Typography>
-    )
+    );
   } else {
     return (
-      <Typography
-        style={theme.palette.inverse}
-        variant="headline"
-      >
+      <Typography style={theme.palette.inverse} variant="headline">
         {contact}
       </Typography>
-    )
+    );
   }
 };
 
@@ -79,9 +76,7 @@ const ContactDetailItem = ({ name, value, onClick, contact }) => (
           alignItems="center"
           style={{ marginTop: "1em", marginBottom: "1em" }}
         >
-          <Grid item>
-            {getLink(contact)}
-          </Grid>
+          <Grid item>{getLink(contact)}</Grid>
         </Grid>
       </Grid>
     </Grid>

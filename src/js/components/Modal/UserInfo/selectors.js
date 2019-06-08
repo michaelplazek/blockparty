@@ -1,9 +1,6 @@
 import React from "react";
 import { createSelector } from "reselect";
-import {
-  selectUser,
-  intoArray,
-} from "../../../selectors";
+import { selectUser, intoArray } from "../../../selectors";
 import StarRating from "react-star-ratings";
 import moment from "moment";
 
@@ -15,14 +12,11 @@ const selectUserReputation = createSelector(
   }
 );
 
-export const selectUsername = createSelector(
-  selectUser,
-  user => ({
-    name: "Username",
-    value: user.username,
-    onClick: undefined
-  })
-);
+export const selectUsername = createSelector(selectUser, user => ({
+  name: "Username",
+  value: user.username,
+  onClick: undefined
+}));
 
 export const selectStarRating = createSelector(
   selectUserReputation,
@@ -65,14 +59,11 @@ export const selectCancelledTransactionDetail = createSelector(
   })
 );
 
-export const selectMemberSince = createSelector(
-  selectUser,
-  user => ({
-    name: "Member Since",
-    value: moment(user.created).calendar(),
-    onClick: undefined
-  })
-);
+export const selectMemberSince = createSelector(selectUser, user => ({
+  name: "Member Since",
+  value: moment(user.created).calendar(),
+  onClick: undefined
+}));
 
 export const selectUserDetails = createSelector(
   selectUsername,

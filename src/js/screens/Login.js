@@ -12,7 +12,7 @@ import mapper from "../utils/connect";
 import Button from "@material-ui/core/Button/Button";
 import withSplash from "../HOCs/withSplash";
 import Fade from "@material-ui/core/Fade";
-import {setNavIndex} from "../actions/app";
+import { setNavIndex } from "../actions/app";
 
 const styles = () => ({
   root: {
@@ -32,27 +32,27 @@ const Login = ({ handleLogIn, classes, history }) => (
     <Fade
       in={true}
       timeout={{
-        enter: 1000,
+        enter: 1000
       }}
     >
-    <Grid item>
-      <Grid container direction="column" justify="center">
-        <Typography align="center" variant="display1">
-          Log In
+      <Grid item>
+        <Grid container direction="column" justify="center">
+          <Typography align="center" variant="display1">
+            Log In
+          </Typography>
+          <LoginForm onClick={handleLogIn} />
+        </Grid>
+        <Typography className="signUpText" align="right">
+          or,{" "}
+          <Button
+            className="signUpLink"
+            onClick={() => history.push("/register")}
+            variant="text"
+          >
+            sign up for account
+          </Button>
         </Typography>
-        <LoginForm onClick={handleLogIn} />
       </Grid>
-      <Typography className="signUpText" align="right">
-        or,{" "}
-        <Button
-          className="signUpLink"
-          onClick={() => history.push("/register")}
-          variant="text"
-        >
-          sign up for account
-        </Button>
-      </Typography>
-    </Grid>
     </Fade>
   </Grid>
 );
@@ -61,7 +61,7 @@ const propMap = {};
 
 const actionMap = {
   logInUser,
-  setNavIndex,
+  setNavIndex
 };
 
 export default compose(
@@ -69,9 +69,12 @@ export default compose(
   withRouter,
   mapper(propMap, actionMap),
   withHandlers({
-    handleLogIn: ({ logInUser, setNavIndex, history }) => (username, password) => {
+    handleLogIn: ({ logInUser, setNavIndex, history }) => (
+      username,
+      password
+    ) => {
       logInUser(username, password, history, setNavIndex);
     }
   }),
-  withSplash,
+  withSplash
 )(Login);

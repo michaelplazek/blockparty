@@ -39,7 +39,7 @@ const YTick = ({ payload, x, y, fill }) => {
 };
 
 const AnalysisChartBase = ({ height, width, data, handleTouch }) => (
-  <div style={{ paddingTop: '10px', marginLeft: '10px', marginRight: '10px' }}>
+  <div style={{ paddingTop: "10px", marginLeft: "10px", marginRight: "10px" }}>
     <AreaChart
       width={width - 20}
       height={height - 10}

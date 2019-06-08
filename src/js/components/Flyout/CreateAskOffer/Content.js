@@ -1,5 +1,5 @@
 import React from "react";
-import {compose, withHandlers} from "recompose";
+import { compose, withHandlers } from "recompose";
 
 import { TextValidator } from "react-material-ui-form-validator";
 import FormControl from "@material-ui/core/FormControl/FormControl";
@@ -57,31 +57,31 @@ const CreateAskContent = ({
   setContactInfo,
   totalInUSD,
   totalFormattedInUSD,
-  handleChipClick,
+  handleChipClick
 }) => {
   switch (index) {
     case 0:
       return (
         <div>
           <FormControl margin="dense" fullWidth={true}>
-            <Grid direction='column' container>
+            <Grid direction="column" container>
               <Grid item>
                 <Grid container>
                   <Grid className={classes.chip} item>
                     <Chip
                       clickable={true}
                       onClick={() => handleChipClick(0.25)}
-                      label='25%'
-                      size='small'
+                      label="25%"
+                      size="small"
                       variant="outlined"
                     />
                   </Grid>
                   <Grid className={classes.chip} item>
                     <Chip
                       clickable={true}
-                      onClick={() => handleChipClick(0.50)}
-                      label='50%'
-                      size='small'
+                      onClick={() => handleChipClick(0.5)}
+                      label="50%"
+                      size="small"
                       variant="outlined"
                     />
                   </Grid>
@@ -89,8 +89,8 @@ const CreateAskContent = ({
                     <Chip
                       clickable={true}
                       onClick={() => handleChipClick(1)}
-                      label='100%'
-                      size='small'
+                      label="100%"
+                      size="small"
                       variant="outlined"
                     />
                   </Grid>
@@ -223,11 +223,16 @@ export default compose(
   withStyles(styles),
   mapper(propMap, actionMap),
   withHandlers({
-    handleChipClick: ({ setOfferVolume, setOfferVolumeInUSD, max, price }) => (percentage) => {
+    handleChipClick: ({
+      setOfferVolume,
+      setOfferVolumeInUSD,
+      max,
+      price
+    }) => percentage => {
       const updatedVolume = max * percentage;
       const totalInUSD = (price * updatedVolume).toFixed(3);
       setOfferVolume(updatedVolume);
       setOfferVolumeInUSD(totalInUSD);
-    },
-  }),
+    }
+  })
 )(CreateAskContent);

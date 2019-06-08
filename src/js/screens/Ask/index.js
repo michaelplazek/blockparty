@@ -63,7 +63,7 @@ const Ask = ({
   buttonText,
   showButton,
   height,
-  handleUserClick,
+  handleUserClick
 }) => (
   <div
     style={{
@@ -77,10 +77,7 @@ const Ask = ({
           layer === "CREATE_ASK_OFFER" && (
             <CreateAskOffer handleClose={() => {}} handleSubmit={() => {}} />
           )}
-        {open &&
-          layer === "VIEW_USER_DETAILS" && (
-            <UserInfo id={ask.userId} />
-        )}
+        {open && layer === "VIEW_USER_DETAILS" && <UserInfo id={ask.userId} />}
         <Grid>
           <Button
             style={theme.palette.inverse}
@@ -167,6 +164,6 @@ export default compose(
     handleUserClick: ({ setLayer, setLayerOpen }) => () => {
       setLayer("VIEW_USER_DETAILS");
       setLayerOpen(true);
-    },
+    }
   })
 )(Ask);

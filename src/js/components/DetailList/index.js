@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from 'prop-types'
+import PropTypes from "prop-types";
 import { compose } from "recompose";
 
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -22,11 +22,19 @@ const DetailList = ({ items, classes, userClick, elevation }) => (
     <List>
       {items.map((item, index) => (
         <DetailListItem
-          className={(item.name === 'Buyer' || item.name === 'Seller') ? classes.owner : undefined}
+          className={
+            item.name === "Buyer" || item.name === "Seller"
+              ? classes.owner
+              : undefined
+          }
           key={`${item.name}-${index}`}
           name={item.name}
           value={item.value}
-          onClick={(item.name === 'Buyer' || item.name === 'Seller') ? userClick : item.onClick}
+          onClick={
+            item.name === "Buyer" || item.name === "Seller"
+              ? userClick
+              : item.onClick
+          }
           isLast={index === items.length - 1}
         />
       ))}
@@ -38,14 +46,12 @@ DetailList.propTypes = {
   items: PropTypes.array.isRequired,
   classes: PropTypes.object.isRequired,
   userClick: PropTypes.func,
-  elevation: PropTypes.number,
+  elevation: PropTypes.number
 };
 
 DetailList.defaultProps = {
   userClick: () => {},
-  elevation: 1,
+  elevation: 1
 };
 
-export default compose(
-  withStyles(styles),
-)(DetailList);
+export default compose(withStyles(styles))(DetailList);

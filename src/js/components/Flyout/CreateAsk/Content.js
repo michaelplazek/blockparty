@@ -64,7 +64,7 @@ const CreateAskContent = ({
   contactInfo,
   setAskContactInfo,
   setAskVolumeInUSD,
-  currentLocation,
+  currentLocation
 }) => {
   switch (index) {
     case 0:
@@ -263,5 +263,5 @@ export default compose(
       setAskLatitude(item.latLng.lat());
       setAskLongitude(item.latLng.lng());
     }
-  }),
+  })
 )(CreateAskContent);
