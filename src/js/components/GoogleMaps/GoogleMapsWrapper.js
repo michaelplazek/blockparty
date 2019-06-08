@@ -71,6 +71,7 @@ class GoogleMapsWrapper extends Component {
               padding={0}
             >
               <div
+                className='market-title'
                 onClick={() => onMarkerClick(item)}
                 style={{
                   cursor: "pointer"
@@ -81,10 +82,6 @@ class GoogleMapsWrapper extends Component {
                   direction="column"
                   alignItems="center"
                   justify="center"
-                  // style={{
-                  //   cursor: "pointer",
-                  //   padding: "10px"
-                  // }}
                 >
                   <Grid item>
                     <Grid container direction="row">

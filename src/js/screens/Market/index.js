@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { compose, lifecycle, withHandlers } from "recompose";
 import { withRouter } from "react-router";
+
+import Joyride from 'react-joyride';
+
 import mapper from "../../utils/connect";
 
 import {
@@ -29,6 +32,8 @@ import Chart from "./Chart";
 import withPolling from "../../HOCs/withPolling";
 import withPushNotifications from "../../HOCs/withPushNotifications";
 import withVisited from "../../HOCs/withVisited";
+import {marketSteps} from "../../config/tour";
+import Tooltip from "../../components/TourTooltip";
 
 class Market extends Component {
   constructor(props) {
@@ -48,6 +53,12 @@ class Market extends Component {
 
     return (
       <div>
+        <Joyride
+          steps={marketSteps}
+          run={true}
+          continuous={true}
+          tooltipComponent={Tooltip}
+        />
         <FilterMap />
         <PageHeader
           leftHandLabel="Market"
