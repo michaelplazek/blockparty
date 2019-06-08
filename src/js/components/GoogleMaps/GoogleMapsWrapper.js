@@ -71,7 +71,6 @@ class GoogleMapsWrapper extends Component {
               padding={0}
             >
               <div
-                className='market-title'
                 onClick={() => onMarkerClick(item)}
                 style={{
                   cursor: "pointer"

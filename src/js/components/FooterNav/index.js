@@ -92,6 +92,7 @@ class FooterNavBase extends Component {
           >
             {navigation.map(item => (
               <Tab
+                className={item.className}
                 icon={item.icon}
                 label={item.label}
                 key={item.index}

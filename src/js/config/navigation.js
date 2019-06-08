@@ -12,6 +12,7 @@ export const footerNavigation = [
     subpath: undefined,
     label: "Market",
     index: 0,
+    className: 'market-nav',
     icon: <FontAwesomeIcon icon={faDollarSign} />
   },
   {
@@ -19,6 +20,7 @@ export const footerNavigation = [
     subpath: undefined,
     label: "Dashboard",
     index: 1,
+    className: 'dashboard-nav',
     icon: <FontAwesomeIcon icon={faTachometerAlt} />
   },
   {
@@ -26,6 +28,7 @@ export const footerNavigation = [
     subpath: "/settings",
     label: "Account",
     index: 2,
+    className: 'account-nav',
     icon: <FontAwesomeIcon icon={faUser} />
   }
 ];

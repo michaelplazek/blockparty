@@ -18,8 +18,7 @@ const style = () => ({
 });
 
 const Tooltip = ({
-  height,
-  width,
+  windowWidth,
   index,
   step,
   backProps,
@@ -29,8 +28,7 @@ const Tooltip = ({
 }) => (
   <div
     style={{
-      height: `${height/4}px`,
-      width: `${width/2}px`,
+      width: `${windowWidth * 0.75}px`,
       background: 'whitesmoke',
       borderRadius: '10px',
       padding: '1em'
@@ -55,15 +53,19 @@ const Tooltip = ({
               container
               direction='row'
               alignItems='center'
+              justify='space-between'
               className={classes.buttons}
+              style={{
+                width: `${windowWidth * 0.5}px`,
+              }}
             >
-              {index !== 0 && (
+              {index !== 0 ? (
                 <Grid item justify='flex-start'>
                   <Button {...backProps}>
                     Back
                   </Button>
                 </Grid>
-              )}
+              ) : <div />}
               <Grid item justify='flex-end'>
                 <Button
                   variant="contained"
