@@ -4,7 +4,6 @@ import numeral from "numeral";
 
 import { TextValidator } from "react-material-ui-form-validator";
 import FormControl from "@material-ui/core/FormControl/FormControl";
-import Select from "@material-ui/core/Select/Select";
 import Typography from "@material-ui/core/Typography/Typography";
 import Grid from "@material-ui/core/Grid/Grid";
 import {
@@ -41,13 +40,12 @@ import LocationSelector from "../../LocationSelector";
 import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
 import { getMinimalUnit } from "../../../utils/validate";
 import { loadLastPrice } from "../../../actions/metrics";
-import { COST, USD_DECIMALS } from "../../../constants/currency";
+import { USD_DECIMALS } from "../../../constants/currency";
 import SelectCoin from "./SelectCoin";
 
 const CreateAskContent = ({
   index,
   coin,
-  coins,
   lastPrice,
   volume,
   volumeInUSD,
@@ -58,7 +56,6 @@ const CreateAskContent = ({
   width,
   lat,
   lng,
-  setAskCoin,
   setAskPrice,
   setAskVolume,
   handleDrag,
@@ -68,9 +65,6 @@ const CreateAskContent = ({
   setAskContactInfo,
   setAskVolumeInUSD,
   currentLocation,
-  loadLastPrice,
-  setAskLatitude,
-  setAskLongitude,
 }) => {
   switch (index) {
     case 0:

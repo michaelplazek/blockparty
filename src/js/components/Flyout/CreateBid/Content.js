@@ -1,9 +1,8 @@
 import React from "react";
-import { compose, withHandlers, lifecycle } from "recompose";
+import { compose, withHandlers } from "recompose";
 
 import { TextValidator } from "react-material-ui-form-validator";
 import FormControl from "@material-ui/core/FormControl/FormControl";
-import Select from "@material-ui/core/Select/Select";
 import Typography from "@material-ui/core/Typography/Typography";
 import Grid from "@material-ui/core/Grid/Grid";
 import {
@@ -41,13 +40,12 @@ import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
 import { getMinimalUnit } from "../../../utils/validate";
 import { loadLastPrice } from "../../../actions/metrics";
 import numeral from "numeral";
-import { COST, USD_DECIMALS } from "../../../constants/currency";
+import { USD_DECIMALS } from "../../../constants/currency";
 import SelectCoin from "./SelectCoin";
 
 const CreateBidContent = ({
   index,
   coin,
-  coins,
   volume,
   volumeInUSD,
   price,
