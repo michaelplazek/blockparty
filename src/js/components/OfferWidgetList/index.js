@@ -17,7 +17,7 @@ import { setLayerOpen } from "../../actions/layers";
 import { selectUserId, selectUsername } from "../../selectors";
 import { loadMyAsks } from "../../actions/asks";
 import { loadMyBids } from "../../actions/bids";
-import {setNotification} from "../../actions/app";
+import { setNotification } from "../../actions/app";
 
 const OfferWidgetList = ({ offers, post, handleAccept, handleDecline }) => (
   <Tile title="Offers" count={offers.length}>
@@ -92,7 +92,7 @@ export default compose(
       loadMyBids,
       loadMyAsks,
       patchOffer,
-      username,
+      username
     }) => ({ _id, coin, price, owner, username: offerer }) => {
       const items = { status: "DECLINED" };
       patchOffer(_id, items).then(() => {
@@ -104,7 +104,7 @@ export default compose(
         const data = {
           title: "Your offer was rejected",
           body: `${username} rejected your offer of $${price} worth of ${coin}.`,
-          owner: offerer,
+          owner: offerer
         };
         setNotification(data);
       });

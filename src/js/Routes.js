@@ -34,5 +34,5 @@ export default compose(
   withDimensions,
   withAuthentification,
   withErrors,
-  withCurrencyData,
+  withCurrencyData
 )(Routes);

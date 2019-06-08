@@ -55,13 +55,13 @@ const Chart = ({
   bidInfo,
   height,
   width,
-  markerLocation,
+  markerLocation
 }) => (
   <div
     style={{
       height,
       width,
-      borderBottom: 'solid #CCC 1px'
+      borderBottom: "solid #CCC 1px"
     }}
   >
     {hasData && (
@@ -80,12 +80,7 @@ const Chart = ({
         />
       </div>
     )}
-    {!hasData && (
-      <Placeholder
-        label="No Available Sales"
-        top={headerHeight}
-      />
-    )}
+    {!hasData && <Placeholder label="No Available Sales" top={headerHeight} />}
   </div>
 );
 
@@ -126,12 +121,12 @@ export default compose(
   withState("bidInfo", "setBidInfo", undefined),
   withHandlers({
     handleTouch: ({
-        setTouched,
-        setFilterPrice,
-        setAskInfo,
-        setBidInfo,
-        coin
-      }) => ({ activePayload }) => {
+      setTouched,
+      setFilterPrice,
+      setAskInfo,
+      setBidInfo,
+      coin
+    }) => ({ activePayload }) => {
       if (!activePayload) return;
       const payload = get("payload")(activePayload[0]);
       const { totalVolume } = payload;
@@ -140,7 +135,7 @@ export default compose(
         setTouched(false);
         setAskInfo("Mid Market Price");
         setBidInfo(undefined);
-        setFilterPrice(undefined)
+        setFilterPrice(undefined);
       } else {
         const { price, askVolume, bidVolume, askCount, bidCount } = payload;
         const askInfo =
@@ -161,6 +156,6 @@ export default compose(
       setTouched(false);
       setAskInfo("Mid Market Price");
       setBidInfo(undefined);
-    },
+    }
   })
 )(Chart);

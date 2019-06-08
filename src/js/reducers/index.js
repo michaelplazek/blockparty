@@ -29,5 +29,5 @@ export default combineReducers({
   transactions,
   errors,
   metrics,
-  users,
+  users
 });

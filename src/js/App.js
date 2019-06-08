@@ -21,6 +21,4 @@ const App = ({ classes }) => (
   </div>
 );
 
-export default compose(
-  withStyles(styles)
-)(App);
+export default compose(withStyles(styles))(App);

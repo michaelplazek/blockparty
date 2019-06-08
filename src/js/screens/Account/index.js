@@ -6,7 +6,7 @@ import { faCog } from "@fortawesome/free-solid-svg-icons";
 import mapper from "../../utils/connect";
 import {
   loadUserFromToken as loadUserFromTokenAction,
-  logOutUser as logOutUserAction,
+  logOutUser as logOutUserAction
 } from "../../actions/session";
 
 import PageHeader from "../../components/PageHeader";
@@ -39,14 +39,7 @@ const styles = () => ({
   }
 });
 
-const Account = ({
-  logOut,
-  classes,
-  username,
-  bio,
-  items,
-  history
-}) => (
+const Account = ({ logOut, classes, username, bio, items, history }) => (
   <div>
     <PageHeader
       leftHandLabel="Account"
@@ -84,7 +77,7 @@ const propMap = {
 
 const actionMap = {
   logOut: logOutUserAction,
-  loadUserFromToken: loadUserFromTokenAction,
+  loadUserFromToken: loadUserFromTokenAction
 };
 
 export default compose(
@@ -95,5 +88,5 @@ export default compose(
   withPolling(({ loadUserFromToken }) => {
     loadUserFromToken();
   }, 5000),
-  withVisited,
+  withVisited
 )(Account);

@@ -14,7 +14,7 @@ const initialState = {
   coin: "BTC",
   type: "ALL",
   filter: DEFAULT_FILTER,
-  price: undefined,
+  price: undefined
 };
 
 const handlers = {

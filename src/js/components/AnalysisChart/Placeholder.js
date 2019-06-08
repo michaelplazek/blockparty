@@ -10,7 +10,7 @@ const Placeholder = ({ label, top }) => (
     style={{
       position: "relative",
       top: `${top}px`,
-      zIndex: 1000,
+      zIndex: 1000
     }}
   >
     <Grid item>

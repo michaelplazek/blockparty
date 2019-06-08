@@ -7,7 +7,6 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { MuiThemeProvider } from "@material-ui/core/styles";
 
-
 import reducers from "./js/reducers";
 import App from "./js/App";
 import theme from "./theme";
@@ -19,12 +18,12 @@ export const store = createStore(
 
 let content = document.getElementById("content");
 ReactDOM.render(
-    <Provider store={store}>
-      <CssBaseline>
-        <MuiThemeProvider theme={theme}>
-          <App />
-        </MuiThemeProvider>
-      </CssBaseline>
-    </Provider>,
+  <Provider store={store}>
+    <CssBaseline>
+      <MuiThemeProvider theme={theme}>
+        <App />
+      </MuiThemeProvider>
+    </CssBaseline>
+  </Provider>,
   content
 );

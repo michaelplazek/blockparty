@@ -32,12 +32,15 @@ import {
   selectOfferFormVolume,
   selectUserId,
   selectAskVolume,
-  selectUsername,
+  selectUsername
 } from "../../../selectors";
 import { ValidatorForm } from "react-material-ui-form-validator";
 import { cleanInputs } from "../../../constants/validation";
-import {setNavIndex as setNavIndexAction, setNotification} from "../../../actions/app";
-import {getIndexFromPath} from "../../../utils/location";
+import {
+  setNavIndex as setNavIndexAction,
+  setNotification
+} from "../../../actions/app";
+import { getIndexFromPath } from "../../../utils/location";
 
 const styles = theme => ({
   root: {
@@ -137,13 +140,13 @@ const propMap = {
   owner: selectAskOwner,
   total: selectAskOfferTotal,
   postId: selectAskId,
-  username: selectUsername,
+  username: selectUsername
 };
 
 const actionMap = {
   setLayerOpen: setLayerOpenAction,
   resetOffer,
-  setNavIndex: setNavIndexAction,
+  setNavIndex: setNavIndexAction
 };
 
 export default compose(
@@ -166,7 +169,7 @@ export default compose(
       resetOffer,
       history,
       username,
-      setNavIndex,
+      setNavIndex
     }) => () => {
       // clean the text inputs
       const inputs = cleanInputs(contactInfo);
@@ -190,7 +193,7 @@ export default compose(
         const data = {
           title: "You have a new offer!",
           body: `${username} offered to buy $${price} worth of ${coin}.`,
-          owner,
+          owner
         };
         setNotification(data);
       }, 1500);

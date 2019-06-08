@@ -3,7 +3,7 @@ import { compose } from "recompose";
 
 import Splash from "../components/Splash";
 import mapper from "../utils/connect";
-import {selectVisited} from "../selectors";
+import { selectVisited } from "../selectors";
 
 /**
  * This HOC provides a component wrapped with a splash screen. Needs a "visited" prop
@@ -17,10 +17,8 @@ export default Component => {
   };
 
   const propMap = {
-    visited: selectVisited,
+    visited: selectVisited
   };
 
-  return compose(
-    mapper(propMap, {}),
-  )(splashHOC);
+  return compose(mapper(propMap, {}))(splashHOC);
 };

@@ -6,14 +6,17 @@ import { compose } from "recompose";
 import { withRouter, Link } from "react-router-dom";
 
 import mapper from "../../utils/connect";
-import {setNavHeight as setNavHeightAction, setNavIndex as setNavIndexAction} from "../../actions/app";
+import {
+  setNavHeight as setNavHeightAction,
+  setNavIndex as setNavIndexAction
+} from "../../actions/app";
 import { footerNavigation as navigation } from "../../config/navigation";
 
 import AppBar from "@material-ui/core/AppBar/AppBar";
 import Tabs from "@material-ui/core/Tabs/Tabs";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Tab from "@material-ui/core/Tab/Tab";
-import {selectMarketView, selectNavIndex} from "../../selectors";
+import { selectMarketView, selectNavIndex } from "../../selectors";
 
 const styles = () => ({
   root: {
@@ -109,7 +112,7 @@ FooterNavBase.propTypes = {
 
 const propMap = {
   view: selectMarketView,
-  index: selectNavIndex,
+  index: selectNavIndex
 };
 
 const actionMap = {

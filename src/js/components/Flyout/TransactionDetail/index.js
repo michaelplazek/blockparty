@@ -7,9 +7,14 @@ import Flyout from "../index";
 
 import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
 import {
-  selectLayerOpen, selectTransactionBuyerUsername, selectTransactionCoin,
-  selectTransactionId, selectTransactionPrice, selectTransactionSellerUsername,
-  selectUserId, selectUsername,
+  selectLayerOpen,
+  selectTransactionBuyerUsername,
+  selectTransactionCoin,
+  selectTransactionId,
+  selectTransactionPrice,
+  selectTransactionSellerUsername,
+  selectUserId,
+  selectUsername,
   selectWindowHeight,
   selectWindowWidth
 } from "../../../selectors";
@@ -29,11 +34,15 @@ import ButtonContainer from "./ButtonContainer";
 import { loadMyAsks } from "../../../actions/asks";
 import { loadMyBids } from "../../../actions/bids";
 import { loadOffersByUser } from "../../../actions/offers";
-import {setNotification} from "../../../actions/app";
+import { setNotification } from "../../../actions/app";
+import {Typography} from "@material-ui/core";
 
 const styles = () => ({
   list: {
     marginTop: "3em"
+  },
+  description: {
+    margin: '0em 1.5em 1em 1.5em'
   }
 });
 
@@ -55,6 +64,14 @@ const TransactionDetails = ({
     title="Accepted Offer"
   >
     <Grid className={classes.list} container direction="column">
+      <Grid className={classes.description} item>
+        <Typography variant='caption'>
+          After reviewing the transaction details, contact the other party.
+          Once the transaction is complete, click <b>Mark As Completed</b>. Once both
+          parties have marked the transaction as complete, your reputation will be updated
+          and the transaction will be considered completed.
+        </Typography>
+      </Grid>
       <DetailList items={items} />
       <ButtonContainer
         disabled={completeButtonIsDisabled}
@@ -77,7 +94,7 @@ const propMap = {
   buyer: selectTransactionBuyerUsername,
   seller: selectTransactionSellerUsername,
   completeButtonIsDisabled: selectCompleteButtonIsDisabled,
-  username: selectUsername,
+  username: selectUsername
 };
 
 const actionMap = {
@@ -109,7 +126,7 @@ export default compose(
       seller,
       username,
       coin,
-      price,
+      price
     }) => () => {
       completeTransaction(id, userId).then(() => {
         loadTransactions(userId);
@@ -120,7 +137,7 @@ export default compose(
         const data = {
           title: "Offer marked as complete!",
           body: `${username} marked your transaction for $${price} worth of ${coin} as complete.`,
-          owner: username === buyer ? seller : buyer,
+          owner: username === buyer ? seller : buyer
         };
         setNotification(data);
       });
@@ -138,7 +155,7 @@ export default compose(
       seller,
       username,
       coin,
-      price,
+      price
     }) => () => {
       cancelTransaction(id).then(() => {
         loadTransactions(userId);
@@ -149,7 +166,7 @@ export default compose(
         const data = {
           title: "Offer marked as cancelled",
           body: `${username} cancelled your transaction for $${price} worth of ${coin}.`,
-          owner: username === buyer ? seller : buyer,
+          owner: username === buyer ? seller : buyer
         };
         setNotification(data);
       });

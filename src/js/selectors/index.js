@@ -442,14 +442,15 @@ export const selectIsWithinRange = createSelector(
     );
     const distanceInMiles = getMilesFromMeters(distance);
     return distanceInMiles < filters.distanceAway;
-  },
+  }
 );
 
 export const selectIsWithinPrice = createSelector(
   selectFilterPrice,
-  (price) => item => !item.isBid ?
-    item.price <= price || price === undefined :
-    item.price >= price || price === undefined
+  price => item =>
+    !item.isBid
+      ? item.price <= price || price === undefined
+      : item.price >= price || price === undefined
 );
 
 export const selectMapMarkers = createSelector(
@@ -487,8 +488,9 @@ export const selectMarketLoaded = createSelector(
   selectCurrentLocationLoaded,
   selectFilterType,
   (asksLoaded, bidsLoaded, locationLoaded, type) =>
-    locationLoaded &&
-    ((asksLoaded && type === "ASK") || (bidsLoaded && type === "BID")) || (asksLoaded && bidsLoaded && type === "ALL")
+    (locationLoaded &&
+      ((asksLoaded && type === "ASK") || (bidsLoaded && type === "BID"))) ||
+    (asksLoaded && bidsLoaded && type === "ALL")
 );
 
 export const selectDashboardLoaded = createSelector(
@@ -531,31 +533,33 @@ export const selectCurrencyNamesLoaded = state =>
 export const selectAskCurrencyItems = createSelector(
   selectCurrencyNames,
   selectMyAskCoins,
-  (names, coins) => compose(
-    fpMap(item => ({
-      label: `${item.assetName} - ${item.assetSymbol}`,
-      value: item.assetSymbol
-    })),
-    filter(coin => !coins.includes(coin.assetSymbol)),
-  )(names)
+  (names, coins) =>
+    compose(
+      fpMap(item => ({
+        label: `${item.assetName} - ${item.assetSymbol}`,
+        value: item.assetSymbol
+      })),
+      filter(coin => !coins.includes(coin.assetSymbol))
+    )(names)
 );
 export const selectBidCurrencyItems = createSelector(
   selectCurrencyNames,
   selectMyBidCoins,
-  (names, coins) => compose(
-    fpMap(item => ({
-      label: `${item.assetName} - ${item.assetSymbol}`,
-      value: item.assetSymbol
-    })),
-    filter(coin => !coins.includes(coin.assetSymbol)),
-  )(names)
+  (names, coins) =>
+    compose(
+      fpMap(item => ({
+        label: `${item.assetName} - ${item.assetSymbol}`,
+        value: item.assetSymbol
+      })),
+      filter(coin => !coins.includes(coin.assetSymbol))
+    )(names)
 );
 export const selectCurrencyItems = createSelector(
   selectCurrencyNames,
   fpMap(item => ({
     label: `${item.assetName} - ${item.assetSymbol}`,
     value: item.assetSymbol
-  })),
+  }))
 );
 export const selectLastPrice = state => state.metrics.lastPrice;
 
@@ -565,4 +569,3 @@ export const selectVisited = state => state.app.visited;
 export const selectNavIndex = state => state.app.navigationIndex;
 
 export const selectUser = state => state.users.user;
-

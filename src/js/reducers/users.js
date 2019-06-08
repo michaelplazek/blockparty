@@ -1,8 +1,5 @@
 import { stateReducer } from "./utils";
-import {
-  LOAD_USER,
-  UNLOAD_USER,
-} from "../actions";
+import { LOAD_USER, UNLOAD_USER } from "../actions";
 
 const initialState = {
   user: {}

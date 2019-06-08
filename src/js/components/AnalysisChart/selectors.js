@@ -3,9 +3,12 @@ import numeral from "numeral";
 
 import {
   selectAsks,
-  selectBids, selectFilter,
+  selectBids,
+  selectFilter,
   selectFilterCoin,
-  selectFilterPrice, selectFilterType, selectIsWithinRange
+  selectFilterPrice,
+  selectFilterType,
+  selectIsWithinRange
 } from "../../selectors";
 import compose from "lodash/fp/compose";
 import fpMap from "lodash/fp/map";
@@ -26,22 +29,24 @@ export const selectFilteredBids = createSelector(
   selectBids,
   selectFilter,
   selectIsWithinRange,
-  (bids, filters, withinRange) => compose(
-    filter(withinRange),
-    filter(bid => bid.coin === filters.coin),
-    filter(() => filters.type === "BID" || filters.type === "ALL")
-  )(bids)
+  (bids, filters, withinRange) =>
+    compose(
+      filter(withinRange),
+      filter(bid => bid.coin === filters.coin),
+      filter(() => filters.type === "BID" || filters.type === "ALL")
+    )(bids)
 );
 
 export const selectFilteredAsks = createSelector(
   selectAsks,
   selectFilter,
   selectIsWithinRange,
-  (asks, filters, withinRange) => compose(
-    filter(withinRange),
-    filter(ask => ask.coin === filters.coin),
-    filter(() => filters.type === "ASK" || filters.type === "ALL")
-  )(asks)
+  (asks, filters, withinRange) =>
+    compose(
+      filter(withinRange),
+      filter(ask => ask.coin === filters.coin),
+      filter(() => filters.type === "ASK" || filters.type === "ALL")
+    )(asks)
 );
 
 export const selectHasBids = createSelector(

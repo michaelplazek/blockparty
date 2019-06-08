@@ -1,5 +1,5 @@
 import React from "react";
-import {compose, lifecycle, withHandlers} from "recompose";
+import { compose, lifecycle, withHandlers } from "recompose";
 import { withRouter } from "react-router-dom";
 import theme from "../../../theme";
 import { VERSION } from "../../constants/app";
@@ -31,10 +31,10 @@ import Typography from "@material-ui/core/Typography/Typography";
 import Button from "@material-ui/core/Button/Button";
 import TextField from "@material-ui/core/TextField/TextField";
 import { ValidatorForm } from "react-material-ui-form-validator";
-import {loadMyAsks as loadMyAsksAction} from "../../actions/asks";
-import {loadMyBids as loadMyBidsAction} from "../../actions/bids";
-import {loadOffersByUser as loadOffersByUserAction} from "../../actions/offers";
-import {loadTransactions as loadTransactionsAction} from "../../actions/transactions";
+import { loadMyAsks as loadMyAsksAction } from "../../actions/asks";
+import { loadMyBids as loadMyBidsAction } from "../../actions/bids";
+import { loadOffersByUser as loadOffersByUserAction } from "../../actions/offers";
+import { loadTransactions as loadTransactionsAction } from "../../actions/transactions";
 
 const styles = () => ({
   top: {
@@ -137,7 +137,7 @@ const propMap = {
   asksLoaded: selectMyAsksLoaded,
   bidsLoaded: selectMyBidsLoaded,
   offersLoaded: selectMyOffersLoaded,
-  transactionsLoaded: selectTransactionsLoaded,
+  transactionsLoaded: selectTransactionsLoaded
 };
 
 const actionMap = {
@@ -147,7 +147,7 @@ const actionMap = {
   loadMyAsks: loadMyAsksAction,
   loadMyBids: loadMyBidsAction,
   loadOffersByUser: loadOffersByUserAction,
-  loadTransactions: loadTransactionsAction,
+  loadTransactions: loadTransactionsAction
 };
 
 export default compose(

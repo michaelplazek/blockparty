@@ -63,11 +63,10 @@ import { setAskPrice as setAskPriceAction } from "../../actions/createAsk";
 import numeral from "numeral";
 import { COST } from "../../constants/currency";
 import withPolling from "../../HOCs/withPolling";
-import AddIcon from '@material-ui/icons/AddLocation';
-import AddAskIcon from '@material-ui/icons/AddLocationTwoTone';
+import AddIcon from "@material-ui/icons/AddLocation";
+import AddAskIcon from "@material-ui/icons/AddLocationTwoTone";
 import SpeedDialButton from "../../components/SpeedDialButton";
 import withVisited from "../../HOCs/withVisited";
-
 
 const styles = () => ({
   root: {
@@ -99,87 +98,86 @@ const Dashboard = ({
   handleOfferClick,
   handleTransactionClick,
   handleCreateAsk,
-  handleCreateBid,
+  handleCreateBid
 }) => {
-
   const actions = [
     {
-      name: 'Create Bid',
+      name: "Create Bid",
       icon: <AddIcon />,
-      onClick:  handleCreateBid,
+      onClick: handleCreateBid
     },
     {
-      name: 'Create Ask',
+      name: "Create Ask",
       icon: <AddAskIcon />,
       onClick: handleCreateAsk
     }
   ];
 
-  return <div className={classes.root}>
-    {layer === "CREATE_ASK" && <CreateAsk/>}
-    {layer === "CREATE_BID" && <CreateBid/>}
-    {layer === "DELETE_ASK" && <DeleteAsk/>}
-    {layer === "DELETE_BID" && <DeleteBid/>}
-    {layer === "VIEW_OFFER" && <OfferDetails/>}
-    {layer === "VIEW_TRANSACTION" && <TransactionDetails/>}
-    <PageHeader leftHandLabel="Dashboard"/>
-    <Tile
-      title="Accepted Offers"
-      count={numberOfTransactions}
-      description="time to meet up"
-    >
-      {myTransactions.map(item => (
-        <TransactionTile
-          item={item}
-          key={item._id}
-          onClick={() => handleTransactionClick(item)}
-        />
-      ))}
-    </Tile>
-    <Tile
-      title="My Offers"
-      count={numberOfOffers}
-      description="offers I've made"
-    >
-      {myOffers.map(item => (
-        <OfferTile
-          item={item}
-          key={item._id}
-          onClick={() => handleOfferClick(item)}
-        />
-      ))}
-    </Tile>
-    <Tile title="My Asks" count={numberOfAsks} description="looking to sell">
-      {myAsks.map(item => (
-        <ListTile
-          item={item}
-          key={item._id}
-          onClick={() => handleAskClick(item)}
-        />
-      ))}
-    </Tile>
-    <Tile title="My Bids" count={numberOfBids} description="looking to buy">
-      {myBids.map(item => (
-        <ListTile
-          item={item}
-          key={item._id}
-          onClick={() => handleBidClick(item)}
-        />
-      ))}
-    </Tile>
-    <div
-      style={{
-        position: "fixed",
-        right: "2em",
-        bottom: `${footerHeight + 20}px`,
-        zIndex: 100
-      }}
-    >
-      <SpeedDialButton
-        actions={actions}
-      />
+  return (
+    <div className={classes.root}>
+      {layer === "CREATE_ASK" && <CreateAsk />}
+      {layer === "CREATE_BID" && <CreateBid />}
+      {layer === "DELETE_ASK" && <DeleteAsk />}
+      {layer === "DELETE_BID" && <DeleteBid />}
+      {layer === "VIEW_OFFER" && <OfferDetails />}
+      {layer === "VIEW_TRANSACTION" && <TransactionDetails />}
+      <PageHeader leftHandLabel="Dashboard" />
+      <Tile
+        title="Accepted Offers"
+        count={numberOfTransactions}
+        description="time to meet up"
+      >
+        {myTransactions.map(item => (
+          <TransactionTile
+            item={item}
+            key={item._id}
+            onClick={() => handleTransactionClick(item)}
+          />
+        ))}
+      </Tile>
+      <Tile
+        title="My Offers"
+        count={numberOfOffers}
+        description="offers I've made"
+      >
+        {myOffers.map(item => (
+          <OfferTile
+            item={item}
+            key={item._id}
+            onClick={() => handleOfferClick(item)}
+          />
+        ))}
+      </Tile>
+      <Tile title="My Asks" count={numberOfAsks} description="looking to sell">
+        {myAsks.map(item => (
+          <ListTile
+            item={item}
+            key={item._id}
+            onClick={() => handleAskClick(item)}
+          />
+        ))}
+      </Tile>
+      <Tile title="My Bids" count={numberOfBids} description="looking to buy">
+        {myBids.map(item => (
+          <ListTile
+            item={item}
+            key={item._id}
+            onClick={() => handleBidClick(item)}
+          />
+        ))}
+      </Tile>
+      <div
+        style={{
+          position: "fixed",
+          right: "2em",
+          bottom: `${footerHeight + 20}px`,
+          zIndex: 100
+        }}
+      >
+        <SpeedDialButton actions={actions} />
+      </div>
     </div>
-  </div>
+  );
 };
 
 const propMap = {
@@ -195,7 +193,7 @@ const propMap = {
   numberOfOffers: selectNumberOfMyOffers,
   numberOfTransactions: selectNumberOfMyTransactions,
   loaded: selectDashboardLoaded,
-  footerHeight: selectNavHeight,
+  footerHeight: selectNavHeight
 };
 
 const actionMap = {
@@ -216,7 +214,7 @@ const actionMap = {
   loadTransaction,
   loadLastPrice: loadLastPriceAction,
   setAskPrice: setAskPriceAction,
-  setBidPrice: setBidPriceAction,
+  setBidPrice: setBidPriceAction
 };
 
 export default compose(
@@ -285,7 +283,7 @@ export default compose(
       loadLastPrice,
       setBidPrice,
       setLayer,
-      setLayerOpen,
+      setLayerOpen
     }) => () => {
       loadLastPrice("BTC").then(response =>
         setBidPrice(numeral(response.data).format(COST))
@@ -297,8 +295,8 @@ export default compose(
       loadLastPrice,
       setAskPrice,
       setLayer,
-      setLayerOpen,
-  }) => () => {
+      setLayerOpen
+    }) => () => {
       // console.log('clicked asked');
       // console.log(setLayer);
       loadLastPrice("BTC").then(response =>
@@ -306,21 +304,24 @@ export default compose(
       );
       setLayer("CREATE_ASK");
       setLayerOpen(true);
-    },
+    }
   }),
   withLocation,
   withLoader,
-  withPolling(({
-    loadOffersByUser,
-    loadTransactions,
-    loadMyAsks,
-    loadMyBids,
-    userId,
-  }) => {
-    loadOffersByUser(userId);
-    loadTransactions(userId);
-    loadMyAsks(userId);
-    loadMyBids(userId);
-  }, 5000),
-  withVisited,
+  withPolling(
+    ({
+      loadOffersByUser,
+      loadTransactions,
+      loadMyAsks,
+      loadMyBids,
+      userId
+    }) => {
+      loadOffersByUser(userId);
+      loadTransactions(userId);
+      loadMyAsks(userId);
+      loadMyBids(userId);
+    },
+    5000
+  ),
+  withVisited
 )(Dashboard);

@@ -1,5 +1,5 @@
 import React from "react";
-import {compose, lifecycle} from "recompose";
+import { compose, lifecycle } from "recompose";
 import withStyles from "@material-ui/core/styles/withStyles";
 import mapper from "../../../utils/connect";
 import Modal from "../index";
@@ -13,8 +13,11 @@ import {
   selectWindowWidth
 } from "../../../selectors";
 import Grid from "@material-ui/core/Grid/Grid";
-import {loadUser as loadUserAction, unloadUser as unloadUserAction} from "../../../actions/users";
-import {selectUserDetails} from "./selectors";
+import {
+  loadUser as loadUserAction,
+  unloadUser as unloadUserAction
+} from "../../../actions/users";
+import { selectUserDetails } from "./selectors";
 import DetailList from "../../DetailList";
 
 const styles = () => ({
@@ -23,12 +26,7 @@ const styles = () => ({
   }
 });
 
-const UserInfo = ({
-  setLayerOpen,
-  items,
-  classes,
-  id,
-}) => (
+const UserInfo = ({ setLayerOpen, items, classes, id }) => (
   <Modal
     onClose={() => {
       setLayerOpen(false);
@@ -50,13 +48,13 @@ const propMap = {
   user: selectUser,
   items: selectUserDetails,
   windowHeight: selectWindowHeight,
-  windowWidth: selectWindowWidth,
+  windowWidth: selectWindowWidth
 };
 
 const actionMap = {
   setLayerOpen: setLayerOpenAction,
   loadUser: loadUserAction,
-  unloadUser: unloadUserAction,
+  unloadUser: unloadUserAction
 };
 
 export default compose(
@@ -71,5 +69,5 @@ export default compose(
       const { unloadUser } = this.props;
       unloadUser();
     }
-  }),
+  })
 )(UserInfo);
