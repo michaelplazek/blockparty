@@ -53,12 +53,6 @@ class Market extends Component {
 
     return (
       <div>
-        <Joyride
-          steps={marketSteps}
-          run={true}
-          continuous={true}
-          tooltipComponent={Tooltip}
-        />
         <FilterMap />
         <PageHeader
           leftHandLabel="Market"
@@ -77,6 +71,13 @@ class Market extends Component {
           markers={markers}
           onMarkerClick={handleMarkerClick}
           height={(windowHeight - navHeight - headerHeight) / 2}
+        />
+        <Joyride
+          steps={marketSteps}
+          run={true}
+          continuous={true}
+          tooltipComponent={Tooltip}
+          disableOverlay={true}
         />
       </div>
     );

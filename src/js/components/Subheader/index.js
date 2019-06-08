@@ -20,13 +20,13 @@ import { setFilterItems } from "../../actions/filters";
 const styles = () => ({
   root: {
     height: "50px",
-    borderBottom: "1px #CCC solid"
+    borderBottom: "1px #CCC solid",
   },
   chip: {
     margin: "8px 3px 8px 3px"
   },
   menuButton: {
-    marginRight: 8
+    marginRight: 8,
   },
   filterButton: {}
 });
@@ -57,7 +57,7 @@ const Subheader = ({ classes, filter, handleOpen }) => (
       <Grid item className={classes.filterButton}>
         <IconButton
           onClick={handleOpen}
-          className={classes.menuButton}
+          className={`${classes.menuButton} filters`}
           aria-label="Menu"
         >
           <FilterListIcon />
