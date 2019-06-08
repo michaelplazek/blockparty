@@ -4,6 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import {Typography, withStyles} from "@material-ui/core";
 import withDimensions from "../HOCs/withDimensions";
+import mapper from "../utils/connect";
 
 const style = () => ({
   header: {
@@ -85,5 +86,6 @@ const Tooltip = ({
 
 export default compose(
   withStyles(style),
+  mapper(),
   withDimensions,
 )(Tooltip);
