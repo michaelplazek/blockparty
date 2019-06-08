@@ -32,6 +32,7 @@ import CreateAskOffer from "../../components/Flyout/CreateAskOffer";
 import { loadOffersByUser } from "../../actions/offers";
 import { selectAskHasButton } from "../../selectors";
 import Fab from "@material-ui/core/Fab";
+import UserInfo from "../../components/Modal/UserInfo";
 
 const styles = theme => ({
   root: {
@@ -61,7 +62,8 @@ const Ask = ({
   hasAskOffer,
   buttonText,
   showButton,
-  height
+  height,
+  handleUserClick,
 }) => (
   <div
     style={{
@@ -75,6 +77,10 @@ const Ask = ({
           layer === "CREATE_ASK_OFFER" && (
             <CreateAskOffer handleClose={() => {}} handleSubmit={() => {}} />
           )}
+        {open &&
+          layer === "VIEW_USER_DETAILS" && (
+            <UserInfo id={ask.userId} />
+        )}
         <Grid>
           <Button
             style={theme.palette.inverse}
@@ -92,7 +98,7 @@ const Ask = ({
               </Typography>
             </Grid>
             <br />
-            <DetailList items={items} />
+            <DetailList items={items} userClick={handleUserClick} />
           </div>
           {showButton && (
             <Fab
@@ -157,6 +163,10 @@ export default compose(
     handleOffer: ({ setLayer, setLayerOpen }) => () => {
       setLayer("CREATE_ASK_OFFER");
       setLayerOpen(true);
-    }
+    },
+    handleUserClick: ({ setLayer, setLayerOpen }) => () => {
+      setLayer("VIEW_USER_DETAILS");
+      setLayerOpen(true);
+    },
   })
 )(Ask);

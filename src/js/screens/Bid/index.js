@@ -31,6 +31,7 @@ import CreateBidOffer from "../../components/Flyout/CreateBidOffer";
 import { loadOffersByUser } from "../../actions/offers";
 import { selectBidHasButton } from "../../selectors";
 import Fab from "@material-ui/core/Fab";
+import UserInfo from "../../components/Modal/UserInfo";
 
 const styles = theme => ({
   root: {
@@ -60,7 +61,8 @@ const Bid = ({
   bidHasOffer,
   buttonText,
   showButton,
-  height
+  height,
+  handleUserClick,
 }) => (
   <div
     style={{
@@ -71,9 +73,13 @@ const Bid = ({
     {loaded && (
       <div>
         {open &&
-          layer === "poop" && (
+          layer === "CREATE_BID_OFFER" && (
             <CreateBidOffer handleClose={() => {}} handleSubmit={() => {}} />
-          )}
+        )}
+        {open &&
+          layer === "VIEW_USER_DETAILS" && (
+            <UserInfo id={bid.userId} />
+        )}
         <Grid>
           <Button
             style={theme.palette.inverse}
@@ -91,7 +97,7 @@ const Bid = ({
               </Typography>
             </Grid>
             <br />
-            <DetailList items={items} />
+            <DetailList items={items} userClick={handleUserClick} />
           </div>
           {showButton && (
             <Fab
@@ -154,8 +160,12 @@ export default compose(
   }),
   withHandlers({
     handleOffer: ({ setLayer, setLayerOpen }) => () => {
-      setLayer("poop");
+      setLayer("CREATE_BID_OFFER");
       setLayerOpen(true);
-    }
+    },
+    handleUserClick: ({ setLayer, setLayerOpen }) => () => {
+      setLayer("VIEW_USER_DETAILS");
+      setLayerOpen(true);
+    },
   })
 )(Bid);
