@@ -35,10 +35,14 @@ import { loadMyAsks } from "../../../actions/asks";
 import { loadMyBids } from "../../../actions/bids";
 import { loadOffersByUser } from "../../../actions/offers";
 import { setNotification } from "../../../actions/app";
+import {Typography} from "@material-ui/core";
 
 const styles = () => ({
   list: {
     marginTop: "3em"
+  },
+  description: {
+    margin: '0em 1.5em 1em 1.5em'
   }
 });
 
@@ -60,6 +64,14 @@ const TransactionDetails = ({
     title="Accepted Offer"
   >
     <Grid className={classes.list} container direction="column">
+      <Grid className={classes.description} item>
+        <Typography variant='caption'>
+          After reviewing the transaction details, contact the other party.
+          Once the transaction is complete, click <b>Mark As Completed</b>. Once both
+          parties have marked the transaction as complete, your reputation will be updated
+          and the transaction will be considered completed.
+        </Typography>
+      </Grid>
       <DetailList items={items} />
       <ButtonContainer
         disabled={completeButtonIsDisabled}
