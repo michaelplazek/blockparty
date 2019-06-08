@@ -10,6 +10,7 @@ import {
   UPDATE_USER,
   DELETE_USER
 } from "./index";
+import {getIndexFromPath} from "../utils/location";
 
 const setSession = token => window.sessionStorage.setItem("session", token);
 
@@ -17,7 +18,7 @@ export const getSession = () => window.sessionStorage.getItem("session");
 
 const removeSession = () => window.sessionStorage.removeItem("session");
 
-export const logInUser = (username, password, history) => dispatch => {
+export const logInUser = (username, password, history, setNavIndex) => dispatch => {
   const user = {
     username,
     password: md5(md5(password))
@@ -28,7 +29,10 @@ export const logInUser = (username, password, history) => dispatch => {
       dispatch({ type: LOG_IN, data: response });
     })
     .then(() => dispatch({ type: SESSION_LOAD }))
-    .then(() => history.push("/"));
+    .then(() => {
+      setNavIndex(getIndexFromPath("/"));
+      history.push("/")
+    });
 };
 
 export const registerUser = (username, password, history) => dispatch => {
