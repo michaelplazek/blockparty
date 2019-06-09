@@ -43,6 +43,9 @@ const styles = () => ({
   bottom: {
     marginBottom: "0.5em"
   },
+  deleteInfo: {
+    marginBottom: '0.5em'
+  },
   version: {
     marginTop: "0.2em"
   }
@@ -103,6 +106,11 @@ const Settings = ({
         </Grid>
         <Grid item className={classes.bottom}>
           <Grid container direction="column" alignItems="center">
+            <Grid item className={classes.deleteInfo}>
+              <Typography variant='caption'>
+                To delete account, first delete all posts and offers
+              </Typography>
+            </Grid>
             <Grid item>
               <Button
                 variant="contained"
