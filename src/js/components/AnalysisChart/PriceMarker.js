@@ -18,7 +18,7 @@ const PriceMarker = ({ price, askInfo, bidInfo, top }) => (
     <Grid item>
       <Grid container direction="column" alignItems="center">
         <Grid item>
-          <Typography variant="display1">
+          <Typography variant="h6">
             {numeral(price).format(USD)}
           </Typography>
         </Grid>
