@@ -38,7 +38,7 @@ import { loadTransactions as loadTransactionsAction } from "../../actions/transa
 
 const styles = () => ({
   top: {
-    paddingTop: "1em"
+    paddingTop: "1em",
   },
   bottom: {
     marginBottom: "0.5em"
@@ -59,7 +59,8 @@ const Settings = ({
   handleUpdate,
   handleDelete,
   canDelete,
-  totalItems
+  totalItems,
+  windowWidth,
 }) => (
   <div>
     <PageHeader
@@ -84,7 +85,12 @@ const Settings = ({
               direction="column"
               alignItems="center"
             >
-              <Grid item>
+              <Grid
+                item
+                style={{
+                  width: `${windowWidth - 30}px`
+                }}
+              >
                 <TextField
                   id="bio-field"
                   fullWidth
