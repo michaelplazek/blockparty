@@ -4,7 +4,7 @@ import { compose, withHandlers } from "recompose";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Chip from "@material-ui/core/Chip/Chip";
 
-import { setLayerOpen as setLayerOpenAction } from "../../actions/layers";
+import { setLayerOpen as setLayerOpenAction, setLayer as setLayerAction } from "../../actions/layers";
 import {
   selectFilter,
   selectFilterCoin,
@@ -76,6 +76,7 @@ const propMap = {
 
 const actionMap = {
   setLayerOpen: setLayerOpenAction,
+  setLayer: setLayerAction,
   setFilterItems
 };
 
@@ -83,8 +84,9 @@ export default compose(
   withStyles(styles),
   mapper(propMap, actionMap),
   withHandlers({
-    handleOpen: ({ setFilterItems, setLayerOpen }) => () => {
+    handleOpen: ({ setFilterItems, setLayerOpen, setLayer }) => () => {
       setFilterItems();
+      setLayer("FILTER_MAP");
       setLayerOpen(true);
     }
   })

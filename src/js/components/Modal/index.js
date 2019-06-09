@@ -39,7 +39,6 @@ const styles = () => ({
 
 const ModalBase = ({
   classes,
-  height,
   width,
   children,
   open,
@@ -55,7 +54,7 @@ const ModalBase = ({
     <Slide direction="up" in={open} mountOnEnter unmountOnExit>
       <div
         className={classes.root}
-        style={{ height: `${height / 2}px`, width: `${width * 0.75}px` }}
+        style={{ width: `${width * 0.75}px` }}
       >
         <Grid direction="row" justify="space-between" container>
           <Grid className={classes.title} item>

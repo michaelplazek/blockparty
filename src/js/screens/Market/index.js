@@ -13,11 +13,13 @@ import {
   selectAsksForDisplay,
   selectBidsForDisplay,
   selectFilterType,
-  selectMarketLoaded, selectRun
+  selectMarketLoaded,
+  selectRun,
+  selectLayer, selectLayerOpen
 } from "../../selectors";
 import { loadAsks as loadAsksAction } from "../../actions/asks";
 import { loadBids as loadBidsAction } from "../../actions/bids";
-import { setLayerOpen as setLayerOpenAction } from "../../actions/layers";
+import { setLayerOpen as setLayerOpenAction, setLayer as setLayerAction } from "../../actions/layers";
 
 import Subheader from "../../components/Subheader";
 import GoogleMapsWrapper from "../../components/GoogleMaps/GoogleMapsWrapper";
@@ -38,6 +40,7 @@ import withPushNotifications from "../../HOCs/withPushNotifications";
 import withVisited from "../../HOCs/withVisited";
 import {marketSteps, tourStyle} from "../../config/tour";
 import Tooltip from "../../components/TourTooltip";
+import Welcome from "../../components/Modal/Welcome";
 
 class Market extends Component {
   constructor(props) {
@@ -54,14 +57,23 @@ class Market extends Component {
       handleMarkerClick,
       currentLocation,
       handleCallback,
+      layer,
+      open,
+      run,
     } = this.props;
 
     return (
       <div>
-        <FilterMap />
+        {open &&
+          layer === "WELCOME" && (
+            <Welcome />
+        )}
+        {open &&
+        layer === "FILTER_MAP" && (
+          <FilterMap />
+        )}
         <PageHeader
           leftHandLabel="Market"
-          leftHandAction={() => this.props.setLayerOpen(true)}
           showSubheader={true}
           subheader={<Subheader />}
         />
@@ -79,7 +91,7 @@ class Market extends Component {
         />
         <Joyride
           steps={marketSteps}
-          run={true}
+          run={run}
           styles={tourStyle}
           continuous={true}
           tooltipComponent={Tooltip}
@@ -92,6 +104,8 @@ class Market extends Component {
 }
 
 const propMap = {
+  open: selectLayerOpen,
+  layer: selectLayer,
   asks: selectAsksForDisplay,
   bids: selectBidsForDisplay,
   markers: selectMapMarkers,
@@ -106,6 +120,7 @@ const actionMap = {
   loadAsks: loadAsksAction,
   loadBids: loadBidsAction,
   setLayerOpen: setLayerOpenAction,
+  setLayer: setLayerAction,
   setMarketView: setMarketViewAction,
   setRun: setRunAction,
   setNavIndex: setNavIndexAction
@@ -135,9 +150,11 @@ export default compose(
   }),
   lifecycle({
     componentWillMount() {
-      const { loadAsks, loadBids } = this.props;
+      const { loadAsks, loadBids, setLayer, setLayerOpen } = this.props;
       loadAsks();
       loadBids();
+      setLayerOpen(true);
+      setLayer("WELCOME");
     }
   }),
   withLocation,
