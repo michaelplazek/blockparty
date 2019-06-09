@@ -18,10 +18,11 @@ export const loadLastPrice = coin => dispatch => {
       }
       }}`
   };
-  return fetchFromBlocktap(query).then(response =>
-    dispatch({
-      type: LAST_PRICE_LOAD,
-      data: response.data.market.ticker.lastPrice
-    })
-  );
+  return fetchFromBlocktap(query)
+    .then(response =>
+      dispatch({
+        type: LAST_PRICE_LOAD,
+        data: response.data.market.ticker.lastPrice
+      })
+    );
 };

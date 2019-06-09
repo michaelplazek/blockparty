@@ -33,9 +33,15 @@ const SpeedDialButton = ({
         icon={action.icon}
         tooltipTitle={action.name}
         tooltipOpen
-        onClick={() => {
-          action.onClick();
-          handleClick();
+        // onClick={() => {
+        //   action.onClick();
+        //   handleClick();
+        // }}
+        ButtonProps={{
+          onClick: () => {
+            handleClick();
+            action.onClick();
+          }
         }}
       />
     ))}

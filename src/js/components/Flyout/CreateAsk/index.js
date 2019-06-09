@@ -1,5 +1,5 @@
 import React from "react";
-import { compose, withHandlers, withState, lifecycle } from "recompose";
+import { compose, withHandlers, withState } from "recompose";
 import withStyles from "@material-ui/core/styles/withStyles";
 import mapper from "../../../utils/connect";
 
@@ -24,7 +24,9 @@ import {
   selectAskFormVolume,
   selectUserId,
   selectUsername,
-  selectAskFormContactInfo
+  selectAskFormContactInfo,
+  selectLastPrice,
+  selectAskCurrencyItems
 } from "../../../selectors";
 import {
   createAsk as createAskAction,
@@ -129,14 +131,16 @@ const propMap = {
   lng: selectAskLongitude,
   username: selectUsername,
   userId: selectUserId,
-  contactInfo: selectAskFormContactInfo
+  contactInfo: selectAskFormContactInfo,
+  lastPrice: selectLastPrice,
+  coins: selectAskCurrencyItems,
 };
 
 const actionMap = {
   createAsk: createAskAction,
   loadMyAsks: loadMyAsksAction,
   setLayerOpen: setLayerOpenAction,
-  resetAsk: resetAskAction
+  resetAsk: resetAskAction,
 };
 
 export default compose(

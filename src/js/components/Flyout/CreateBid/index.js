@@ -1,5 +1,5 @@
 import React from "react";
-import { compose, withHandlers, withState } from "recompose";
+import {compose, withHandlers, withState} from "recompose";
 import withStyles from "@material-ui/core/styles/withStyles";
 import mapper from "../../../utils/connect";
 
@@ -24,14 +24,16 @@ import {
   selectBidFormVolume,
   selectUserId,
   selectUsername,
-  selectBidFormContactInfo
+  selectBidFormContactInfo,
+  selectBidCurrencyItems,
+  selectLastPrice,
 } from "../../../selectors";
 import {
   createBid as createBidAction,
   loadMyBids as loadMyBidsAction
 } from "../../../actions/bids";
 import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
-import { resetBid as resetBidAction } from "../../../actions/createBid";
+import {resetBid as resetBidAction} from "../../../actions/createBid";
 import { ValidatorForm } from "react-material-ui-form-validator";
 import { cleanInputs } from "../../../constants/validation";
 
@@ -129,14 +131,16 @@ const propMap = {
   lat: selectBidLatitude,
   lng: selectBidLongitude,
   username: selectUsername,
-  userId: selectUserId
+  userId: selectUserId,
+  lastPrice: selectLastPrice,
+  coins: selectBidCurrencyItems,
 };
 
 const actionMap = {
   createBid: createBidAction,
   loadMyBids: loadMyBidsAction,
   setLayerOpen: setLayerOpenAction,
-  resetBid: resetBidAction
+  resetBid: resetBidAction,
 };
 
 export default compose(
