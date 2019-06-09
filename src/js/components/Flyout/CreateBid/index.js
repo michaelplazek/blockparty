@@ -1,5 +1,5 @@
 import React from "react";
-import {compose, lifecycle, withHandlers, withState} from "recompose";
+import {compose, withHandlers, withState} from "recompose";
 import withStyles from "@material-ui/core/styles/withStyles";
 import mapper from "../../../utils/connect";
 
@@ -33,12 +33,9 @@ import {
   loadMyBids as loadMyBidsAction
 } from "../../../actions/bids";
 import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
-import {resetBid as resetBidAction, setBidPrice as setBidPriceAction} from "../../../actions/createBid";
+import {resetBid as resetBidAction} from "../../../actions/createBid";
 import { ValidatorForm } from "react-material-ui-form-validator";
 import { cleanInputs } from "../../../constants/validation";
-import numeral from "numeral";
-import {COST} from "../../../constants/currency";
-import {loadLastPrice as loadLastPriceAction} from "../../../actions/metrics";
 
 const styles = theme => ({
   root: {
@@ -144,19 +141,11 @@ const actionMap = {
   loadMyBids: loadMyBidsAction,
   setLayerOpen: setLayerOpenAction,
   resetBid: resetBidAction,
-  loadLastPrice: loadLastPriceAction,
-  setBidPrice: setBidPriceAction,
 };
 
 export default compose(
   mapper(propMap, actionMap),
   withStyles(styles),
-  lifecycle({
-    componentDidMount() {
-      this.props.loadLastPrice(this.props.coins[0].value)
-        .then(() => this.props.setBidPrice(numeral(this.props.lastPrice).format(COST)));
-    }
-  }),
   withState("activeIndex", "setActiveIndex", 0),
   withHandlers({
     handleSubmit: ({

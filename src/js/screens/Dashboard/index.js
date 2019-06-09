@@ -31,6 +31,7 @@ import DeleteBid from "../../components/Flyout/BidDetails";
 import withDimensions from "../../HOCs/withDimensions";
 import withStyles from "@material-ui/core/styles/withStyles";
 import {
+  selectAskCurrencyItems, selectBidCurrencyItems,
   selectDashboardLoaded,
   selectLayer,
   selectMyAsks,
@@ -212,6 +213,8 @@ const propMap = {
   loaded: selectDashboardLoaded,
   footerHeight: selectNavHeight,
   run: selectRun,
+  askCoins: selectAskCurrencyItems,
+  bidCoins: selectBidCurrencyItems,
 };
 
 const actionMap = {
@@ -308,9 +311,10 @@ export default compose(
       loadLastPrice,
       setBidPrice,
       setLayer,
-      setLayerOpen
+      setLayerOpen,
+      bidCoins,
     }) => () => {
-      loadLastPrice("BTC").then(response =>
+      loadLastPrice(bidCoins[0].value).then(response =>
         setBidPrice(numeral(response.data).format(COST))
       );
       setLayer("CREATE_BID");
@@ -320,9 +324,10 @@ export default compose(
       loadLastPrice,
       setAskPrice,
       setLayer,
-      setLayerOpen
+      setLayerOpen,
+      askCoins
     }) => () => {
-      loadLastPrice("BTC").then(response =>
+      loadLastPrice(askCoins[0].value).then(response =>
         setAskPrice(numeral(response.data).format(COST))
       );
       setLayer("CREATE_ASK");
