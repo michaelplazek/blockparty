@@ -36,7 +36,7 @@ import Chart from "./Chart";
 import withPolling from "../../HOCs/withPolling";
 import withPushNotifications from "../../HOCs/withPushNotifications";
 import withVisited from "../../HOCs/withVisited";
-import {marketSteps} from "../../config/tour";
+import {marketSteps, tourStyle} from "../../config/tour";
 import Tooltip from "../../components/TourTooltip";
 
 class Market extends Component {
@@ -80,6 +80,7 @@ class Market extends Component {
         <Joyride
           steps={marketSteps}
           run={true}
+          styles={tourStyle}
           continuous={true}
           tooltipComponent={Tooltip}
           disableOverlay={true}

@@ -28,7 +28,7 @@ import Button from "@material-ui/core/Button/Button";
 import withPolling from "../../HOCs/withPolling";
 import withVisited from "../../HOCs/withVisited";
 import Joyride from "react-joyride";
-import {accountSteps} from "../../config/tour";
+import {accountSteps, tourStyle} from "../../config/tour";
 import Tooltip from "../../components/TourTooltip";
 import {setRun as setRunAction} from "../../actions/app";
 
@@ -72,6 +72,7 @@ const Account = ({ logOut, classes, username, bio, items, history, run }) => (
     <Joyride
       steps={accountSteps}
       run={run}
+      styles={tourStyle}
       continuous={true}
       tooltipComponent={Tooltip}
       disableOverlay={true}

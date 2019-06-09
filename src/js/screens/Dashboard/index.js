@@ -68,7 +68,7 @@ import AddAskIcon from "@material-ui/icons/AddLocationTwoTone";
 import SpeedDialButton from "../../components/SpeedDialButton";
 import withVisited from "../../HOCs/withVisited";
 import Joyride from "react-joyride";
-import {dashboardSteps} from "../../config/tour";
+import {dashboardSteps, tourStyle} from "../../config/tour";
 import Tooltip from "../../components/TourTooltip";
 import {setNavIndex as setNavIndexAction, setRun as setRunAction} from "../../actions/app";
 
@@ -187,6 +187,7 @@ const Dashboard = ({
       <Joyride
         steps={dashboardSteps}
         run={run}
+        styles={tourStyle}
         continuous={true}
         tooltipComponent={Tooltip}
         disableOverlay={true}

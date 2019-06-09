@@ -106,3 +106,12 @@ export const accountSteps = [
     placement: 'auto',
   },
 ];
+
+export const tourStyle = {
+  options: {
+    arrowColor: '#3f51b5'
+  },
+};
+
+export const isVisited = window.localStorage.getItem('visited');
+export const setAppVisited = window.localStorage.setItem('visited', 'true');
