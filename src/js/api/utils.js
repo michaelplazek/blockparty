@@ -3,8 +3,8 @@ import { getSession } from "../actions/session";
 import { store } from "../../index";
 import { SET_ERROR, SET_ERROR_MESSAGE } from "../actions";
 
-const BASE_URL = "http://localhost:8000";
-const BLOCKTAP_URL = "https://api.blocktap.io/graphql";
+const BASE_URL = process.env.BASE_URL;
+const BLOCKTAP_URL = process.env.BLOCKTAP_URL;
 
 export const wrappedFetch = (url = "", data = {}, type = "GET") => {
   const newUrl = `${BASE_URL}/${url}`;
