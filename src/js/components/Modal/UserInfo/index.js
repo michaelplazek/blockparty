@@ -22,7 +22,8 @@ import DetailList from "../../DetailList";
 
 const styles = () => ({
   items: {
-    marginTop: "2.2em"
+    marginTop: "2.2em",
+    marginBottom: "1em"
   }
 });
 

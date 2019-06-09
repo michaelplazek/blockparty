@@ -29,11 +29,9 @@ const styles = () => ({
   },
 });
 
-const EndOfTour = ({ setLayerOpen, classes, handleSubmit }) => (
+const EndOfTour = ({ classes, handleSubmit, handleClose }) => (
   <Modal
-    onClose={() => {
-      setLayerOpen(false);
-    }}
+    onClose={handleClose}
     open={open}
     title=""
   >
@@ -85,6 +83,11 @@ export default compose(
       setAppVisited();
       setNavIndex(0);
       history.push("/");
+    },
+    handleClose: ({ setRun, setLayerOpen }) => () => {
+      setRun(false);
+      setLayerOpen(false);
+      setAppVisited();
     },
   }),
 )(EndOfTour);

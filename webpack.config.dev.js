@@ -19,7 +19,7 @@ export default {
         fs: 'empty'
     },
     plugins: [
-        new webpack.EnvironmentPlugin(['GOOGLE_MAPS_KEY', 'BLOCKTAP_TOKEN', 'PUBLIC_PUSH_KEY']),
+        new webpack.EnvironmentPlugin(['GOOGLE_MAPS_KEY', 'BLOCKTAP_TOKEN', 'PUBLIC_PUSH_KEY', 'MONERO_ADDRESS']),
         new ServiceWorkerWebpackPlugin({
             entry: path.join(__dirname, '/src/scripts/sw.js'),
             excludes: [

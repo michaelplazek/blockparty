@@ -1,7 +1,8 @@
 import React from "react";
-import {compose, lifecycle, withHandlers} from "recompose";
+import {compose, lifecycle, withHandlers, withState} from "recompose";
 import { withRouter } from "react-router-dom";
-import { faCog } from "@fortawesome/free-solid-svg-icons";
+import { faCog, faCopy } from "@fortawesome/free-solid-svg-icons";
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 import mapper from "../../utils/connect";
 import {
@@ -34,6 +35,7 @@ import Tooltip from "../../components/TourTooltip";
 import {setRun as setRunAction} from "../../actions/app";
 import EndOfTour from "../../components/Modal/EndOfTour";
 import {setLayer as setLayerAction, setLayerOpen as setLayerOpenAction} from "../../actions/layers";
+import {truncateString} from "../../utils/strings";
 
 const styles = () => ({
   body: {
@@ -43,7 +45,16 @@ const styles = () => ({
     margin: "0.5em"
   },
   button: {
-    alignSelf: "center"
+    alignSelf: "center",
+    marginBottom: "1em"
+  },
+  copy: {
+    cursor: 'pointer',
+    marginLeft: "0.5em"
+  },
+  suggestions: {
+    marginTop: "1em",
+    marginBottom: "0.25em"
   }
 });
 
@@ -58,6 +69,8 @@ const Account = ({
   handleCallback,
   layer,
   open,
+  copied,
+  setCopied,
 }) => (
   <div>
     {open &&
@@ -70,22 +83,81 @@ const Account = ({
       rightHandAction={() => history.push("/settings")}
     />
     <Grid container className={classes.body} direction="column">
-      <Grid item className={classes.items}>
-        <Grid container direction="column" alignItems="center">
-          <Grid item className={classes.items}>
-            <Typography variant="display1">{username}</Typography>
+
+      <Grid item container direction='column' justify='flex-start'>
+        <Grid item className={classes.items}>
+          <Grid container direction="column" alignItems="center">
+            <Grid item className={classes.items}>
+              <Typography variant="display1">{username}</Typography>
+            </Grid>
+            <Grid item className={classes.items}>
+              <Typography variant="caption">{bio}</Typography>
+            </Grid>
           </Grid>
-          <Grid item className={classes.items}>
-            <Typography variant="caption">{bio}</Typography>
+        </Grid>
+        <Grid item className={`${classes.items} account-info`}>
+          <DetailList items={items} />
+        </Grid>
+        <Grid item className={classes.button}>
+          <Button onClick={logOut}>Log Out</Button>
+        </Grid>
+      </Grid>
+
+      <Grid item container justify='center'>
+        <Grid item>
+          <Typography variant='caption'>
+            Like the app? Donate Monero to support our developers.
+          </Typography>
+        </Grid>
+        <Grid item container direction='row' justify='center'>
+          <Grid item>
+            <Typography variant='caption'>
+              {truncateString(process.env.MONERO_ADDRESS)}
+            </Typography>
+          </Grid>
+          <Grid item className={classes.copy}>
+            <CopyToClipboard
+              text={process.env.MONERO_ADDRESS}
+              onCopy={() => {
+                setCopied(true);
+                setTimeout(() => setCopied(false), 1000);
+              }}
+            >
+              <FontAwesomeIcon icon={faCopy} />
+            </CopyToClipboard>
+          </Grid>
+          {copied && (
+            <Grid item className={classes.copy}>
+              <Typography variant='caption'>
+                Copied!
+              </Typography>
+            </Grid>
+          )}
+        </Grid>
+        <Grid
+          container
+          item
+          alignItems='center'
+          direction='column'
+          className={classes.suggestions}
+        >
+          <Grid item>
+            <Typography variant='caption'>
+              Report bugs or send suggestions to
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Typography
+              variant='caption'
+              component="a"
+              href='mailto:blockpartyapp@protonmail.com'
+            >
+              blockpartyapp@protonmail.com
+            </Typography>
           </Grid>
         </Grid>
       </Grid>
-      <Grid item className={`${classes.items} account-info`}>
-        <DetailList items={items} />
-      </Grid>
-      <Grid item className={classes.button}>
-        <Button onClick={logOut}>Log Out</Button>
-      </Grid>
+
     </Grid>
     <Joyride
       steps={accountSteps}
@@ -120,6 +192,7 @@ const actionMap = {
 
 export default compose(
   mapper(propMap, actionMap),
+  withState('copied', 'setCopied', false),
   withRouter,
   withStyles(styles),
   withDimensions,

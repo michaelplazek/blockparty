@@ -71,6 +71,9 @@ const CreateBid = ({
     title="Create new bid"
   >
     <Grid className={classes.root}>
+      <Typography variant='caption'>
+        Please note that there is a limit of one bid <b>per coin</b> at any time.
+      </Typography>
       <Stepper activeStep={activeIndex} orientation="vertical">
         {STEPS.map((step, index) => {
           return (
