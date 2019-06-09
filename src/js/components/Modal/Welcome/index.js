@@ -1,5 +1,5 @@
 import React from "react";
-import { compose, lifecycle } from "recompose";
+import {compose, withHandlers} from "recompose";
 import withStyles from "@material-ui/core/styles/withStyles";
 import mapper from "../../../utils/connect";
 import Modal from "../index";
@@ -13,6 +13,8 @@ import {
 import Grid from "@material-ui/core/Grid/Grid";
 import {Typography} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
+import {setRun as setRunAction} from "../../../actions/app";
+import { setAppVisited } from "../../../config/tour";
 
 const styles = () => ({
   root: {
@@ -35,7 +37,7 @@ const styles = () => ({
   }
 });
 
-const Welcome = ({ setLayerOpen, classes }) => (
+const Welcome = ({ setLayerOpen, classes, handleTour, handleSkip }) => (
   <Modal
     onClose={() => {
       setLayerOpen(false);
@@ -62,6 +64,7 @@ const Welcome = ({ setLayerOpen, classes }) => (
         <Grid className={classes.leftButton} item>
           <Button
             variant='contained'
+            onClick={handleSkip}
           >
             Skip Tour
           </Button>
@@ -70,6 +73,7 @@ const Welcome = ({ setLayerOpen, classes }) => (
           <Button
             color='primary'
             variant='contained'
+            onClick={handleTour}
           >
             Begin Tour
           </Button>
@@ -87,10 +91,20 @@ const propMap = {
 
 const actionMap = {
   setLayerOpen: setLayerOpenAction,
+  setRun: setRunAction
 };
 
 export default compose(
   mapper(propMap, actionMap),
   withStyles(styles),
-
+  withHandlers({
+    handleSkip: ({ setRun, setLayerOpen }) => () => {
+      setRun(false);
+      setLayerOpen(false);
+    },
+    handleTour: ({ setRun, setLayerOpen }) => () => {
+      setRun(true);
+      setLayerOpen(false);
+    },
+  }),
 )(Welcome);

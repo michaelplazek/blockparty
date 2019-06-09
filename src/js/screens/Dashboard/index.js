@@ -68,7 +68,7 @@ import AddAskIcon from "@material-ui/icons/AddLocationTwoTone";
 import SpeedDialButton from "../../components/SpeedDialButton";
 import withVisited from "../../HOCs/withVisited";
 import Joyride from "react-joyride";
-import {dashboardSteps, tourStyle} from "../../config/tour";
+import {dashboardSteps, isVisited, tourStyle} from "../../config/tour";
 import Tooltip from "../../components/TourTooltip";
 import {setNavIndex as setNavIndexAction, setRun as setRunAction} from "../../actions/app";
 
@@ -256,7 +256,7 @@ export default compose(
       loadOffersByUser(userId);
       loadTransactions(userId);
 
-      if (true) {
+      if (!isVisited()) {
         setRun(true);
       }
     }

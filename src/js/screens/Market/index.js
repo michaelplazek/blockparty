@@ -38,7 +38,7 @@ import Chart from "./Chart";
 import withPolling from "../../HOCs/withPolling";
 import withPushNotifications from "../../HOCs/withPushNotifications";
 import withVisited from "../../HOCs/withVisited";
-import {marketSteps, tourStyle} from "../../config/tour";
+import {isVisited, marketSteps, tourStyle} from "../../config/tour";
 import Tooltip from "../../components/TourTooltip";
 import Welcome from "../../components/Modal/Welcome";
 
@@ -153,8 +153,11 @@ export default compose(
       const { loadAsks, loadBids, setLayer, setLayerOpen } = this.props;
       loadAsks();
       loadBids();
-      setLayerOpen(true);
-      setLayer("WELCOME");
+
+      if (!isVisited()) {
+        setLayerOpen(true);
+        setLayer("WELCOME");
+      }
     }
   }),
   withLocation,

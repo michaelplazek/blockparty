@@ -7,20 +7,6 @@ export const marketSteps = [
     placement: 'auto',
   },
   {
-    target: '.dashboard-nav',
-    header: 'Market',
-    content: 'Create and manage posts, accept offers, and begin transactions in the Dashboard.',
-    disableBeacon: true,
-    placement: 'auto',
-  },
-  {
-    target: '.account-nav',
-    header: 'Account',
-    content: 'View and manage account settings, including your bio.',
-    disableBeacon: true,
-    placement: 'auto',
-  },
-  {
     target: '.filters',
     header: 'Filters',
     content: 'Filter posts by type, coin, or distance away from your current location.',
@@ -46,6 +32,13 @@ export const marketSteps = [
 ];
 
 export const dashboardSteps = [
+  {
+    target: '.dashboard-nav',
+    header: 'Market',
+    content: 'Create and manage posts, accept offers, and begin transactions in the Dashboard.',
+    disableBeacon: true,
+    placement: 'auto',
+  },
   {
     target: '.create-post',
     header: 'Create Posts',
@@ -91,6 +84,13 @@ export const dashboardSteps = [
 
 export const accountSteps = [
   {
+    target: '.account-nav',
+    header: 'Account',
+    content: 'View and manage account settings, including your bio.',
+    disableBeacon: true,
+    placement: 'auto',
+  },
+  {
     target: '.account-info',
     header: 'Account Information',
     content: 'View your account information, including you bio and reputation. Reputation is based ' +
@@ -113,5 +113,5 @@ export const tourStyle = {
   },
 };
 
-export const isVisited = window.localStorage.getItem('visited');
-export const setAppVisited = window.localStorage.setItem('visited', 'true');
+export const isVisited = () => window.localStorage.getItem('visited') === 'true';
+export const setAppVisited = () => window.localStorage.setItem('visited', 'true');

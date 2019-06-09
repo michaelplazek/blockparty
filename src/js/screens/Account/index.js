@@ -28,7 +28,7 @@ import Button from "@material-ui/core/Button/Button";
 import withPolling from "../../HOCs/withPolling";
 import withVisited from "../../HOCs/withVisited";
 import Joyride from "react-joyride";
-import {accountSteps, tourStyle} from "../../config/tour";
+import {accountSteps, isVisited, tourStyle} from "../../config/tour";
 import Tooltip from "../../components/TourTooltip";
 import {setRun as setRunAction} from "../../actions/app";
 
@@ -104,7 +104,7 @@ export default compose(
   lifecycle({
     componentDidMount() {
       const { setRun } = this.props;
-      if (true) {
+      if (!isVisited()) {
         setRun(true);
       }
     }
