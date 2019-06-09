@@ -33,13 +33,10 @@ const styles = () => ({
     marginTop: '2em'
   },
   leftButton: {
-    marginLeft: '0.25em',
-    marginRight: '0.25em'
-
+    marginLeft: '0.25em'
   },
   rightButton: {
-    marginRight: '0.25em',
-    marginLeft: '0.25em',
+    marginRight: '0.25em'
   }
 });
 
@@ -60,7 +57,7 @@ const Welcome = ({ classes, handleTour, handleSkip }) => (
       </Grid>
       <Grid item className={classes.explanation}>
         <Typography>
-          To take a tour and see what Blockparty has to offer, click <b>Begin Tour</b>. If you want to just get
+          To take a tour and see what Blockparty has to offer, click <b>Begin</b>. If you want to just get
           started, click <b>Skip Tour</b>.
         </Typography>
       </Grid>
@@ -79,7 +76,7 @@ const Welcome = ({ classes, handleTour, handleSkip }) => (
             variant='contained'
             onClick={handleTour}
           >
-            Begin Tour
+            Begin
           </Button>
         </Grid>
       </Grid>

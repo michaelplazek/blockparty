@@ -94,7 +94,7 @@ export const accountSteps = [
   {
     target: '.account-info',
     header: 'Account Information',
-    content: 'View your account information, including your bio and reputation. Reputation is based ' +
+    content: 'View your account information. Reputation is based ' +
       'off of your completed transaction over your total transactions.',
     disableBeacon: true,
     placement: 'auto',

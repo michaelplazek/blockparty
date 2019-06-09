@@ -108,12 +108,12 @@ const Dashboard = ({
 }) => {
   const actions = [
     {
-      name: "Create Bid",
+      name: "Buy",
       icon: <AddIcon />,
       onClick: handleCreateBid
     },
     {
-      name: "Create Ask",
+      name: "Sell",
       icon: <AddAskIcon />,
       onClick: handleCreateAsk
     }

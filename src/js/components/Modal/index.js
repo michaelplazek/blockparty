@@ -54,7 +54,6 @@ const ModalBase = ({
     <Slide direction="up" in={open} mountOnEnter unmountOnExit>
       <div
         className={classes.root}
-        style={{ width: `${width * 0.75}px` }}
       >
         <Grid direction="row" justify="space-between" container>
           <Grid className={classes.title} item>
