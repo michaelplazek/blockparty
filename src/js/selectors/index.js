@@ -569,3 +569,4 @@ export const selectVisited = state => state.app.visited;
 export const selectNavIndex = state => state.app.navigationIndex;
 
 export const selectUser = state => state.users.user;
+export const selectRun = state => state.app.run;

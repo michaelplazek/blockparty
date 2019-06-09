@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { compose, lifecycle, withHandlers } from "recompose";
 import { withRouter } from "react-router";
+
+import Joyride from 'react-joyride';
+
 import mapper from "../../utils/connect";
 
 import {
@@ -10,11 +13,13 @@ import {
   selectAsksForDisplay,
   selectBidsForDisplay,
   selectFilterType,
-  selectMarketLoaded
+  selectMarketLoaded,
+  selectRun,
+  selectLayer, selectLayerOpen
 } from "../../selectors";
 import { loadAsks as loadAsksAction } from "../../actions/asks";
 import { loadBids as loadBidsAction } from "../../actions/bids";
-import { setLayerOpen as setLayerOpenAction } from "../../actions/layers";
+import { setLayerOpen as setLayerOpenAction, setLayer as setLayerAction } from "../../actions/layers";
 
 import Subheader from "../../components/Subheader";
 import GoogleMapsWrapper from "../../components/GoogleMaps/GoogleMapsWrapper";
@@ -22,13 +27,20 @@ import PageHeader from "../../components/PageHeader";
 import FilterMap from "../../components/Flyout/FilterMap";
 import withDimensions from "../../HOCs/withDimensions";
 import withLoader from "../../HOCs/withLoader";
-import { setMarketView as setMarketViewAction } from "../../actions/app";
+import {
+  setMarketView as setMarketViewAction,
+  setNavIndex as setNavIndexAction,
+  setRun as setRunAction,
+} from "../../actions/app";
 import { CHART } from "../../constants/app";
 import withLocation from "../../HOCs/withLocation";
 import Chart from "./Chart";
 import withPolling from "../../HOCs/withPolling";
 import withPushNotifications from "../../HOCs/withPushNotifications";
 import withVisited from "../../HOCs/withVisited";
+import {isVisited, marketSteps, tourStyle} from "../../config/tour";
+import Tooltip from "../../components/TourTooltip";
+import Welcome from "../../components/Modal/Welcome";
 
 class Market extends Component {
   constructor(props) {
@@ -43,15 +55,25 @@ class Market extends Component {
       windowHeight,
       windowWidth,
       handleMarkerClick,
-      currentLocation
+      currentLocation,
+      handleCallback,
+      layer,
+      open,
+      run,
     } = this.props;
 
     return (
       <div>
-        <FilterMap />
+        {open &&
+          layer === "WELCOME" && (
+            <Welcome />
+        )}
+        {open &&
+        layer === "FILTER_MAP" && (
+          <FilterMap />
+        )}
         <PageHeader
           leftHandLabel="Market"
-          leftHandAction={() => this.props.setLayerOpen(true)}
           showSubheader={true}
           subheader={<Subheader />}
         />
@@ -67,18 +89,30 @@ class Market extends Component {
           onMarkerClick={handleMarkerClick}
           height={(windowHeight - navHeight - headerHeight) / 2}
         />
+        <Joyride
+          steps={marketSteps}
+          run={run}
+          styles={tourStyle}
+          continuous={true}
+          tooltipComponent={Tooltip}
+          disableOverlay={true}
+          callback={handleCallback}
+        />
       </div>
     );
   }
 }
 
 const propMap = {
+  open: selectLayerOpen,
+  layer: selectLayer,
   asks: selectAsksForDisplay,
   bids: selectBidsForDisplay,
   markers: selectMapMarkers,
   navHeight: selectNavHeight,
   headerHeight: selectHeaderHeight,
   type: selectFilterType,
+  run: selectRun,
   loaded: selectMarketLoaded // from withLoader
 };
 
@@ -86,7 +120,10 @@ const actionMap = {
   loadAsks: loadAsksAction,
   loadBids: loadBidsAction,
   setLayerOpen: setLayerOpenAction,
-  setMarketView: setMarketViewAction
+  setLayer: setLayerAction,
+  setMarketView: setMarketViewAction,
+  setRun: setRunAction,
+  setNavIndex: setNavIndexAction
 };
 
 export default compose(
@@ -102,13 +139,25 @@ export default compose(
     handleMarketView: ({ history, setMarketView }) => () => {
       setMarketView(CHART);
       history.push("/analysis");
+    },
+    handleCallback: ({ history, setRun, setNavIndex }) => (stats) => {
+      if (stats.status === 'finished') {
+        setRun(false);
+        history.push('/dashboard');
+        setNavIndex(1);
+      }
     }
   }),
   lifecycle({
     componentWillMount() {
-      const { loadAsks, loadBids } = this.props;
+      const { loadAsks, loadBids, setLayer, setLayerOpen } = this.props;
       loadAsks();
       loadBids();
+
+      if (!isVisited()) {
+        setLayerOpen(true);
+        setLayer("WELCOME");
+      }
     }
   }),
   withLocation,

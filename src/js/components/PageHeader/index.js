@@ -76,7 +76,7 @@ class PageHeader extends Component {
             </Typography>
             <IconButton
               onClick={this.props.rightHandAction}
-              className={this.props.classes.menuButton}
+              className={`${this.props.classes.menuButton} settings`}
               color="inherit"
             >
               {this.props.rightHandIcon}

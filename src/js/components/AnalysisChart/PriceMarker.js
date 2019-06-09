@@ -12,7 +12,7 @@ const PriceMarker = ({ price, askInfo, bidInfo, top }) => (
     style={{
       position: "absolute",
       top: `${top}px`,
-      zIndex: 1000
+      zIndex: 50
     }}
   >
     <Grid item>

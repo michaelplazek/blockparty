@@ -4,7 +4,7 @@ import { compose, withHandlers } from "recompose";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Chip from "@material-ui/core/Chip/Chip";
 
-import { setLayerOpen as setLayerOpenAction } from "../../actions/layers";
+import { setLayerOpen as setLayerOpenAction, setLayer as setLayerAction } from "../../actions/layers";
 import {
   selectFilter,
   selectFilterCoin,
@@ -20,13 +20,13 @@ import { setFilterItems } from "../../actions/filters";
 const styles = () => ({
   root: {
     height: "50px",
-    borderBottom: "1px #CCC solid"
+    borderBottom: "1px #CCC solid",
   },
   chip: {
     margin: "8px 3px 8px 3px"
   },
   menuButton: {
-    marginRight: 8
+    marginRight: 8,
   },
   filterButton: {}
 });
@@ -57,7 +57,7 @@ const Subheader = ({ classes, filter, handleOpen }) => (
       <Grid item className={classes.filterButton}>
         <IconButton
           onClick={handleOpen}
-          className={classes.menuButton}
+          className={`${classes.menuButton} filters`}
           aria-label="Menu"
         >
           <FilterListIcon />
@@ -76,6 +76,7 @@ const propMap = {
 
 const actionMap = {
   setLayerOpen: setLayerOpenAction,
+  setLayer: setLayerAction,
   setFilterItems
 };
 
@@ -83,8 +84,9 @@ export default compose(
   withStyles(styles),
   mapper(propMap, actionMap),
   withHandlers({
-    handleOpen: ({ setFilterItems, setLayerOpen }) => () => {
+    handleOpen: ({ setFilterItems, setLayerOpen, setLayer }) => () => {
       setFilterItems();
+      setLayer("FILTER_MAP");
       setLayerOpen(true);
     }
   })

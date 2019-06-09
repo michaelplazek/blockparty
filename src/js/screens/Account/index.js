@@ -1,5 +1,5 @@
 import React from "react";
-import { compose } from "recompose";
+import {compose, lifecycle, withHandlers} from "recompose";
 import { withRouter } from "react-router-dom";
 import { faCog } from "@fortawesome/free-solid-svg-icons";
 
@@ -14,6 +14,8 @@ import withDimensions from "../../HOCs/withDimensions";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Grid from "@material-ui/core/Grid/Grid";
 import {
+  selectLayer, selectLayerOpen,
+  selectRun,
   selectUserBio,
   selectUsername,
   selectUserReputation,
@@ -26,6 +28,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "@material-ui/core/Button/Button";
 import withPolling from "../../HOCs/withPolling";
 import withVisited from "../../HOCs/withVisited";
+import Joyride from "react-joyride";
+import {accountSteps, isVisited, tourStyle} from "../../config/tour";
+import Tooltip from "../../components/TourTooltip";
+import {setRun as setRunAction} from "../../actions/app";
+import EndOfTour from "../../components/Modal/EndOfTour";
+import {setLayer as setLayerAction, setLayerOpen as setLayerOpenAction} from "../../actions/layers";
 
 const styles = () => ({
   body: {
@@ -39,8 +47,23 @@ const styles = () => ({
   }
 });
 
-const Account = ({ logOut, classes, username, bio, items, history }) => (
+const Account = ({
+  logOut,
+  classes,
+  username,
+  bio,
+  items,
+  history,
+  run,
+  handleCallback,
+  layer,
+  open,
+}) => (
   <div>
+    {open &&
+      layer === "END_OF_TOUR" && (
+        <EndOfTour />
+    )}
     <PageHeader
       leftHandLabel="Account"
       rightHandIcon={<FontAwesomeIcon icon={faCog} />}
@@ -57,13 +80,22 @@ const Account = ({ logOut, classes, username, bio, items, history }) => (
           </Grid>
         </Grid>
       </Grid>
-      <Grid item className={classes.items}>
+      <Grid item className={`${classes.items} account-info`}>
         <DetailList items={items} />
       </Grid>
       <Grid item className={classes.button}>
         <Button onClick={logOut}>Log Out</Button>
       </Grid>
     </Grid>
+    <Joyride
+      steps={accountSteps}
+      run={run}
+      styles={tourStyle}
+      continuous={true}
+      tooltipComponent={Tooltip}
+      disableOverlay={true}
+      callback={handleCallback}
+    />
   </div>
 );
 
@@ -72,12 +104,18 @@ const propMap = {
   username: selectUsername,
   bio: selectUserBio,
   reputation: selectUserReputation,
-  items: selectUserDetails
+  items: selectUserDetails,
+  run: selectRun,
+  layer: selectLayer,
+  open: selectLayerOpen,
 };
 
 const actionMap = {
   logOut: logOutUserAction,
-  loadUserFromToken: loadUserFromTokenAction
+  loadUserFromToken: loadUserFromTokenAction,
+  setRun: setRunAction,
+  setLayer: setLayerAction,
+  setLayerOpen: setLayerOpenAction,
 };
 
 export default compose(
@@ -85,6 +123,22 @@ export default compose(
   withRouter,
   withStyles(styles),
   withDimensions,
+  lifecycle({
+    componentDidMount() {
+      const { setRun } = this.props;
+      if (!isVisited()) {
+        setRun(true);
+      }
+    }
+  }),
+  withHandlers({
+    handleCallback: ({ setLayer, setLayerOpen }) => (stats) => {
+      if (stats.status === 'finished') {
+        setLayer("END_OF_TOUR");
+        setLayerOpen(true);
+      }
+    },
+  }),
   withPolling(({ loadUserFromToken }) => {
     loadUserFromToken();
   }, 5000),
