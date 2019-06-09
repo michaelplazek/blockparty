@@ -24,18 +24,9 @@ const styles = () => ({
   description: {
     marginTop: "2.2em"
   },
-  explanation: {
-    marginTop: "0.5em"
-  },
   buttons: {
     marginTop: '2em'
   },
-  leftButton: {
-    marginLeft: '0.5em'
-  },
-  rightButton: {
-    marginRight: '0.5em'
-  }
 });
 
 const EndOfTour = ({ setLayerOpen, classes, handleSubmit }) => (
@@ -57,7 +48,7 @@ const EndOfTour = ({ setLayerOpen, classes, handleSubmit }) => (
         </Typography>
       </Grid>
       <Grid item container className={classes.buttons} justify='center'>
-        <Grid className={classes.leftButton} item>
+        <Grid item>
           <Button
             variant='contained'
             color='primary'

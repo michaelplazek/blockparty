@@ -14,14 +14,17 @@ import Grid from "@material-ui/core/Grid/Grid";
 import {Typography} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import {setRun as setRunAction} from "../../../actions/app";
-import { setAppVisited } from "../../../config/tour";
+import {setAppVisited} from "../../../config/tour";
 
 const styles = () => ({
   root: {
     padding: '1.5em',
   },
+  heading: {
+    marginTop: "0.5em"
+  },
   description: {
-    marginTop: "2.2em"
+    marginTop: "1.5em"
   },
   explanation: {
     marginTop: "0.5em"
@@ -30,10 +33,13 @@ const styles = () => ({
     marginTop: '2em'
   },
   leftButton: {
-    marginLeft: '0.5em'
+    marginLeft: '0.25em',
+    marginRight: '0.25em'
+
   },
   rightButton: {
-    marginRight: '0.5em'
+    marginRight: '0.25em',
+    marginLeft: '0.25em',
   }
 });
 
@@ -46,7 +52,7 @@ const Welcome = ({ setLayerOpen, classes, handleTour, handleSkip }) => (
     title=""
   >
     <Grid className={classes.root} container direction="column">
-      <Grid item className={classes.items}>
+      <Grid item className={classes.heading}>
         <Typography variant='title'>Welcome to Blockparty!</Typography>
       </Grid>
       <Grid item className={classes.description}>
@@ -100,6 +106,7 @@ export default compose(
   withHandlers({
     handleSkip: ({ setRun, setLayerOpen }) => () => {
       setRun(false);
+      setAppVisited();
       setLayerOpen(false);
     },
     handleTour: ({ setRun, setLayerOpen }) => () => {

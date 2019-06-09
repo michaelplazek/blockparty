@@ -69,7 +69,7 @@ const Account = ({
       rightHandIcon={<FontAwesomeIcon icon={faCog} />}
       rightHandAction={() => history.push("/settings")}
     />
-    <Grid container className={`${classes.body} account-info`} direction="column">
+    <Grid container className={classes.body} direction="column">
       <Grid item className={classes.items}>
         <Grid container direction="column" alignItems="center">
           <Grid item className={classes.items}>
@@ -80,7 +80,7 @@ const Account = ({
           </Grid>
         </Grid>
       </Grid>
-      <Grid item className={classes.items}>
+      <Grid item className={`${classes.items} account-info`}>
         <DetailList items={items} />
       </Grid>
       <Grid item className={classes.button}>
