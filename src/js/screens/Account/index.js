@@ -1,5 +1,5 @@
 import React from "react";
-import {compose, lifecycle} from "recompose";
+import {compose, lifecycle, withHandlers} from "recompose";
 import { withRouter } from "react-router-dom";
 import { faCog } from "@fortawesome/free-solid-svg-icons";
 
@@ -14,6 +14,7 @@ import withDimensions from "../../HOCs/withDimensions";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Grid from "@material-ui/core/Grid/Grid";
 import {
+  selectLayer, selectLayerOpen,
   selectRun,
   selectUserBio,
   selectUsername,
@@ -31,6 +32,8 @@ import Joyride from "react-joyride";
 import {accountSteps, isVisited, tourStyle} from "../../config/tour";
 import Tooltip from "../../components/TourTooltip";
 import {setRun as setRunAction} from "../../actions/app";
+import EndOfTour from "../../components/Modal/EndOfTour";
+import {setLayer as setLayerAction, setLayerOpen as setLayerOpenAction} from "../../actions/layers";
 
 const styles = () => ({
   body: {
@@ -44,8 +47,23 @@ const styles = () => ({
   }
 });
 
-const Account = ({ logOut, classes, username, bio, items, history, run }) => (
+const Account = ({
+  logOut,
+  classes,
+  username,
+  bio,
+  items,
+  history,
+  run,
+  handleCallback,
+  layer,
+  open,
+}) => (
   <div>
+    {open &&
+      layer === "END_OF_TOUR" && (
+        <EndOfTour />
+    )}
     <PageHeader
       leftHandLabel="Account"
       rightHandIcon={<FontAwesomeIcon icon={faCog} />}
@@ -76,7 +94,7 @@ const Account = ({ logOut, classes, username, bio, items, history, run }) => (
       continuous={true}
       tooltipComponent={Tooltip}
       disableOverlay={true}
-      // callback={handleCallback}
+      callback={handleCallback}
     />
   </div>
 );
@@ -88,12 +106,16 @@ const propMap = {
   reputation: selectUserReputation,
   items: selectUserDetails,
   run: selectRun,
+  layer: selectLayer,
+  open: selectLayerOpen,
 };
 
 const actionMap = {
   logOut: logOutUserAction,
   loadUserFromToken: loadUserFromTokenAction,
   setRun: setRunAction,
+  setLayer: setLayerAction,
+  setLayerOpen: setLayerOpenAction,
 };
 
 export default compose(
@@ -108,6 +130,14 @@ export default compose(
         setRun(true);
       }
     }
+  }),
+  withHandlers({
+    handleCallback: ({ setLayer, setLayerOpen }) => (stats) => {
+      if (stats.status === 'finished') {
+        setLayer("END_OF_TOUR");
+        setLayerOpen(true);
+      }
+    },
   }),
   withPolling(({ loadUserFromToken }) => {
     loadUserFromToken();
