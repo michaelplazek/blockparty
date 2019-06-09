@@ -43,11 +43,9 @@ const styles = () => ({
   }
 });
 
-const Welcome = ({ setLayerOpen, classes, handleTour, handleSkip }) => (
+const Welcome = ({ classes, handleTour, handleSkip }) => (
   <Modal
-    onClose={() => {
-      setLayerOpen(false);
-    }}
+    onClose={handleSkip}
     open={open}
     title=""
   >
