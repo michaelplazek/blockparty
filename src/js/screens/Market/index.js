@@ -13,7 +13,7 @@ import {
   selectAsksForDisplay,
   selectBidsForDisplay,
   selectFilterType,
-  selectMarketLoaded
+  selectMarketLoaded, selectRun
 } from "../../selectors";
 import { loadAsks as loadAsksAction } from "../../actions/asks";
 import { loadBids as loadBidsAction } from "../../actions/bids";
@@ -25,7 +25,11 @@ import PageHeader from "../../components/PageHeader";
 import FilterMap from "../../components/Flyout/FilterMap";
 import withDimensions from "../../HOCs/withDimensions";
 import withLoader from "../../HOCs/withLoader";
-import { setMarketView as setMarketViewAction } from "../../actions/app";
+import {
+  setMarketView as setMarketViewAction,
+  setNavIndex as setNavIndexAction,
+  setRun as setRunAction,
+} from "../../actions/app";
 import { CHART } from "../../constants/app";
 import withLocation from "../../HOCs/withLocation";
 import Chart from "./Chart";
@@ -48,7 +52,8 @@ class Market extends Component {
       windowHeight,
       windowWidth,
       handleMarkerClick,
-      currentLocation
+      currentLocation,
+      handleCallback,
     } = this.props;
 
     return (
@@ -78,6 +83,7 @@ class Market extends Component {
           continuous={true}
           tooltipComponent={Tooltip}
           disableOverlay={true}
+          callback={handleCallback}
         />
       </div>
     );
@@ -91,6 +97,7 @@ const propMap = {
   navHeight: selectNavHeight,
   headerHeight: selectHeaderHeight,
   type: selectFilterType,
+  run: selectRun,
   loaded: selectMarketLoaded // from withLoader
 };
 
@@ -98,7 +105,9 @@ const actionMap = {
   loadAsks: loadAsksAction,
   loadBids: loadBidsAction,
   setLayerOpen: setLayerOpenAction,
-  setMarketView: setMarketViewAction
+  setMarketView: setMarketViewAction,
+  setRun: setRunAction,
+  setNavIndex: setNavIndexAction
 };
 
 export default compose(
@@ -114,6 +123,13 @@ export default compose(
     handleMarketView: ({ history, setMarketView }) => () => {
       setMarketView(CHART);
       history.push("/analysis");
+    },
+    handleCallback: ({ history, setRun, setNavIndex }) => (stats) => {
+      if (stats.status === 'finished') {
+        setRun(false);
+        history.push('/dashboard');
+        setNavIndex(1);
+      }
     }
   }),
   lifecycle({

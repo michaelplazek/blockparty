@@ -7,7 +7,8 @@ import {
   SET_SUBSCRIPTION,
   GET_SUBSCRIPTION,
   SET_VISITED,
-  SET_NAV_INDEX
+  SET_NAV_INDEX,
+  SET_RUN,
 } from "./index";
 import { wrappedFetch } from "../api/utils";
 
@@ -43,3 +44,5 @@ export const setVisited = () => dispatch => dispatch({ type: SET_VISITED });
 
 export const setNavIndex = index => dispatch =>
   dispatch({ type: SET_NAV_INDEX, data: index });
+
+export const setRun = (run) => dispatch => dispatch({ type: SET_RUN, data: run });

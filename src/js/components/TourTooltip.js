@@ -61,13 +61,13 @@ const Tooltip = ({
               }}
             >
               {index !== 0 ? (
-                <Grid item justify='flex-start'>
+                <Grid item>
                   <Button {...backProps}>
                     Back
                   </Button>
                 </Grid>
               ) : <div />}
-              <Grid item justify='flex-end'>
+              <Grid item>
                 <Button
                   variant="contained"
                   color="primary"
@@ -86,6 +86,5 @@ const Tooltip = ({
 
 export default compose(
   withStyles(style),
-  mapper(),
   withDimensions,
 )(Tooltip);

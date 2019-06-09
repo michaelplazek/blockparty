@@ -1,5 +1,5 @@
 import React from "react";
-import { compose, withState, lifecycle, withHandlers } from "recompose";
+import { compose, lifecycle, withHandlers } from "recompose";
 import mapper from "../../utils/connect";
 
 import Tile from "../../components/Tile";
@@ -40,7 +40,7 @@ import {
   selectNumberOfMyAsks,
   selectNumberOfMyBids,
   selectNumberOfMyOffers,
-  selectNumberOfMyTransactions,
+  selectNumberOfMyTransactions, selectRun,
   selectTransactionsForDisplay,
   selectUserId,
   selectUsername
@@ -67,6 +67,10 @@ import AddIcon from "@material-ui/icons/AddLocation";
 import AddAskIcon from "@material-ui/icons/AddLocationTwoTone";
 import SpeedDialButton from "../../components/SpeedDialButton";
 import withVisited from "../../HOCs/withVisited";
+import Joyride from "react-joyride";
+import {dashboardSteps} from "../../config/tour";
+import Tooltip from "../../components/TourTooltip";
+import {setNavIndex as setNavIndexAction, setRun as setRunAction} from "../../actions/app";
 
 const styles = () => ({
   root: {
@@ -98,7 +102,9 @@ const Dashboard = ({
   handleOfferClick,
   handleTransactionClick,
   handleCreateAsk,
-  handleCreateBid
+  handleCreateBid,
+  handleCallback,
+  run,
 }) => {
   const actions = [
     {
@@ -123,6 +129,7 @@ const Dashboard = ({
       {layer === "VIEW_TRANSACTION" && <TransactionDetails />}
       <PageHeader leftHandLabel="Dashboard" />
       <Tile
+        className='transactions'
         title="Accepted Offers"
         count={numberOfTransactions}
         description="time to meet up"
@@ -136,6 +143,7 @@ const Dashboard = ({
         ))}
       </Tile>
       <Tile
+        className='offers'
         title="My Offers"
         count={numberOfOffers}
         description="offers I've made"
@@ -148,7 +156,7 @@ const Dashboard = ({
           />
         ))}
       </Tile>
-      <Tile title="My Asks" count={numberOfAsks} description="looking to sell">
+      <Tile className='asks' title="My Asks" count={numberOfAsks} description="looking to sell">
         {myAsks.map(item => (
           <ListTile
             item={item}
@@ -157,7 +165,7 @@ const Dashboard = ({
           />
         ))}
       </Tile>
-      <Tile title="My Bids" count={numberOfBids} description="looking to buy">
+      <Tile className='bids' title="My Bids" count={numberOfBids} description="looking to buy">
         {myBids.map(item => (
           <ListTile
             item={item}
@@ -174,8 +182,16 @@ const Dashboard = ({
           zIndex: 100
         }}
       >
-        <SpeedDialButton actions={actions} />
+        <SpeedDialButton className='create-post' actions={actions} />
       </div>
+      <Joyride
+        steps={dashboardSteps}
+        run={run}
+        continuous={true}
+        tooltipComponent={Tooltip}
+        disableOverlay={true}
+        callback={handleCallback}
+      />
     </div>
   );
 };
@@ -193,7 +209,8 @@ const propMap = {
   numberOfOffers: selectNumberOfMyOffers,
   numberOfTransactions: selectNumberOfMyTransactions,
   loaded: selectDashboardLoaded,
-  footerHeight: selectNavHeight
+  footerHeight: selectNavHeight,
+  run: selectRun,
 };
 
 const actionMap = {
@@ -214,7 +231,9 @@ const actionMap = {
   loadTransaction,
   loadLastPrice: loadLastPriceAction,
   setAskPrice: setAskPriceAction,
-  setBidPrice: setBidPriceAction
+  setBidPrice: setBidPriceAction,
+  setRun: setRunAction,
+  setNavIndex: setNavIndexAction,
 };
 
 export default compose(
@@ -228,12 +247,17 @@ export default compose(
         loadMyBids,
         loadOffersByUser,
         loadTransactions,
-        userId
+        userId,
+        setRun,
       } = this.props;
       loadMyAsks(userId);
       loadMyBids(userId);
       loadOffersByUser(userId);
       loadTransactions(userId);
+
+      if (true) {
+        setRun(true);
+      }
     }
   }),
   withHandlers({
@@ -297,13 +321,18 @@ export default compose(
       setLayer,
       setLayerOpen
     }) => () => {
-      // console.log('clicked asked');
-      // console.log(setLayer);
       loadLastPrice("BTC").then(response =>
         setAskPrice(numeral(response.data).format(COST))
       );
       setLayer("CREATE_ASK");
       setLayerOpen(true);
+    },
+    handleCallback: ({ history, setRun, setNavIndex }) => (stats) => {
+      if (stats.status === 'finished') {
+        setRun(false);
+        history.push('/account');
+        setNavIndex(2);
+      }
     }
   }),
   withLocation,

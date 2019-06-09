@@ -31,8 +31,8 @@ const styles = () => ({
   }
 });
 
-const ListTile = ({ classes, onClick, item }) => (
-  <div className={classes.root} onClick={onClick}>
+const ListTile = ({ classes, className, onClick, item }) => (
+  <div className={`${classes.root} ${className}`} onClick={onClick}>
     <Paper elevation={2}>
       <ListItem button onClick={onClick}>
         <ListItemText

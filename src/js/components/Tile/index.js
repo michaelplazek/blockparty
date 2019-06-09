@@ -31,8 +31,10 @@ const Tile = ({
   children,
   color,
   textColor,
-  description
+  description,
+  className,
 }) => (
+  <div className={className}>
   <Grid>
     <Paper style={{ background: color }} className={classes.root} elevation={2}>
       <Grid
@@ -75,6 +77,7 @@ const Tile = ({
       {children}
     </Paper>
   </Grid>
+  </div>
 );
 
 Tile.propTypes = {

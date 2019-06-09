@@ -10,10 +10,12 @@ const SpeedDialButton = ({
   handleClick,
   handleOpen,
   handleClose,
-  open
+  open,
+  className,
 }) => (
   <SpeedDial
     ariaLabel="Create"
+    className={className}
     icon={<SpeedDialIcon openIcon={<CloseIcon />} />}
     // onBlur={handleClose}
     onClick={handleClick}

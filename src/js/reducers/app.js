@@ -8,7 +8,8 @@ import {
   SET_SUBSCRIPTION,
   GET_SUBSCRIPTION,
   SET_VISITED,
-  SET_NAV_INDEX
+  SET_NAV_INDEX,
+  SET_RUN,
 } from "../actions";
 import { MAP } from "../constants/app";
 import { getIndexFromPath } from "../utils/location";
@@ -24,7 +25,8 @@ const initialState = {
     isSubscribed: false,
     subscription: {}
   },
-  visited: false
+  visited: false,
+  run: false,
 };
 
 const handlers = {
@@ -60,7 +62,10 @@ const handlers = {
   }),
   [SET_NAV_INDEX]: (_, action) => ({
     navigationIndex: action.data
-  })
+  }),
+  [SET_RUN]: (state, action) => ({
+    run: action.data,
+  }),
 };
 
 export default stateReducer(initialState, handlers);
