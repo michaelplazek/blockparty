@@ -51,6 +51,10 @@ const styles = () => ({
   copy: {
     cursor: 'pointer',
     marginLeft: "0.5em"
+  },
+  suggestions: {
+    marginTop: "1em",
+    marginBottom: "0.25em"
   }
 });
 
@@ -129,6 +133,28 @@ const Account = ({
               </Typography>
             </Grid>
           )}
+        </Grid>
+        <Grid
+          container
+          item
+          alignItems='center'
+          direction='column'
+          className={classes.suggestions}
+        >
+          <Grid item>
+            <Typography variant='caption'>
+              Report bugs or send suggestions to
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Typography
+              variant='caption'
+              component="a"
+              href='mailto:blockpartyapp@protonmail.com'
+            >
+              blockpartyapp@protonmail.com
+            </Typography>
+          </Grid>
         </Grid>
       </Grid>
 
