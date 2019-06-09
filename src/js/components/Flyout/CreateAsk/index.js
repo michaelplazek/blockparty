@@ -53,14 +53,12 @@ const styles = theme => ({
 
 const CreateAsk = ({
   classes,
-  onSubmit,
   activeIndex,
   setActiveIndex,
   handleBack,
   handleNext,
   resetAsk,
   setLayerOpen,
-  handleSubmit,
   handleError
 }) => (
   <Flyout
@@ -73,6 +71,9 @@ const CreateAsk = ({
     title="Create new ask"
   >
     <Grid className={classes.root}>
+      <Typography variant='caption'>
+        Please note that there is a limit of one ask <b>per coin</b> at any time.
+      </Typography>
       <Stepper activeStep={activeIndex} orientation="vertical">
         {STEPS.map((step, index) => {
           return (
