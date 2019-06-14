@@ -6,7 +6,7 @@ import mapper from "../../../utils/connect";
 import {
   selectFilter,
   selectFilterCoin,
-  selectFilterDistance
+  selectFilterDistance, selectFocusField
 } from "../../../selectors/index";
 import {
   setFilterDistance as setFilterDistanceAction,
@@ -44,7 +44,8 @@ const FilterMap = ({
   handleSubmit,
   handleSetDistance,
   coins,
-  type
+  type,
+  focusField,
 }) => (
   <Flyout size={3} onClose={() => setLayerOpen(false)}>
     <Grid className={classes.root}>
@@ -52,6 +53,9 @@ const FilterMap = ({
         <FormControl margin="dense" fullWidth={true}>
           <InputLabel>Type</InputLabel>
           <Select
+            inputProps={{
+              autoFocus: focusField === "type"
+            }}
             variant="outlined"
             native
             value={type}
@@ -68,6 +72,9 @@ const FilterMap = ({
         <FormControl margin="dense" fullWidth={true}>
           <InputLabel>Coin</InputLabel>
           <Select
+            inputProps={{
+              autoFocus: focusField === "coin"
+            }}
             variant="outlined"
             native
             value={coin}
@@ -81,6 +88,9 @@ const FilterMap = ({
           </Select>
           <br />
           <TextValidator
+            inputProps={{
+              autoFocus: focusField === "distance"
+            }}
             id="distance"
             name="distance"
             label="Distance Away"
@@ -111,7 +121,8 @@ const propMap = {
   coin: selectFilterCoin,
   coins: selectCurrencyItems,
   type: selectFilterType,
-  filter: selectFilter
+  filter: selectFilter,
+  focusField: selectFocusField,
 };
 
 const actionMap = {

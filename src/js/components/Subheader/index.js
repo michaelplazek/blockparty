@@ -15,7 +15,7 @@ import mapper from "../../utils/connect";
 import IconButton from "@material-ui/core/IconButton/IconButton";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import Grid from "@material-ui/core/Grid/Grid";
-import { setFilterItems } from "../../actions/filters";
+import {setFilterItems, setFocusField as setFocusFieldAction} from "../../actions/filters";
 
 const styles = () => ({
   root: {
@@ -37,21 +37,21 @@ const Subheader = ({ classes, filter, handleOpen }) => (
       <Grid item>
         <Chip
           clickable={true}
-          onClick={handleOpen}
+          onClick={() => handleOpen('type')}
           label={`Type: ${filter.type}`}
           className={classes.chip}
           variant="outlined"
         />
         <Chip
           clickable={true}
-          onClick={handleOpen}
+          onClick={() => handleOpen('coin')}
           label={`Coin: ${filter.coin}`}
           className={classes.chip}
           variant="outlined"
         />
         <Chip
           clickable={true}
-          onClick={handleOpen}
+          onClick={() => handleOpen('distance')}
           label={`Distance: ${filter.distanceAway || 0} mi`}
           className={classes.chip}
           variant="outlined"
@@ -59,7 +59,7 @@ const Subheader = ({ classes, filter, handleOpen }) => (
       </Grid>
       <Grid item className={classes.filterButton}>
         <IconButton
-          onClick={handleOpen}
+          onClick={() => handleOpen('')}
           className={`${classes.menuButton} filters`}
           aria-label="Menu"
         >
@@ -80,15 +80,17 @@ const propMap = {
 const actionMap = {
   setLayerOpen: setLayerOpenAction,
   setLayer: setLayerAction,
-  setFilterItems
+  setFilterItems,
+  setFocusField: setFocusFieldAction
 };
 
 export default compose(
   withStyles(styles),
   mapper(propMap, actionMap),
   withHandlers({
-    handleOpen: ({ setFilterItems, setLayerOpen, setLayer }) => () => {
+    handleOpen: ({ setFilterItems, setLayerOpen, setLayer, setFocusField }) => (field) => {
       setFilterItems();
+      setFocusField(field);
       setLayer("FILTER_MAP");
       setLayerOpen(true);
     }
