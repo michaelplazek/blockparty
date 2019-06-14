@@ -24,6 +24,7 @@ export default {
             'BLOCKTAP_TOKEN',
             'PUBLIC_PUSH_KEY',
             'MONERO_ADDRESS',
+            'BITCOIN_ADDRESS',
             'BASE_URL',
             'BLOCKTAP_URL',
         ]),

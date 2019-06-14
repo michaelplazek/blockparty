@@ -106,18 +106,43 @@ const Account = ({
       <Grid item container justify='center'>
         <Grid item>
           <Typography variant='caption'>
-            Like the app? Donate Monero to support our developers.
+            Like the app? Donate to support our developers.
           </Typography>
         </Grid>
         <Grid item container direction='row' justify='center'>
           <Grid item>
             <Typography variant='caption'>
-              {truncateString(process.env.MONERO_ADDRESS)}
+              {`Monero: ${truncateString(process.env.MONERO_ADDRESS)}`}
             </Typography>
           </Grid>
           <Grid item className={classes.copy}>
             <CopyToClipboard
               text={process.env.MONERO_ADDRESS}
+              onCopy={() => {
+                setCopied(true);
+                setTimeout(() => setCopied(false), 1000);
+              }}
+            >
+              <FontAwesomeIcon icon={faCopy} />
+            </CopyToClipboard>
+          </Grid>
+          {copied && (
+            <Grid item className={classes.copy}>
+              <Typography variant='caption'>
+                Copied!
+              </Typography>
+            </Grid>
+          )}
+        </Grid>
+        <Grid item container direction='row' justify='center'>
+          <Grid item>
+            <Typography variant='caption'>
+              {`Bitcoin: ${truncateString(process.env.BITCOIN_ADDRESS)}`}
+            </Typography>
+          </Grid>
+          <Grid item className={classes.copy}>
+            <CopyToClipboard
+              text={process.env.BITCOIN_ADDRESS}
               onCopy={() => {
                 setCopied(true);
                 setTimeout(() => setCopied(false), 1000);

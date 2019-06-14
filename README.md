@@ -41,6 +41,11 @@ Set the Monero wallet address for donations
 export MONERO_ADDRESS=<wallet address>
 ```
 
+Set Bitcoin wallet address for donations
+```
+export BITCOIN_ADDRESS=1Bm2ybwiyag1uzP6BNBS9eJE2EaQQ151ZL
+```
+
 Set the API URL
 ```
 export BASE_URL=https://infinity.blockparty-prod.com
