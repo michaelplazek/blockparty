@@ -70,7 +70,7 @@ const Splash = ({ width, height }) => (
                 fontFamily: "Quicksand"
               }}
             >
-              A forum for P2P crypto exchange
+              A forum for P2P crypto exchanges
             </Typography>
           </Fade>
         </Grid>
