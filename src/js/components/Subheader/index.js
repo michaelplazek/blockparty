@@ -36,19 +36,22 @@ const Subheader = ({ classes, filter, handleOpen }) => (
     <Grid container justify="space-between">
       <Grid item>
         <Chip
-          clickable={false}
+          clickable={true}
+          onClick={handleOpen}
           label={`Type: ${filter.type}`}
           className={classes.chip}
           variant="outlined"
         />
         <Chip
-          clickable={false}
+          clickable={true}
+          onClick={handleOpen}
           label={`Coin: ${filter.coin}`}
           className={classes.chip}
           variant="outlined"
         />
         <Chip
-          clickable={false}
+          clickable={true}
+          onClick={handleOpen}
           label={`Distance: ${filter.distanceAway || 0} mi`}
           className={classes.chip}
           variant="outlined"
