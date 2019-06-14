@@ -21,5 +21,39 @@ Set the Blocktap API Key
 export BLOCKTAP_TOKEN=<API key>
 ```
 
-Start the [API](https://github.com/michaelplazek/cash-for-crypto-api)
-then run `npm start`
+Set the Recaptcha secret
+```
+export RECAPTCHA_SECRET=<Recaptcha secret>
+```
+
+Set the Recaptcha site key
+```
+export RECAPTCHA_SITE_KEY=<Recaptcha site key>
+```
+
+Set the public Push API key
+```
+export PUBLIC_PUSH_KEY=<public push key>
+```
+
+Set the Monero wallet address for donations
+```
+export MONERO_ADDRESS=<wallet address>
+```
+
+Set the API URL
+```
+export BASE_URL=https://infinity.blockparty-prod.com
+```
+
+Set the Blocktap API URL
+```
+export BLOCKTAP_URL=https://api.blocktap.io/graphql
+```
+
+(Optional) Start the [API](https://github.com/michaelplazek/cash-for-crypto-api)
+
+To run:
+```
+npm start
+```
