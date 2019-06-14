@@ -5,7 +5,8 @@ import {
   SET_FILTER,
   SET_FILTER_TYPE,
   SET_FILTER_PRICE,
-  SET_FILTER_ITEMS
+  SET_FILTER_ITEMS,
+  SET_FOCUS_FIELD,
 } from "../actions";
 import { DEFAULT_FILTER } from "../constants/filters";
 
@@ -13,6 +14,7 @@ const initialState = {
   distanceAway: 25,
   coin: "BTC",
   type: "ALL",
+  focusField: "",
   filter: DEFAULT_FILTER,
   price: undefined
 };
@@ -26,6 +28,9 @@ const handlers = {
   }),
   [SET_FILTER_TYPE]: (_, action) => ({
     type: action.data
+  }),
+  [SET_FOCUS_FIELD]: (_, action) => ({
+    focusField: action.data
   }),
   [SET_FILTER]: state => ({
     filter: {

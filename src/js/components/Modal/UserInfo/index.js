@@ -18,16 +18,26 @@ import {
   unloadUser as unloadUserAction
 } from "../../../actions/users";
 import { selectUserDetails } from "./selectors";
-import DetailList from "../../DetailList";
+import {List} from "@material-ui/core";
+import Paper from "@material-ui/core/Paper";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import Typography from "@material-ui/core/Typography";
 
 const styles = () => ({
   items: {
     marginTop: "2.2em",
     marginBottom: "1em"
-  }
+  },
+  paper: {
+    margin: "0px 20px 0px 20px"
+  },
+  secondary: {
+    marginTop: "5px",
+  },
 });
 
-const UserInfo = ({ setLayerOpen, items, classes, id }) => (
+const UserInfo = ({ setLayerOpen, items, classes }) => (
   <Modal
     onClose={() => {
       setLayerOpen(false);
@@ -37,7 +47,24 @@ const UserInfo = ({ setLayerOpen, items, classes, id }) => (
   >
     <Grid container direction="column">
       <Grid item className={classes.items}>
-        <DetailList elevation={0} items={items} id={id} />
+        <Paper elevation={0} className={classes.paper}>
+          <List>
+            {items.map((item, index) => (
+              <ListItem divider={index !== items.length - 1}>
+                <Grid container direction='column' justify="space-between">
+                  <Grid item>
+                    <ListItemText
+                      primary={<Typography variant="caption">{item.name}</Typography>}
+                    />
+                  </Grid>
+                  <Grid item className={classes.secondary}>
+                    <ListItemText>{item.value}</ListItemText>
+                  </Grid>
+                </Grid>
+              </ListItem>
+            ))}
+          </List>
+        </Paper>
       </Grid>
     </Grid>
   </Modal>

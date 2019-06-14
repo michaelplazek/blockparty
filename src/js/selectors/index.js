@@ -43,6 +43,7 @@ export const selectUserReputation = createSelector(
 export const selectFilterDistance = state => state.filters.distanceAway;
 export const selectFilterCoin = state => state.filters.coin;
 export const selectFilterType = state => state.filters.type;
+export const selectFocusField = state => state.filters.focusField;
 export const selectFilterPrice = state => state.filters.price;
 export const selectFilter = state => state.filters.filter;
 export const selectFormattedFilterPrice = createSelector(

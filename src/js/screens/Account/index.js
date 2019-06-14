@@ -69,8 +69,10 @@ const Account = ({
   handleCallback,
   layer,
   open,
-  copied,
-  setCopied,
+  moneroCopied,
+  setMoneroCopied,
+  bitcoinCopied,
+  setBitcoinCopied,
 }) => (
   <div>
     {open &&
@@ -106,27 +108,52 @@ const Account = ({
       <Grid item container justify='center'>
         <Grid item>
           <Typography variant='caption'>
-            Like the app? Donate Monero to support our developers.
+            Like the app? Donate to support our developers.
           </Typography>
         </Grid>
         <Grid item container direction='row' justify='center'>
           <Grid item>
             <Typography variant='caption'>
-              {truncateString(process.env.MONERO_ADDRESS)}
+              {`Monero: ${truncateString(process.env.MONERO_ADDRESS)}`}
             </Typography>
           </Grid>
           <Grid item className={classes.copy}>
             <CopyToClipboard
               text={process.env.MONERO_ADDRESS}
               onCopy={() => {
-                setCopied(true);
-                setTimeout(() => setCopied(false), 1000);
+                setMoneroCopied(true);
+                setTimeout(() => setMoneroCopied(false), 1000);
               }}
             >
               <FontAwesomeIcon icon={faCopy} />
             </CopyToClipboard>
           </Grid>
-          {copied && (
+          {moneroCopied && (
+            <Grid item className={classes.copy}>
+              <Typography variant='caption'>
+                Copied!
+              </Typography>
+            </Grid>
+          )}
+        </Grid>
+        <Grid item container direction='row' justify='center'>
+          <Grid item>
+            <Typography variant='caption'>
+              {`Bitcoin: ${truncateString(process.env.BITCOIN_ADDRESS)}`}
+            </Typography>
+          </Grid>
+          <Grid item className={classes.copy}>
+            <CopyToClipboard
+              text={process.env.BITCOIN_ADDRESS}
+              onCopy={() => {
+                setBitcoinCopied(true);
+                setTimeout(() => setBitcoinCopied(false), 1000);
+              }}
+            >
+              <FontAwesomeIcon icon={faCopy} />
+            </CopyToClipboard>
+          </Grid>
+          {bitcoinCopied && (
             <Grid item className={classes.copy}>
               <Typography variant='caption'>
                 Copied!
@@ -192,7 +219,8 @@ const actionMap = {
 
 export default compose(
   mapper(propMap, actionMap),
-  withState('copied', 'setCopied', false),
+  withState('moneroCopied', 'setMoneroCopied', false),
+  withState('bitcoinCopied', 'setBitcoinCopied', false),
   withRouter,
   withStyles(styles),
   withDimensions,
