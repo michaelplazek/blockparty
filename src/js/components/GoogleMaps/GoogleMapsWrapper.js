@@ -9,10 +9,10 @@ import {
   Marker,
   InfoWindow
 } from "react-google-maps";
-import { smallIconMap } from "../../constants/coin-icons";
 import Typography from "@material-ui/core/Typography/Typography";
 import Grid from "@material-ui/core/Grid/Grid";
 import { USD } from "../../constants/currency";
+import {getCoinIcon} from "../List/utils";
 
 class GoogleMapsWrapper extends Component {
   constructor(props) {
@@ -85,7 +85,7 @@ class GoogleMapsWrapper extends Component {
                   <Grid item>
                     <Grid container direction="row">
                       <Grid item style={{ margin: "4px 4px 0px 0px" }}>
-                        {smallIconMap[item.coin]}
+                        {getCoinIcon(item.coin, 15)}
                       </Grid>
                       <Grid item>
                         <Grid container direction="row">
