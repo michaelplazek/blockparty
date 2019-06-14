@@ -43,10 +43,9 @@ export const dashboardSteps = [
     target: '.create-post',
     header: 'Create Posts',
     content: 'Create a limit order by clicking the button and selecting either ask or bid. ' +
-      'You will then need to enter some general information, including the volume, price, and type of coin. ' +
       'After your post is created, it will appear on the map in the Market.',
     disableBeacon: true,
-    placement: 'auto',
+    placement: 'top',
   },
   {
     target: '.bids',
