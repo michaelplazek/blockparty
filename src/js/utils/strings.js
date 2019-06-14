@@ -7,7 +7,7 @@ export const truncateString = input => {
   output = output.concat(
     input.slice(0, count),
     "..............",
-    input.slice(input.length - count, input.length - 1)
+    input.slice(input.length - count, input.length)
   );
   return output;
 };
