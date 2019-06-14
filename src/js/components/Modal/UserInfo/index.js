@@ -18,7 +18,6 @@ import {
   unloadUser as unloadUserAction
 } from "../../../actions/users";
 import { selectUserDetails } from "./selectors";
-import DetailList from "../../DetailList";
 import {List} from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 import ListItem from "@material-ui/core/ListItem";
@@ -55,10 +54,6 @@ const UserInfo = ({ setLayerOpen, items, classes }) => (
                 <Grid container direction='column' justify="space-between">
                   <Grid item>
                     <ListItemText
-                      // disableTypography
-                      // primaryTypographyProps={{
-                      //   type: "caption"
-                      // }}
                       primary={<Typography variant="caption">{item.name}</Typography>}
                     />
                   </Grid>
@@ -70,7 +65,6 @@ const UserInfo = ({ setLayerOpen, items, classes }) => (
             ))}
           </List>
         </Paper>
-        {/*<DetailList elevation={0} items={items} id={id} />*/}
       </Grid>
     </Grid>
   </Modal>
