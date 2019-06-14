@@ -47,7 +47,7 @@ const UserInfo = ({ setLayerOpen, items, classes }) => (
   >
     <Grid container direction="column">
       <Grid item className={classes.items}>
-        <Paper className={classes.paper}>
+        <Paper elevation={0} className={classes.paper}>
           <List>
             {items.map((item, index) => (
               <ListItem divider={index !== items.length - 1}>
