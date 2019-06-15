@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import moment from "moment";
 import { withHandlers, compose } from "recompose";
@@ -13,17 +13,26 @@ import {
   loadTransactions
 } from "../../actions/transactions";
 import { loadOffersByUser, patchOffer } from "../../actions/offers";
-import { setLayerOpen } from "../../actions/layers";
-import { selectUserId, selectUsername } from "../../selectors";
+import {
+  setLayerOpen,
+  setModal as setModalAction,
+  setModalOpen as setModalOpenAction
+} from "../../actions/layers";
+import {selectModal, selectUserId, selectUsername} from "../../selectors";
 import { loadMyAsks } from "../../actions/asks";
 import { loadMyBids } from "../../actions/bids";
 import { setNotification } from "../../actions/app";
+import {loadUser as loadUserAction} from "../../actions/users";
+import UserInfo from "../Modal/UserInfo";
 
-const OfferWidgetList = ({ offers, post, handleAccept, handleDecline }) => (
+const OfferWidgetList = ({ offers, post, modal, handleAccept, handleDecline, handleUserClick }) => (
   <Tile title="Offers" count={offers.length}>
     <Grid container direction="column">
-      {console.log(post)}
       {offers.map((item, index) => (
+        <Fragment>
+          {modal === "VIEW_USER_DETAILS" && (
+            <UserInfo id={item.userId}  />
+          )}
         <OfferWidget
           key={`${item.volume}-${index}`}
           total={getTotal(post.price, item.volume)}
@@ -31,10 +40,12 @@ const OfferWidgetList = ({ offers, post, handleAccept, handleDecline }) => (
           price={post.price}
           coin={post.coin}
           username={item.username}
+          onUserClick={handleUserClick}
           time={moment(item.timestamp).fromNow()}
           handleAccept={() => handleAccept(item)}
           handleDecline={() => handleDecline(item)}
         />
+        </Fragment>
       ))}
     </Grid>
   </Tile>
@@ -46,7 +57,8 @@ OfferWidgetList.propTypes = {
 
 const propMap = {
   userId: selectUserId,
-  username: selectUsername
+  username: selectUsername,
+  modal: selectModal,
 };
 
 const actionMap = {
@@ -56,7 +68,10 @@ const actionMap = {
   setLayerOpen,
   createTransaction,
   loadOffersByUser,
-  patchOffer
+  patchOffer,
+  loadUser: loadUserAction,
+  setModal: setModalAction,
+  setModalOpen: setModalOpenAction
 };
 
 export default compose(
@@ -110,6 +125,11 @@ export default compose(
         };
         setNotification(data);
       });
-    }
+    },
+    handleUserClick: ({ setModal, setModalOpen }) => (e) => {
+      setModal("VIEW_USER_DETAILS");
+      setModalOpen(true);
+      e.stopPropagation();
+    },
   })
 )(OfferWidgetList);

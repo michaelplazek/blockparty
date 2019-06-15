@@ -22,7 +22,9 @@ const styles = () => ({
   volume: {},
   user: {
     position: 'relative',
-    bottom: '4px',
+    bottom: '5px',
+    cursor: "pointer",
+    textDecoration: "underline"
   },
   time: {},
   button: {
@@ -40,10 +42,10 @@ const OfferWidget = ({
   open,
   setOpen,
   handleAccept,
-  handleDecline
+  handleDecline,
+  onUserClick,
 }) => (
   <div onClick={() => setOpen(!open)}>
-    {console.log(username)}
     <Paper className={classes.root} elevation={1}>
       <Grid container direction="column">
         <Grid item>
@@ -68,8 +70,8 @@ const OfferWidget = ({
             <Grid className={classes.time} item>
               <Typography variant="caption">{time}</Typography>
             </Grid>
-            <Grid item>
-              <Typography className={classes.user} variant="subheading">
+            <Grid item onClick={onUserClick}>
+              <Typography variant='subtitle2' className={classes.user}>
                 {username}
               </Typography>
             </Grid>
@@ -109,5 +111,5 @@ const OfferWidget = ({
 
 export default compose(
   withStyles(styles),
-  withState("open", "setOpen", false)
+  withState("open", "setOpen", false),
 )(OfferWidget);
