@@ -38,6 +38,7 @@ export const selectUserReputation = createSelector(
     return total > 0 ? (completed / total) * 5 : 0;
   }
 );
+export const selectInitialLocation = state => state.session.initialLocation;
 
 // FILTERS
 export const selectFilterDistance = state => state.filters.distanceAway;
@@ -435,7 +436,7 @@ export const selectBidOfferButtonText = createSelector(
 
 export const selectIsWithinRange = createSelector(
   selectFilter,
-  selectCurrentLocation,
+  selectInitialLocation,
   (filters, currentLocation) => ask => {
     const distance = getDistance(
       { latitude: ask.lat, longitude: ask.lng },
@@ -571,3 +572,4 @@ export const selectNavIndex = state => state.app.navigationIndex;
 
 export const selectUser = state => state.users.user;
 export const selectRun = state => state.app.run;
+export const selectQR = state => state.metrics.QR;

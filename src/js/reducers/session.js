@@ -6,6 +6,7 @@ import {
   USER_FROM_TOKEN,
   SESSION_LOAD,
   CURRENT_LOCATION_LOAD,
+  SET_CURRENT_LOCATION,
   UPDATE_USER,
   DELETE_USER
 } from "../actions";
@@ -23,6 +24,10 @@ const initialState = {
   error: "",
   sessionLoaded: false,
   location: {
+    lat: 40.564714,
+    lng: -105.09065
+  },
+  initialLocation: {
     lat: 40.564714,
     lng: -105.09065
   },
@@ -51,11 +56,21 @@ const handlers = {
     loggedIn: true
   }),
   [CURRENT_LOCATION_LOAD]: (state, action) => ({
+    initialLocation: {
+      lat: action.data.latitude,
+      lng: action.data.longitude
+    },
     location: {
       lat: action.data.latitude,
       lng: action.data.longitude
     },
     locationLoaded: true
+  }),
+  [SET_CURRENT_LOCATION]: (state, action) => ({
+    location: {
+      lat: action.data.latitude,
+      lng: action.data.longitude
+    },
   }),
   [USER_FROM_TOKEN]: (state, action) => ({
     username: action.data.user.username,

@@ -9,10 +9,10 @@ const convertToLowercase = string => {
   });
 };
 
-export const getCoinIcon = coin => {
+export const getCoinIcon = (coin, size = 24) => {
   const Component = Icon[convertToLowercase(coin)];
   return Component ? (
-    <Component />
+    <Component size={size} />
   ) : (
     <FontAwesomeIcon icon={faFileInvoiceDollar} />
   );

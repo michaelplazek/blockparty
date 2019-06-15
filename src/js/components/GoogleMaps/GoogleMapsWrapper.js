@@ -1,18 +1,22 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import numeral from "numeral";
-import { compose, withProps } from "recompose";
+import { compose, withProps, withHandlers } from "recompose";
 import {
   withScriptjs,
   withGoogleMap,
   GoogleMap,
   Marker,
-  InfoWindow
+  InfoWindow,
 } from "react-google-maps";
-import { smallIconMap } from "../../constants/coin-icons";
 import Typography from "@material-ui/core/Typography/Typography";
 import Grid from "@material-ui/core/Grid/Grid";
 import { USD } from "../../constants/currency";
+import {getCoinIcon} from "../List/utils";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import { faCrosshairs } from "@fortawesome/free-solid-svg-icons";
+import withDimensions from "../../HOCs/withDimensions";
+import Paper from "@material-ui/core/Paper";
 
 class GoogleMapsWrapper extends Component {
   constructor(props) {
@@ -37,7 +41,12 @@ class GoogleMapsWrapper extends Component {
       markersClickable,
       markersDraggable,
       onMarkerDrag,
-      showLabels
+      showLabels,
+      onMapMounted,
+      onBoundsChanged,
+      showCenterIcon,
+      handleCenter,
+      windowHeight,
     } = this.props;
 
     return (
@@ -56,7 +65,30 @@ class GoogleMapsWrapper extends Component {
           fullscreenControl: false
         }}
         gestureHandling={movable}
+        ref={onMapMounted}
+        onBoundsChanged={onBoundsChanged}
       >
+
+        {showCenterIcon && (
+          <Paper
+            style={{
+              position: 'absolute',
+              right: '0.8em',
+              bottom: `${windowHeight/2 - 75}px`,
+              zIndex: 50,
+              color: '#666666',
+              cursor: 'pointer',
+              padding: `0.5em`
+            }}
+          >
+            <FontAwesomeIcon
+              size='lg'
+              icon={faCrosshairs}
+              onClick={handleCenter}
+            />
+          </Paper>
+        )}
+
         {showLabels &&
           markers.map(item => (
             <InfoWindow
@@ -85,7 +117,7 @@ class GoogleMapsWrapper extends Component {
                   <Grid item>
                     <Grid container direction="row">
                       <Grid item style={{ margin: "4px 4px 0px 0px" }}>
-                        {smallIconMap[item.coin]}
+                        {getCoinIcon(item.coin, 15)}
                       </Grid>
                       <Grid item>
                         <Grid container direction="row">
@@ -110,7 +142,7 @@ class GoogleMapsWrapper extends Component {
                 </Grid>
               </div>
             </InfoWindow>
-          ))}
+        ))}
 
         {markers.map(item => (
           <Marker
@@ -146,7 +178,8 @@ GoogleMapsWrapper.propTypes = {
   border: PropTypes.string,
   markersDraggable: PropTypes.bool,
   onMarkerDrag: PropTypes.func,
-  showLabels: PropTypes.bool
+  showLabels: PropTypes.bool,
+  showCenterIcon: PropTypes.bool,
 };
 
 GoogleMapsWrapper.defaultProps = {
@@ -168,7 +201,8 @@ GoogleMapsWrapper.defaultProps = {
   locationFromBottom: 0,
   border: "",
   onMarkerDrag: () => {},
-  showLabels: false
+  showLabels: false,
+  showCenterIcon: false,
 };
 
 export default compose(
@@ -193,5 +227,23 @@ export default compose(
     };
   }),
   withScriptjs,
-  withGoogleMap
+  withGoogleMap,
+  withDimensions,
+  withHandlers(() => {
+    let map;
+    return {
+      onMapMounted: () => ref => {
+        map = ref;
+      },
+      onBoundsChanged: ({ handleBoundsChanged }) => () => {
+        const latitude = map.getCenter().lat();
+        const longitude = map.getCenter().lng();
+        const coords = { latitude, longitude };
+        handleBoundsChanged(coords);
+      },
+      handleCenter: ({initialLocation}) => () => {
+        map.panTo(new google.maps.LatLng(initialLocation.lat, initialLocation.lng))
+      },
+    };
+  })
 )(GoogleMapsWrapper);

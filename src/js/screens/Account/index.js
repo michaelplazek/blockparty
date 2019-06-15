@@ -1,7 +1,7 @@
 import React from "react";
 import {compose, lifecycle, withHandlers, withState} from "recompose";
 import { withRouter } from "react-router-dom";
-import { faCog, faCopy } from "@fortawesome/free-solid-svg-icons";
+import { faCog, faCopy, faQrcode } from "@fortawesome/free-solid-svg-icons";
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 import mapper from "../../utils/connect";
@@ -34,8 +34,10 @@ import {accountSteps, isVisited, tourStyle} from "../../config/tour";
 import Tooltip from "../../components/TourTooltip";
 import {setRun as setRunAction} from "../../actions/app";
 import EndOfTour from "../../components/Modal/EndOfTour";
+import QR from "../../components/Modal/QR";
 import {setLayer as setLayerAction, setLayerOpen as setLayerOpenAction} from "../../actions/layers";
 import {truncateString} from "../../utils/strings";
+import {setQR as setQRAction} from "../../actions/metrics";
 
 const styles = () => ({
   body: {
@@ -46,17 +48,22 @@ const styles = () => ({
   },
   button: {
     alignSelf: "center",
-    marginBottom: "1em"
+    marginBottom: "0.75em"
   },
-  copy: {
+  likeTheApp: {
+    marginBottom: "0.5em",
+  },
+  icon: {
     cursor: 'pointer',
     marginLeft: "0.5em"
   },
   suggestions: {
-    marginTop: "1em",
+    marginTop: "0.75em",
     marginBottom: "0.25em"
   }
 });
+
+const ICON_COLOR = '#3f51b5';
 
 const Account = ({
   logOut,
@@ -73,11 +80,16 @@ const Account = ({
   setMoneroCopied,
   bitcoinCopied,
   setBitcoinCopied,
+  handleQR,
 }) => (
   <div>
     {open &&
       layer === "END_OF_TOUR" && (
         <EndOfTour />
+    )}
+    {open &&
+    layer === "QR" && (
+      <QR />
     )}
     <PageHeader
       leftHandLabel="Account"
@@ -106,7 +118,7 @@ const Account = ({
       </Grid>
 
       <Grid item container justify='center'>
-        <Grid item>
+        <Grid item className={classes.likeTheApp}>
           <Typography variant='caption'>
             Like the app? Donate to support our developers.
           </Typography>
@@ -117,7 +129,10 @@ const Account = ({
               {`Monero: ${truncateString(process.env.MONERO_ADDRESS)}`}
             </Typography>
           </Grid>
-          <Grid item className={classes.copy}>
+          <Grid item className={classes.icon}>
+            <FontAwesomeIcon style={{ color: ICON_COLOR }} onClick={() => handleQR("XMR")} icon={faQrcode} />
+          </Grid>
+          <Grid item className={classes.icon}>
             <CopyToClipboard
               text={process.env.MONERO_ADDRESS}
               onCopy={() => {
@@ -125,11 +140,11 @@ const Account = ({
                 setTimeout(() => setMoneroCopied(false), 1000);
               }}
             >
-              <FontAwesomeIcon icon={faCopy} />
+              <FontAwesomeIcon style={{ color: ICON_COLOR }} icon={faCopy} />
             </CopyToClipboard>
           </Grid>
           {moneroCopied && (
-            <Grid item className={classes.copy}>
+            <Grid item className={classes.icon}>
               <Typography variant='caption'>
                 Copied!
               </Typography>
@@ -142,7 +157,10 @@ const Account = ({
               {`Bitcoin: ${truncateString(process.env.BITCOIN_ADDRESS)}`}
             </Typography>
           </Grid>
-          <Grid item className={classes.copy}>
+          <Grid item className={classes.icon}>
+            <FontAwesomeIcon style={{ color: ICON_COLOR }} onClick={() => handleQR("BTC")} icon={faQrcode} />
+          </Grid>
+          <Grid item className={classes.icon}>
             <CopyToClipboard
               text={process.env.BITCOIN_ADDRESS}
               onCopy={() => {
@@ -150,11 +168,11 @@ const Account = ({
                 setTimeout(() => setBitcoinCopied(false), 1000);
               }}
             >
-              <FontAwesomeIcon icon={faCopy} />
+              <FontAwesomeIcon style={{ color: ICON_COLOR }} icon={faCopy} />
             </CopyToClipboard>
           </Grid>
           {bitcoinCopied && (
-            <Grid item className={classes.copy}>
+            <Grid item className={classes.icon}>
               <Typography variant='caption'>
                 Copied!
               </Typography>
@@ -215,6 +233,7 @@ const actionMap = {
   setRun: setRunAction,
   setLayer: setLayerAction,
   setLayerOpen: setLayerOpenAction,
+  setQR: setQRAction,
 };
 
 export default compose(
@@ -239,6 +258,11 @@ export default compose(
         setLayerOpen(true);
       }
     },
+    handleQR: ({ setLayerOpen, setLayer, setQR }) => (type) => {
+      setQR(type);
+      setLayer("QR");
+      setLayerOpen(true);
+    }
   }),
   withPolling(({ loadUserFromToken }) => {
     loadUserFromToken();

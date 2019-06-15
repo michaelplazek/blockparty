@@ -15,7 +15,7 @@ import {
   selectFilterType,
   selectMarketLoaded,
   selectRun,
-  selectLayer, selectLayerOpen
+  selectLayer, selectLayerOpen, selectInitialLocation
 } from "../../selectors";
 import { loadAsks as loadAsksAction } from "../../actions/asks";
 import { loadBids as loadBidsAction } from "../../actions/bids";
@@ -41,6 +41,7 @@ import withVisited from "../../HOCs/withVisited";
 import {isVisited, marketSteps, tourStyle} from "../../config/tour";
 import Tooltip from "../../components/TourTooltip";
 import Welcome from "../../components/Modal/Welcome";
+import {setCurrentLocation as setCurrentLocationAction} from "../../actions/session";
 
 class Market extends Component {
   constructor(props) {
@@ -56,6 +57,8 @@ class Market extends Component {
       windowWidth,
       handleMarkerClick,
       currentLocation,
+      initialLocation,
+      handleBoundsChanged,
       handleCallback,
       layer,
       open,
@@ -83,8 +86,11 @@ class Market extends Component {
           width={windowWidth}
         />
         <GoogleMapsWrapper
+          handleBoundsChanged={handleBoundsChanged}
           currentLocation={currentLocation}
+          initialLocation={initialLocation}
           showLabels={true}
+          showCenterIcon={true}
           markers={markers}
           onMarkerClick={handleMarkerClick}
           height={(windowHeight - navHeight - headerHeight) / 2}
@@ -113,6 +119,7 @@ const propMap = {
   headerHeight: selectHeaderHeight,
   type: selectFilterType,
   run: selectRun,
+  initialLocation: selectInitialLocation,
   loaded: selectMarketLoaded // from withLoader
 };
 
@@ -123,7 +130,8 @@ const actionMap = {
   setLayer: setLayerAction,
   setMarketView: setMarketViewAction,
   setRun: setRunAction,
-  setNavIndex: setNavIndexAction
+  setNavIndex: setNavIndexAction,
+  setCurrentLocation: setCurrentLocationAction
 };
 
 export default compose(
@@ -135,6 +143,9 @@ export default compose(
       const { id, isBid } = marker;
       const url = !isBid ? "/ask" : "/bid";
       history.push(`${url}?${id}`);
+    },
+    handleBoundsChanged: ({ setCurrentLocation }) => (coords) => {
+      setCurrentLocation(coords);
     },
     handleMarketView: ({ history, setMarketView }) => () => {
       setMarketView(CHART);
