@@ -594,6 +594,43 @@ export const selectCurrencyItems = createSelector(
     value: item.assetSymbol
   }))
 );
+
+export const selectBidList = createSelector(
+  selectBids,
+  selectFilter,
+  selectIsWithinPrice,
+  selectIsWithinRange,
+  (bids, filters, withinPrice, withinRange) => compose(
+    fpMap(ask => ({
+      isBid: ask.isBid,
+      id: ask._id,
+      price: ask.price,
+      volume: ask.volume,
+    })),
+    filter(withinPrice),
+    filter(withinRange),
+    filter(item => item.coin === filters.coin)
+  )(bids)
+);
+
+export const selectAskList = createSelector(
+  selectAsks,
+  selectFilter,
+  selectIsWithinPrice,
+  selectIsWithinRange,
+  (asks, filters, withinPrice, withinRange) => compose(
+    fpMap(ask => ({
+      isBid: ask.isBid,
+      id: ask._id,
+      price: ask.price,
+      volume: ask.volume,
+    })),
+    filter(withinPrice),
+    filter(withinRange),
+    filter(item => item.coin === filters.coin)
+  )(asks)
+);
+
 export const selectLastPrice = state => state.metrics.lastPrice;
 
 export const selectIsSubscribed = state => state.app.notifications.isSubscribed;
