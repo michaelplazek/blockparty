@@ -32,7 +32,7 @@ export default ProtectedRoute => {
       componentDidMount() {
         const { loadCurrentLocation, currentLocationLoaded } = this.props;
         if (navigator && navigator.geolocation && !currentLocationLoaded) {
-          this.props.loadCurrentLocation();
+          loadCurrentLocation();
         }
       }
     })

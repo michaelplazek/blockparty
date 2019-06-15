@@ -8,7 +8,8 @@ import {
   SESSION_LOAD,
   CURRENT_LOCATION_LOAD,
   UPDATE_USER,
-  DELETE_USER
+  DELETE_USER,
+  SET_CURRENT_LOCATION,
 } from "./index";
 import { getIndexFromPath } from "../utils/location";
 
@@ -75,6 +76,9 @@ export const loadCurrentLocation = () => dispatch =>
   navigator.geolocation.getCurrentPosition(pos => {
     dispatch({ type: CURRENT_LOCATION_LOAD, data: pos.coords });
   });
+
+export const setCurrentLocation = coords => dispatch =>
+  dispatch({ type: SET_CURRENT_LOCATION, data: coords });
 
 export const logOutUser = () => dispatch => {
   wrappedFetch("users/logout", undefined, "POST").then(() => {

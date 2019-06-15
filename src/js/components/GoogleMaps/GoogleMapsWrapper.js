@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import numeral from "numeral";
-import { compose, withProps } from "recompose";
+import { compose, withProps, withHandlers } from "recompose";
 import {
   withScriptjs,
   withGoogleMap,
   GoogleMap,
   Marker,
-  InfoWindow
+  InfoWindow,
 } from "react-google-maps";
 import Typography from "@material-ui/core/Typography/Typography";
 import Grid from "@material-ui/core/Grid/Grid";
@@ -37,7 +37,9 @@ class GoogleMapsWrapper extends Component {
       markersClickable,
       markersDraggable,
       onMarkerDrag,
-      showLabels
+      showLabels,
+      onMapMounted,
+      onBoundsChanged,
     } = this.props;
 
     return (
@@ -56,6 +58,8 @@ class GoogleMapsWrapper extends Component {
           fullscreenControl: false
         }}
         gestureHandling={movable}
+        ref={onMapMounted}
+        onBoundsChanged={onBoundsChanged}
       >
         {showLabels &&
           markers.map(item => (
@@ -193,5 +197,19 @@ export default compose(
     };
   }),
   withScriptjs,
-  withGoogleMap
+  withGoogleMap,
+  withHandlers(() => {
+    let map;
+    return {
+      onMapMounted: () => ref => {
+        map = ref;
+      },
+      onBoundsChanged: ({ handleBoundsChanged }) => () => {
+        const latitude = map.getCenter().lat();
+        const longitude = map.getCenter().lng();
+        const coords = { latitude, longitude };
+        handleBoundsChanged(coords);
+      },
+    };
+  })
 )(GoogleMapsWrapper);
