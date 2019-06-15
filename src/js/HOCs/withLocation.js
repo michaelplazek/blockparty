@@ -4,7 +4,7 @@ import { withRouter } from "react-router";
 
 import { loadCurrentLocation } from "../actions/session";
 import mapper from "../utils/connect";
-import { selectCurrentLocation } from "../selectors";
+import {selectCurrentLocation, selectCurrentLocationLoaded} from "../selectors";
 
 /**
  * This HOC gets the users current location, using the navigation API.
@@ -17,7 +17,8 @@ export default ProtectedRoute => {
   };
 
   const propMap = {
-    currentLocation: selectCurrentLocation
+    currentLocation: selectCurrentLocation,
+    currentLocationLoaded: selectCurrentLocationLoaded
   };
 
   const actionMap = {
@@ -29,7 +30,8 @@ export default ProtectedRoute => {
     withRouter,
     lifecycle({
       componentDidMount() {
-        if (navigator && navigator.geolocation) {
+        const { loadCurrentLocation, currentLocationLoaded } = this.props;
+        if (navigator && navigator.geolocation && !currentLocationLoaded) {
           this.props.loadCurrentLocation();
         }
       }

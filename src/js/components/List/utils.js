@@ -11,7 +11,6 @@ const convertToLowercase = string => {
 
 export const getCoinIcon = (coin, size = 24) => {
   const Component = Icon[convertToLowercase(coin)];
-  console.log(coin);
   return Component ? (
     <Component size={size} />
   ) : (
