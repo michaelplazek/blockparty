@@ -94,6 +94,8 @@ class Market extends Component {
           markers={markers}
           onMarkerClick={handleMarkerClick}
           height={(windowHeight - navHeight - headerHeight) / 2}
+          navHeight={navHeight}
+          windowHeight={windowHeight}
         />
         <Joyride
           steps={marketSteps}

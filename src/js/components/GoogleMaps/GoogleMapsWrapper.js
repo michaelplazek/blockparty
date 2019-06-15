@@ -15,7 +15,6 @@ import { USD } from "../../constants/currency";
 import {getCoinIcon} from "../List/utils";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { faCrosshairs } from "@fortawesome/free-solid-svg-icons";
-import withDimensions from "../../HOCs/withDimensions";
 import Paper from "@material-ui/core/Paper";
 
 class GoogleMapsWrapper extends Component {
@@ -46,6 +45,8 @@ class GoogleMapsWrapper extends Component {
       onBoundsChanged,
       showCenterIcon,
       handleCenter,
+      height,
+      navHeight,
       windowHeight,
     } = this.props;
 
@@ -73,8 +74,8 @@ class GoogleMapsWrapper extends Component {
           <Paper
             style={{
               position: 'absolute',
-              right: '0.8em',
-              bottom: `${windowHeight/2 - 75}px`,
+              right: '0.75em',
+              top: `${windowHeight - navHeight - height + 15}px`,
               zIndex: 50,
               color: '#666666',
               cursor: 'pointer',
@@ -228,7 +229,6 @@ export default compose(
   }),
   withScriptjs,
   withGoogleMap,
-  withDimensions,
   withHandlers(() => {
     let map;
     return {
