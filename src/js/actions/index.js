@@ -105,6 +105,7 @@ export const SET_ERROR_MESSAGE = "SET_ERROR_MESSAGE";
 // METRICS
 export const CURRENCY_NAMES_LOAD = "CURRENCY_NAMES_LOAD";
 export const LAST_PRICE_LOAD = "LAST_PRICE_LOAD";
+export const SET_QR = "SET_QR";
 
 // USERS
 export const LOAD_USER = "LOAD_USER";

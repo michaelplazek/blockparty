@@ -1,4 +1,4 @@
-import { CURRENCY_NAMES_LOAD, LAST_PRICE_LOAD } from "./";
+import {CURRENCY_NAMES_LOAD, LAST_PRICE_LOAD, SET_QR} from "./";
 import { fetchFromBlocktap } from "../api/utils";
 
 export const loadCurrencyNames = () => dispatch => {
@@ -26,3 +26,5 @@ export const loadLastPrice = coin => dispatch => {
       })
     );
 };
+
+export const setQR = type => dispatch => dispatch({ type: SET_QR, data: type });

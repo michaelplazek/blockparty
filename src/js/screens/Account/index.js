@@ -1,7 +1,7 @@
 import React from "react";
 import {compose, lifecycle, withHandlers, withState} from "recompose";
 import { withRouter } from "react-router-dom";
-import { faCog, faCopy } from "@fortawesome/free-solid-svg-icons";
+import { faCog, faCopy, faQrcode } from "@fortawesome/free-solid-svg-icons";
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 import mapper from "../../utils/connect";
@@ -34,8 +34,10 @@ import {accountSteps, isVisited, tourStyle} from "../../config/tour";
 import Tooltip from "../../components/TourTooltip";
 import {setRun as setRunAction} from "../../actions/app";
 import EndOfTour from "../../components/Modal/EndOfTour";
+import QR from "../../components/Modal/QR";
 import {setLayer as setLayerAction, setLayerOpen as setLayerOpenAction} from "../../actions/layers";
 import {truncateString} from "../../utils/strings";
+import {setQR as setQRAction} from "../../actions/metrics";
 
 const styles = () => ({
   body: {
@@ -48,7 +50,7 @@ const styles = () => ({
     alignSelf: "center",
     marginBottom: "1em"
   },
-  copy: {
+  icon: {
     cursor: 'pointer',
     marginLeft: "0.5em"
   },
@@ -73,11 +75,16 @@ const Account = ({
   setMoneroCopied,
   bitcoinCopied,
   setBitcoinCopied,
+  handleQR,
 }) => (
   <div>
     {open &&
       layer === "END_OF_TOUR" && (
         <EndOfTour />
+    )}
+    {open &&
+    layer === "QR" && (
+      <QR />
     )}
     <PageHeader
       leftHandLabel="Account"
@@ -117,7 +124,10 @@ const Account = ({
               {`Monero: ${truncateString(process.env.MONERO_ADDRESS)}`}
             </Typography>
           </Grid>
-          <Grid item className={classes.copy}>
+          <Grid item className={classes.icon}>
+            <FontAwesomeIcon onClick={() => handleQR("XMR")} icon={faQrcode} />
+          </Grid>
+          <Grid item className={classes.icon}>
             <CopyToClipboard
               text={process.env.MONERO_ADDRESS}
               onCopy={() => {
@@ -142,7 +152,10 @@ const Account = ({
               {`Bitcoin: ${truncateString(process.env.BITCOIN_ADDRESS)}`}
             </Typography>
           </Grid>
-          <Grid item className={classes.copy}>
+          <Grid item className={classes.icon}>
+            <FontAwesomeIcon onClick={() => handleQR("BTC")} icon={faQrcode} />
+          </Grid>
+          <Grid item className={classes.icon}>
             <CopyToClipboard
               text={process.env.BITCOIN_ADDRESS}
               onCopy={() => {
@@ -215,6 +228,7 @@ const actionMap = {
   setRun: setRunAction,
   setLayer: setLayerAction,
   setLayerOpen: setLayerOpenAction,
+  setQR: setQRAction,
 };
 
 export default compose(
@@ -239,6 +253,11 @@ export default compose(
         setLayerOpen(true);
       }
     },
+    handleQR: ({ setLayerOpen, setLayer, setQR }) => (type) => {
+      setQR(type);
+      setLayer("QR");
+      setLayerOpen(true);
+    }
   }),
   withPolling(({ loadUserFromToken }) => {
     loadUserFromToken();

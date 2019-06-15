@@ -571,3 +571,4 @@ export const selectNavIndex = state => state.app.navigationIndex;
 
 export const selectUser = state => state.users.user;
 export const selectRun = state => state.app.run;
+export const selectQR = state => state.metrics.QR;
