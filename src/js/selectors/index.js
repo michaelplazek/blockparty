@@ -436,7 +436,7 @@ export const selectBidOfferButtonText = createSelector(
 
 export const selectIsWithinRange = createSelector(
   selectFilter,
-  selectCurrentLocation,
+  selectInitialLocation,
   (filters, currentLocation) => ask => {
     const distance = getDistance(
       { latitude: ask.lat, longitude: ask.lng },
