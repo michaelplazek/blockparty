@@ -20,7 +20,13 @@ const styles = () => ({
     margin: "0px 0px 0px 4px"
   },
   volume: {},
-
+  user: {
+    position: 'relative',
+    bottom: '5px',
+    cursor: "pointer",
+    textDecoration: "underline"
+  },
+  time: {},
   button: {
     margin: "4px"
   }
@@ -31,11 +37,13 @@ const OfferWidget = ({
   total,
   volume,
   coin,
+  username,
   time,
   open,
   setOpen,
   handleAccept,
-  handleDecline
+  handleDecline,
+  onUserClick,
 }) => (
   <div onClick={() => setOpen(!open)}>
     <Paper className={classes.root} elevation={1}>
@@ -58,8 +66,15 @@ const OfferWidget = ({
               </Grid>
             </Grid>
           </Grid>
-          <Grid item>
-            <Typography variant="caption">{time}</Typography>
+          <Grid item container justify='space-between' direction='row'>
+            <Grid className={classes.time} item>
+              <Typography variant="caption">{time}</Typography>
+            </Grid>
+            <Grid item onClick={onUserClick}>
+              <Typography variant='subtitle1' className={classes.user}>
+                {username}
+              </Typography>
+            </Grid>
           </Grid>
         </Grid>
         <Grid item>
@@ -96,5 +111,5 @@ const OfferWidget = ({
 
 export default compose(
   withStyles(styles),
-  withState("open", "setOpen", false)
+  withState("open", "setOpen", false),
 )(OfferWidget);

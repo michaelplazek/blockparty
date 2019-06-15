@@ -60,14 +60,12 @@ const CreateAsk = ({
   handleBack,
   handleNext,
   resetAsk,
-  setLayerOpen,
   handleError
 }) => (
   <Flyout
     onClose={() => {
       resetAsk();
       setActiveIndex(0);
-      setLayerOpen(false);
     }}
     size={8}
     title="Create new ask"

@@ -7,7 +7,6 @@ import Modal from "../index";
 import Grid from "@material-ui/core/Grid/Grid";
 import Paper from "@material-ui/core/Paper";
 import {selectQR} from "../../../selectors";
-import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
 
 import btcqr from './bitcoinqr.png'
 import xmrqr from './monero_qr.png'
@@ -25,14 +24,8 @@ const styles = () => ({
   },
 });
 
-const QR = ({ setLayerOpen, qr, classes }) => (
-  <Modal
-    onClose={() => {
-      setLayerOpen(false);
-    }}
-    open={open}
-    title={qr === "BTC" ? "Bitcoin" : "Monero"}
-  >
+const QR = ({ qr, classes }) => (
+  <Modal title={qr === "BTC" ? "Bitcoin" : "Monero"}>
     <Grid container direction="column">
       <Grid item className={classes.items}>
         <Paper elevation={0} className={classes.paper}>
@@ -52,9 +45,7 @@ const propMap = {
   qr: selectQR
 };
 
-const actionMap = {
-  setLayerOpen: setLayerOpenAction,
-};
+const actionMap = {};
 
 export default compose(
   mapper(propMap, actionMap),

@@ -42,6 +42,8 @@ export const RESET_BID = "RESET_BID";
 // LAYERS
 export const SET_LAYER = "SET_LAYER";
 export const OPEN_LAYER = "OPEN_LAYER";
+export const SET_MODAL = "SET_MODAL";
+export const OPEN_MODAL = "OPEN_MODAL";
 
 // SESSION
 export const LOG_IN = "LOG_IN";
@@ -65,6 +67,9 @@ export const GET_SUBSCRIPTION = "GET_SUBSCRIPTION";
 export const SET_VISITED = "SET_VISITED";
 export const SET_NAV_INDEX = "SET_NAV_INDEX";
 export const SET_RUN = "SET_RUN";
+export const SET_TOUCHED = "SET_TOUCHED";
+export const SET_ASK_INFO = "SET_ASK_INFO";
+export const SET_BID_INFO = "SET_BID_INFO";
 
 // FILTERS
 export const SET_FILTER_DISTANCE = "SET_FILTER_DISTANCE";

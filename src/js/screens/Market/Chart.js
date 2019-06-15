@@ -6,7 +6,8 @@ import mapper from "../../utils/connect";
 
 import withAuthentification from "../../HOCs/withAuthentification";
 import {
-  selectAsksForDisplay,
+  selectAskInfo,
+  selectAsksForDisplay, selectBidInfo,
   selectBidsForDisplay,
   selectFilterCoin,
   selectFilterType,
@@ -14,7 +15,7 @@ import {
   selectHeaderHeight,
   selectLayer,
   selectMarketLoaded,
-  selectNavHeight,
+  selectNavHeight, selectTouched,
   selectWindowHeight,
   selectWindowWidth
 } from "../../selectors";
@@ -25,7 +26,12 @@ import {
   setLayerOpen as setLayerOpenAction
 } from "../../actions/layers";
 import { loadCurrentLocation as loadCurrentLocationAction } from "../../actions/session";
-import { setMarketView as setMarketViewAction } from "../../actions/app";
+import {
+  setAskInfo as setAskInfoAction,
+  setBidInfo as setBidInfoAction,
+  setMarketView as setMarketViewAction,
+  setTouched as setTouchedAction,
+} from "../../actions/app";
 import AnalysisChart from "../../components/AnalysisChart";
 import PriceMarker from "../../components/AnalysisChart/PriceMarker";
 import Placeholder from "../../components/AnalysisChart/Placeholder";
@@ -98,7 +104,10 @@ const propMap = {
   hasData: selectHasData,
   price: selectFormattedFilterPrice,
   coin: selectFilterCoin,
-  layer: selectLayer
+  layer: selectLayer,
+  touched: selectTouched,
+  askInfo: selectAskInfo,
+  bidInfo: selectBidInfo,
 };
 
 const actionMap = {
@@ -108,7 +117,10 @@ const actionMap = {
   loadCurrentLocation: loadCurrentLocationAction,
   setMarketView: setMarketViewAction,
   setFilterPrice,
-  setLayer
+  setLayer,
+  setTouched: setTouchedAction,
+  setAskInfo: setAskInfoAction,
+  setBidInfo: setBidInfoAction,
 };
 
 export default compose(
@@ -116,9 +128,6 @@ export default compose(
   withAuthentification,
   withRouter,
   withStyles(styles),
-  withState("touched", "setTouched", false),
-  withState("askInfo", "setAskInfo", undefined),
-  withState("bidInfo", "setBidInfo", undefined),
   withHandlers({
     handleTouch: ({
       setTouched,
@@ -152,10 +161,5 @@ export default compose(
         setTouched(true);
       }
     },
-    handleSelect: ({ setTouched, setAskInfo, setBidInfo }) => () => {
-      setTouched(false);
-      setAskInfo("Mid Market Price");
-      setBidInfo(undefined);
-    }
   })
 )(Chart);

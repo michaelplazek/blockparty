@@ -37,14 +37,8 @@ const styles = () => ({
   },
 });
 
-const UserInfo = ({ setLayerOpen, items, classes }) => (
-  <Modal
-    onClose={() => {
-      setLayerOpen(false);
-    }}
-    open={open}
-    title=""
-  >
+const UserInfo = ({ items, classes }) => (
+  <Modal title="">
     <Grid container direction="column">
       <Grid item className={classes.items}>
         <Paper elevation={0} className={classes.paper}>
@@ -71,7 +65,6 @@ const UserInfo = ({ setLayerOpen, items, classes }) => (
 );
 
 const propMap = {
-  open: selectLayerOpen,
   userId: selectUserId,
   user: selectUser,
   items: selectUserDetails,
@@ -80,7 +73,6 @@ const propMap = {
 };
 
 const actionMap = {
-  setLayerOpen: setLayerOpenAction,
   loadUser: loadUserAction,
   unloadUser: unloadUserAction
 };

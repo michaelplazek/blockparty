@@ -31,6 +31,15 @@ const ButtonContainer = ({
     <Grid item className={classes.button}>
       <Button
         variant="contained"
+        onClick={handleCancel}
+        style={theme.palette.errorButton}
+      >
+        Cancel
+      </Button>
+    </Grid>
+    <Grid item className={classes.button}>
+      <Button
+        variant="contained"
         onClick={handleComplete}
         style={
           !disabled
@@ -40,15 +49,6 @@ const ButtonContainer = ({
         disabled={disabled}
       >
         {disabled ? "Marked as completed" : "Mark as completed"}
-      </Button>
-    </Grid>
-    <Grid item className={classes.button}>
-      <Button
-        variant="contained"
-        onClick={handleCancel}
-        style={theme.palette.errorButton}
-      >
-        Cancel
       </Button>
     </Grid>
   </Grid>

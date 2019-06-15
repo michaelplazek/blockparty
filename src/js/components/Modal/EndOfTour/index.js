@@ -5,9 +5,8 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import mapper from "../../../utils/connect";
 import Modal from "../index";
 
-import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
+import { setModalOpen as setModalOpenAction } from "../../../actions/layers";
 import {
-  selectLayerOpen,
   selectWindowHeight,
   selectWindowWidth
 } from "../../../selectors";
@@ -32,7 +31,6 @@ const styles = () => ({
 const EndOfTour = ({ classes, handleSubmit, handleClose }) => (
   <Modal
     onClose={handleClose}
-    open={open}
     title=""
   >
     <Grid className={classes.root} container direction="column">
@@ -61,13 +59,12 @@ const EndOfTour = ({ classes, handleSubmit, handleClose }) => (
 );
 
 const propMap = {
-  open: selectLayerOpen,
   windowHeight: selectWindowHeight,
   windowWidth: selectWindowWidth
 };
 
 const actionMap = {
-  setLayerOpen: setLayerOpenAction,
+  setModalOpen: setModalOpenAction,
   setRun: setRunAction,
   setNavIndex: setNavIndexAction,
 };
@@ -77,16 +74,16 @@ export default compose(
   mapper(propMap, actionMap),
   withStyles(styles),
   withHandlers({
-    handleSubmit: ({ setRun, setLayerOpen, setNavIndex, history }) => () => {
+    handleSubmit: ({ setRun, setModalOpen, setNavIndex, history }) => () => {
       setRun(false);
-      setLayerOpen(false);
+      setModalOpen(false);
       setAppVisited();
       setNavIndex(0);
       history.push("/");
     },
-    handleClose: ({ setRun, setLayerOpen }) => () => {
+    handleClose: ({ setRun, setModalOpen }) => () => {
       setRun(false);
-      setLayerOpen(false);
+      setModalOpen(false);
       setAppVisited();
     },
   }),

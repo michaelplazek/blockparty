@@ -36,7 +36,8 @@ const handlers = {
     filter: {
       coin: state.coin,
       distanceAway: state.distanceAway,
-      type: state.type
+      type: state.type,
+      price: state.price,
     }
   }),
   [SET_FILTER_ITEMS]: state => ({

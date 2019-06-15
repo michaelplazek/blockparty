@@ -64,7 +64,6 @@ const CreateAskOffer = ({
   setActiveIndex,
   handleBack,
   handleNext,
-  setLayerOpen,
   resetOffer,
   handleError
 }) => (
@@ -72,7 +71,6 @@ const CreateAskOffer = ({
     onClose={() => {
       resetOffer();
       setActiveIndex(0);
-      setLayerOpen(false);
     }}
     size={8}
     title="Make an offer to buy"

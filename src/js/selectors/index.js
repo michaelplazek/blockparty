@@ -385,6 +385,8 @@ export const selectBidFormTotal = createSelector(
 // LAYERS
 export const selectLayer = state => state.layers.layer;
 export const selectLayerOpen = state => state.layers.open;
+export const selectModal = state => state.layers.modal;
+export const selectModalOpen = state => state.layers.modalOpen;
 
 // APP
 export const selectNavHeight = state => state.app.navigationBarHeight;
@@ -398,6 +400,9 @@ export const selectScreenHeight = createSelector(
 );
 export const selectWindowWidth = state => state.app.windowWidth;
 export const selectMarketView = state => state.app.marketView;
+export const selectTouched = state => state.app.touched;
+export const selectAskInfo = state => state.app.askInfo;
+export const selectBidInfo = state => state.app.bidInfo;
 
 // MISC
 export const selectBidHasOffer = createSelector(
@@ -539,6 +544,18 @@ export const selectAskCurrencyItems = createSelector(
     compose(
       fpMap(item => ({
         label: `${item.assetName} - ${item.assetSymbol}`,
+        value: item.assetSymbol,
+        disabled: coins.includes(item.assetSymbol)
+      })),
+    )(names)
+);
+export const selectFilteredAskCurrencyItems = createSelector(
+  selectCurrencyNames,
+  selectMyAskCoins,
+  (names, coins) =>
+    compose(
+      fpMap(item => ({
+        label: `${item.assetName} - ${item.assetSymbol}`,
         value: item.assetSymbol
       })),
       filter(coin => !coins.includes(coin.assetSymbol))
@@ -551,7 +568,21 @@ export const selectBidCurrencyItems = createSelector(
     compose(
       fpMap(item => ({
         label: `${item.assetName} - ${item.assetSymbol}`,
-        value: item.assetSymbol
+        value: item.assetSymbol,
+        disabled: coins.includes(item.assetSymbol)
+      })),
+      // filter(coin => !coins.includes(coin.assetSymbol))
+    )(names)
+);
+
+export const selectFilteredBidCurrencyItems = createSelector(
+  selectCurrencyNames,
+  selectMyBidCoins,
+  (names, coins) =>
+    compose(
+      fpMap(item => ({
+        label: `${item.assetName} - ${item.assetSymbol}`,
+        value: item.assetSymbol,
       })),
       filter(coin => !coins.includes(coin.assetSymbol))
     )(names)

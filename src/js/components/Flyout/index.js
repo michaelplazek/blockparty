@@ -69,7 +69,14 @@ const Flyout = ({
             <Typography variant="title">{title}</Typography>
           </Grid>
           <Grid item>
-            <div className={classes.closeButton} onClick={onClose}>
+            <div
+              className={classes.closeButton}
+              onClick={() => {
+                onClose();
+                setLayer("");
+                setLayerOpen(false);
+              }}
+            >
               <FontAwesomeIcon icon={faTimes} />
             </div>
           </Grid>

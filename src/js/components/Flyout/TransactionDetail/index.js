@@ -5,9 +5,14 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import mapper from "../../../utils/connect";
 import Flyout from "../index";
 
-import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
+import {
+  setLayerOpen as setLayerOpenAction,
+  setModal as setModalAction,
+  setModalOpen as setModalOpenAction
+} from "../../../actions/layers";
 import {
   selectLayerOpen,
+  selectModal,
   selectTransactionBuyerUsername,
   selectTransactionCoin,
   selectTransactionId,
@@ -36,6 +41,7 @@ import { loadMyBids } from "../../../actions/bids";
 import { loadOffersByUser } from "../../../actions/offers";
 import { setNotification } from "../../../actions/app";
 import {Typography} from "@material-ui/core";
+import ConfirmCancel from "../../Modal/ConfirmCancel";
 
 const styles = () => ({
   list: {
@@ -48,21 +54,18 @@ const styles = () => ({
 
 const TransactionDetails = ({
   classes,
-  setLayerOpen,
-  open,
   items,
   handleComplete,
   handleCancel,
-  completeButtonIsDisabled
+  completeButtonIsDisabled,
+  modal,
+  openConfirm
 }) => (
   <Flyout
-    onClose={() => {
-      setLayerOpen(false);
-    }}
     size={8}
-    open={open}
     title="Accepted Offer"
   >
+    {modal === "CONFIRM_CANCEL" && <ConfirmCancel handleCancel={handleCancel} />}
     <Grid className={classes.list} container direction="column">
       <Grid className={classes.description} item>
         <Typography variant='caption'>
@@ -76,7 +79,7 @@ const TransactionDetails = ({
       <ButtonContainer
         disabled={completeButtonIsDisabled}
         handleComplete={handleComplete}
-        handleCancel={handleCancel}
+        handleCancel={openConfirm}
       />
     </Grid>
   </Flyout>
@@ -94,7 +97,8 @@ const propMap = {
   buyer: selectTransactionBuyerUsername,
   seller: selectTransactionSellerUsername,
   completeButtonIsDisabled: selectCompleteButtonIsDisabled,
-  username: selectUsername
+  username: selectUsername,
+  modal: selectModal,
 };
 
 const actionMap = {
@@ -105,7 +109,9 @@ const actionMap = {
   loadMyAsks,
   loadMyBids,
   loadOffersByUser,
-  cancelTransaction
+  cancelTransaction,
+  setModal: setModalAction,
+  setModalOpen: setModalOpenAction
 };
 
 export default compose(
@@ -147,6 +153,7 @@ export default compose(
       userId,
       cancelTransaction,
       setLayerOpen,
+      setModalOpen,
       loadTransactions,
       loadMyAsks,
       loadMyBids,
@@ -162,6 +169,7 @@ export default compose(
         loadMyAsks(userId);
         loadMyBids(userId);
         loadOffersByUser(userId);
+        setModalOpen(false);
         setLayerOpen(false);
         const data = {
           title: "Offer marked as cancelled",
@@ -170,6 +178,10 @@ export default compose(
         };
         setNotification(data);
       });
-    }
+    },
+    openConfirm: ({ setModal, setModalOpen }) => () => {
+      setModal("CONFIRM_CANCEL");
+      setModalOpen(true);
+    },
   })
 )(TransactionDetails);

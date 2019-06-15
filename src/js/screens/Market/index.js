@@ -15,11 +15,19 @@ import {
   selectFilterType,
   selectMarketLoaded,
   selectRun,
-  selectLayer, selectLayerOpen, selectInitialLocation
+  selectLayer,
+  selectLayerOpen,
+  selectInitialLocation,
+  selectModal
 } from "../../selectors";
 import { loadAsks as loadAsksAction } from "../../actions/asks";
 import { loadBids as loadBidsAction } from "../../actions/bids";
-import { setLayerOpen as setLayerOpenAction, setLayer as setLayerAction } from "../../actions/layers";
+import {
+  setLayerOpen as setLayerOpenAction,
+  setLayer as setLayerAction,
+  setModalOpen as setModalOpenAction,
+  setModal as setModalAction,
+} from "../../actions/layers";
 
 import Subheader from "../../components/Subheader";
 import GoogleMapsWrapper from "../../components/GoogleMaps/GoogleMapsWrapper";
@@ -61,18 +69,16 @@ class Market extends Component {
       handleBoundsChanged,
       handleCallback,
       layer,
-      open,
       run,
+      modal,
     } = this.props;
 
     return (
       <div>
-        {open &&
-          layer === "WELCOME" && (
-            <Welcome />
+        {modal === "WELCOME" && (
+          <Welcome />
         )}
-        {open &&
-        layer === "FILTER_MAP" && (
+        {layer === "FILTER_MAP" && (
           <FilterMap />
         )}
         <PageHeader
@@ -112,8 +118,8 @@ class Market extends Component {
 }
 
 const propMap = {
-  open: selectLayerOpen,
   layer: selectLayer,
+  modal: selectModal,
   asks: selectAsksForDisplay,
   bids: selectBidsForDisplay,
   markers: selectMapMarkers,
@@ -130,6 +136,8 @@ const actionMap = {
   loadBids: loadBidsAction,
   setLayerOpen: setLayerOpenAction,
   setLayer: setLayerAction,
+  setModalOpen: setModalOpenAction,
+  setModal: setModalAction,
   setMarketView: setMarketViewAction,
   setRun: setRunAction,
   setNavIndex: setNavIndexAction,
@@ -163,13 +171,13 @@ export default compose(
   }),
   lifecycle({
     componentWillMount() {
-      const { loadAsks, loadBids, setLayer, setLayerOpen } = this.props;
+      const { loadAsks, loadBids, setModal, setModalOpen } = this.props;
       loadAsks();
       loadBids();
 
       if (!isVisited()) {
-        setLayerOpen(true);
-        setLayer("WELCOME");
+        setModalOpen(true);
+        setModal("WELCOME");
       }
     }
   }),

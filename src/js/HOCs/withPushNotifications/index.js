@@ -34,8 +34,10 @@ export default Component => {
     mapper(propMap, actionMap),
     lifecycle({
       componentDidMount() {
-        const { userId, setSubscription } = this.props;
-        registerWorker(userId, setSubscription);
+        const { userId, setSubscription, isSubscribed } = this.props;
+        if (!isSubscribed) {
+          registerWorker(userId, setSubscription);
+        }
       }
     })
   )(pushHOC);

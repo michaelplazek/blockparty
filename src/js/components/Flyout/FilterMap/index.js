@@ -6,13 +6,15 @@ import mapper from "../../../utils/connect";
 import {
   selectFilter,
   selectFilterCoin,
-  selectFilterDistance, selectFocusField
+  selectFilterDistance,
+  selectFocusField,
 } from "../../../selectors/index";
 import {
   setFilterDistance as setFilterDistanceAction,
   setFilterCoin as setFilterCoinAction,
   setFilterType as setFilterTypeAction,
-  setFilter as setFilterAction
+  setFilter as setFilterAction,
+  setFilterPrice as setFilterPriceAction,
 } from "../../../actions/filters";
 import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
@@ -27,6 +29,11 @@ import { selectCurrencyItems, selectFilterType } from "../../../selectors";
 import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
 import Button from "@material-ui/core/Button/Button";
 import { cleanInputs, DISTANCE } from "../../../constants/validation";
+import {
+  setAskInfo as setAskInfoAction,
+  setBidInfo as setBidInfoAction,
+  setTouched as setTouchedAction,
+} from "../../../actions/app";
 
 const styles = () => ({
   root: {
@@ -38,7 +45,6 @@ const FilterMap = ({
   classes,
   distance,
   coin,
-  setLayerOpen,
   setFilterCoin,
   setFilterType,
   handleSubmit,
@@ -47,7 +53,7 @@ const FilterMap = ({
   type,
   focusField,
 }) => (
-  <Flyout size={3} onClose={() => setLayerOpen(false)}>
+  <Flyout size={3}>
     <Grid className={classes.root}>
       <ValidatorForm autoComplete="on" onSubmit={handleSubmit}>
         <FormControl margin="dense" fullWidth={true}>
@@ -78,7 +84,9 @@ const FilterMap = ({
             variant="outlined"
             native
             value={coin}
-            onChange={({ target }) => setFilterCoin(target.value)}
+            onChange={({ target }) => {
+              setFilterCoin(target.value);
+            }}
           >
             {coins.map(item => (
               <option key={item.value} value={item.value}>
@@ -129,8 +137,12 @@ const actionMap = {
   setFilterDistance: setFilterDistanceAction,
   setFilterCoin: setFilterCoinAction,
   setFilterType: setFilterTypeAction,
+  setFilterPrice: setFilterPriceAction,
   setFilter: setFilterAction,
-  setLayerOpen: setLayerOpenAction
+  setLayerOpen: setLayerOpenAction,
+  setTouched: setTouchedAction,
+  setAskInfo: setAskInfoAction,
+  setBidInfo: setBidInfoAction,
 };
 
 export default compose(
@@ -141,8 +153,19 @@ export default compose(
       const inputs = cleanInputs(distance);
       setFilterDistance(inputs[distance]);
     },
-    handleSubmit: ({ setFilter, setLayerOpen }) => () => {
+    handleSubmit: ({
+      setFilter,
+      setLayerOpen,
+      setFilterPrice,
+      setTouched,
+      setAskInfo,
+      setBidInfo
+    }) => () => {
+      setFilterPrice(undefined);
       setFilter();
+      setTouched(false);
+      setAskInfo("Mid Market Price");
+      setBidInfo(undefined);
       setLayerOpen(false);
     }
   })

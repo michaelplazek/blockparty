@@ -50,20 +50,14 @@ const styles = () => ({
 
 const AskDetails = ({
   classes,
-  setLayerOpen,
   ask,
-  open,
   offers,
   time,
   history,
   handleDelete
 }) => (
   <Flyout
-    onClose={() => {
-      setLayerOpen(false);
-    }}
     size={8}
-    open={open}
     title="Ask Details"
   >
     <Grid container direction="column">

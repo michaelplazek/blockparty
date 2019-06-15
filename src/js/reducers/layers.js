@@ -1,9 +1,11 @@
 import { stateReducer } from "./utils";
-import { SET_LAYER, OPEN_LAYER } from "../actions";
+import { SET_LAYER, OPEN_LAYER, OPEN_MODAL, SET_MODAL } from "../actions";
 
 const initialState = {
   layer: "",
-  open: false
+  open: false,
+  modal: "",
+  modalOpen: false,
 };
 
 const handlers = {
@@ -12,6 +14,12 @@ const handlers = {
   }),
   [OPEN_LAYER]: (_, action) => ({
     open: action.data
+  }),
+  [SET_MODAL]: (_, action) => ({
+    modal: action.data
+  }),
+  [OPEN_MODAL]: (_, action) => ({
+    modalOpen: action.data
   })
 };
 

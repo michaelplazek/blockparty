@@ -13,7 +13,7 @@ import {
   selectBidOfferButtonText,
   selectMyOffersLoaded,
   selectUserId,
-  selectWindowHeight
+  selectWindowHeight, selectModal
 } from "../../selectors/index";
 import { loadBid as loadBidAction } from "../../actions/bids";
 import Grid from "@material-ui/core/Grid/Grid";
@@ -25,7 +25,9 @@ import { selectBidDetails } from "./selectors";
 import DetailList from "../../components/DetailList";
 import {
   setLayer as setLayerAction,
-  setLayerOpen as setLayerOpenAction
+  setLayerOpen as setLayerOpenAction,
+  setModal as setModalAction,
+  setModalOpen as setModalOpenAction,
 } from "../../actions/layers";
 import CreateBidOffer from "../../components/Flyout/CreateBidOffer";
 import { loadOffersByUser } from "../../actions/offers";
@@ -55,8 +57,8 @@ const Bid = ({
   classes,
   loaded,
   history,
-  open,
   layer,
+  modal,
   handleOffer,
   bidHasOffer,
   buttonText,
@@ -72,11 +74,12 @@ const Bid = ({
   >
     {loaded && (
       <div>
-        {open &&
-          layer === "CREATE_BID_OFFER" && (
-            <CreateBidOffer handleClose={() => {}} handleSubmit={() => {}} />
-          )}
-        {open && layer === "VIEW_USER_DETAILS" && <UserInfo id={bid.userId} />}
+        {layer === "CREATE_BID_OFFER" && (
+          <CreateBidOffer handleClose={() => {}} handleSubmit={() => {}} />
+        )}
+        {modal === "VIEW_USER_DETAILS" && (
+          <UserInfo id={bid.userId} />
+        )}
         <Grid>
           <Button
             style={theme.palette.inverse}
@@ -124,6 +127,7 @@ const propMap = {
   items: selectBidDetails,
   loaded: selectBidLoaded,
   layer: selectLayer,
+  modal: selectModal,
   open: selectLayerOpen,
   bidHasOffer: selectBidHasOffer,
   buttonText: selectBidOfferButtonText,
@@ -137,7 +141,9 @@ const actionMap = {
   loadBid: loadBidAction,
   setLayer: setLayerAction,
   setLayerOpen: setLayerOpenAction,
-  loadOffersByUser
+  loadOffersByUser,
+  setModal: setModalAction,
+  setModalOpen: setModalOpenAction,
 };
 
 export default compose(
@@ -160,9 +166,9 @@ export default compose(
       setLayer("CREATE_BID_OFFER");
       setLayerOpen(true);
     },
-    handleUserClick: ({ setLayer, setLayerOpen }) => () => {
-      setLayer("VIEW_USER_DETAILS");
-      setLayerOpen(true);
+    handleUserClick: ({ setModal, setModalOpen }) => () => {
+      setModal("VIEW_USER_DETAILS");
+      setModalOpen(true);
     }
   })
 )(Bid);
