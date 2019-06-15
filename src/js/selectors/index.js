@@ -400,6 +400,9 @@ export const selectScreenHeight = createSelector(
 );
 export const selectWindowWidth = state => state.app.windowWidth;
 export const selectMarketView = state => state.app.marketView;
+export const selectTouched = state => state.app.touched;
+export const selectAskInfo = state => state.app.askInfo;
+export const selectBidInfo = state => state.app.bidInfo;
 
 // MISC
 export const selectBidHasOffer = createSelector(

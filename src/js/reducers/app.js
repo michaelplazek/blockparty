@@ -10,6 +10,7 @@ import {
   SET_VISITED,
   SET_NAV_INDEX,
   SET_RUN,
+  SET_TOUCHED, SET_ASK_INFO, SET_BID_INFO,
 } from "../actions";
 import { MAP } from "../constants/app";
 import { getIndexFromPath } from "../utils/location";
@@ -27,6 +28,9 @@ const initialState = {
   },
   visited: false,
   run: false,
+  touched: false,
+  askInfo: "Mid Market Price",
+  bidInfo: undefined,
 };
 
 const handlers = {
@@ -65,6 +69,15 @@ const handlers = {
   }),
   [SET_RUN]: (state, action) => ({
     run: action.data,
+  }),
+  [SET_TOUCHED]: (state, action) => ({
+    touched: action.data,
+  }),
+  [SET_ASK_INFO]: (state, action) => ({
+    askInfo: action.data,
+  }),
+  [SET_BID_INFO]: (state, action) => ({
+    bidInfo: action.data,
   }),
 };
 
