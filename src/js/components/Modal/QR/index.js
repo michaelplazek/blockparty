@@ -9,6 +9,9 @@ import Paper from "@material-ui/core/Paper";
 import {selectQR} from "../../../selectors";
 import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
 
+import btcqr from './bitcoinqr.png'
+import xmrqr from './monero_qr.png'
+
 const styles = () => ({
   items: {
     marginTop: "2.2em",
@@ -28,15 +31,15 @@ const QR = ({ setLayerOpen, qr, classes }) => (
       setLayerOpen(false);
     }}
     open={open}
-    title=""
+    title={qr === "BTC" ? "Bitcoin" : "Monero"}
   >
     <Grid container direction="column">
       <Grid item className={classes.items}>
         <Paper elevation={0} className={classes.paper}>
           {qr === 'BTC' ? (
-            <img src="./bitcoinqr.PNG" alt="BTC wallet QR code" height={48} width={48}/>
+            <img src={btcqr} alt="BTC wallet QR code" height={160} width={160}/>
           ) : (
-            <img src="./monero_qr.png" alt="XMR wallet QR code" height={48} width={48}/>
+            <img src={xmrqr} alt="XMR wallet QR code" height={160} width={160}/>
             )
           }
         </Paper>

@@ -48,17 +48,22 @@ const styles = () => ({
   },
   button: {
     alignSelf: "center",
-    marginBottom: "1em"
+    marginBottom: "0.75em"
+  },
+  likeTheApp: {
+    marginBottom: "0.5em",
   },
   icon: {
     cursor: 'pointer',
     marginLeft: "0.5em"
   },
   suggestions: {
-    marginTop: "1em",
+    marginTop: "0.75em",
     marginBottom: "0.25em"
   }
 });
+
+const ICON_COLOR = '#3f51b5';
 
 const Account = ({
   logOut,
@@ -113,7 +118,7 @@ const Account = ({
       </Grid>
 
       <Grid item container justify='center'>
-        <Grid item>
+        <Grid item className={classes.likeTheApp}>
           <Typography variant='caption'>
             Like the app? Donate to support our developers.
           </Typography>
@@ -125,7 +130,7 @@ const Account = ({
             </Typography>
           </Grid>
           <Grid item className={classes.icon}>
-            <FontAwesomeIcon onClick={() => handleQR("XMR")} icon={faQrcode} />
+            <FontAwesomeIcon style={{ color: ICON_COLOR }} onClick={() => handleQR("XMR")} icon={faQrcode} />
           </Grid>
           <Grid item className={classes.icon}>
             <CopyToClipboard
@@ -135,11 +140,11 @@ const Account = ({
                 setTimeout(() => setMoneroCopied(false), 1000);
               }}
             >
-              <FontAwesomeIcon icon={faCopy} />
+              <FontAwesomeIcon style={{ color: ICON_COLOR }} icon={faCopy} />
             </CopyToClipboard>
           </Grid>
           {moneroCopied && (
-            <Grid item className={classes.copy}>
+            <Grid item className={classes.icon}>
               <Typography variant='caption'>
                 Copied!
               </Typography>
@@ -153,7 +158,7 @@ const Account = ({
             </Typography>
           </Grid>
           <Grid item className={classes.icon}>
-            <FontAwesomeIcon onClick={() => handleQR("BTC")} icon={faQrcode} />
+            <FontAwesomeIcon style={{ color: ICON_COLOR }} onClick={() => handleQR("BTC")} icon={faQrcode} />
           </Grid>
           <Grid item className={classes.icon}>
             <CopyToClipboard
@@ -163,11 +168,11 @@ const Account = ({
                 setTimeout(() => setBitcoinCopied(false), 1000);
               }}
             >
-              <FontAwesomeIcon icon={faCopy} />
+              <FontAwesomeIcon style={{ color: ICON_COLOR }} icon={faCopy} />
             </CopyToClipboard>
           </Grid>
           {bitcoinCopied && (
-            <Grid item className={classes.copy}>
+            <Grid item className={classes.icon}>
               <Typography variant='caption'>
                 Copied!
               </Typography>
