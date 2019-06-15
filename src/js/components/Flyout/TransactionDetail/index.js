@@ -48,19 +48,13 @@ const styles = () => ({
 
 const TransactionDetails = ({
   classes,
-  setLayerOpen,
-  open,
   items,
   handleComplete,
   handleCancel,
   completeButtonIsDisabled
 }) => (
   <Flyout
-    onClose={() => {
-      setLayerOpen(false);
-    }}
     size={8}
-    open={open}
     title="Accepted Offer"
   >
     <Grid className={classes.list} container direction="column">

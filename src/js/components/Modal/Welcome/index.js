@@ -4,9 +4,9 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import mapper from "../../../utils/connect";
 import Modal from "../index";
 
-import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
+import { setModalOpen as setModalOpenAction } from "../../../actions/layers";
 import {
-  selectLayerOpen,
+  selectModalOpen,
   selectWindowHeight,
   selectWindowWidth
 } from "../../../selectors";
@@ -85,13 +85,13 @@ const Welcome = ({ classes, handleTour, handleSkip }) => (
 );
 
 const propMap = {
-  open: selectLayerOpen,
+  open: selectModalOpen,
   windowHeight: selectWindowHeight,
   windowWidth: selectWindowWidth
 };
 
 const actionMap = {
-  setLayerOpen: setLayerOpenAction,
+  setModalOpen: setModalOpenAction,
   setRun: setRunAction
 };
 
@@ -99,14 +99,14 @@ export default compose(
   mapper(propMap, actionMap),
   withStyles(styles),
   withHandlers({
-    handleSkip: ({ setRun, setLayerOpen }) => () => {
+    handleSkip: ({ setRun, setModalOpen }) => () => {
       setRun(false);
       setAppVisited();
-      setLayerOpen(false);
+      setModalOpen(false);
     },
-    handleTour: ({ setRun, setLayerOpen }) => () => {
+    handleTour: ({ setRun, setModalOpen }) => () => {
       setRun(true);
-      setLayerOpen(false);
+      setModalOpen(false);
     },
   }),
 )(Welcome);

@@ -38,7 +38,6 @@ const FilterMap = ({
   classes,
   distance,
   coin,
-  setLayerOpen,
   setFilterCoin,
   setFilterType,
   handleSubmit,
@@ -47,7 +46,7 @@ const FilterMap = ({
   type,
   focusField,
 }) => (
-  <Flyout size={3} onClose={() => setLayerOpen(false)}>
+  <Flyout size={3}>
     <Grid className={classes.root}>
       <ValidatorForm autoComplete="on" onSubmit={handleSubmit}>
         <FormControl margin="dense" fullWidth={true}>

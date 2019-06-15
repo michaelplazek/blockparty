@@ -15,7 +15,7 @@ import withDimensions from "../../HOCs/withDimensions";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Grid from "@material-ui/core/Grid/Grid";
 import {
-  selectLayer, selectLayerOpen,
+  selectModal,
   selectRun,
   selectUserBio,
   selectUsername,
@@ -35,7 +35,7 @@ import Tooltip from "../../components/TourTooltip";
 import {setRun as setRunAction} from "../../actions/app";
 import EndOfTour from "../../components/Modal/EndOfTour";
 import QR from "../../components/Modal/QR";
-import {setLayer as setLayerAction, setLayerOpen as setLayerOpenAction} from "../../actions/layers";
+import {setModal as setModalAction, setModalOpen as setModalOpenAction} from "../../actions/layers";
 import {truncateString} from "../../utils/strings";
 import {setQR as setQRAction} from "../../actions/metrics";
 
@@ -74,8 +74,7 @@ const Account = ({
   history,
   run,
   handleCallback,
-  layer,
-  open,
+  modal,
   moneroCopied,
   setMoneroCopied,
   bitcoinCopied,
@@ -83,12 +82,10 @@ const Account = ({
   handleQR,
 }) => (
   <div>
-    {open &&
-      layer === "END_OF_TOUR" && (
-        <EndOfTour />
+    {modal === "END_OF_TOUR" && (
+      <EndOfTour />
     )}
-    {open &&
-    layer === "QR" && (
+    {modal === "QR" && (
       <QR />
     )}
     <PageHeader
@@ -223,16 +220,15 @@ const propMap = {
   reputation: selectUserReputation,
   items: selectUserDetails,
   run: selectRun,
-  layer: selectLayer,
-  open: selectLayerOpen,
+  modal: selectModal,
 };
 
 const actionMap = {
   logOut: logOutUserAction,
   loadUserFromToken: loadUserFromTokenAction,
   setRun: setRunAction,
-  setLayer: setLayerAction,
-  setLayerOpen: setLayerOpenAction,
+  setModal: setModalAction,
+  setModalOpen: setModalOpenAction,
   setQR: setQRAction,
 };
 
@@ -252,16 +248,16 @@ export default compose(
     }
   }),
   withHandlers({
-    handleCallback: ({ setLayer, setLayerOpen }) => (stats) => {
+    handleCallback: ({ setModal, setModalOpen }) => (stats) => {
       if (stats.status === 'finished') {
-        setLayer("END_OF_TOUR");
-        setLayerOpen(true);
+        setModal("END_OF_TOUR");
+        setModalOpen(true);
       }
     },
-    handleQR: ({ setLayerOpen, setLayer, setQR }) => (type) => {
+    handleQR: ({ setModalOpen, setModal, setQR }) => (type) => {
       setQR(type);
-      setLayer("QR");
-      setLayerOpen(true);
+      setModal("QR");
+      setModalOpen(true);
     }
   }),
   withPolling(({ loadUserFromToken }) => {

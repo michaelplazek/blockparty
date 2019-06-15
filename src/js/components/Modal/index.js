@@ -5,11 +5,14 @@ import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
 import mapper from "../../utils/connect";
 import {
-  selectLayerOpen,
+  selectModalOpen,
   selectWindowHeight,
   selectWindowWidth
 } from "../../selectors";
-import { setLayerOpen as setLayerOpenAction } from "../../actions/layers";
+import {
+  setModalOpen as setModalOpenAction,
+  setModal as setModalAction,
+} from "../../actions/layers";
 
 import Slide from "@material-ui/core/Slide/Slide";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -39,17 +42,20 @@ const styles = () => ({
 
 const ModalBase = ({
   classes,
-  width,
   children,
   open,
-  setLayerOpen,
+  setModalOpen,
+  setModal,
   onClose,
   title
 }) => (
   <Dialog
     open={open}
     onClose={onClose}
-    onBackdropClick={() => setLayerOpen(false)}
+    onBackdropClick={() => {
+      setModal("");
+      setModalOpen(false)
+    }}
   >
     <Slide direction="up" in={open} mountOnEnter unmountOnExit>
       <div
@@ -60,7 +66,14 @@ const ModalBase = ({
             <Typography variant="title">{title}</Typography>
           </Grid>
           <Grid item>
-            <div className={classes.closeButton} onClick={onClose}>
+            <div
+              className={classes.closeButton}
+              onClick={() => {
+                onClose();
+                setModal("");
+                setModalOpen(false);
+              }}
+            >
               <FontAwesomeIcon icon={faTimes} />
             </div>
           </Grid>
@@ -82,11 +95,12 @@ ModalBase.defaultProps = {
 const propMap = {
   height: selectWindowHeight,
   width: selectWindowWidth,
-  open: selectLayerOpen
+  open: selectModalOpen
 };
 
 const actionMap = {
-  setLayerOpen: setLayerOpenAction
+  setModalOpen: setModalOpenAction,
+  setModal: setModalAction,
 };
 
 export default compose(

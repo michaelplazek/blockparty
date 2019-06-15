@@ -50,20 +50,14 @@ const styles = () => ({
 
 const DeleteBid = ({
   classes,
-  setLayerOpen,
   bid,
-  open,
   offers,
   time,
   history,
   handleDelete
 }) => (
   <Flyout
-    onClose={() => {
-      setLayerOpen(false);
-    }}
     size={8}
-    open={open}
     title="Bid Details"
   >
     <Grid container direction="column">

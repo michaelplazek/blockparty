@@ -20,7 +20,6 @@ import Typography from "@material-ui/core/Typography/Typography";
 import numeral from "numeral";
 import { USD } from "../../../constants/currency";
 import Flyout from "../index";
-import Paper from "@material-ui/core/Paper/Paper";
 import { getStatusColor } from "../../../utils/status";
 import Button from "@material-ui/core/Button/Button";
 import { deleteOffer, loadOffersByUser } from "../../../actions/offers";
@@ -63,24 +62,13 @@ const styles = () => ({
 
 const OfferDetails = ({
   classes,
-  setLayerOpen,
-  windowWidth,
-  windowHeight,
   offer,
-  open,
   time,
   handleDelete,
   total
 }) => (
   <Flyout
-    onClose={() => {
-      setLayerOpen(false);
-    }}
-    onBackdropClick={() => {
-      setLayerOpen(false);
-    }}
     size={8}
-    open={open}
     title="Offer Details"
   >
     <Grid container direction="column">
