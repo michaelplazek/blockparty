@@ -38,7 +38,7 @@ const SelectCoin = ({
       }}
     >
       {coins.map(coin => (
-        <option key={coin.value} value={coin.value}>
+        <option disabled={coin.disabled} key={coin.value} value={coin.value}>
           {coin.label}
         </option>
       ))}

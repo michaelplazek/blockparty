@@ -539,6 +539,18 @@ export const selectAskCurrencyItems = createSelector(
     compose(
       fpMap(item => ({
         label: `${item.assetName} - ${item.assetSymbol}`,
+        value: item.assetSymbol,
+        disabled: coins.includes(item.assetSymbol)
+      })),
+    )(names)
+);
+export const selectFilteredAskCurrencyItems = createSelector(
+  selectCurrencyNames,
+  selectMyAskCoins,
+  (names, coins) =>
+    compose(
+      fpMap(item => ({
+        label: `${item.assetName} - ${item.assetSymbol}`,
         value: item.assetSymbol
       })),
       filter(coin => !coins.includes(coin.assetSymbol))
@@ -551,7 +563,21 @@ export const selectBidCurrencyItems = createSelector(
     compose(
       fpMap(item => ({
         label: `${item.assetName} - ${item.assetSymbol}`,
-        value: item.assetSymbol
+        value: item.assetSymbol,
+        disabled: coins.includes(item.assetSymbol)
+      })),
+      // filter(coin => !coins.includes(coin.assetSymbol))
+    )(names)
+);
+
+export const selectFilteredBidCurrencyItems = createSelector(
+  selectCurrencyNames,
+  selectMyBidCoins,
+  (names, coins) =>
+    compose(
+      fpMap(item => ({
+        label: `${item.assetName} - ${item.assetSymbol}`,
+        value: item.assetSymbol,
       })),
       filter(coin => !coins.includes(coin.assetSymbol))
     )(names)

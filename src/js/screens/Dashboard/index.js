@@ -32,7 +32,7 @@ import withDimensions from "../../HOCs/withDimensions";
 import withStyles from "@material-ui/core/styles/withStyles";
 import {
   selectAskCurrencyItems, selectBidCurrencyItems,
-  selectDashboardLoaded,
+  selectDashboardLoaded, selectFilteredAskCurrencyItems, selectFilteredBidCurrencyItems,
   selectLayer,
   selectMyAsks,
   selectMyBids,
@@ -59,8 +59,8 @@ import { loadTransaction, loadTransactions } from "../../actions/transactions";
 import TransactionDetails from "../../components/Flyout/TransactionDetail";
 import withLocation from "../../HOCs/withLocation";
 import { loadLastPrice as loadLastPriceAction } from "../../actions/metrics";
-import { setBidPrice as setBidPriceAction } from "../../actions/createBid";
-import { setAskPrice as setAskPriceAction } from "../../actions/createAsk";
+import {setBidCoin as setBidCoinAction, setBidPrice as setBidPriceAction} from "../../actions/createBid";
+import {setAskCoin as setAskCoinAction, setAskPrice as setAskPriceAction} from "../../actions/createAsk";
 import numeral from "numeral";
 import { COST } from "../../constants/currency";
 import withPolling from "../../HOCs/withPolling";
@@ -215,6 +215,8 @@ const propMap = {
   run: selectRun,
   askCoins: selectAskCurrencyItems,
   bidCoins: selectBidCurrencyItems,
+  filteredBidCoins: selectFilteredBidCurrencyItems,
+  filteredAskCoins: selectFilteredAskCurrencyItems
 };
 
 const actionMap = {
@@ -238,6 +240,8 @@ const actionMap = {
   setBidPrice: setBidPriceAction,
   setRun: setRunAction,
   setNavIndex: setNavIndexAction,
+  setBidCoin: setBidCoinAction,
+  setAskCoin: setAskCoinAction
 };
 
 export default compose(
@@ -312,11 +316,13 @@ export default compose(
       setBidPrice,
       setLayer,
       setLayerOpen,
-      bidCoins,
+      setBidCoin,
+      filteredBidCoins,
     }) => () => {
-      loadLastPrice(bidCoins[0].value).then(response =>
+      loadLastPrice(filteredBidCoins[0].value).then(response =>
         setBidPrice(numeral(response.data).format(COST))
       );
+      setBidCoin(filteredBidCoins[0].value);
       setLayer("CREATE_BID");
       setLayerOpen(true);
     },
@@ -325,11 +331,13 @@ export default compose(
       setAskPrice,
       setLayer,
       setLayerOpen,
-      askCoins
+      setAskCoin,
+      filteredAskCoins
     }) => () => {
-      loadLastPrice(askCoins[0].value).then(response =>
+      loadLastPrice(filteredAskCoins[0].value).then(response =>
         setAskPrice(numeral(response.data).format(COST))
       );
+      setAskCoin(filteredAskCoins[0].value);
       setLayer("CREATE_ASK");
       setLayerOpen(true);
     },
