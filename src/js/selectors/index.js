@@ -385,6 +385,8 @@ export const selectBidFormTotal = createSelector(
 // LAYERS
 export const selectLayer = state => state.layers.layer;
 export const selectLayerOpen = state => state.layers.open;
+export const selectModal = state => state.layers.modal;
+export const selectModalOpen = state => state.layers.modalOpen;
 
 // APP
 export const selectNavHeight = state => state.app.navigationBarHeight;

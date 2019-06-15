@@ -42,6 +42,8 @@ export const RESET_BID = "RESET_BID";
 // LAYERS
 export const SET_LAYER = "SET_LAYER";
 export const OPEN_LAYER = "OPEN_LAYER";
+export const SET_MODAL = "SET_MODAL";
+export const OPEN_MODAL = "OPEN_MODAL";
 
 // SESSION
 export const LOG_IN = "LOG_IN";

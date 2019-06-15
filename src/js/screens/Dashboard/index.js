@@ -72,6 +72,7 @@ import Joyride from "react-joyride";
 import {dashboardSteps, isVisited, tourStyle} from "../../config/tour";
 import Tooltip from "../../components/TourTooltip";
 import {setNavIndex as setNavIndexAction, setRun as setRunAction} from "../../actions/app";
+import QR from "../../components/Modal/QR";
 
 const styles = () => ({
   root: {

@@ -22,6 +22,7 @@ import { setNotification } from "../../actions/app";
 const OfferWidgetList = ({ offers, post, handleAccept, handleDecline }) => (
   <Tile title="Offers" count={offers.length}>
     <Grid container direction="column">
+      {console.log(post)}
       {offers.map((item, index) => (
         <OfferWidget
           key={`${item.volume}-${index}`}
@@ -29,6 +30,7 @@ const OfferWidgetList = ({ offers, post, handleAccept, handleDecline }) => (
           volume={item.volume}
           price={post.price}
           coin={post.coin}
+          username={item.username}
           time={moment(item.timestamp).fromNow()}
           handleAccept={() => handleAccept(item)}
           handleDecline={() => handleDecline(item)}

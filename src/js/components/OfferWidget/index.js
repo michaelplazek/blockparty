@@ -20,7 +20,11 @@ const styles = () => ({
     margin: "0px 0px 0px 4px"
   },
   volume: {},
-
+  user: {
+    position: 'relative',
+    bottom: '4px',
+  },
+  time: {},
   button: {
     margin: "4px"
   }
@@ -31,6 +35,7 @@ const OfferWidget = ({
   total,
   volume,
   coin,
+  username,
   time,
   open,
   setOpen,
@@ -38,6 +43,7 @@ const OfferWidget = ({
   handleDecline
 }) => (
   <div onClick={() => setOpen(!open)}>
+    {console.log(username)}
     <Paper className={classes.root} elevation={1}>
       <Grid container direction="column">
         <Grid item>
@@ -58,8 +64,15 @@ const OfferWidget = ({
               </Grid>
             </Grid>
           </Grid>
-          <Grid item>
-            <Typography variant="caption">{time}</Typography>
+          <Grid item container justify='space-between' direction='row'>
+            <Grid className={classes.time} item>
+              <Typography variant="caption">{time}</Typography>
+            </Grid>
+            <Grid item>
+              <Typography className={classes.user} variant="subheading">
+                {username}
+              </Typography>
+            </Grid>
           </Grid>
         </Grid>
         <Grid item>
