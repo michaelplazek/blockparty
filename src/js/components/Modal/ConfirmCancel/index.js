@@ -1,7 +1,6 @@
 import React from "react";
 import { compose } from "recompose";
 import withStyles from "@material-ui/core/styles/withStyles";
-import mapper from "../../../utils/connect";
 import Modal from "../index";
 import theme from "../../../../theme";
 
@@ -42,12 +41,6 @@ const ConfirmCancel = ({ classes, handleCancel }) => (
   </Modal>
 );
 
-const propMap = {
-};
-
-const actionMap = {};
-
 export default compose(
-  mapper(propMap, actionMap),
   withStyles(styles),
 )(ConfirmCancel);

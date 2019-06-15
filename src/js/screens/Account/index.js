@@ -241,10 +241,11 @@ export default compose(
   withDimensions,
   lifecycle({
     componentDidMount() {
-      const { setRun } = this.props;
+      const { setRun, loadUserFromToken } = this.props;
       if (!isVisited()) {
         setRun(true);
       }
+      loadUserFromToken();
     }
   }),
   withHandlers({
