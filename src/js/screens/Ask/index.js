@@ -13,7 +13,8 @@ import {
   selectAskOfferButtonText,
   selectMyOffersLoaded,
   selectUserId,
-  selectWindowHeight
+  selectWindowHeight,
+  selectModal,
 } from "../../selectors/index";
 import { loadAsk as loadAskAction } from "../../actions/asks";
 import Grid from "@material-ui/core/Grid/Grid";
@@ -26,7 +27,9 @@ import { selectAskDetails } from "./selectors";
 import DetailList from "../../components/DetailList";
 import {
   setLayer as setLayerAction,
-  setLayerOpen as setLayerOpenAction
+  setLayerOpen as setLayerOpenAction,
+  setModalOpen as setModalOpenAction,
+  setModal as setModalAction,
 } from "../../actions/layers";
 import CreateAskOffer from "../../components/Flyout/CreateAskOffer";
 import { loadOffersByUser } from "../../actions/offers";
@@ -57,7 +60,7 @@ const Ask = ({
   loaded,
   history,
   layer,
-  open,
+  modal,
   handleOffer,
   hasAskOffer,
   buttonText,
@@ -73,11 +76,12 @@ const Ask = ({
   >
     {loaded && (
       <div>
-        {open &&
-          layer === "CREATE_ASK_OFFER" && (
-            <CreateAskOffer handleClose={() => {}} handleSubmit={() => {}} />
-          )}
-        {open && layer === "VIEW_USER_DETAILS" && <UserInfo id={ask.userId} />}
+        {layer === "CREATE_ASK_OFFER" && (
+          <CreateAskOffer handleClose={() => {}} handleSubmit={() => {}} />
+        )}
+        {modal === "VIEW_USER_DETAILS" && (
+          <UserInfo id={ask.userId} />
+        )}
         <Grid>
           <Button
             style={theme.palette.inverse}
@@ -125,20 +129,23 @@ const propMap = {
   loaded: selectAskLoaded,
   items: selectAskDetails,
   layer: selectLayer,
+  modal: selectModal,
   open: selectLayerOpen,
   hasAskOffer: selectAskHasOffer,
   buttonText: selectAskOfferButtonText,
   myOffersLoaded: selectMyOffersLoaded,
   height: selectWindowHeight,
   userId: selectUserId,
-  showButton: selectAskHasButton
+  showButton: selectAskHasButton,
 };
 
 const actionMap = {
   loadAsk: loadAskAction,
   setLayer: setLayerAction,
   setLayerOpen: setLayerOpenAction,
-  loadOffersByUser
+  loadOffersByUser,
+  setModalOpen: setModalOpenAction,
+  setModal: setModalAction,
 };
 
 export default compose(
@@ -161,9 +168,9 @@ export default compose(
       setLayer("CREATE_ASK_OFFER");
       setLayerOpen(true);
     },
-    handleUserClick: ({ setLayer, setLayerOpen }) => () => {
-      setLayer("VIEW_USER_DETAILS");
-      setLayerOpen(true);
+    handleUserClick: ({ setModal, setModalOpen }) => () => {
+      setModal("VIEW_USER_DETAILS");
+      setModalOpen(true);
     }
   })
 )(Ask);
