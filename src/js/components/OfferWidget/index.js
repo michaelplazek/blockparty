@@ -71,7 +71,7 @@ const OfferWidget = ({
               <Typography variant="caption">{time}</Typography>
             </Grid>
             <Grid item onClick={onUserClick}>
-              <Typography variant='subtitle2' className={classes.user}>
+              <Typography variant='subtitle1' className={classes.user}>
                 {username}
               </Typography>
             </Grid>
