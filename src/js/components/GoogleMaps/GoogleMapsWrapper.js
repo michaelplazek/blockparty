@@ -13,6 +13,10 @@ import Typography from "@material-ui/core/Typography/Typography";
 import Grid from "@material-ui/core/Grid/Grid";
 import { USD } from "../../constants/currency";
 import {getCoinIcon} from "../List/utils";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import { faCrosshairs } from "@fortawesome/free-solid-svg-icons";
+import withDimensions from "../../HOCs/withDimensions";
+import Paper from "@material-ui/core/Paper";
 
 class GoogleMapsWrapper extends Component {
   constructor(props) {
@@ -40,6 +44,9 @@ class GoogleMapsWrapper extends Component {
       showLabels,
       onMapMounted,
       onBoundsChanged,
+      showCenterIcon,
+      handleCenter,
+      windowHeight,
     } = this.props;
 
     return (
@@ -61,6 +68,27 @@ class GoogleMapsWrapper extends Component {
         ref={onMapMounted}
         onBoundsChanged={onBoundsChanged}
       >
+
+        {showCenterIcon && (
+          <Paper
+            style={{
+              position: 'absolute',
+              right: '0.8em',
+              bottom: `${windowHeight/2 - 75}px`,
+              zIndex: 50,
+              color: '#666666',
+              cursor: 'pointer',
+              padding: `0.5em`
+            }}
+          >
+            <FontAwesomeIcon
+              size='lg'
+              icon={faCrosshairs}
+              onClick={handleCenter}
+            />
+          </Paper>
+        )}
+
         {showLabels &&
           markers.map(item => (
             <InfoWindow
@@ -114,7 +142,7 @@ class GoogleMapsWrapper extends Component {
                 </Grid>
               </div>
             </InfoWindow>
-          ))}
+        ))}
 
         {markers.map(item => (
           <Marker
@@ -150,7 +178,8 @@ GoogleMapsWrapper.propTypes = {
   border: PropTypes.string,
   markersDraggable: PropTypes.bool,
   onMarkerDrag: PropTypes.func,
-  showLabels: PropTypes.bool
+  showLabels: PropTypes.bool,
+  showCenterIcon: PropTypes.bool,
 };
 
 GoogleMapsWrapper.defaultProps = {
@@ -172,7 +201,8 @@ GoogleMapsWrapper.defaultProps = {
   locationFromBottom: 0,
   border: "",
   onMarkerDrag: () => {},
-  showLabels: false
+  showLabels: false,
+  showCenterIcon: false,
 };
 
 export default compose(
@@ -198,6 +228,7 @@ export default compose(
   }),
   withScriptjs,
   withGoogleMap,
+  withDimensions,
   withHandlers(() => {
     let map;
     return {
@@ -209,6 +240,9 @@ export default compose(
         const longitude = map.getCenter().lng();
         const coords = { latitude, longitude };
         handleBoundsChanged(coords);
+      },
+      handleCenter: ({initialLocation}) => () => {
+        map.panTo(new google.maps.LatLng(initialLocation.lat, initialLocation.lng))
       },
     };
   })

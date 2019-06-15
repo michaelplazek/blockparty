@@ -38,6 +38,7 @@ export const selectUserReputation = createSelector(
     return total > 0 ? (completed / total) * 5 : 0;
   }
 );
+export const selectInitialLocation = state => state.session.initialLocation;
 
 // FILTERS
 export const selectFilterDistance = state => state.filters.distanceAway;

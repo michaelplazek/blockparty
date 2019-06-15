@@ -15,7 +15,7 @@ import {
   selectFilterType,
   selectMarketLoaded,
   selectRun,
-  selectLayer, selectLayerOpen
+  selectLayer, selectLayerOpen, selectInitialLocation
 } from "../../selectors";
 import { loadAsks as loadAsksAction } from "../../actions/asks";
 import { loadBids as loadBidsAction } from "../../actions/bids";
@@ -57,6 +57,7 @@ class Market extends Component {
       windowWidth,
       handleMarkerClick,
       currentLocation,
+      initialLocation,
       handleBoundsChanged,
       handleCallback,
       layer,
@@ -87,7 +88,9 @@ class Market extends Component {
         <GoogleMapsWrapper
           handleBoundsChanged={handleBoundsChanged}
           currentLocation={currentLocation}
+          initialLocation={initialLocation}
           showLabels={true}
+          showCenterIcon={true}
           markers={markers}
           onMarkerClick={handleMarkerClick}
           height={(windowHeight - navHeight - headerHeight) / 2}
@@ -116,6 +119,7 @@ const propMap = {
   headerHeight: selectHeaderHeight,
   type: selectFilterType,
   run: selectRun,
+  initialLocation: selectInitialLocation,
   loaded: selectMarketLoaded // from withLoader
 };
 
