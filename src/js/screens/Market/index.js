@@ -51,7 +51,6 @@ import { isVisited, marketSteps, tourStyle } from "../../config/tour";
 import Tooltip from "../../components/TourTooltip";
 import Welcome from "../../components/Modal/Welcome";
 import { setCurrentLocation as setCurrentLocationAction } from "../../actions/session";
-import OrderList from "../../components/OrderList";
 import ListIcon from "./ListIcon";
 import Orders from "../../components/Flyout/Orders";
 
@@ -109,7 +108,6 @@ class Market extends Component {
           navHeight={navHeight}
           windowHeight={windowHeight}
         />
-        <OrderList />
         <Joyride
           steps={marketSteps}
           run={run}
