@@ -16,9 +16,8 @@ import {
   selectMarketLoaded,
   selectRun,
   selectLayer,
-  selectLayerOpen,
   selectInitialLocation,
-  selectModal
+  selectModal, selectListOpen
 } from "../../selectors";
 import { loadAsks as loadAsksAction } from "../../actions/asks";
 import { loadBids as loadBidsAction } from "../../actions/bids";
@@ -36,6 +35,7 @@ import FilterMap from "../../components/Flyout/FilterMap";
 import withDimensions from "../../HOCs/withDimensions";
 import withLoader from "../../HOCs/withLoader";
 import {
+  setListOpen as setListOpenAction,
   setMarketView as setMarketViewAction,
   setNavIndex as setNavIndexAction,
   setRun as setRunAction,
@@ -52,6 +52,7 @@ import Welcome from "../../components/Modal/Welcome";
 import {setCurrentLocation as setCurrentLocationAction} from "../../actions/session";
 import OrderList from "../../components/OrderList";
 import ListIcon from "./ListIcon";
+import Orders from "../../components/Flyout/Orders";
 
 class Market extends Component {
   constructor(props) {
@@ -84,6 +85,7 @@ class Market extends Component {
         {layer === "FILTER_MAP" && (
           <FilterMap />
         )}
+        <Orders />
         <PageHeader
           leftHandLabel="Market"
           showSubheader={true}
@@ -136,6 +138,7 @@ const propMap = {
   type: selectFilterType,
   run: selectRun,
   initialLocation: selectInitialLocation,
+  listOpen: selectListOpen,
   loaded: selectMarketLoaded // from withLoader
 };
 
@@ -149,7 +152,8 @@ const actionMap = {
   setMarketView: setMarketViewAction,
   setRun: setRunAction,
   setNavIndex: setNavIndexAction,
-  setCurrentLocation: setCurrentLocationAction
+  setCurrentLocation: setCurrentLocationAction,
+  setListOpen: setListOpenAction
 };
 
 export default compose(
@@ -176,8 +180,8 @@ export default compose(
         setNavIndex(1);
       }
     },
-    handleOpenList: () => () => {
-
+    handleOpenList: ({ setListOpen, listOpen }) => () => {
+      setListOpen(!listOpen);
     },
   }),
   lifecycle({

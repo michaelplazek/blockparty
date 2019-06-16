@@ -89,12 +89,14 @@ const Flyout = ({
 
 Flyout.propTypes = {
   onClose: PropTypes.func,
-  direction: PropTypes.string
+  direction: PropTypes.string,
+  title: PropTypes.string
 };
 
 Flyout.defaultProps = {
   onClose: () => {},
-  direction: "right"
+  direction: "right",
+  title: ""
 };
 
 const propMap = {

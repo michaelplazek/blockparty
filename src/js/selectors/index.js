@@ -640,6 +640,7 @@ export const selectIsSubscribed = state => state.app.notifications.isSubscribed;
 export const selectSubscription = state => state.app.notifications.subscription;
 export const selectVisited = state => state.app.visited;
 export const selectNavIndex = state => state.app.navigationIndex;
+export const selectListOpen = state => state.app.listOpen;
 
 export const selectUser = state => state.users.user;
 export const selectRun = state => state.app.run;

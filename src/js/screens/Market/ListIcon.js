@@ -1,17 +1,18 @@
 import React from 'react';
 import { compose } from "recompose";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faList} from "@fortawesome/free-solid-svg-icons";
+import {faList, faTimes} from "@fortawesome/free-solid-svg-icons";
 import Paper from "@material-ui/core/Paper";
 import withDimensions from "../../HOCs/withDimensions";
 import mapper from "../../utils/connect";
-import {selectNavHeight} from "../../selectors";
+import {selectListOpen, selectNavHeight} from "../../selectors";
 
 const ListIcon = ({
   openList,
   windowHeight,
   navHeight,
-  height
+  height,
+  open
 }) => (
   <Paper
     style={{
@@ -26,7 +27,7 @@ const ListIcon = ({
   >
     <FontAwesomeIcon
       size='lg'
-      icon={faList}
+      icon={!open? faList : faTimes}
       onClick={openList}
     />
   </Paper>
@@ -34,6 +35,7 @@ const ListIcon = ({
 
 const propMap = {
   navHeight: selectNavHeight,
+  open: selectListOpen
 };
 
 export default compose(
