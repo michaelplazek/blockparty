@@ -70,7 +70,7 @@ const handlers = {
     location: {
       lat: action.data.latitude,
       lng: action.data.longitude
-    },
+    }
   }),
   [USER_FROM_TOKEN]: (state, action) => ({
     username: action.data.user.username,

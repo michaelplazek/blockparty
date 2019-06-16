@@ -1,17 +1,17 @@
-import React from 'react';
-import { compose } from 'recompose';
+import React from "react";
+import { compose } from "recompose";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
-import {Typography, withStyles} from "@material-ui/core";
+import { Typography, withStyles } from "@material-ui/core";
 import withDimensions from "../HOCs/withDimensions";
 import mapper from "../utils/connect";
 
 const style = () => ({
   header: {
-    padding: '0.5em',
+    padding: "0.5em"
   },
   body: {
-    padding: '0.5em'
+    padding: "0.5em"
   },
   buttons: {
     marginTop: "0.5em"
@@ -25,54 +25,46 @@ const Tooltip = ({
   backProps,
   primaryProps,
   tooltipProps,
-  classes,
+  classes
 }) => (
   <div
     style={{
       width: `${windowWidth * 0.75}px`,
-      background: 'whitesmoke',
-      borderRadius: '10px',
-      padding: '1em'
+      background: "whitesmoke",
+      borderRadius: "10px",
+      padding: "1em"
     }}
     {...tooltipProps}
   >
-    <Grid container direction='column'>
+    <Grid container direction="column">
       <Grid className={classes.header} item>
-        <Typography variant='title'>{step.header}</Typography>
+        <Typography variant="title">{step.header}</Typography>
       </Grid>
       <Grid item>
-        <Grid
-          container
-          alignItems='center'
-          direction='column'
-        >
+        <Grid container alignItems="center" direction="column">
           <Grid className={classes.body} item>
             <Typography>{step.content}</Typography>
           </Grid>
           <Grid item>
             <Grid
               container
-              direction='row'
-              alignItems='center'
-              justify='space-between'
+              direction="row"
+              alignItems="center"
+              justify="space-between"
               className={classes.buttons}
               style={{
-                width: `${windowWidth * 0.5}px`,
+                width: `${windowWidth * 0.5}px`
               }}
             >
               {index !== 0 ? (
                 <Grid item>
-                  <Button {...backProps}>
-                    Back
-                  </Button>
+                  <Button {...backProps}>Back</Button>
                 </Grid>
-              ) : <div />}
+              ) : (
+                <div />
+              )}
               <Grid item>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  {...primaryProps}
-                >
+                <Button variant="contained" color="primary" {...primaryProps}>
                   Continue
                 </Button>
               </Grid>
@@ -86,5 +78,5 @@ const Tooltip = ({
 
 export default compose(
   withStyles(style),
-  withDimensions,
+  withDimensions
 )(Tooltip);

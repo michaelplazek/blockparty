@@ -32,51 +32,55 @@ const Tile = ({
   color,
   textColor,
   description,
-  className,
+  className
 }) => (
   <div className={className}>
-  <Grid>
-    <Paper style={{ background: color }} className={classes.root} elevation={2}>
-      <Grid
-        container
-        justify="space-between"
-        direction="row"
-        onClick={() => {}}
+    <Grid>
+      <Paper
+        style={{ background: color }}
+        className={classes.root}
+        elevation={2}
       >
-        <Grid item>
-          <Grid container direction="row">
-            <Grid item>
-              <Typography color={textColor} variant="title">
-                {title}
-              </Typography>
-            </Grid>
-            {description && (
+        <Grid
+          container
+          justify="space-between"
+          direction="row"
+          onClick={() => {}}
+        >
+          <Grid item>
+            <Grid container direction="row">
               <Grid item>
-                <Grid container direction="row">
-                  <Grid item className={classes.pipe}>
-                    <Typography color={textColor} variant="title">
-                      |
-                    </Typography>
-                  </Grid>
-                  <Grid item className={classes.description}>
-                    <Typography color={textColor} variant="subheading">
-                      {description}
-                    </Typography>
+                <Typography color={textColor} variant="title">
+                  {title}
+                </Typography>
+              </Grid>
+              {description && (
+                <Grid item>
+                  <Grid container direction="row">
+                    <Grid item className={classes.pipe}>
+                      <Typography color={textColor} variant="title">
+                        |
+                      </Typography>
+                    </Grid>
+                    <Grid item className={classes.description}>
+                      <Typography color={textColor} variant="subheading">
+                        {description}
+                      </Typography>
+                    </Grid>
                   </Grid>
                 </Grid>
-              </Grid>
-            )}
+              )}
+            </Grid>
+          </Grid>
+          <Grid item>
+            <Typography color={textColor} variant="subheading">
+              {count}
+            </Typography>
           </Grid>
         </Grid>
-        <Grid item>
-          <Typography color={textColor} variant="subheading">
-            {count}
-          </Typography>
-        </Grid>
-      </Grid>
-      {children}
-    </Paper>
-  </Grid>
+        {children}
+      </Paper>
+    </Grid>
   </div>
 );
 

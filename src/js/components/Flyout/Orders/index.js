@@ -10,7 +10,7 @@ import OrderList from "../../OrderList";
 const styles = () => ({
   root: {
     margin: "1em 0.5em 1em 0.5em"
-  },
+  }
 });
 
 const Orders = ({ classes }) => (
@@ -27,5 +27,5 @@ const actionMap = {};
 
 export default compose(
   mapper(propMap, actionMap),
-  withStyles(styles),
+  withStyles(styles)
 )(Orders);

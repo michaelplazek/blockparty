@@ -5,7 +5,7 @@ const initialState = {
   layer: "",
   open: false,
   modal: "",
-  modalOpen: false,
+  modalOpen: false
 };
 
 const handlers = {

@@ -11,7 +11,7 @@ import {
   selectWindowHeight,
   selectWindowWidth
 } from "../../selectors";
-import {setListOpen as setListOpenAction} from "../../actions/app";
+import { setListOpen as setListOpenAction } from "../../actions/app";
 import Slide from "@material-ui/core/Slide/Slide";
 import Paper from "@material-ui/core/Paper";
 
@@ -45,21 +45,22 @@ const ListSlider = ({
   open,
   direction
 }) => (
-    <Slide direction={direction} in={open} mountOnEnter unmountOnExit>
-      <div
-        className={classes.root}
-        style={{
-          position: 'absolute',
-          top: `${(windowHeight - navHeight - headerHeight)/2 + headerHeight}px`,
-          height: `${(windowHeight - navHeight - headerHeight)/2}px`,
-          // width: `${width - 60}px`,
-          zIndex: 99,
-          borderRight: '#CCC 1px solid',
-        }}
-      >
-        {children}
-      </div>
-    </Slide>
+  <Slide direction={direction} in={open} mountOnEnter unmountOnExit>
+    <div
+      className={classes.root}
+      style={{
+        position: "absolute",
+        top: `${(windowHeight - navHeight - headerHeight) / 2 +
+          headerHeight}px`,
+        height: `${(windowHeight - navHeight - headerHeight) / 2}px`,
+        // width: `${width - 60}px`,
+        zIndex: 99,
+        borderRight: "#CCC 1px solid"
+      }}
+    >
+      {children}
+    </div>
+  </Slide>
 );
 
 ListSlider.propTypes = {
@@ -79,11 +80,11 @@ const propMap = {
   windowHeight: selectWindowHeight,
   navHeight: selectNavHeight,
   headerHeight: selectHeaderHeight,
-  open: selectListOpen,
+  open: selectListOpen
 };
 
 const actionMap = {
-  setListOpen: setListOpenAction,
+  setListOpen: setListOpenAction
 };
 
 export default compose(

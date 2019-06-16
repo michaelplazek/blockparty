@@ -48,18 +48,8 @@ const styles = () => ({
   }
 });
 
-const DeleteBid = ({
-  classes,
-  bid,
-  offers,
-  time,
-  history,
-  handleDelete
-}) => (
-  <Flyout
-    size={8}
-    title="Bid Details"
-  >
+const DeleteBid = ({ classes, bid, offers, time, history, handleDelete }) => (
+  <Flyout size={8} title="Bid Details">
     <Grid container direction="column">
       <Grid item>
         <DetailBox

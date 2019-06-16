@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { compose, lifecycle, withHandlers } from "recompose";
 import { withRouter } from "react-router";
 
-import Joyride from 'react-joyride';
+import Joyride from "react-joyride";
 
 import mapper from "../../utils/connect";
 
@@ -17,7 +17,8 @@ import {
   selectRun,
   selectLayer,
   selectInitialLocation,
-  selectModal, selectListOpen
+  selectModal,
+  selectListOpen
 } from "../../selectors";
 import { loadAsks as loadAsksAction } from "../../actions/asks";
 import { loadBids as loadBidsAction } from "../../actions/bids";
@@ -25,7 +26,7 @@ import {
   setLayerOpen as setLayerOpenAction,
   setLayer as setLayerAction,
   setModalOpen as setModalOpenAction,
-  setModal as setModalAction,
+  setModal as setModalAction
 } from "../../actions/layers";
 
 import Subheader from "../../components/Subheader";
@@ -38,7 +39,7 @@ import {
   setListOpen as setListOpenAction,
   setMarketView as setMarketViewAction,
   setNavIndex as setNavIndexAction,
-  setRun as setRunAction,
+  setRun as setRunAction
 } from "../../actions/app";
 import { CHART } from "../../constants/app";
 import withLocation from "../../HOCs/withLocation";
@@ -46,10 +47,10 @@ import Chart from "./Chart";
 import withPolling from "../../HOCs/withPolling";
 import withPushNotifications from "../../HOCs/withPushNotifications";
 import withVisited from "../../HOCs/withVisited";
-import {isVisited, marketSteps, tourStyle} from "../../config/tour";
+import { isVisited, marketSteps, tourStyle } from "../../config/tour";
 import Tooltip from "../../components/TourTooltip";
 import Welcome from "../../components/Modal/Welcome";
-import {setCurrentLocation as setCurrentLocationAction} from "../../actions/session";
+import { setCurrentLocation as setCurrentLocationAction } from "../../actions/session";
 import OrderList from "../../components/OrderList";
 import ListIcon from "./ListIcon";
 import Orders from "../../components/Flyout/Orders";
@@ -74,17 +75,13 @@ class Market extends Component {
       handleOpenList,
       layer,
       run,
-      modal,
+      modal
     } = this.props;
 
     return (
       <div>
-        {modal === "WELCOME" && (
-          <Welcome />
-        )}
-        {layer === "FILTER_MAP" && (
-          <FilterMap />
-        )}
+        {modal === "WELCOME" && <Welcome />}
+        {layer === "FILTER_MAP" && <FilterMap />}
         <Orders />
         <PageHeader
           leftHandLabel="Market"
@@ -97,7 +94,7 @@ class Market extends Component {
           width={windowWidth}
         />
         <ListIcon
-          height={((windowHeight - navHeight - headerHeight) / 2)}
+          height={(windowHeight - navHeight - headerHeight) / 2}
           openList={handleOpenList}
         />
         <GoogleMapsWrapper
@@ -166,23 +163,23 @@ export default compose(
       const url = !isBid ? "/ask" : "/bid";
       history.push(`${url}?${id}`);
     },
-    handleBoundsChanged: ({ setCurrentLocation }) => (coords) => {
+    handleBoundsChanged: ({ setCurrentLocation }) => coords => {
       setCurrentLocation(coords);
     },
     handleMarketView: ({ history, setMarketView }) => () => {
       setMarketView(CHART);
       history.push("/analysis");
     },
-    handleCallback: ({ history, setRun, setNavIndex }) => (stats) => {
-      if (stats.status === 'finished') {
+    handleCallback: ({ history, setRun, setNavIndex }) => stats => {
+      if (stats.status === "finished") {
         setRun(false);
-        history.push('/dashboard');
+        history.push("/dashboard");
         setNavIndex(1);
       }
     },
     handleOpenList: ({ setListOpen, listOpen }) => () => {
       setListOpen(!listOpen);
-    },
+    }
   }),
   lifecycle({
     componentWillMount() {

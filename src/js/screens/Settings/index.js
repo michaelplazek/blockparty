@@ -38,13 +38,13 @@ import { loadTransactions as loadTransactionsAction } from "../../actions/transa
 
 const styles = () => ({
   top: {
-    paddingTop: "1em",
+    paddingTop: "1em"
   },
   bottom: {
     marginBottom: "0.5em"
   },
   deleteInfo: {
-    marginBottom: '0.5em'
+    marginBottom: "0.5em"
   },
   version: {
     marginTop: "0.2em"
@@ -60,7 +60,7 @@ const Settings = ({
   handleDelete,
   canDelete,
   totalItems,
-  windowWidth,
+  windowWidth
 }) => (
   <div>
     <PageHeader
@@ -113,7 +113,7 @@ const Settings = ({
         <Grid item className={classes.bottom}>
           <Grid container direction="column" alignItems="center">
             <Grid item className={classes.deleteInfo}>
-              <Typography variant='caption'>
+              <Typography variant="caption">
                 To delete account, first delete all posts and offers
               </Typography>
             </Grid>

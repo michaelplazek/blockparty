@@ -547,7 +547,7 @@ export const selectAskCurrencyItems = createSelector(
         label: `${item.assetName} - ${item.assetSymbol}`,
         value: item.assetSymbol,
         disabled: coins.includes(item.assetSymbol)
-      })),
+      }))
     )(names)
 );
 export const selectFilteredAskCurrencyItems = createSelector(
@@ -571,7 +571,7 @@ export const selectBidCurrencyItems = createSelector(
         label: `${item.assetName} - ${item.assetSymbol}`,
         value: item.assetSymbol,
         disabled: coins.includes(item.assetSymbol)
-      })),
+      }))
       // filter(coin => !coins.includes(coin.assetSymbol))
     )(names)
 );
@@ -583,7 +583,7 @@ export const selectFilteredBidCurrencyItems = createSelector(
     compose(
       fpMap(item => ({
         label: `${item.assetName} - ${item.assetSymbol}`,
-        value: item.assetSymbol,
+        value: item.assetSymbol
       })),
       filter(coin => !coins.includes(coin.assetSymbol))
     )(names)
@@ -601,18 +601,19 @@ export const selectBidList = createSelector(
   selectFilter,
   selectIsWithinPrice,
   selectIsWithinRange,
-  (bids, filters, withinPrice, withinRange) => compose(
-    orderBy(['price'], ['desc']),
-    fpMap(bid => ({
-      isBid: bid.isBid,
-      id: bid._id,
-      price: numeral(bid.price).format(USD),
-      volume: bid.volume,
-    })),
-    filter(withinPrice),
-    filter(withinRange),
-    filter(item => item.coin === filters.coin)
-  )(bids)
+  (bids, filters, withinPrice, withinRange) =>
+    compose(
+      orderBy(["price"], ["desc"]),
+      fpMap(bid => ({
+        isBid: bid.isBid,
+        id: bid._id,
+        price: numeral(bid.price).format(USD),
+        volume: bid.volume
+      })),
+      filter(withinPrice),
+      filter(withinRange),
+      filter(item => item.coin === filters.coin)
+    )(bids)
 );
 
 export const selectAskList = createSelector(
@@ -620,18 +621,19 @@ export const selectAskList = createSelector(
   selectFilter,
   selectIsWithinPrice,
   selectIsWithinRange,
-  (asks, filters, withinPrice, withinRange) => compose(
-    orderBy(['price'], ['asc']),
-    fpMap(ask => ({
-      isBid: ask.isBid,
-      id: ask._id,
-      price: numeral(ask.price).format(USD),
-      volume: ask.volume,
-    })),
-    filter(withinPrice),
-    filter(withinRange),
-    filter(item => item.coin === filters.coin)
-  )(asks)
+  (asks, filters, withinPrice, withinRange) =>
+    compose(
+      orderBy(["price"], ["asc"]),
+      fpMap(ask => ({
+        isBid: ask.isBid,
+        id: ask._id,
+        price: numeral(ask.price).format(USD),
+        volume: ask.volume
+      })),
+      filter(withinPrice),
+      filter(withinRange),
+      filter(item => item.coin === filters.coin)
+    )(asks)
 );
 
 export const selectLastPrice = state => state.metrics.lastPrice;

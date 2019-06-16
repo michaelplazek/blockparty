@@ -6,40 +6,30 @@ import mapper from "../../utils/connect";
 import withDimensions from "../../HOCs/withDimensions";
 
 import withStyles from "@material-ui/core/styles/withStyles";
-import {
-  Typography,
-  Grid,
-  ListItem,
-  ListItemText,
-} from "@material-ui/core";
+import { Typography, Grid, ListItem, ListItemText } from "@material-ui/core";
 
 import {
   selectAskList,
   selectBidList,
-  selectFilterCoin,
+  selectFilterCoin
 } from "../../selectors";
 
 const styles = () => ({
   root: {
-    marginTop: "0.5em",
+    marginTop: "0.5em"
   },
   list: {
     marginRight: "0.5em"
   },
   item: {
-    marginRight: "0.5em",
+    marginRight: "0.5em"
   },
   link: {
-    cursor: 'pointer'
+    cursor: "pointer"
   }
 });
 
-const ListItemBase = ({
-  item,
-  classes,
-  isBid,
-  onClick
-}) => (
+const ListItemBase = ({ item, classes, isBid, onClick }) => (
   <ListItem button={true} dense={true} divider={true}>
     <Grid
       container
@@ -56,9 +46,7 @@ const ListItemBase = ({
       <Grid item>
         <ListItemText
           primary={
-            <Typography
-              style={{ color: isBid ? "#4caf50" : "#f44336" }}
-            >
+            <Typography style={{ color: isBid ? "#4caf50" : "#f44336" }}>
               {item.price}
             </Typography>
           }
@@ -74,13 +62,13 @@ const ListHeaderBase = () => (
       <Grid item>
         <ListItemText
           disableTypography
-          primary={<Typography variant='caption'>Volume</Typography>}
+          primary={<Typography variant="caption">Volume</Typography>}
         />
       </Grid>
       <Grid item>
         <ListItemText
           disableTypography
-          primary={<Typography variant='caption'>Price</Typography>}
+          primary={<Typography variant="caption">Price</Typography>}
         />
       </Grid>
     </Grid>
@@ -93,7 +81,7 @@ const ListTitleBase = ({ title }) => (
       <Grid item>
         <ListItemText
           disableTypography
-          primary={<Typography variant='subtitle2'>{title}</Typography>}
+          primary={<Typography variant="subtitle2">{title}</Typography>}
         />
       </Grid>
     </Grid>
@@ -104,28 +92,31 @@ const OrderListHeader = compose(withStyles(styles))(ListHeaderBase);
 const OrderListItem = compose(withStyles(styles))(ListItemBase);
 const OrderListTitle = compose(withStyles(styles))(ListTitleBase);
 
-const OrderList = ({
-  classes,
-  bids,
-  asks,
-  handleClick,
-}) => (
-  <Grid container direction='row' className={classes.root}>
+const OrderList = ({ classes, bids, asks, handleClick }) => (
+  <Grid container direction="row" className={classes.root}>
     <Grid item className={classes.list}>
-      <Grid container direction='column'>
-        <OrderListTitle title="Bids"/>
+      <Grid container direction="column">
+        <OrderListTitle title="Bids" />
         <OrderListHeader />
         {bids.map(item => (
-          <OrderListItem onClick={() => handleClick(item)} item={item} isBid={true} />
+          <OrderListItem
+            onClick={() => handleClick(item)}
+            item={item}
+            isBid={true}
+          />
         ))}
       </Grid>
     </Grid>
     <Grid item>
-      <Grid container direction='column'>
-        <OrderListTitle title="Asks"/>
+      <Grid container direction="column">
+        <OrderListTitle title="Asks" />
         <OrderListHeader />
         {asks.map(item => (
-          <OrderListItem onClick={() => handleClick(item)} item={item} isBid={false}/>
+          <OrderListItem
+            onClick={() => handleClick(item)}
+            item={item}
+            isBid={false}
+          />
         ))}
       </Grid>
     </Grid>
@@ -146,7 +137,7 @@ export default compose(
   withDimensions,
   withRouter,
   withHandlers({
-    handleClick: ({ history }) => (item) => {
+    handleClick: ({ history }) => item => {
       const { id, isBid } = item;
       const url = !isBid ? "/ask" : "/bid";
       history.push(`${url}?${id}`);

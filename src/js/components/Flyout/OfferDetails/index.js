@@ -60,17 +60,8 @@ const styles = () => ({
   }
 });
 
-const OfferDetails = ({
-  classes,
-  offer,
-  time,
-  handleDelete,
-  total
-}) => (
-  <Flyout
-    size={8}
-    title="Offer Details"
-  >
+const OfferDetails = ({ classes, offer, time, handleDelete, total }) => (
+  <Flyout size={8} title="Offer Details">
     <Grid container direction="column">
       <Grid item>
         <Grid className={classes.paper}>

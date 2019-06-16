@@ -8,7 +8,7 @@ import { COST } from "../../../constants/currency";
 import {
   selectAskFormCoin,
   selectAskCurrencyItems,
-  selectCurrentLocation,
+  selectCurrentLocation
 } from "../../../selectors";
 import {
   setAskCoin as setAskCoinAction,
@@ -49,7 +49,7 @@ const SelectCoin = ({
 const propMap = {
   coins: selectAskCurrencyItems,
   coin: selectAskFormCoin,
-  currentLocation: selectCurrentLocation,
+  currentLocation: selectCurrentLocation
 };
 
 const actionMap = {

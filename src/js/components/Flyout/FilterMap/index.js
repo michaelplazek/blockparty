@@ -7,14 +7,14 @@ import {
   selectFilter,
   selectFilterCoin,
   selectFilterDistance,
-  selectFocusField,
+  selectFocusField
 } from "../../../selectors/index";
 import {
   setFilterDistance as setFilterDistanceAction,
   setFilterCoin as setFilterCoinAction,
   setFilterType as setFilterTypeAction,
   setFilter as setFilterAction,
-  setFilterPrice as setFilterPriceAction,
+  setFilterPrice as setFilterPriceAction
 } from "../../../actions/filters";
 import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
@@ -32,7 +32,7 @@ import { cleanInputs, DISTANCE } from "../../../constants/validation";
 import {
   setAskInfo as setAskInfoAction,
   setBidInfo as setBidInfoAction,
-  setTouched as setTouchedAction,
+  setTouched as setTouchedAction
 } from "../../../actions/app";
 
 const styles = () => ({
@@ -51,7 +51,7 @@ const FilterMap = ({
   handleSetDistance,
   coins,
   type,
-  focusField,
+  focusField
 }) => (
   <Flyout size={3}>
     <Grid className={classes.root}>
@@ -130,7 +130,7 @@ const propMap = {
   coins: selectCurrencyItems,
   type: selectFilterType,
   filter: selectFilter,
-  focusField: selectFocusField,
+  focusField: selectFocusField
 };
 
 const actionMap = {
@@ -142,7 +142,7 @@ const actionMap = {
   setLayerOpen: setLayerOpenAction,
   setTouched: setTouchedAction,
   setAskInfo: setAskInfoAction,
-  setBidInfo: setBidInfoAction,
+  setBidInfo: setBidInfoAction
 };
 
 export default compose(

@@ -18,7 +18,7 @@ const styles = () => ({
   items: {
     marginTop: "1em",
     marginBottom: "1em"
-  },
+  }
 });
 
 const ConfirmCancel = ({ classes, handleCancel }) => (
@@ -26,14 +26,18 @@ const ConfirmCancel = ({ classes, handleCancel }) => (
     <Grid container direction="column" className={classes.container}>
       <Grid item className={classes.items}>
         <Typography>
-          Cancelling this transaction will have a negative impact on your reputation.
+          Cancelling this transaction will have a negative impact on your
+          reputation.
         </Typography>
       </Grid>
-      <Grid classNames={classes.buttons} item container justify='center' direction="row">
-        <Button
-          onClick={handleCancel}
-          style={theme.palette.errorButton}
-        >
+      <Grid
+        classNames={classes.buttons}
+        item
+        container
+        justify="center"
+        direction="row"
+      >
+        <Button onClick={handleCancel} style={theme.palette.errorButton}>
           Cancel Transaction
         </Button>
       </Grid>
@@ -41,6 +45,4 @@ const ConfirmCancel = ({ classes, handleCancel }) => (
   </Modal>
 );
 
-export default compose(
-  withStyles(styles),
-)(ConfirmCancel);
+export default compose(withStyles(styles))(ConfirmCancel);

@@ -1,8 +1,8 @@
 import React from "react";
-import {compose, lifecycle, withHandlers, withState} from "recompose";
+import { compose, lifecycle, withHandlers, withState } from "recompose";
 import { withRouter } from "react-router-dom";
 import { faCog, faCopy, faQrcode } from "@fortawesome/free-solid-svg-icons";
-import {CopyToClipboard} from 'react-copy-to-clipboard';
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 import mapper from "../../utils/connect";
 import {
@@ -30,14 +30,17 @@ import Button from "@material-ui/core/Button/Button";
 import withPolling from "../../HOCs/withPolling";
 import withVisited from "../../HOCs/withVisited";
 import Joyride from "react-joyride";
-import {accountSteps, isVisited, tourStyle} from "../../config/tour";
+import { accountSteps, isVisited, tourStyle } from "../../config/tour";
 import Tooltip from "../../components/TourTooltip";
-import {setRun as setRunAction} from "../../actions/app";
+import { setRun as setRunAction } from "../../actions/app";
 import EndOfTour from "../../components/Modal/EndOfTour";
 import QR from "../../components/Modal/QR";
-import {setModal as setModalAction, setModalOpen as setModalOpenAction} from "../../actions/layers";
-import {truncateString} from "../../utils/strings";
-import {setQR as setQRAction} from "../../actions/metrics";
+import {
+  setModal as setModalAction,
+  setModalOpen as setModalOpenAction
+} from "../../actions/layers";
+import { truncateString } from "../../utils/strings";
+import { setQR as setQRAction } from "../../actions/metrics";
 
 const styles = () => ({
   body: {
@@ -51,10 +54,10 @@ const styles = () => ({
     marginBottom: "0.75em"
   },
   likeTheApp: {
-    marginBottom: "0.5em",
+    marginBottom: "0.5em"
   },
   icon: {
-    cursor: 'pointer',
+    cursor: "pointer",
     marginLeft: "0.5em"
   },
   suggestions: {
@@ -63,7 +66,7 @@ const styles = () => ({
   }
 });
 
-const ICON_COLOR = '#3f51b5';
+const ICON_COLOR = "#3f51b5";
 
 const Account = ({
   logOut,
@@ -79,23 +82,18 @@ const Account = ({
   setMoneroCopied,
   bitcoinCopied,
   setBitcoinCopied,
-  handleQR,
+  handleQR
 }) => (
   <div>
-    {modal === "END_OF_TOUR" && (
-      <EndOfTour />
-    )}
-    {modal === "QR" && (
-      <QR />
-    )}
+    {modal === "END_OF_TOUR" && <EndOfTour />}
+    {modal === "QR" && <QR />}
     <PageHeader
       leftHandLabel="Account"
       rightHandIcon={<FontAwesomeIcon icon={faCog} />}
       rightHandAction={() => history.push("/settings")}
     />
     <Grid container className={classes.body} direction="column">
-
-      <Grid item container direction='column' justify='flex-start'>
+      <Grid item container direction="column" justify="flex-start">
         <Grid item className={classes.items}>
           <Grid container direction="column" alignItems="center">
             <Grid item className={classes.items}>
@@ -114,20 +112,24 @@ const Account = ({
         </Grid>
       </Grid>
 
-      <Grid item container justify='center'>
+      <Grid item container justify="center">
         <Grid item className={classes.likeTheApp}>
-          <Typography variant='caption'>
+          <Typography variant="caption">
             Like the app? Donate to support our developers.
           </Typography>
         </Grid>
-        <Grid item container direction='row' justify='center'>
+        <Grid item container direction="row" justify="center">
           <Grid item>
-            <Typography variant='caption'>
+            <Typography variant="caption">
               {`Monero: ${truncateString(process.env.MONERO_ADDRESS)}`}
             </Typography>
           </Grid>
           <Grid item className={classes.icon}>
-            <FontAwesomeIcon style={{ color: ICON_COLOR }} onClick={() => handleQR("XMR")} icon={faQrcode} />
+            <FontAwesomeIcon
+              style={{ color: ICON_COLOR }}
+              onClick={() => handleQR("XMR")}
+              icon={faQrcode}
+            />
           </Grid>
           <Grid item className={classes.icon}>
             <CopyToClipboard
@@ -142,20 +144,22 @@ const Account = ({
           </Grid>
           {moneroCopied && (
             <Grid item className={classes.icon}>
-              <Typography variant='caption'>
-                Copied!
-              </Typography>
+              <Typography variant="caption">Copied!</Typography>
             </Grid>
           )}
         </Grid>
-        <Grid item container direction='row' justify='center'>
+        <Grid item container direction="row" justify="center">
           <Grid item>
-            <Typography variant='caption'>
+            <Typography variant="caption">
               {`Bitcoin: ${truncateString(process.env.BITCOIN_ADDRESS)}`}
             </Typography>
           </Grid>
           <Grid item className={classes.icon}>
-            <FontAwesomeIcon style={{ color: ICON_COLOR }} onClick={() => handleQR("BTC")} icon={faQrcode} />
+            <FontAwesomeIcon
+              style={{ color: ICON_COLOR }}
+              onClick={() => handleQR("BTC")}
+              icon={faQrcode}
+            />
           </Grid>
           <Grid item className={classes.icon}>
             <CopyToClipboard
@@ -170,36 +174,33 @@ const Account = ({
           </Grid>
           {bitcoinCopied && (
             <Grid item className={classes.icon}>
-              <Typography variant='caption'>
-                Copied!
-              </Typography>
+              <Typography variant="caption">Copied!</Typography>
             </Grid>
           )}
         </Grid>
         <Grid
           container
           item
-          alignItems='center'
-          direction='column'
+          alignItems="center"
+          direction="column"
           className={classes.suggestions}
         >
           <Grid item>
-            <Typography variant='caption'>
+            <Typography variant="caption">
               Report bugs or send suggestions to
             </Typography>
           </Grid>
           <Grid item>
             <Typography
-              variant='caption'
+              variant="caption"
               component="a"
-              href='mailto:blockpartyapp@protonmail.com'
+              href="mailto:blockpartyapp@protonmail.com"
             >
               blockpartyapp@protonmail.com
             </Typography>
           </Grid>
         </Grid>
       </Grid>
-
     </Grid>
     <Joyride
       steps={accountSteps}
@@ -220,7 +221,7 @@ const propMap = {
   reputation: selectUserReputation,
   items: selectUserDetails,
   run: selectRun,
-  modal: selectModal,
+  modal: selectModal
 };
 
 const actionMap = {
@@ -229,13 +230,13 @@ const actionMap = {
   setRun: setRunAction,
   setModal: setModalAction,
   setModalOpen: setModalOpenAction,
-  setQR: setQRAction,
+  setQR: setQRAction
 };
 
 export default compose(
   mapper(propMap, actionMap),
-  withState('moneroCopied', 'setMoneroCopied', false),
-  withState('bitcoinCopied', 'setBitcoinCopied', false),
+  withState("moneroCopied", "setMoneroCopied", false),
+  withState("bitcoinCopied", "setBitcoinCopied", false),
   withRouter,
   withStyles(styles),
   withDimensions,
@@ -249,13 +250,13 @@ export default compose(
     }
   }),
   withHandlers({
-    handleCallback: ({ setModal, setModalOpen }) => (stats) => {
-      if (stats.status === 'finished') {
+    handleCallback: ({ setModal, setModalOpen }) => stats => {
+      if (stats.status === "finished") {
         setModal("END_OF_TOUR");
         setModalOpen(true);
       }
     },
-    handleQR: ({ setModalOpen, setModal, setQR }) => (type) => {
+    handleQR: ({ setModalOpen, setModal, setQR }) => type => {
       setQR(type);
       setModal("QR");
       setModalOpen(true);
