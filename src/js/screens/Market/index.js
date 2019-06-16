@@ -51,6 +51,7 @@ import Tooltip from "../../components/TourTooltip";
 import Welcome from "../../components/Modal/Welcome";
 import {setCurrentLocation as setCurrentLocationAction} from "../../actions/session";
 import OrderList from "../../components/OrderList";
+import ListIcon from "./ListIcon";
 
 class Market extends Component {
   constructor(props) {
@@ -69,6 +70,7 @@ class Market extends Component {
       initialLocation,
       handleBoundsChanged,
       handleCallback,
+      handleOpenList,
       layer,
       run,
       modal,
@@ -92,18 +94,22 @@ class Market extends Component {
           markerLocation={navHeight}
           width={windowWidth}
         />
-        {/*<GoogleMapsWrapper*/}
-        {/*  handleBoundsChanged={handleBoundsChanged}*/}
-        {/*  currentLocation={currentLocation}*/}
-        {/*  initialLocation={initialLocation}*/}
-        {/*  showLabels={true}*/}
-        {/*  showCenterIcon={true}*/}
-        {/*  markers={markers}*/}
-        {/*  onMarkerClick={handleMarkerClick}*/}
-        {/*  height={(windowHeight - navHeight - headerHeight) / 2}*/}
-        {/*  navHeight={navHeight}*/}
-        {/*  windowHeight={windowHeight}*/}
-        {/*/>*/}
+        <ListIcon
+          height={((windowHeight - navHeight - headerHeight) / 2)}
+          openList={handleOpenList}
+        />
+        <GoogleMapsWrapper
+          handleBoundsChanged={handleBoundsChanged}
+          currentLocation={currentLocation}
+          initialLocation={initialLocation}
+          showLabels={true}
+          showCenterIcon={true}
+          markers={markers}
+          onMarkerClick={handleMarkerClick}
+          height={(windowHeight - navHeight - headerHeight) / 2}
+          navHeight={navHeight}
+          windowHeight={windowHeight}
+        />
         <OrderList />
         <Joyride
           steps={marketSteps}
@@ -169,7 +175,10 @@ export default compose(
         history.push('/dashboard');
         setNavIndex(1);
       }
-    }
+    },
+    handleOpenList: () => () => {
+
+    },
   }),
   lifecycle({
     componentWillMount() {

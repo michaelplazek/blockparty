@@ -116,7 +116,7 @@ const OrderList = ({
         <OrderListTitle title="Bids"/>
         <OrderListHeader />
         {bids.map(item => (
-          <OrderListItem onClick={handleClick} item={item} isBid={true} />
+          <OrderListItem onClick={() => handleClick(item)} item={item} isBid={true} />
         ))}
       </Grid>
     </Grid>
@@ -125,7 +125,7 @@ const OrderList = ({
         <OrderListTitle title="Asks"/>
         <OrderListHeader />
         {asks.map(item => (
-          <OrderListItem onClick={handleClick} item={item} isBid={false}/>
+          <OrderListItem onClick={() => handleClick(item)} item={item} isBid={false}/>
         ))}
       </Grid>
     </Grid>

@@ -74,7 +74,7 @@ class GoogleMapsWrapper extends Component {
           <Paper
             style={{
               position: 'absolute',
-              right: '0.75em',
+              left: '0.75em',
               top: `${windowHeight - navHeight - height + 15}px`,
               zIndex: 50,
               color: '#666666',
