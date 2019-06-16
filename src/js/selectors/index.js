@@ -2,6 +2,7 @@ import { createSelector } from "reselect";
 import compose from "lodash/fp/compose";
 import fpMap from "lodash/fp/map";
 import get from "lodash/fp/get";
+import orderBy from "lodash/fp/orderBy";
 import find from "lodash/fp/find";
 import filter from "lodash/fp/filter";
 import moment from "moment";
@@ -601,11 +602,12 @@ export const selectBidList = createSelector(
   selectIsWithinPrice,
   selectIsWithinRange,
   (bids, filters, withinPrice, withinRange) => compose(
-    fpMap(ask => ({
-      isBid: ask.isBid,
-      id: ask._id,
-      price: ask.price,
-      volume: ask.volume,
+    orderBy(['price'], ['desc']),
+    fpMap(bid => ({
+      isBid: bid.isBid,
+      id: bid._id,
+      price: numeral(bid.price).format(USD),
+      volume: bid.volume,
     })),
     filter(withinPrice),
     filter(withinRange),
@@ -619,10 +621,11 @@ export const selectAskList = createSelector(
   selectIsWithinPrice,
   selectIsWithinRange,
   (asks, filters, withinPrice, withinRange) => compose(
+    orderBy(['price'], ['asc']),
     fpMap(ask => ({
       isBid: ask.isBid,
       id: ask._id,
-      price: ask.price,
+      price: numeral(ask.price).format(USD),
       volume: ask.volume,
     })),
     filter(withinPrice),

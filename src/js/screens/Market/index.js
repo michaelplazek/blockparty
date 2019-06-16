@@ -50,6 +50,7 @@ import {isVisited, marketSteps, tourStyle} from "../../config/tour";
 import Tooltip from "../../components/TourTooltip";
 import Welcome from "../../components/Modal/Welcome";
 import {setCurrentLocation as setCurrentLocationAction} from "../../actions/session";
+import OrderList from "../../components/OrderList";
 
 class Market extends Component {
   constructor(props) {
@@ -91,18 +92,19 @@ class Market extends Component {
           markerLocation={navHeight}
           width={windowWidth}
         />
-        <GoogleMapsWrapper
-          handleBoundsChanged={handleBoundsChanged}
-          currentLocation={currentLocation}
-          initialLocation={initialLocation}
-          showLabels={true}
-          showCenterIcon={true}
-          markers={markers}
-          onMarkerClick={handleMarkerClick}
-          height={(windowHeight - navHeight - headerHeight) / 2}
-          navHeight={navHeight}
-          windowHeight={windowHeight}
-        />
+        {/*<GoogleMapsWrapper*/}
+        {/*  handleBoundsChanged={handleBoundsChanged}*/}
+        {/*  currentLocation={currentLocation}*/}
+        {/*  initialLocation={initialLocation}*/}
+        {/*  showLabels={true}*/}
+        {/*  showCenterIcon={true}*/}
+        {/*  markers={markers}*/}
+        {/*  onMarkerClick={handleMarkerClick}*/}
+        {/*  height={(windowHeight - navHeight - headerHeight) / 2}*/}
+        {/*  navHeight={navHeight}*/}
+        {/*  windowHeight={windowHeight}*/}
+        {/*/>*/}
+        <OrderList />
         <Joyride
           steps={marketSteps}
           run={run}
