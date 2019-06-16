@@ -9,7 +9,7 @@ import {
   CURRENT_LOCATION_LOAD,
   UPDATE_USER,
   DELETE_USER,
-  SET_CURRENT_LOCATION,
+  SET_CURRENT_LOCATION
 } from "./index";
 import { getIndexFromPath } from "../utils/location";
 

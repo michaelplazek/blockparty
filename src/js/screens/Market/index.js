@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { compose, lifecycle, withHandlers } from "recompose";
 import { withRouter } from "react-router";
 
-import Joyride from 'react-joyride';
+import Joyride from "react-joyride";
 
 import mapper from "../../utils/connect";
 
@@ -16,9 +16,9 @@ import {
   selectMarketLoaded,
   selectRun,
   selectLayer,
-  selectLayerOpen,
   selectInitialLocation,
-  selectModal
+  selectModal,
+  selectListOpen
 } from "../../selectors";
 import { loadAsks as loadAsksAction } from "../../actions/asks";
 import { loadBids as loadBidsAction } from "../../actions/bids";
@@ -26,7 +26,7 @@ import {
   setLayerOpen as setLayerOpenAction,
   setLayer as setLayerAction,
   setModalOpen as setModalOpenAction,
-  setModal as setModalAction,
+  setModal as setModalAction
 } from "../../actions/layers";
 
 import Subheader from "../../components/Subheader";
@@ -36,9 +36,10 @@ import FilterMap from "../../components/Flyout/FilterMap";
 import withDimensions from "../../HOCs/withDimensions";
 import withLoader from "../../HOCs/withLoader";
 import {
+  setListOpen as setListOpenAction,
   setMarketView as setMarketViewAction,
   setNavIndex as setNavIndexAction,
-  setRun as setRunAction,
+  setRun as setRunAction
 } from "../../actions/app";
 import { CHART } from "../../constants/app";
 import withLocation from "../../HOCs/withLocation";
@@ -46,10 +47,13 @@ import Chart from "./Chart";
 import withPolling from "../../HOCs/withPolling";
 import withPushNotifications from "../../HOCs/withPushNotifications";
 import withVisited from "../../HOCs/withVisited";
-import {isVisited, marketSteps, tourStyle} from "../../config/tour";
+import { isVisited, marketSteps, tourStyle } from "../../config/tour";
 import Tooltip from "../../components/TourTooltip";
 import Welcome from "../../components/Modal/Welcome";
-import {setCurrentLocation as setCurrentLocationAction} from "../../actions/session";
+import { setCurrentLocation as setCurrentLocationAction } from "../../actions/session";
+import OrderList from "../../components/OrderList";
+import ListIcon from "./ListIcon";
+import Orders from "../../components/Flyout/Orders";
 
 class Market extends Component {
   constructor(props) {
@@ -68,19 +72,17 @@ class Market extends Component {
       initialLocation,
       handleBoundsChanged,
       handleCallback,
+      handleOpenList,
       layer,
       run,
-      modal,
+      modal
     } = this.props;
 
     return (
       <div>
-        {modal === "WELCOME" && (
-          <Welcome />
-        )}
-        {layer === "FILTER_MAP" && (
-          <FilterMap />
-        )}
+        {modal === "WELCOME" && <Welcome />}
+        {layer === "FILTER_MAP" && <FilterMap />}
+        <Orders />
         <PageHeader
           leftHandLabel="Market"
           showSubheader={true}
@@ -90,6 +92,10 @@ class Market extends Component {
           height={(windowHeight - navHeight - headerHeight) / 2}
           markerLocation={navHeight}
           width={windowWidth}
+        />
+        <ListIcon
+          height={(windowHeight - navHeight - headerHeight) / 2}
+          openList={handleOpenList}
         />
         <GoogleMapsWrapper
           handleBoundsChanged={handleBoundsChanged}
@@ -103,6 +109,7 @@ class Market extends Component {
           navHeight={navHeight}
           windowHeight={windowHeight}
         />
+        <OrderList />
         <Joyride
           steps={marketSteps}
           run={run}
@@ -128,6 +135,7 @@ const propMap = {
   type: selectFilterType,
   run: selectRun,
   initialLocation: selectInitialLocation,
+  listOpen: selectListOpen,
   loaded: selectMarketLoaded // from withLoader
 };
 
@@ -141,7 +149,8 @@ const actionMap = {
   setMarketView: setMarketViewAction,
   setRun: setRunAction,
   setNavIndex: setNavIndexAction,
-  setCurrentLocation: setCurrentLocationAction
+  setCurrentLocation: setCurrentLocationAction,
+  setListOpen: setListOpenAction
 };
 
 export default compose(
@@ -154,19 +163,22 @@ export default compose(
       const url = !isBid ? "/ask" : "/bid";
       history.push(`${url}?${id}`);
     },
-    handleBoundsChanged: ({ setCurrentLocation }) => (coords) => {
+    handleBoundsChanged: ({ setCurrentLocation }) => coords => {
       setCurrentLocation(coords);
     },
     handleMarketView: ({ history, setMarketView }) => () => {
       setMarketView(CHART);
       history.push("/analysis");
     },
-    handleCallback: ({ history, setRun, setNavIndex }) => (stats) => {
-      if (stats.status === 'finished') {
+    handleCallback: ({ history, setRun, setNavIndex }) => stats => {
+      if (stats.status === "finished") {
         setRun(false);
-        history.push('/dashboard');
+        history.push("/dashboard");
         setNavIndex(1);
       }
+    },
+    handleOpenList: ({ setListOpen, listOpen }) => () => {
+      setListOpen(!listOpen);
     }
   }),
   lifecycle({

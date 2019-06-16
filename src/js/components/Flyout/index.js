@@ -9,7 +9,10 @@ import {
   selectWindowHeight,
   selectWindowWidth
 } from "../../selectors";
-import {setLayer as setLayerAction, setLayerOpen as setLayerOpenAction} from "../../actions/layers";
+import {
+  setLayer as setLayerAction,
+  setLayerOpen as setLayerOpenAction
+} from "../../actions/layers";
 
 import Modal from "@material-ui/core/Modal/Modal";
 import Slide from "@material-ui/core/Slide/Slide";
@@ -56,7 +59,7 @@ const Flyout = ({
     onClose={onClose}
     onBackdropClick={() => {
       setLayer("");
-      setLayerOpen(false)
+      setLayerOpen(false);
     }}
   >
     <Slide direction={direction} in={open} mountOnEnter unmountOnExit>
@@ -89,12 +92,14 @@ const Flyout = ({
 
 Flyout.propTypes = {
   onClose: PropTypes.func,
-  direction: PropTypes.string
+  direction: PropTypes.string,
+  title: PropTypes.string
 };
 
 Flyout.defaultProps = {
   onClose: () => {},
-  direction: "right"
+  direction: "right",
+  title: ""
 };
 
 const propMap = {
@@ -105,7 +110,7 @@ const propMap = {
 
 const actionMap = {
   setLayerOpen: setLayerOpenAction,
-  setLayer: setLayerAction,
+  setLayer: setLayerAction
 };
 
 export default compose(

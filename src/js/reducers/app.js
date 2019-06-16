@@ -10,7 +10,10 @@ import {
   SET_VISITED,
   SET_NAV_INDEX,
   SET_RUN,
-  SET_TOUCHED, SET_ASK_INFO, SET_BID_INFO,
+  SET_TOUCHED,
+  SET_ASK_INFO,
+  SET_BID_INFO,
+  SET_LIST_OPEN
 } from "../actions";
 import { MAP } from "../constants/app";
 import { getIndexFromPath } from "../utils/location";
@@ -31,6 +34,7 @@ const initialState = {
   touched: false,
   askInfo: "Mid Market Price",
   bidInfo: undefined,
+  listOpen: false
 };
 
 const handlers = {
@@ -68,17 +72,20 @@ const handlers = {
     navigationIndex: action.data
   }),
   [SET_RUN]: (state, action) => ({
-    run: action.data,
+    run: action.data
   }),
   [SET_TOUCHED]: (state, action) => ({
-    touched: action.data,
+    touched: action.data
   }),
   [SET_ASK_INFO]: (state, action) => ({
-    askInfo: action.data,
+    askInfo: action.data
   }),
   [SET_BID_INFO]: (state, action) => ({
-    bidInfo: action.data,
+    bidInfo: action.data
   }),
+  [SET_LIST_OPEN]: (state, action) => ({
+    listOpen: action.data
+  })
 };
 
 export default stateReducer(initialState, handlers);

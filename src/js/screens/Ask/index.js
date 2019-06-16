@@ -14,7 +14,7 @@ import {
   selectMyOffersLoaded,
   selectUserId,
   selectWindowHeight,
-  selectModal,
+  selectModal
 } from "../../selectors/index";
 import { loadAsk as loadAskAction } from "../../actions/asks";
 import Grid from "@material-ui/core/Grid/Grid";
@@ -29,7 +29,7 @@ import {
   setLayer as setLayerAction,
   setLayerOpen as setLayerOpenAction,
   setModalOpen as setModalOpenAction,
-  setModal as setModalAction,
+  setModal as setModalAction
 } from "../../actions/layers";
 import CreateAskOffer from "../../components/Flyout/CreateAskOffer";
 import { loadOffersByUser } from "../../actions/offers";
@@ -79,9 +79,7 @@ const Ask = ({
         {layer === "CREATE_ASK_OFFER" && (
           <CreateAskOffer handleClose={() => {}} handleSubmit={() => {}} />
         )}
-        {modal === "VIEW_USER_DETAILS" && (
-          <UserInfo id={ask.userId} />
-        )}
+        {modal === "VIEW_USER_DETAILS" && <UserInfo id={ask.userId} />}
         <Grid>
           <Button
             style={theme.palette.inverse}
@@ -136,7 +134,7 @@ const propMap = {
   myOffersLoaded: selectMyOffersLoaded,
   height: selectWindowHeight,
   userId: selectUserId,
-  showButton: selectAskHasButton,
+  showButton: selectAskHasButton
 };
 
 const actionMap = {
@@ -145,7 +143,7 @@ const actionMap = {
   setLayerOpen: setLayerOpenAction,
   loadOffersByUser,
   setModalOpen: setModalOpenAction,
-  setModal: setModalAction,
+  setModal: setModalAction
 };
 
 export default compose(

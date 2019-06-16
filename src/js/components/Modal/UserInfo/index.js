@@ -18,7 +18,7 @@ import {
   unloadUser as unloadUserAction
 } from "../../../actions/users";
 import { selectUserDetails } from "./selectors";
-import {List} from "@material-ui/core";
+import { List } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -33,8 +33,8 @@ const styles = () => ({
     margin: "0px 20px 0px 20px"
   },
   secondary: {
-    marginTop: "5px",
-  },
+    marginTop: "5px"
+  }
 });
 
 const UserInfo = ({ items, classes }) => (
@@ -45,10 +45,12 @@ const UserInfo = ({ items, classes }) => (
           <List>
             {items.map((item, index) => (
               <ListItem divider={index !== items.length - 1}>
-                <Grid container direction='column' justify="space-between">
+                <Grid container direction="column" justify="space-between">
                   <Grid item>
                     <ListItemText
-                      primary={<Typography variant="caption">{item.name}</Typography>}
+                      primary={
+                        <Typography variant="caption">{item.name}</Typography>
+                      }
                     />
                   </Grid>
                   <Grid item className={classes.secondary}>

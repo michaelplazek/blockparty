@@ -5,7 +5,7 @@ const initialState = {
   currencies: [],
   currenciesLoaded: false,
   lastPrice: "",
-  QR: "",
+  QR: ""
 };
 
 const handlers = {

@@ -4,7 +4,10 @@ import { withRouter } from "react-router";
 
 import { loadCurrentLocation } from "../actions/session";
 import mapper from "../utils/connect";
-import {selectCurrentLocation, selectCurrentLocationLoaded} from "../selectors";
+import {
+  selectCurrentLocation,
+  selectCurrentLocationLoaded
+} from "../selectors";
 
 /**
  * This HOC gets the users current location, using the navigation API.

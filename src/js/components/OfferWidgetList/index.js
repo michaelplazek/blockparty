@@ -18,33 +18,38 @@ import {
   setModal as setModalAction,
   setModalOpen as setModalOpenAction
 } from "../../actions/layers";
-import {selectModal, selectUserId, selectUsername} from "../../selectors";
+import { selectModal, selectUserId, selectUsername } from "../../selectors";
 import { loadMyAsks } from "../../actions/asks";
 import { loadMyBids } from "../../actions/bids";
 import { setNotification } from "../../actions/app";
-import {loadUser as loadUserAction} from "../../actions/users";
+import { loadUser as loadUserAction } from "../../actions/users";
 import UserInfo from "../Modal/UserInfo";
 
-const OfferWidgetList = ({ offers, post, modal, handleAccept, handleDecline, handleUserClick }) => (
+const OfferWidgetList = ({
+  offers,
+  post,
+  modal,
+  handleAccept,
+  handleDecline,
+  handleUserClick
+}) => (
   <Tile title="Offers" count={offers.length}>
     <Grid container direction="column">
       {offers.map((item, index) => (
         <Fragment>
-          {modal === "VIEW_USER_DETAILS" && (
-            <UserInfo id={item.userId}  />
-          )}
-        <OfferWidget
-          key={`${item.volume}-${index}`}
-          total={getTotal(post.price, item.volume)}
-          volume={item.volume}
-          price={post.price}
-          coin={post.coin}
-          username={item.username}
-          onUserClick={handleUserClick}
-          time={moment(item.timestamp).fromNow()}
-          handleAccept={() => handleAccept(item)}
-          handleDecline={() => handleDecline(item)}
-        />
+          {modal === "VIEW_USER_DETAILS" && <UserInfo id={item.userId} />}
+          <OfferWidget
+            key={`${item.volume}-${index}`}
+            total={getTotal(post.price, item.volume)}
+            volume={item.volume}
+            price={post.price}
+            coin={post.coin}
+            username={item.username}
+            onUserClick={handleUserClick}
+            time={moment(item.timestamp).fromNow()}
+            handleAccept={() => handleAccept(item)}
+            handleDecline={() => handleDecline(item)}
+          />
         </Fragment>
       ))}
     </Grid>
@@ -58,7 +63,7 @@ OfferWidgetList.propTypes = {
 const propMap = {
   userId: selectUserId,
   username: selectUsername,
-  modal: selectModal,
+  modal: selectModal
 };
 
 const actionMap = {
@@ -126,10 +131,10 @@ export default compose(
         setNotification(data);
       });
     },
-    handleUserClick: ({ setModal, setModalOpen }) => (e) => {
+    handleUserClick: ({ setModal, setModalOpen }) => e => {
       setModal("VIEW_USER_DETAILS");
       setModalOpen(true);
       e.stopPropagation();
-    },
+    }
   })
 )(OfferWidgetList);

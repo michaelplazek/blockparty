@@ -40,7 +40,7 @@ import { loadMyAsks } from "../../../actions/asks";
 import { loadMyBids } from "../../../actions/bids";
 import { loadOffersByUser } from "../../../actions/offers";
 import { setNotification } from "../../../actions/app";
-import {Typography} from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import ConfirmCancel from "../../Modal/ConfirmCancel";
 
 const styles = () => ({
@@ -48,7 +48,7 @@ const styles = () => ({
     marginTop: "3em"
   },
   description: {
-    margin: '0em 1.5em 1em 1.5em'
+    margin: "0em 1.5em 1em 1.5em"
   }
 });
 
@@ -61,18 +61,17 @@ const TransactionDetails = ({
   modal,
   openConfirm
 }) => (
-  <Flyout
-    size={8}
-    title="Accepted Offer"
-  >
-    {modal === "CONFIRM_CANCEL" && <ConfirmCancel handleCancel={handleCancel} />}
+  <Flyout size={8} title="Accepted Offer">
+    {modal === "CONFIRM_CANCEL" && (
+      <ConfirmCancel handleCancel={handleCancel} />
+    )}
     <Grid className={classes.list} container direction="column">
       <Grid className={classes.description} item>
-        <Typography variant='caption'>
-          After reviewing the transaction details, contact the other party.
-          Once the transaction is complete, click <b>Mark As Completed</b>. Once both
-          parties have marked the transaction as complete, your reputation will be updated
-          and the transaction will be considered completed.
+        <Typography variant="caption">
+          After reviewing the transaction details, contact the other party. Once
+          the transaction is complete, click <b>Mark As Completed</b>. Once both
+          parties have marked the transaction as complete, your reputation will
+          be updated and the transaction will be considered completed.
         </Typography>
       </Grid>
       <DetailList items={items} />
@@ -98,7 +97,7 @@ const propMap = {
   seller: selectTransactionSellerUsername,
   completeButtonIsDisabled: selectCompleteButtonIsDisabled,
   username: selectUsername,
-  modal: selectModal,
+  modal: selectModal
 };
 
 const actionMap = {
@@ -182,6 +181,6 @@ export default compose(
     openConfirm: ({ setModal, setModalOpen }) => () => {
       setModal("CONFIRM_CANCEL");
       setModalOpen(true);
-    },
+    }
   })
 )(TransactionDetails);

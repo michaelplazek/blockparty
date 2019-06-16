@@ -11,7 +11,7 @@ import {
 } from "../../selectors";
 import {
   setModalOpen as setModalOpenAction,
-  setModal as setModalAction,
+  setModal as setModalAction
 } from "../../actions/layers";
 
 import Slide from "@material-ui/core/Slide/Slide";
@@ -54,13 +54,11 @@ const ModalBase = ({
     onClose={onClose}
     onBackdropClick={() => {
       setModal("");
-      setModalOpen(false)
+      setModalOpen(false);
     }}
   >
     <Slide direction="up" in={open} mountOnEnter unmountOnExit>
-      <div
-        className={classes.root}
-      >
+      <div className={classes.root}>
         <Grid direction="row" justify="space-between" container>
           <Grid className={classes.title} item>
             <Typography variant="title">{title}</Typography>
@@ -100,7 +98,7 @@ const propMap = {
 
 const actionMap = {
   setModalOpen: setModalOpenAction,
-  setModal: setModalAction,
+  setModal: setModalAction
 };
 
 export default compose(

@@ -12,6 +12,7 @@ import {
   SET_TOUCHED,
   SET_ASK_INFO,
   SET_BID_INFO,
+  SET_LIST_OPEN
 } from "./index";
 import { wrappedFetch } from "../api/utils";
 
@@ -49,7 +50,11 @@ export const setNavIndex = index => dispatch =>
   dispatch({ type: SET_NAV_INDEX, data: index });
 
 export const setRun = run => dispatch => dispatch({ type: SET_RUN, data: run });
-export const setTouched = data => dispatch => dispatch({ type: SET_TOUCHED, data });
-export const setAskInfo = data => dispatch => dispatch({ type: SET_ASK_INFO, data });
-export const setBidInfo = data => dispatch => dispatch({ type: SET_BID_INFO, data });
-
+export const setTouched = data => dispatch =>
+  dispatch({ type: SET_TOUCHED, data });
+export const setAskInfo = data => dispatch =>
+  dispatch({ type: SET_ASK_INFO, data });
+export const setBidInfo = data => dispatch =>
+  dispatch({ type: SET_BID_INFO, data });
+export const setListOpen = data => dispatch =>
+  dispatch({ type: SET_LIST_OPEN, data });

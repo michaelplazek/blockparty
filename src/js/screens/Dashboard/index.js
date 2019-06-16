@@ -31,8 +31,11 @@ import DeleteBid from "../../components/Flyout/BidDetails";
 import withDimensions from "../../HOCs/withDimensions";
 import withStyles from "@material-ui/core/styles/withStyles";
 import {
-  selectAskCurrencyItems, selectBidCurrencyItems,
-  selectDashboardLoaded, selectFilteredAskCurrencyItems, selectFilteredBidCurrencyItems,
+  selectAskCurrencyItems,
+  selectBidCurrencyItems,
+  selectDashboardLoaded,
+  selectFilteredAskCurrencyItems,
+  selectFilteredBidCurrencyItems,
   selectLayer,
   selectMyAsks,
   selectMyBids,
@@ -41,7 +44,8 @@ import {
   selectNumberOfMyAsks,
   selectNumberOfMyBids,
   selectNumberOfMyOffers,
-  selectNumberOfMyTransactions, selectRun,
+  selectNumberOfMyTransactions,
+  selectRun,
   selectTransactionsForDisplay,
   selectUserId,
   selectUsername
@@ -59,8 +63,14 @@ import { loadTransaction, loadTransactions } from "../../actions/transactions";
 import TransactionDetails from "../../components/Flyout/TransactionDetail";
 import withLocation from "../../HOCs/withLocation";
 import { loadLastPrice as loadLastPriceAction } from "../../actions/metrics";
-import {setBidCoin as setBidCoinAction, setBidPrice as setBidPriceAction} from "../../actions/createBid";
-import {setAskCoin as setAskCoinAction, setAskPrice as setAskPriceAction} from "../../actions/createAsk";
+import {
+  setBidCoin as setBidCoinAction,
+  setBidPrice as setBidPriceAction
+} from "../../actions/createBid";
+import {
+  setAskCoin as setAskCoinAction,
+  setAskPrice as setAskPriceAction
+} from "../../actions/createAsk";
 import numeral from "numeral";
 import { COST } from "../../constants/currency";
 import withPolling from "../../HOCs/withPolling";
@@ -69,9 +79,12 @@ import AddAskIcon from "@material-ui/icons/AddLocationTwoTone";
 import SpeedDialButton from "../../components/SpeedDialButton";
 import withVisited from "../../HOCs/withVisited";
 import Joyride from "react-joyride";
-import {dashboardSteps, isVisited, tourStyle} from "../../config/tour";
+import { dashboardSteps, isVisited, tourStyle } from "../../config/tour";
 import Tooltip from "../../components/TourTooltip";
-import {setNavIndex as setNavIndexAction, setRun as setRunAction} from "../../actions/app";
+import {
+  setNavIndex as setNavIndexAction,
+  setRun as setRunAction
+} from "../../actions/app";
 import QR from "../../components/Modal/QR";
 
 const styles = () => ({
@@ -106,7 +119,7 @@ const Dashboard = ({
   handleCreateAsk,
   handleCreateBid,
   handleCallback,
-  run,
+  run
 }) => {
   const actions = [
     {
@@ -131,7 +144,7 @@ const Dashboard = ({
       {layer === "VIEW_TRANSACTION" && <TransactionDetails />}
       <PageHeader leftHandLabel="Dashboard" />
       <Tile
-        className='transactions'
+        className="transactions"
         title="Accepted Offers"
         count={numberOfTransactions}
         description="time to meet up"
@@ -145,7 +158,7 @@ const Dashboard = ({
         ))}
       </Tile>
       <Tile
-        className='offers'
+        className="offers"
         title="My Offers"
         count={numberOfOffers}
         description="offers I've made"
@@ -158,7 +171,12 @@ const Dashboard = ({
           />
         ))}
       </Tile>
-      <Tile className='asks' title="My Asks" count={numberOfAsks} description="looking to sell">
+      <Tile
+        className="asks"
+        title="My Asks"
+        count={numberOfAsks}
+        description="looking to sell"
+      >
         {myAsks.map(item => (
           <ListTile
             item={item}
@@ -167,7 +185,12 @@ const Dashboard = ({
           />
         ))}
       </Tile>
-      <Tile className='bids' title="My Bids" count={numberOfBids} description="looking to buy">
+      <Tile
+        className="bids"
+        title="My Bids"
+        count={numberOfBids}
+        description="looking to buy"
+      >
         {myBids.map(item => (
           <ListTile
             item={item}
@@ -184,7 +207,7 @@ const Dashboard = ({
           zIndex: 100
         }}
       >
-        <SpeedDialButton className='create-post' actions={actions} />
+        <SpeedDialButton className="create-post" actions={actions} />
       </div>
       <Joyride
         steps={dashboardSteps}
@@ -257,7 +280,7 @@ export default compose(
         loadOffersByUser,
         loadTransactions,
         userId,
-        setRun,
+        setRun
       } = this.props;
       loadMyAsks(userId);
       loadMyBids(userId);
@@ -318,7 +341,7 @@ export default compose(
       setLayer,
       setLayerOpen,
       setBidCoin,
-      filteredBidCoins,
+      filteredBidCoins
     }) => () => {
       loadLastPrice(filteredBidCoins[0].value).then(response =>
         setBidPrice(numeral(response.data).format(COST))
@@ -342,10 +365,10 @@ export default compose(
       setLayer("CREATE_ASK");
       setLayerOpen(true);
     },
-    handleCallback: ({ history, setRun, setNavIndex }) => (stats) => {
-      if (stats.status === 'finished') {
+    handleCallback: ({ history, setRun, setNavIndex }) => stats => {
+      if (stats.status === "finished") {
         setRun(false);
-        history.push('/account');
+        history.push("/account");
         setNavIndex(2);
       }
     }

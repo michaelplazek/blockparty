@@ -1,5 +1,5 @@
 import React from "react";
-import {compose, withHandlers, withState} from "recompose";
+import { compose, withHandlers, withState } from "recompose";
 import withStyles from "@material-ui/core/styles/withStyles";
 import mapper from "../../../utils/connect";
 
@@ -26,14 +26,14 @@ import {
   selectUsername,
   selectBidFormContactInfo,
   selectBidCurrencyItems,
-  selectLastPrice,
+  selectLastPrice
 } from "../../../selectors";
 import {
   createBid as createBidAction,
   loadMyBids as loadMyBidsAction
 } from "../../../actions/bids";
 import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
-import {resetBid as resetBidAction} from "../../../actions/createBid";
+import { resetBid as resetBidAction } from "../../../actions/createBid";
 import { ValidatorForm } from "react-material-ui-form-validator";
 import { cleanInputs } from "../../../constants/validation";
 
@@ -71,8 +71,9 @@ const CreateBid = ({
     title="Create new bid"
   >
     <Grid className={classes.root}>
-      <Typography variant='caption'>
-        Please note that there is a limit of one bid <b>per coin</b> at any time.
+      <Typography variant="caption">
+        Please note that there is a limit of one bid <b>per coin</b> at any
+        time.
       </Typography>
       <Stepper activeStep={activeIndex} orientation="vertical">
         {STEPS.map((step, index) => {
@@ -131,14 +132,14 @@ const propMap = {
   username: selectUsername,
   userId: selectUserId,
   lastPrice: selectLastPrice,
-  coins: selectBidCurrencyItems,
+  coins: selectBidCurrencyItems
 };
 
 const actionMap = {
   createBid: createBidAction,
   loadMyBids: loadMyBidsAction,
   setLayerOpen: setLayerOpenAction,
-  resetBid: resetBidAction,
+  resetBid: resetBidAction
 };
 
 export default compose(

@@ -71,8 +71,9 @@ const CreateAsk = ({
     title="Create new ask"
   >
     <Grid className={classes.root}>
-      <Typography variant='caption'>
-        Please note that there is a limit of one ask <b>per coin</b> at any time.
+      <Typography variant="caption">
+        Please note that there is a limit of one ask <b>per coin</b> at any
+        time.
       </Typography>
       <Stepper activeStep={activeIndex} orientation="vertical">
         {STEPS.map((step, index) => {
@@ -131,14 +132,14 @@ const propMap = {
   userId: selectUserId,
   contactInfo: selectAskFormContactInfo,
   lastPrice: selectLastPrice,
-  coins: selectAskCurrencyItems,
+  coins: selectAskCurrencyItems
 };
 
 const actionMap = {
   createAsk: createAskAction,
   loadMyAsks: loadMyAsksAction,
   setLayerOpen: setLayerOpenAction,
-  resetAsk: resetAskAction,
+  resetAsk: resetAskAction
 };
 
 export default compose(

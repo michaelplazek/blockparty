@@ -6,10 +6,10 @@ import Modal from "../index";
 
 import Grid from "@material-ui/core/Grid/Grid";
 import Paper from "@material-ui/core/Paper";
-import {selectQR} from "../../../selectors";
+import { selectQR } from "../../../selectors";
 
-import btcqr from './bitcoinqr.png'
-import xmrqr from './monero_qr.png'
+import btcqr from "./bitcoinqr.png";
+import xmrqr from "./monero_qr.png";
 
 const styles = () => ({
   items: {
@@ -20,8 +20,8 @@ const styles = () => ({
     margin: "0px 20px 0px 20px"
   },
   secondary: {
-    marginTop: "5px",
-  },
+    marginTop: "5px"
+  }
 });
 
 const QR = ({ qr, classes }) => (
@@ -29,12 +29,21 @@ const QR = ({ qr, classes }) => (
     <Grid container direction="column">
       <Grid item className={classes.items}>
         <Paper elevation={0} className={classes.paper}>
-          {qr === 'BTC' ? (
-            <img src={btcqr} alt="BTC wallet QR code" height={160} width={160}/>
+          {qr === "BTC" ? (
+            <img
+              src={btcqr}
+              alt="BTC wallet QR code"
+              height={160}
+              width={160}
+            />
           ) : (
-            <img src={xmrqr} alt="XMR wallet QR code" height={160} width={160}/>
-            )
-          }
+            <img
+              src={xmrqr}
+              alt="XMR wallet QR code"
+              height={160}
+              width={160}
+            />
+          )}
         </Paper>
       </Grid>
     </Grid>
@@ -49,5 +58,5 @@ const actionMap = {};
 
 export default compose(
   mapper(propMap, actionMap),
-  withStyles(styles),
+  withStyles(styles)
 )(QR);

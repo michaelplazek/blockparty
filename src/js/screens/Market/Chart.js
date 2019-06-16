@@ -7,7 +7,8 @@ import mapper from "../../utils/connect";
 import withAuthentification from "../../HOCs/withAuthentification";
 import {
   selectAskInfo,
-  selectAsksForDisplay, selectBidInfo,
+  selectAsksForDisplay,
+  selectBidInfo,
   selectBidsForDisplay,
   selectFilterCoin,
   selectFilterType,
@@ -15,7 +16,8 @@ import {
   selectHeaderHeight,
   selectLayer,
   selectMarketLoaded,
-  selectNavHeight, selectTouched,
+  selectNavHeight,
+  selectTouched,
   selectWindowHeight,
   selectWindowWidth
 } from "../../selectors";
@@ -30,7 +32,7 @@ import {
   setAskInfo as setAskInfoAction,
   setBidInfo as setBidInfoAction,
   setMarketView as setMarketViewAction,
-  setTouched as setTouchedAction,
+  setTouched as setTouchedAction
 } from "../../actions/app";
 import AnalysisChart from "../../components/AnalysisChart";
 import PriceMarker from "../../components/AnalysisChart/PriceMarker";
@@ -107,7 +109,7 @@ const propMap = {
   layer: selectLayer,
   touched: selectTouched,
   askInfo: selectAskInfo,
-  bidInfo: selectBidInfo,
+  bidInfo: selectBidInfo
 };
 
 const actionMap = {
@@ -120,7 +122,7 @@ const actionMap = {
   setLayer,
   setTouched: setTouchedAction,
   setAskInfo: setAskInfoAction,
-  setBidInfo: setBidInfoAction,
+  setBidInfo: setBidInfoAction
 };
 
 export default compose(
@@ -160,6 +162,6 @@ export default compose(
         setBidInfo(bidInfo);
         setTouched(true);
       }
-    },
+    }
   })
 )(Chart);

@@ -13,7 +13,8 @@ import {
   selectBidOfferButtonText,
   selectMyOffersLoaded,
   selectUserId,
-  selectWindowHeight, selectModal
+  selectWindowHeight,
+  selectModal
 } from "../../selectors/index";
 import { loadBid as loadBidAction } from "../../actions/bids";
 import Grid from "@material-ui/core/Grid/Grid";
@@ -27,7 +28,7 @@ import {
   setLayer as setLayerAction,
   setLayerOpen as setLayerOpenAction,
   setModal as setModalAction,
-  setModalOpen as setModalOpenAction,
+  setModalOpen as setModalOpenAction
 } from "../../actions/layers";
 import CreateBidOffer from "../../components/Flyout/CreateBidOffer";
 import { loadOffersByUser } from "../../actions/offers";
@@ -77,9 +78,7 @@ const Bid = ({
         {layer === "CREATE_BID_OFFER" && (
           <CreateBidOffer handleClose={() => {}} handleSubmit={() => {}} />
         )}
-        {modal === "VIEW_USER_DETAILS" && (
-          <UserInfo id={bid.userId} />
-        )}
+        {modal === "VIEW_USER_DETAILS" && <UserInfo id={bid.userId} />}
         <Grid>
           <Button
             style={theme.palette.inverse}
@@ -143,7 +142,7 @@ const actionMap = {
   setLayerOpen: setLayerOpenAction,
   loadOffersByUser,
   setModal: setModalAction,
-  setModalOpen: setModalOpenAction,
+  setModalOpen: setModalOpenAction
 };
 
 export default compose(

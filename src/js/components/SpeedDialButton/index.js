@@ -11,7 +11,7 @@ const SpeedDialButton = ({
   handleOpen,
   handleClose,
   open,
-  className,
+  className
 }) => (
   <SpeedDial
     ariaLabel="Create"

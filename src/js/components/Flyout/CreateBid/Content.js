@@ -100,7 +100,7 @@ const CreateBidContent = ({
     case 2:
       return (
         <FormControl margin="dense" fullWidth={true}>
-          <Grid container direction='column'>
+          <Grid container direction="column">
             <Grid item>
               <TextValidator
                 id="volume"
