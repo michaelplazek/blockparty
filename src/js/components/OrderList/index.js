@@ -3,7 +3,6 @@ import { compose, withHandlers } from "recompose";
 import { withRouter } from "react-router";
 
 import mapper from "../../utils/connect";
-import withDimensions from "../../HOCs/withDimensions";
 
 import withStyles from "@material-ui/core/styles/withStyles";
 import { Typography, Grid, ListItem, ListItemText } from "@material-ui/core";
@@ -134,7 +133,6 @@ const actionMap = {};
 export default compose(
   mapper(propMap, actionMap),
   withStyles(styles),
-  withDimensions,
   withRouter,
   withHandlers({
     handleClick: ({ history }) => item => {
