@@ -35,6 +35,7 @@ import { loadOffersByUser } from "../../actions/offers";
 import { selectBidHasButton } from "../../selectors";
 import Fab from "@material-ui/core/Fab";
 import UserInfo from "../../components/Modal/UserInfo";
+import withNav from "../../HOCs/withNav";
 
 const styles = theme => ({
   root: {
@@ -169,5 +170,6 @@ export default compose(
       setModal("VIEW_USER_DETAILS");
       setModalOpen(true);
     }
-  })
+  }),
+  withNav,
 )(Bid);

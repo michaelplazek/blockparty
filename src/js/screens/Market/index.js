@@ -53,6 +53,7 @@ import Welcome from "../../components/Modal/Welcome";
 import { setCurrentLocation as setCurrentLocationAction } from "../../actions/session";
 import ListIcon from "./ListIcon";
 import Orders from "../../components/Flyout/Orders";
+import withNav from "../../HOCs/withNav";
 
 class Market extends Component {
   constructor(props) {
@@ -198,5 +199,6 @@ export default compose(
     loadBids();
   }, 5000),
   withPushNotifications,
-  withVisited
+  withVisited,
+  withNav,
 )(Market);
