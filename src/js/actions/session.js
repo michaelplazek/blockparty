@@ -74,7 +74,6 @@ export const loadUserFromToken = () => dispatch => {
 
 export const loadCurrentLocation = () => dispatch =>
   navigator.geolocation.getCurrentPosition(pos => {
-    console.log('loadCurrentLocation');
     dispatch({ type: CURRENT_LOCATION_LOAD, data: pos.coords });
   });
 
