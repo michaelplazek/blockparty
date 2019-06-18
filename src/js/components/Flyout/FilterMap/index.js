@@ -116,7 +116,7 @@ const FilterMap = ({
                   container
                   direction='row'
                 >
-                  <Grid item style={{ marginRight: '0.5em' }}>
+                  <Grid item style={{ marginRight: '0.3em' }}>
                     <StarRating
                       rating={item}
                       starRatedColor="#ffc107"
