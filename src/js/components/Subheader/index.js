@@ -22,6 +22,7 @@ import {
   setFilterItems,
   setFocusField as setFocusFieldAction
 } from "../../actions/filters";
+import {Typography} from "@material-ui/core";
 
 const styles = () => ({
   root: {
@@ -44,23 +45,32 @@ const Subheader = ({ classes, filter, handleOpen }) => (
         <Chip
           clickable={true}
           onClick={() => handleOpen("type")}
-          label={`Type: ${filter.type}`}
+          label={
+            <Typography variant='caption'>
+              {`${filter.type}`}
+            </Typography>
+          }
           className={classes.chip}
-          variant="outlined"
         />
         <Chip
           clickable={true}
           onClick={() => handleOpen("coin")}
-          label={`Coin: ${filter.coin}`}
+          label={
+            <Typography variant='caption'>
+              {`${filter.coin}`}
+            </Typography>
+          }
           className={classes.chip}
-          variant="outlined"
         />
         <Chip
           clickable={true}
           onClick={() => handleOpen("distance")}
-          label={`Distance: ${filter.distanceAway || 0} mi`}
+          label={
+            <Typography variant='caption'>
+              {`${filter.distanceAway || 0} mi`}
+            </Typography>
+          }
           className={classes.chip}
-          variant="outlined"
         />
       </Grid>
       <Grid item className={classes.filterButton}>
