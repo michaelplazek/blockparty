@@ -488,7 +488,8 @@ export const selectMapMarkers = createSelector(
       })),
       filter(withinPrice),
       filter(withinRange),
-      filter(item => item.coin === filters.coin)
+      filter(item => item.coin === filters.coin),
+      filter(item => item.reputation >= filters.reputation)
     )(items);
   }
 );
@@ -574,7 +575,6 @@ export const selectBidCurrencyItems = createSelector(
         value: item.assetSymbol,
         disabled: coins.includes(item.assetSymbol)
       }))
-      // filter(coin => !coins.includes(coin.assetSymbol))
     )(names)
 );
 
@@ -614,7 +614,8 @@ export const selectBidList = createSelector(
       })),
       filter(withinPrice),
       filter(withinRange),
-      filter(item => item.coin === filters.coin)
+      filter(item => item.coin === filters.coin),
+      filter(item => item.reputation >= filters.reputation)
     )(bids)
 );
 
@@ -634,7 +635,8 @@ export const selectAskList = createSelector(
       })),
       filter(withinPrice),
       filter(withinRange),
-      filter(item => item.coin === filters.coin)
+      filter(item => item.coin === filters.coin),
+      filter(item => item.reputation >= filters.reputation)
     )(asks)
 );
 
