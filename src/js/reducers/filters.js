@@ -15,7 +15,7 @@ const initialState = {
   distanceAway: 25,
   coin: "BTC",
   type: "ALL",
-  reputation: '4',
+  reputation: 4,
   focusField: "",
   filter: DEFAULT_FILTER,
   price: undefined
