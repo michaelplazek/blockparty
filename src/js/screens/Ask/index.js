@@ -51,6 +51,9 @@ const styles = theme => ({
     bottom: "7em",
     right: "2em",
     background: theme.palette.createButton.background
+  },
+  backButton: {
+    padding: "1em",
   }
 });
 
@@ -82,12 +85,14 @@ const Ask = ({
         )}
         {modal === "VIEW_USER_DETAILS" && <UserInfo id={ask.userId} />}
         <Grid>
-          <Button
-            style={theme.palette.inverse}
-            onClick={() => history.goBack()}
-          >
-            Go Back
-          </Button>
+          <Grid className={classes.backButton}>
+            <Button
+              style={theme.palette.inverse}
+              onClick={() => history.goBack()}
+            >
+              Go Back
+            </Button>
+          </Grid>
           <div className={classes.root}>
             <Grid item className={classes.body}>
               <Typography style={theme.palette.inverse} variant="display1">
