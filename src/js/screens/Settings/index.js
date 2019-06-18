@@ -35,6 +35,8 @@ import { loadMyAsks as loadMyAsksAction } from "../../actions/asks";
 import { loadMyBids as loadMyBidsAction } from "../../actions/bids";
 import { loadOffersByUser as loadOffersByUserAction } from "../../actions/offers";
 import { loadTransactions as loadTransactionsAction } from "../../actions/transactions";
+import withNav from "../../HOCs/withNav";
+import PermissionStatuses from "./PermissionStatuses";
 
 const styles = () => ({
   top: {
@@ -109,6 +111,9 @@ const Settings = ({
               </Grid>
             </Grid>
           </ValidatorForm>
+        </Grid>
+        <Grid item>
+          <PermissionStatuses />
         </Grid>
         <Grid item className={classes.bottom}>
           <Grid container direction="column" alignItems="center">
@@ -205,5 +210,6 @@ export default compose(
       deleteUser(userId);
     }
   }),
-  withDimensions
+  withDimensions,
+  withNav,
 )(Settings);

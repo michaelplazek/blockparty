@@ -4,9 +4,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import mapper from "../../../utils/connect";
 import Modal from "../index";
 
-import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
 import {
-  selectLayerOpen,
   selectUser,
   selectUserId,
   selectWindowHeight,
@@ -26,11 +24,11 @@ import Typography from "@material-ui/core/Typography";
 
 const styles = () => ({
   items: {
-    marginTop: "2.2em",
-    marginBottom: "1em"
+    marginTop: "2em",
+    marginBottom: "1em",
   },
   paper: {
-    margin: "0px 20px 0px 20px"
+    padding: "0px 20px 0px 20px"
   },
   secondary: {
     marginTop: "5px"
@@ -44,7 +42,7 @@ const UserInfo = ({ items, classes }) => (
         <Paper elevation={0} className={classes.paper}>
           <List>
             {items.map((item, index) => (
-              <ListItem divider={index !== items.length - 1}>
+              <ListItem dense={true} divider={index !== items.length - 1}>
                 <Grid container direction="column" justify="space-between">
                   <Grid item>
                     <ListItemText

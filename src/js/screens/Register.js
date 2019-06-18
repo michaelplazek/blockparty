@@ -14,16 +14,20 @@ import Button from "@material-ui/core/Button/Button";
 const styles = () => ({
   root: {
     background: "white",
-    height: "90vh",
+    height: "100vh",
     padding: "20px"
-  }
+  },
+  body: {
+    marginTop: "2.5em"
+  },
 });
 
 const Register = ({ handleSignUp, classes, history }) => (
+  <div className={classes.root}>
   <Grid style={{ background: "white" }}>
     <Button onClick={() => history.goBack()}>Back to login</Button>
     <Grid
-      className={classes.root}
+      className={classes.body}
       container
       justify="center"
       direction="column"
@@ -38,6 +42,7 @@ const Register = ({ handleSignUp, classes, history }) => (
       </Grid>
     </Grid>
   </Grid>
+  </div>
 );
 
 const propMap = {};

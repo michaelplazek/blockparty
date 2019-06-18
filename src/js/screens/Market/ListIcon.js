@@ -9,6 +9,7 @@ import { selectListOpen, selectNavHeight } from "../../selectors";
 
 const ListIcon = ({ openList, windowHeight, navHeight, height, open }) => (
   <Paper
+    className='list-icon'
     style={{
       position: "absolute",
       right: "0.75em",

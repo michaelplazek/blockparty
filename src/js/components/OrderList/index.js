@@ -14,11 +14,9 @@ import {
 } from "../../selectors";
 
 const styles = () => ({
-  root: {
-    marginTop: "0.5em"
-  },
+  root: {},
   list: {
-    marginRight: "0.5em"
+    marginRight: "0.5em",
   },
   item: {
     marginRight: "0.5em"

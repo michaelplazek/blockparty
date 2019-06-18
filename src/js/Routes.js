@@ -4,7 +4,6 @@ import { compose } from "recompose";
 import { Route } from "react-router-dom";
 import { Switch, withRouter } from "react-router";
 
-import FooterNav from "./components/FooterNav";
 import routes from "./config/routes";
 import withAuthentification from "./HOCs/withAuthentification";
 import withErrors from "./HOCs/withErrors";
@@ -23,9 +22,6 @@ const Routes = () => (
         />
       ))}
     </Switch>
-    <div>
-      <FooterNav />
-    </div>
   </div>
 );
 

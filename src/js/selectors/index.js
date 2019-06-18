@@ -12,6 +12,7 @@ import { getDistance } from "geolib";
 import { getMilesFromMeters } from "../utils/location";
 
 import { ADMIN_1, LOCALITY, POLITICAL } from "../constants/maps";
+import Grid from "@material-ui/core/Grid";
 
 const NUMBER_OF_BINS = 100;
 
@@ -47,6 +48,7 @@ export const selectFilterCoin = state => state.filters.coin;
 export const selectFilterType = state => state.filters.type;
 export const selectFocusField = state => state.filters.focusField;
 export const selectFilterPrice = state => state.filters.price;
+export const selectFilterReputation = state => state.filters.reputation;
 export const selectFilter = state => state.filters.filter;
 export const selectFormattedFilterPrice = createSelector(
   selectFilterPrice,
@@ -486,7 +488,8 @@ export const selectMapMarkers = createSelector(
       })),
       filter(withinPrice),
       filter(withinRange),
-      filter(item => item.coin === filters.coin)
+      filter(item => item.coin === filters.coin),
+      filter(item => item.reputation >= filters.reputation)
     )(items);
   }
 );
@@ -572,7 +575,6 @@ export const selectBidCurrencyItems = createSelector(
         value: item.assetSymbol,
         disabled: coins.includes(item.assetSymbol)
       }))
-      // filter(coin => !coins.includes(coin.assetSymbol))
     )(names)
 );
 
@@ -612,7 +614,8 @@ export const selectBidList = createSelector(
       })),
       filter(withinPrice),
       filter(withinRange),
-      filter(item => item.coin === filters.coin)
+      filter(item => item.coin === filters.coin),
+      filter(item => item.reputation >= filters.reputation)
     )(bids)
 );
 
@@ -632,7 +635,8 @@ export const selectAskList = createSelector(
       })),
       filter(withinPrice),
       filter(withinRange),
-      filter(item => item.coin === filters.coin)
+      filter(item => item.coin === filters.coin),
+      filter(item => item.reputation >= filters.reputation)
     )(asks)
 );
 

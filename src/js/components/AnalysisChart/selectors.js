@@ -33,7 +33,8 @@ export const selectFilteredBids = createSelector(
     compose(
       filter(withinRange),
       filter(bid => bid.coin === filters.coin),
-      filter(() => filters.type === "BID" || filters.type === "ALL")
+      filter(() => filters.type === "BID" || filters.type === "ALL"),
+      filter(bid => bid.reputation >= filters.reputation)
     )(bids)
 );
 
@@ -45,7 +46,8 @@ export const selectFilteredAsks = createSelector(
     compose(
       filter(withinRange),
       filter(ask => ask.coin === filters.coin),
-      filter(() => filters.type === "ASK" || filters.type === "ALL")
+      filter(() => filters.type === "ASK" || filters.type === "ALL"),
+      filter(bid => bid.reputation >= filters.reputation)
     )(asks)
 );
 

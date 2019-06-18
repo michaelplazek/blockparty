@@ -17,7 +17,7 @@ import { setNavIndex } from "../actions/app";
 const styles = () => ({
   root: {
     background: "white",
-    height: "90vh",
+    height: "100vh",
     padding: "20px"
   },
   signUpText: {

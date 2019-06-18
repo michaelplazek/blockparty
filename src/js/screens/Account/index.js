@@ -41,6 +41,7 @@ import {
 } from "../../actions/layers";
 import { truncateString } from "../../utils/strings";
 import { setQR as setQRAction } from "../../actions/metrics";
+import withNav from "../../HOCs/withNav";
 
 const styles = () => ({
   body: {
@@ -265,5 +266,6 @@ export default compose(
   withPolling(({ loadUserFromToken }) => {
     loadUserFromToken();
   }, 5000),
-  withVisited
+  withVisited,
+  withNav,
 )(Account);

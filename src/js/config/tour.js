@@ -31,7 +31,15 @@ export const marketSteps = [
       "click on the info window. From here you can make an offer.",
     disableBeacon: true,
     placement: "auto"
-  }
+  },
+  {
+    target: ".list-icon",
+    header: "List",
+    content:
+      "To view posts in a list view, click the list icon to open a slide out.",
+    disableBeacon: true,
+    placement: "auto"
+  },
 ];
 
 export const dashboardSteps = [
@@ -47,7 +55,7 @@ export const dashboardSteps = [
     target: ".create-post",
     header: "Create Posts",
     content:
-      "Create a limit order by clicking the button and selecting either ask or bid. " +
+      "Create a limit order by clicking the button and selecting either buy or sell. " +
       "After your post is created, it will appear on the map in the Market.",
     disableBeacon: true,
     placement: "top"

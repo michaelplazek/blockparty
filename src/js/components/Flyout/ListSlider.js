@@ -31,7 +31,9 @@ const ListSlider = ({
         height: `${(windowHeight - navHeight - headerHeight) / 2}px`,
         zIndex: 99,
         borderRight: "#CCC 1px solid",
-        background: 'whitesmoke'
+        background: 'whitesmoke',
+        overflowY: 'auto',
+        overflowX: 'hidden'
       }}
     >
       {children}

@@ -86,6 +86,7 @@ import {
   setRun as setRunAction
 } from "../../actions/app";
 import QR from "../../components/Modal/QR";
+import withNav from "../../HOCs/withNav";
 
 const styles = () => ({
   root: {
@@ -390,5 +391,6 @@ export default compose(
     },
     5000
   ),
-  withVisited
+  withVisited,
+  withNav,
 )(Dashboard);
