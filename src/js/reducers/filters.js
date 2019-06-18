@@ -39,7 +39,8 @@ const handlers = {
       coin: state.coin,
       distanceAway: state.distanceAway,
       type: state.type,
-      price: state.price
+      price: state.price,
+      reputation: state.reputation,
     }
   }),
   [SET_FILTER_ITEMS]: state => ({

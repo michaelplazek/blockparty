@@ -101,7 +101,7 @@ const FilterMap = ({
           </Select>
         </FormControl>
         <FormControl margin="dense" fullWidth={true}>
-          <InputLabel>Reputation</InputLabel>
+          <InputLabel>User Reputation</InputLabel>
           <Select
             inputProps={{
               autoFocus: focusField === "reputation"

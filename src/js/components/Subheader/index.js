@@ -23,6 +23,7 @@ import {
   setFocusField as setFocusFieldAction
 } from "../../actions/filters";
 import {Typography} from "@material-ui/core";
+import StarRating from "react-star-ratings";
 
 const styles = () => ({
   root: {
@@ -69,6 +70,21 @@ const Subheader = ({ classes, filter, handleOpen }) => (
             <Typography variant='caption'>
               {`${filter.distanceAway || 0} mi`}
             </Typography>
+          }
+          className={classes.chip}
+        />
+        <Chip
+          clickable={true}
+          onClick={() => handleOpen("reputation")}
+          label={
+            <StarRating
+              rating={filter.reputation}
+              starRatedColor="#ffc107"
+              numberOfStars={5}
+              starDimension="1em"
+              starSpacing="0.1em"
+              name="rating"
+            />
           }
           className={classes.chip}
         />
