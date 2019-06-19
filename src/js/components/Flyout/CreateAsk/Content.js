@@ -1,5 +1,5 @@
 import React from "react";
-import { compose, lifecycle, withHandlers } from "recompose";
+import { compose, withHandlers } from "recompose";
 import numeral from "numeral";
 
 import { TextValidator } from "react-material-ui-form-validator";
@@ -107,7 +107,7 @@ const CreateAskContent = ({
                 name="volume"
                 value={volume}
                 onChange={({ target }) => {
-                  const totalInUSD = price * target.value;
+                  const totalInUSD = (price * target.value).toFixed(2);
                   setAskVolume(target.value);
                   setAskVolumeInUSD(totalInUSD);
                 }}

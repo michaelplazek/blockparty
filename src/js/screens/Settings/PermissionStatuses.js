@@ -37,12 +37,14 @@ export default compose(
   lifecycle({
     componentDidMount() {
       const { setNotificationsEnabled, setLocationEnabled } = this.props;
-      navigator.permissions.query({ name: 'notifications' }).then(result => {
-        result.state === 'granted' ? setNotificationsEnabled(true) : setNotificationsEnabled(false);
-      });
-      navigator.permissions.query({ name: 'geolocation' }).then(result => {
-        result.state === 'granted' ? setLocationEnabled(true) : setLocationEnabled(false);
-      });
+      if (navigator) {
+        navigator.permissions.query({ name: 'notifications' }).then(result => {
+          result.state === 'granted' ? setNotificationsEnabled(true) : setNotificationsEnabled(false);
+        });
+        navigator.permissions.query({ name: 'geolocation' }).then(result => {
+          result.state === 'granted' ? setLocationEnabled(true) : setLocationEnabled(false);
+        });
+      }
     }
   }),
 )(PermissionStatuses)

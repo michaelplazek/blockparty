@@ -1,10 +1,9 @@
 import React from "react";
-import { compose, withHandlers, withState } from "recompose";
+import { compose, withHandlers } from "recompose";
 import { withRouter } from "react-router";
 import get from "lodash/fp/get";
 import mapper from "../../utils/connect";
 
-import withAuthentification from "../../HOCs/withAuthentification";
 import {
   selectAskInfo,
   selectAsksForDisplay,
@@ -127,7 +126,6 @@ const actionMap = {
 
 export default compose(
   mapper(propMap, actionMap),
-  withAuthentification,
   withRouter,
   withStyles(styles),
   withHandlers({

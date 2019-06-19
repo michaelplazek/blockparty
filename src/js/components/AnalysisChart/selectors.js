@@ -7,7 +7,6 @@ import {
   selectFilter,
   selectFilterCoin,
   selectFilterPrice,
-  selectFilterType,
   selectIsWithinRange
 } from "../../selectors";
 import compose from "lodash/fp/compose";
@@ -20,6 +19,7 @@ import concat from "lodash/fp/concat";
 import reduce from "lodash/fp/reduce";
 import maxBy from "lodash/fp/maxBy";
 import minBy from "lodash/fp/minBy";
+import meanBy from "lodash/fp/meanBy";
 import getOr from "lodash/fp/getOr";
 import { USD } from "../../constants/currency";
 
@@ -158,6 +158,14 @@ export const selectMidMarketPrice = createSelector(
   selectFilteredBids,
   selectFilteredAsks,
   (bids, asks) => {
+    if (asks.length === 0) {
+      const average = meanBy(item => item.price)(bids);
+      return numeral(average).format(USD);
+    }
+    if (bids.length === 0) {
+      const average = meanBy(item => item.price)(asks);
+      return numeral(average).format(USD);
+    }
     const min = compose(
       getOr(0, "price"),
       maxBy(item => item.price)
