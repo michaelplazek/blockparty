@@ -1,7 +1,7 @@
 import Market from "../screens/Market";
 import Ask from "../screens/Ask/index";
 import Bid from "../screens/Bid/index";
-import AboutUs from "../screens/AboutUs";
+import Policy from "../screens/Policy";
 import Dashboard from "../screens/Dashboard";
 import Login from "../screens/Login";
 import Register from "../screens/Register";
@@ -28,7 +28,7 @@ export const protectedRoutes = [
     path: "/about",
     exact: false,
     protected: true,
-    component: AboutUs,
+    component: Policy,
     index: 2
   },
   {
@@ -58,7 +58,14 @@ export const protectedRoutes = [
     protected: true,
     component: Settings,
     index: 6
-  }
+  },
+  {
+    path: "/policy",
+    exact: false,
+    protected: true,
+    component: Policy,
+    index: 7
+  },
 ];
 
 export const unprotectedRoutes = [

@@ -136,6 +136,14 @@ const Settings = ({
                 Delete Account
               </Button>
             </Grid>
+            <Grid item>
+              <Button
+                onClick={() => history.push('/policy')}
+                variant='text'
+              >
+                View our policy
+              </Button>
+            </Grid>
             <Grid item className={classes.version}>
               <Typography variant="caption">{VERSION}</Typography>
             </Grid>
