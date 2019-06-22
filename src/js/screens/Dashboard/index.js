@@ -35,7 +35,7 @@ import {
   selectBidCurrencyItems,
   selectDashboardLoaded,
   selectFilteredAskCurrencyItems,
-  selectFilteredBidCurrencyItems,
+  selectFilteredBidCurrencyItems, selectIsDarkMode,
   selectLayer,
   selectMyAsks,
   selectMyBids,
@@ -85,8 +85,8 @@ import {
   setNavIndex as setNavIndexAction,
   setRun as setRunAction
 } from "../../actions/app";
-import QR from "../../components/Modal/QR";
 import withNav from "../../HOCs/withNav";
+import {COLBALT} from "../../constants/colors";
 
 const styles = () => ({
   root: {
@@ -120,7 +120,8 @@ const Dashboard = ({
   handleCreateAsk,
   handleCreateBid,
   handleCallback,
-  run
+  run,
+  isDarkMode,
 }) => {
   const actions = [
     {
@@ -149,9 +150,11 @@ const Dashboard = ({
         title="Accepted Offers"
         count={numberOfTransactions}
         description="time to meet up"
+        color={isDarkMode ? COLBALT : undefined}
       >
         {myTransactions.map(item => (
           <TransactionTile
+            isDarkMode={isDarkMode}
             item={item}
             key={item._id}
             onClick={() => handleTransactionClick(item)}
@@ -163,6 +166,7 @@ const Dashboard = ({
         title="My Offers"
         count={numberOfOffers}
         description="offers I've made"
+        color={isDarkMode ? COLBALT : undefined}
       >
         {myOffers.map(item => (
           <OfferTile
@@ -177,6 +181,7 @@ const Dashboard = ({
         title="My Asks"
         count={numberOfAsks}
         description="looking to sell"
+        color={isDarkMode ? COLBALT : undefined}
       >
         {myAsks.map(item => (
           <ListTile
@@ -191,6 +196,7 @@ const Dashboard = ({
         title="My Bids"
         count={numberOfBids}
         description="looking to buy"
+        color={isDarkMode ? COLBALT : undefined}
       >
         {myBids.map(item => (
           <ListTile
@@ -241,7 +247,8 @@ const propMap = {
   askCoins: selectAskCurrencyItems,
   bidCoins: selectBidCurrencyItems,
   filteredBidCoins: selectFilteredBidCurrencyItems,
-  filteredAskCoins: selectFilteredAskCurrencyItems
+  filteredAskCoins: selectFilteredAskCurrencyItems,
+  isDarkMode: selectIsDarkMode
 };
 
 const actionMap = {
