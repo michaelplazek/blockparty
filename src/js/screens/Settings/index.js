@@ -38,6 +38,10 @@ import { loadTransactions as loadTransactionsAction } from "../../actions/transa
 import withNav from "../../HOCs/withNav";
 import PermissionStatuses from "./PermissionStatuses";
 import {WHITE} from "../../constants/colors";
+import FormControl from "@material-ui/core/FormControl";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Switch from "@material-ui/core/Switch";
+import {setDarkMode as setDarkModeAction} from "../../actions/app";
 
 const styles = () => ({
   top: {
@@ -57,7 +61,6 @@ const styles = () => ({
 const Settings = ({
   classes,
   height,
-  bio,
   updatedBio,
   history,
   handleUpdate,
@@ -68,7 +71,8 @@ const Settings = ({
   windowWidth,
   buttonText,
   disabled,
-  isDarkMode
+  isDarkMode,
+  setDarkMode
 }) => {
   const theme = isDarkMode ? dark : light;
   return (
@@ -135,6 +139,20 @@ const Settings = ({
           <Grid item>
             <PermissionStatuses />
           </Grid>
+          <Grid item>
+            <FormControl margin="dense" fullWidth={true}>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={isDarkMode}
+                    onChange={() => setDarkMode(!isDarkMode)}
+                    value="dark"
+                  />
+                }
+                label="Dark Mode"
+              />
+            </FormControl>
+          </Grid>
           <Grid item className={classes.bottom}>
             <Grid container direction="column" alignItems="center">
               <Grid item className={classes.deleteInfo}>
@@ -196,7 +214,8 @@ const actionMap = {
   loadMyAsks: loadMyAsksAction,
   loadMyBids: loadMyBidsAction,
   loadOffersByUser: loadOffersByUserAction,
-  loadTransactions: loadTransactionsAction
+  loadTransactions: loadTransactionsAction,
+  setDarkMode: setDarkModeAction
 };
 
 export default compose(
