@@ -100,7 +100,7 @@ const FilterMap = ({
             value={reputation}
             onChange={({ target }) => setFilterReputation(target.value)}
           >
-            {[1, 2, 3, 4].map(item => (
+            {[0, 1, 2, 3, 4].map(item => (
               <MenuItem value={item} label={item} key={item}>
                 <Grid
                   container

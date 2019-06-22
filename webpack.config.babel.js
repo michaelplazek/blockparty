@@ -5,7 +5,7 @@ const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
 
 export default {
     devtool: 'inline-source-map',
-    mode: 'development',
+    mode: 'production',
     entry: [
         path.resolve(__dirname, 'src/index'),
     ],
