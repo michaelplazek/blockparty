@@ -45,7 +45,7 @@ import withNav from "../../HOCs/withNav";
 
 const styles = () => ({
   body: {
-    marginTop: "0.5em",
+    marginTop: "1em",
   },
   items: {
     margin: "0.3em"
