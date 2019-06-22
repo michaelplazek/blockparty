@@ -2,7 +2,7 @@ import React from "react";
 import { compose, lifecycle, withState } from "recompose";
 import { Grid, Typography } from "@material-ui/core";
 
-const PermissionStatuses = ({ locationEnabled, notificationsEnabled }) => (
+const PermissionStatuses = ({ locationEnabled, notificationsEnabled, isDarkMode }) => (
   <Grid container direction="column" alignItems="center">
     <Grid item>
       <Typography variant="caption">
@@ -10,14 +10,14 @@ const PermissionStatuses = ({ locationEnabled, notificationsEnabled }) => (
       </Typography>
     </Grid>
     <Grid item>
-      <Typography>
+      <Typography color={isDarkMode ? 'textSecondary' : undefined}>
         {notificationsEnabled
           ? "Notifications enabled."
           : "Notifications not enabled."}
       </Typography>
     </Grid>
     <Grid item>
-      <Typography>
+      <Typography color={isDarkMode ? 'textSecondary' : undefined}>
         {locationEnabled ? "Location enabled." : "Location not enabled."}
       </Typography>
     </Grid>

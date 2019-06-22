@@ -144,7 +144,7 @@ const Settings = ({
             </ValidatorForm>
           </Grid>
           <Grid item>
-            <PermissionStatuses />
+            <PermissionStatuses isDarkMode={isDarkMode} />
           </Grid>
           <Grid item>
             <FormControl margin="dense" fullWidth={true}>
