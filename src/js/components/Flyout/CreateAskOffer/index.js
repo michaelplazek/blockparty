@@ -46,7 +46,7 @@ import { DARK_GREEN } from "../../../constants/colors";
 
 const styles = theme => ({
   root: {
-    margin: "30px"
+    marginTop: "20px"
   },
   button: {
     marginTop: theme.spacing.unit,

@@ -42,9 +42,12 @@ import {
   setNotification
 } from "../../../actions/app";
 import { getIndexFromPath } from "../../../utils/location";
-import { COLBALT, DARK_GREEN, WHITE } from "../../../constants/colors";
+import { DARK_GREEN, WHITE } from "../../../constants/colors";
 
 const styles = theme => ({
+  root: {
+    marginTop: "20px"
+  },
   button: {
     marginTop: theme.spacing.unit,
     marginRight: theme.spacing.unit
@@ -75,11 +78,7 @@ const CreateBidOffer = ({
     size={8}
     title="Make an offer to sell"
   >
-    <Grid
-      style={{
-        margin: "30px"
-      }}
-    >
+    <Grid className={classes.root}>
       <Stepper
         activeStep={activeIndex}
         orientation="vertical"
