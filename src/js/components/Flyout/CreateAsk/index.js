@@ -37,7 +37,7 @@ import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
 import { resetAsk as resetAskAction } from "../../../actions/createAsk";
 import { ValidatorForm } from "react-material-ui-form-validator";
 import { cleanInputs } from "../../../constants/validation";
-import { COLBALT, DARK_GREEN, WHITE } from "../../../constants/colors";
+import {COLBALT, DARK_GREEN, GOLD, WHITE} from "../../../constants/colors";
 
 const styles = theme => ({
   root: {
@@ -52,7 +52,7 @@ const styles = theme => ({
   },
   resetContainer: {
     padding: theme.spacing.unit * 3
-  }
+  },
 });
 
 const CreateAsk = ({
@@ -88,7 +88,11 @@ const CreateAsk = ({
         {STEPS.map((step, index) => {
           return (
             <Step key={index}>
-              <StepLabel>{step}</StepLabel>
+              <StepLabel
+                style={{color: GOLD}}
+              >
+                {step}
+              </StepLabel>
               <StepContent>
                 <ValidatorForm
                   autoComplete="on"
