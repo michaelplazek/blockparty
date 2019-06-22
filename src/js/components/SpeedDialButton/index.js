@@ -4,6 +4,7 @@ import SpeedDial from "@material-ui/lab/SpeedDial";
 import SpeedDialIcon from "@material-ui/lab/SpeedDialIcon";
 import CloseIcon from "@material-ui/icons/Close";
 import SpeedDialAction from "@material-ui/lab/SpeedDialAction";
+import {GOLD, COLBALT} from "../../constants/colors";
 
 const SpeedDialButton = ({
   actions,
@@ -25,7 +26,9 @@ const SpeedDialButton = ({
     // onMouseEnter={handleOpen}
     // onMouseLeave={handleClose}
     open={open}
-    color={isDarkMode ? 'secondary' : 'primary'}
+    ButtonProps={{
+      color: isDarkMode ? 'secondary' : 'primary'
+    }}
 
   >
     /* * NOTE: this behavior will not work for touch devices * due issue:
@@ -45,6 +48,10 @@ const SpeedDialButton = ({
             handleClick();
             action.onClick();
           },
+          style: {
+            color: isDarkMode ? GOLD : undefined,
+            background: isDarkMode ? COLBALT : undefined,
+          }
         }}
       />
     ))}
