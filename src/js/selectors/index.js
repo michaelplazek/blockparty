@@ -17,6 +17,7 @@ import Grid from "@material-ui/core/Grid";
 const NUMBER_OF_BINS = 100;
 
 export const intoArray = (...args) => args;
+export const fromProps = path => (state, props) => get(props, path);
 
 // SESSION
 export const selectIsLoggedIn = state => state.session.loggedIn;
