@@ -110,7 +110,6 @@ const Settings = ({
                     label="Bio"
                     multiline
                     rows="4"
-                    defaultValue={bio}
                     value={updatedBio}
                     onChange={({ target }) => setUpdatedBio(target.value)}
                     margin="normal"

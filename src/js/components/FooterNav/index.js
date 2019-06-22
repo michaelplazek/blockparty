@@ -87,8 +87,8 @@ class FooterNavBase extends Component {
           <Tabs
             value={this.props.index}
             onChange={(_, value) => this.handleChange(value)}
-            indicatorColor="secondary"
-            textColor="secondary"
+            indicatorColor={ this.props.isDarkMode ? "secondary" : 'primary' }
+            textColor={ this.props.isDarkMode ? "secondary" : 'primary' }
             fullWidth={true}
             style={{
               background: this.props.isDarkMode ? COLBALT : undefined

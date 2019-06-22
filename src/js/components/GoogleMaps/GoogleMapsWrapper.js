@@ -217,7 +217,7 @@ class GoogleMapsWrapper extends Component {
                     </Grid>
                   </Grid>
                   <Grid item>
-                    <Typography variant="caption">
+                    <Typography color='primary' variant="caption">
                       {item.isBid ? "sell" : "buy"} at{" "}
                       {numeral(item.price).format(USD)}/{item.coin}
                     </Typography>

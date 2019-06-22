@@ -61,7 +61,13 @@ class PageHeader extends Component {
   render() {
     return (
       <div className={this.props.classes.root} ref={this.saveRef}>
-        <AppBar position="static" style={{ background: this.props.isDarkMode ? COLBALT : undefined, color: GOLD }}>
+        <AppBar
+          position="static"
+          style={{
+            background: this.props.isDarkMode ? COLBALT : undefined,
+            color: this.props.isDarkMode ? GOLD : undefined
+          }}
+        >
           <Toolbar>
             {this.props.leftHandButton && (
               <Button onClick={this.props.leftHandAction} color="inherit">
