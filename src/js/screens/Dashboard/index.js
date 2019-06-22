@@ -221,7 +221,7 @@ const Dashboard = ({
           zIndex: 100
         }}
       >
-        <SpeedDialButton className="create-post" actions={actions} />
+        <SpeedDialButton className="create-post" actions={actions} isDarkMode={isDarkMode} />
       </div>
       <Joyride
         steps={dashboardSteps}

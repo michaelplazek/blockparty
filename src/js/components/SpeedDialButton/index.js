@@ -11,7 +11,8 @@ const SpeedDialButton = ({
   handleOpen,
   handleClose,
   open,
-  className
+  className,
+  isDarkMode
 }) => (
   <SpeedDial
     ariaLabel="Create"
@@ -24,6 +25,8 @@ const SpeedDialButton = ({
     // onMouseEnter={handleOpen}
     // onMouseLeave={handleClose}
     open={open}
+    color={isDarkMode ? 'secondary' : 'primary'}
+
   >
     /* * NOTE: this behavior will not work for touch devices * due issue:
     https://github.com/mui-org/material-ui/issues/13006 * */
@@ -41,7 +44,7 @@ const SpeedDialButton = ({
           onClick: () => {
             handleClick();
             action.onClick();
-          }
+          },
         }}
       />
     ))}

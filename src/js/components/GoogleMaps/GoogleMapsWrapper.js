@@ -199,8 +199,8 @@ class GoogleMapsWrapper extends Component {
                 >
                   <Grid item>
                     <Grid container direction="row">
-                      <Grid item style={{ margin: "0px 4px 0px 0px" }}>
-                        {getCoinIcon(item.coin, 15)}
+                      <Grid item style={{ margin: "4px 4px 0px 0px" }}>
+                        {getCoinIcon(item.coin, isDarkMode, 15)}
                       </Grid>
                       <Grid item>
                         <Grid container direction="row">
@@ -217,7 +217,7 @@ class GoogleMapsWrapper extends Component {
                     </Grid>
                   </Grid>
                   <Grid item>
-                    <Typography color='primary' variant="caption">
+                    <Typography color={isDarkMode ? 'primary' : undefined} variant="caption">
                       {item.isBid ? "sell" : "buy"} at{" "}
                       {numeral(item.price).format(USD)}/{item.coin}
                     </Typography>
