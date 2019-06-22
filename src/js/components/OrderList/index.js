@@ -10,7 +10,7 @@ import { Typography, Grid, ListItem, ListItemText } from "@material-ui/core";
 import {
   selectAskList,
   selectBidList,
-  selectFilterCoin
+  selectFilterCoin, selectIsDarkMode
 } from "../../selectors";
 
 const styles = () => ({
@@ -26,7 +26,7 @@ const styles = () => ({
   }
 });
 
-const ListItemBase = ({ item, classes, isBid, onClick }) => (
+const ListItemBase = ({ item, classes, isBid, onClick, isDarkMode }) => (
   <ListItem button={true} dense={true} divider={true}>
     <Grid
       container
@@ -37,7 +37,7 @@ const ListItemBase = ({ item, classes, isBid, onClick }) => (
       <Grid item>
         <ListItemText
           disableTypography
-          primary={<Typography>{item.volume}</Typography>}
+          primary={<Typography color={isDarkMode ? 'textSecondary' : undefined}>{item.volume}</Typography>}
         />
       </Grid>
       <Grid item>
@@ -89,7 +89,7 @@ const OrderListHeader = compose(withStyles(styles))(ListHeaderBase);
 const OrderListItem = compose(withStyles(styles))(ListItemBase);
 const OrderListTitle = compose(withStyles(styles))(ListTitleBase);
 
-const OrderList = ({ classes, bids, asks, handleClick }) => (
+const OrderList = ({ classes, bids, asks, handleClick, isDarkMode }) => (
   <Grid container direction="row" className={classes.root}>
     <Grid item className={classes.list}>
       <Grid container direction="column">
@@ -97,6 +97,7 @@ const OrderList = ({ classes, bids, asks, handleClick }) => (
         <OrderListHeader />
         {bids.map(item => (
           <OrderListItem
+            isDarkMode={isDarkMode}
             key={item}
             onClick={() => handleClick(item)}
             item={item}
@@ -111,6 +112,7 @@ const OrderList = ({ classes, bids, asks, handleClick }) => (
         <OrderListHeader />
         {asks.map(item => (
           <OrderListItem
+            isDarkMode={isDarkMode}
             key={item}
             onClick={() => handleClick(item)}
             item={item}
@@ -125,7 +127,8 @@ const OrderList = ({ classes, bids, asks, handleClick }) => (
 const propMap = {
   bids: selectBidList,
   asks: selectAskList,
-  coin: selectFilterCoin
+  coin: selectFilterCoin,
+  isDarkMode: selectIsDarkMode
 };
 
 const actionMap = {};

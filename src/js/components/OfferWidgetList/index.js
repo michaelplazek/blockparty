@@ -43,7 +43,7 @@ const OfferWidgetList = ({
   >
     <Grid container direction="column">
       {offers.map((item, index) => (
-        <Fragment>
+        <Fragment key={`${item.username}-${item.timestamp}`}>
           {modal === "VIEW_USER_DETAILS" && <UserInfo id={item.userId} />}
           <OfferWidget
             isDarkMode={isDarkMode}

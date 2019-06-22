@@ -23,36 +23,46 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Typography from "@material-ui/core/Typography";
 
 const styles = () => ({
+  container: {
+
+  },
   items: {
     marginTop: "2em",
     marginBottom: "1em",
   },
-  paper: {
-    padding: "0px 20px 0px 20px"
+  item: {
+    // paddingRight: '4em',
+    // paddingLeft: '4em'
   },
-  secondary: {
-    marginTop: "5px"
-  }
+  paper: {
+    paddingRight: '1em',
+    paddingLeft: '1em'
+  },
+  secondary: {}
 });
 
 const UserInfo = ({ items, classes }) => (
   <Modal title="">
-    <Grid container direction="column">
+    <Grid container direction="column" className={classes.container}>
       <Grid item className={classes.items}>
         <Paper elevation={0} className={classes.paper}>
           <List>
             {items.map((item, index) => (
               <ListItem dense={true} divider={index !== items.length - 1}>
-                <Grid container direction="column" justify="space-between">
+                <Grid container direction="row" alignItems='center' justify="space-between" className={classes.item}>
                   <Grid item>
                     <ListItemText
                       primary={
-                        <Typography variant="caption">{item.name}</Typography>
+                        <Typography color='textPrimary' variant="caption">{item.name}</Typography>
                       }
                     />
                   </Grid>
                   <Grid item className={classes.secondary}>
-                    <ListItemText>{item.value}</ListItemText>
+                    <ListItemText
+                      primary={
+                        <Typography color='textPrimary'>{item.value}</Typography>
+                      }
+                    />
                   </Grid>
                 </Grid>
               </ListItem>
