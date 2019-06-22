@@ -45,13 +45,14 @@ import withNav from "../../HOCs/withNav";
 
 const styles = () => ({
   body: {
-    marginTop: "1em",
+    marginTop: "1.2em",
   },
   items: {
     margin: "0.3em"
   },
+  username: {},
   bio: {
-    marginTop: "0.3em",
+    // marginTop: "0.3em",
     marginLeft: "1.5em",
     marginRight: "1.5em"
   },
@@ -102,7 +103,7 @@ const Account = ({
       <Grid item container direction="column" justify="flex-start">
         <Grid item className={classes.items}>
           <Grid container direction="column" alignItems="center">
-            <Grid item className={classes.items}>
+            <Grid item className={classes.username}>
               <Typography variant="display1">{username}</Typography>
             </Grid>
             <Grid item className={classes.bio}>
