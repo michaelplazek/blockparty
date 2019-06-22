@@ -38,6 +38,7 @@ function renderSuggestion(suggestionProps) {
   return (
     <MenuItem
       {...itemProps}
+      disabled={suggestion.disabled}
       key={suggestion.label}
       selected={isHighlighted}
       component="div"
@@ -159,6 +160,7 @@ const SearchableSelect = ({
               <Paper className={classes.paper} square>
                 {getSuggestions(inputValue, { showEmpty: true }, suggestions).map((suggestion, index) =>
                   renderSuggestion({
+                    disabled: suggestion.disabled,
                     suggestion,
                     index,
                     itemProps: getItemProps({ item: suggestion.label }),
