@@ -9,7 +9,7 @@ import {
 export const footerNavigation = [
   {
     path: "/",
-    subpath: undefined,
+    subpath: [],
     label: "Market",
     index: 0,
     className: "market-nav",
@@ -17,7 +17,7 @@ export const footerNavigation = [
   },
   {
     path: "/dashboard",
-    subpath: undefined,
+    subpath: [],
     label: "Dashboard",
     index: 1,
     className: "dashboard-nav",
@@ -25,7 +25,7 @@ export const footerNavigation = [
   },
   {
     path: "/account",
-    subpath: "/settings",
+    subpath: ["/settings", "/policy"],
     label: "Account",
     index: 2,
     className: "account-nav",

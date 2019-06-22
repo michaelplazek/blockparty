@@ -1,5 +1,5 @@
 import React from "react";
-import { compose, lifecycle, withHandlers } from "recompose";
+import {compose, lifecycle, withHandlers, withState} from "recompose";
 import { withRouter } from "react-router-dom";
 import theme from "../../../theme";
 import { VERSION } from "../../constants/app";
@@ -29,8 +29,7 @@ import {
 } from "../../selectors";
 import Typography from "@material-ui/core/Typography/Typography";
 import Button from "@material-ui/core/Button/Button";
-import TextField from "@material-ui/core/TextField/TextField";
-import { ValidatorForm } from "react-material-ui-form-validator";
+import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import { loadMyAsks as loadMyAsksAction } from "../../actions/asks";
 import { loadMyBids as loadMyBidsAction } from "../../actions/bids";
 import { loadOffersByUser as loadOffersByUserAction } from "../../actions/offers";
@@ -57,12 +56,16 @@ const Settings = ({
   classes,
   height,
   bio,
+  updatedBio,
   history,
   handleUpdate,
+  setUpdatedBio,
   handleDelete,
   canDelete,
   totalItems,
-  windowWidth
+  windowWidth,
+  buttonText,
+  disabled,
 }) => (
   <div>
     <PageHeader
@@ -80,7 +83,10 @@ const Settings = ({
         alignItems="center"
       >
         <Grid item>
-          <ValidatorForm autoComplete="off" onSubmit={handleUpdate}>
+          <ValidatorForm
+            autoComplete="off"
+            onSubmit={handleUpdate}
+          >
             <Grid
               container
               className={classes.top}
@@ -93,20 +99,25 @@ const Settings = ({
                   width: `${windowWidth - 30}px`
                 }}
               >
-                <TextField
+                <TextValidator
                   id="bio-field"
+                  name='bio'
                   fullWidth
                   label="Bio"
                   multiline
                   rows="4"
                   defaultValue={bio}
+                  value={updatedBio}
+                  onChange={({ target }) => setUpdatedBio(target.value)}
                   margin="normal"
                   variant="outlined"
+                  validators={['maxStringLength:250']}
+                  errorMessages={['must be under 250 characters']}
                 />
               </Grid>
               <Grid item>
-                <Button variant="contained" color="primary" type="submit">
-                  Update
+                <Button variant="contained" disabled={disabled} color="primary" type="submit">
+                  {buttonText}
                 </Button>
               </Grid>
             </Grid>
@@ -134,6 +145,14 @@ const Settings = ({
                 disabled={!canDelete}
               >
                 Delete Account
+              </Button>
+            </Grid>
+            <Grid item>
+              <Button
+                onClick={() => history.push('/policy')}
+                variant='text'
+              >
+                View our policy
               </Button>
             </Grid>
             <Grid item className={classes.version}>
@@ -198,12 +217,20 @@ export default compose(
       if (!transactionsLoaded) {
         loadTransactions(userId);
       }
-    }
+    },
   }),
+  withState('updatedBio', 'setUpdatedBio', ({ bio }) => bio),
+  withState('disabled', 'setDisabled', false),
+  withState('buttonText', 'setButtonText', "Update"),
   withHandlers({
-    handleUpdate: ({ userId, updateUser }) => () => {
-      const text = document.getElementById("bio-field").value;
-      const update = { id: userId, bio: text };
+    handleUpdate: ({ userId, updateUser, updatedBio, setButtonText, setDisabled }) => () => {
+      const update = { id: userId, bio: updatedBio };
+      setButtonText("Updating...");
+      setDisabled(true);
+      setTimeout(() => {
+        setButtonText("Update");
+        setDisabled(false);
+      }, 1000);
       updateUser(update);
     },
     handleDelete: ({ userId, deleteUser }) => () => {
