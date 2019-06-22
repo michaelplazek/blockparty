@@ -37,7 +37,7 @@ export default compose(
   lifecycle({
     componentDidMount() {
       const { setNotificationsEnabled, setLocationEnabled } = this.props;
-      if (navigator) {
+      if (navigator && navigator.permissions) {
         navigator.permissions.query({ name: 'notifications' }).then(result => {
           result.state === 'granted' ? setNotificationsEnabled(true) : setNotificationsEnabled(false);
         });
