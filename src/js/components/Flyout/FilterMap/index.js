@@ -1,5 +1,6 @@
 import React from "react";
 import { compose, withHandlers } from "recompose";
+import SearchableSelect from 'react-select';
 import withStyles from "@material-ui/core/styles/withStyles";
 import mapper from "../../../utils/connect";
 
@@ -82,23 +83,31 @@ const FilterMap = ({
         </FormControl>
         <FormControl margin="dense" fullWidth={true}>
           <InputLabel>Coin</InputLabel>
-          <Select
-            inputProps={{
-              autoFocus: focusField === "coin"
-            }}
-            variant="outlined"
-            native
-            value={coin}
+          <SearchableSelect
+            value={coin.label}
+            options={coins}
             onChange={({ target }) => {
               setFilterCoin(target.value);
             }}
-          >
-            {coins.map(item => (
-              <option key={item.value} value={item.value}>
-                {item.label}
-              </option>
-            ))}
-          </Select>
+            isSearchable
+          />
+          {/*<Select*/}
+          {/*  inputProps={{*/}
+          {/*    autoFocus: focusField === "coin"*/}
+          {/*  }}*/}
+          {/*  variant="outlined"*/}
+          {/*  native*/}
+          {/*  value={coin}*/}
+          {/*  onChange={({ target }) => {*/}
+          {/*    setFilterCoin(target.value);*/}
+          {/*  }}*/}
+          {/*>*/}
+          {/*  {coins.map(item => (*/}
+          {/*    <option key={item.value} value={item.value}>*/}
+          {/*      {item.label}*/}
+          {/*    </option>*/}
+          {/*  ))}*/}
+          {/*</Select>*/}
         </FormControl>
         <FormControl margin="dense" fullWidth={true}>
           <InputLabel>User Reputation</InputLabel>
