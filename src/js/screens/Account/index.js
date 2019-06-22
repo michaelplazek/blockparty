@@ -44,6 +44,7 @@ import { truncateString } from "../../utils/strings";
 import { setQR as setQRAction } from "../../actions/metrics";
 import withNav from "../../HOCs/withNav";
 import {BLUE, GOLD} from "../../constants/colors";
+import withMode from "../../HOCs/withMode";
 
 const styles = () => ({
   body: {
@@ -277,4 +278,5 @@ export default compose(
   }, 5000),
   withVisited,
   withNav,
+  withMode
 )(Account);

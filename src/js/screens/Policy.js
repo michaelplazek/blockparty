@@ -5,6 +5,7 @@ import {Typography, Grid, withStyles, Button} from "@material-ui/core";
 import withNav from "../HOCs/withNav";
 import mapper from "../utils/connect";
 import {selectIsDarkMode} from "../selectors";
+import withMode from "../HOCs/withMode";
 
 const styles = () => ({
   root: {
@@ -72,6 +73,7 @@ const propMap = {
 export default compose(
   withStyles(styles),
   withRouter,
+  withMode,
   withNav,
-  mapper(propMap, {})
+  mapper(propMap, {}),
 )(Policy);

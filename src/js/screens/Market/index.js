@@ -54,6 +54,7 @@ import { setCurrentLocation as setCurrentLocationAction } from "../../actions/se
 import ListIcon from "./ListIcon";
 import Orders from "../../components/Flyout/Orders";
 import withNav from "../../HOCs/withNav";
+import withMode from "../../HOCs/withMode";
 
 class Market extends Component {
   constructor(props) {
@@ -203,5 +204,6 @@ export default compose(
   }, 5000),
   withPushNotifications,
   withVisited,
+  withMode,
   withNav,
 )(Market);

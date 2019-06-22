@@ -13,9 +13,9 @@ import {
   SET_ASK_INFO,
   SET_BID_INFO,
   SET_LIST_OPEN,
-  SET_DARK_MODE
+  SET_DARK_MODE,
 } from "./index";
-import { wrappedFetch } from "../api/utils";
+import {wrappedFetch, wrappedFetchWithParams} from "../api/utils";
 
 export const setNavHeight = data => dispatch =>
   dispatch({ type: LOAD_NAV_HEIGHT, data });
@@ -60,4 +60,16 @@ export const setBidInfo = data => dispatch =>
 export const setListOpen = data => dispatch =>
   dispatch({ type: SET_LIST_OPEN, data });
 
-export const setDarkMode = data => dispatch => dispatch({ type: SET_DARK_MODE, data });
+export const setDarkMode = data => dispatch =>
+  wrappedFetch("config/mode", data, "POST")
+    .then((response) => {
+      window.localStorage.setItem('dark', response.dark);
+      return dispatch({ type: SET_DARK_MODE, data: response.dark })
+    });
+
+export const getMode = userId => dispatch =>
+  wrappedFetchWithParams("config", undefined, "GET", `?userId=${userId}`)
+    .then((response) => {
+      window.localStorage.setItem('dark', response.dark);
+      return dispatch({ type: SET_DARK_MODE, data: response.dark })
+    });

@@ -407,6 +407,7 @@ export const selectTouched = state => state.app.touched;
 export const selectAskInfo = state => state.app.askInfo;
 export const selectBidInfo = state => state.app.bidInfo;
 export const selectIsDarkMode = state => state.app.darkMode;
+export const selectModeLoaded = state => state.app.modeLoaded;
 
 // MISC
 export const selectBidHasOffer = createSelector(

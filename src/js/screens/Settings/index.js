@@ -16,7 +16,7 @@ import withDimensions from "../../HOCs/withDimensions";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Grid from "@material-ui/core/Grid/Grid";
 import {
-  selectIsDarkMode,
+  selectIsDarkMode, selectModeLoaded,
   selectMyAsksLoaded,
   selectMyBidsLoaded,
   selectMyOffersLoaded,
@@ -41,7 +41,8 @@ import {WHITE} from "../../constants/colors";
 import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
-import {setDarkMode as setDarkModeAction} from "../../actions/app";
+import {getMode as getModeAction, setDarkMode as setDarkModeAction} from "../../actions/app";
+import withMode from "../../HOCs/withMode";
 
 const styles = () => ({
   top: {
@@ -72,7 +73,7 @@ const Settings = ({
   buttonText,
   disabled,
   isDarkMode,
-  setDarkMode
+  handleToggle
 }) => {
   const theme = isDarkMode ? dark : light;
   return (
@@ -145,7 +146,7 @@ const Settings = ({
                 control={
                   <Switch
                     checked={isDarkMode}
-                    onChange={() => setDarkMode(!isDarkMode)}
+                    onChange={handleToggle}
                     value="dark"
                   />
                 }
@@ -204,7 +205,8 @@ const propMap = {
   bidsLoaded: selectMyBidsLoaded,
   offersLoaded: selectMyOffersLoaded,
   transactionsLoaded: selectTransactionsLoaded,
-  isDarkMode: selectIsDarkMode
+  isDarkMode: selectIsDarkMode,
+  modeLoaded: selectModeLoaded
 };
 
 const actionMap = {
@@ -215,7 +217,8 @@ const actionMap = {
   loadMyBids: loadMyBidsAction,
   loadOffersByUser: loadOffersByUserAction,
   loadTransactions: loadTransactionsAction,
-  setDarkMode: setDarkModeAction
+  setDarkMode: setDarkModeAction,
+  getMode: getModeAction
 };
 
 export default compose(
@@ -233,7 +236,7 @@ export default compose(
         asksLoaded,
         bidsLoaded,
         offersLoaded,
-        transactionsLoaded
+        transactionsLoaded,
       } = this.props;
       if (!asksLoaded) {
         loadMyAsks(userId);
@@ -265,8 +268,14 @@ export default compose(
     },
     handleDelete: ({ userId, deleteUser }) => () => {
       deleteUser(userId);
-    }
+    },
+    handleToggle: ({ setDarkMode, isDarkMode, userId }) => () => {
+      const payload = { userId, dark: !isDarkMode };
+      setDarkMode(payload)
+        .then(() => window.location.reload());
+    },
   }),
   withDimensions,
+  withMode,
   withNav,
 )(Settings);

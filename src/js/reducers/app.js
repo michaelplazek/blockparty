@@ -19,6 +19,8 @@ import {
 import { MAP } from "../constants/app";
 import { getIndexFromPath } from "../utils/location";
 
+const mode = window.localStorage.getItem('dark');
+
 const initialState = {
   navigationBarHeight: 0,
   navigationIndex: getIndexFromPath(window.location.pathname),
@@ -36,7 +38,8 @@ const initialState = {
   askInfo: "Mid Market Price",
   bidInfo: undefined,
   listOpen: false,
-  darkMode: false,
+  darkMode: mode ? JSON.parse(mode) : false,
+  modeLoaded: mode !== undefined,
 };
 
 const handlers = {
@@ -89,7 +92,8 @@ const handlers = {
     listOpen: action.data
   }),
   [SET_DARK_MODE]: (state, action) => ({
-    darkMode: action.data
+    darkMode: action.data,
+    modeLoaded: true
   })
 };
 

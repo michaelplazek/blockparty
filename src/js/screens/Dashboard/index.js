@@ -87,6 +87,7 @@ import {
 } from "../../actions/app";
 import withNav from "../../HOCs/withNav";
 import {COLBALT, GOLD} from "../../constants/colors";
+import withMode from "../../HOCs/withMode";
 
 const styles = () => ({
   root: {
@@ -406,5 +407,6 @@ export default compose(
     5000
   ),
   withVisited,
+  withMode,
   withNav,
 )(Dashboard);
