@@ -12,7 +12,6 @@ import { getDistance } from "geolib";
 import { getMilesFromMeters } from "../utils/location";
 
 import { ADMIN_1, LOCALITY, POLITICAL } from "../constants/maps";
-import Grid from "@material-ui/core/Grid";
 
 const NUMBER_OF_BINS = 100;
 
