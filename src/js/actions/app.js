@@ -12,7 +12,8 @@ import {
   SET_TOUCHED,
   SET_ASK_INFO,
   SET_BID_INFO,
-  SET_LIST_OPEN
+  SET_LIST_OPEN,
+  SET_DARK_MODE
 } from "./index";
 import { wrappedFetch } from "../api/utils";
 
@@ -58,3 +59,5 @@ export const setBidInfo = data => dispatch =>
   dispatch({ type: SET_BID_INFO, data });
 export const setListOpen = data => dispatch =>
   dispatch({ type: SET_LIST_OPEN, data });
+
+export const setDarkMode = data => dispatch => dispatch({ type: SET_DARK_MODE, data });

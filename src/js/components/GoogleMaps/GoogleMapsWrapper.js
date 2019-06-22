@@ -63,7 +63,8 @@ class GoogleMapsWrapper extends Component {
           mapTypeControl: false,
           streetViewControl: false,
           zoomControl: zoomable,
-          fullscreenControl: false
+          fullscreenControl: false,
+          // styles:
         }}
         gestureHandling={movable}
         ref={onMapMounted}

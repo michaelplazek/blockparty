@@ -13,7 +13,8 @@ import {
   SET_TOUCHED,
   SET_ASK_INFO,
   SET_BID_INFO,
-  SET_LIST_OPEN
+  SET_LIST_OPEN,
+  SET_DARK_MODE
 } from "../actions";
 import { MAP } from "../constants/app";
 import { getIndexFromPath } from "../utils/location";
@@ -34,7 +35,8 @@ const initialState = {
   touched: false,
   askInfo: "Mid Market Price",
   bidInfo: undefined,
-  listOpen: false
+  listOpen: false,
+  darkMode: false,
 };
 
 const handlers = {
@@ -85,6 +87,9 @@ const handlers = {
   }),
   [SET_LIST_OPEN]: (state, action) => ({
     listOpen: action.data
+  }),
+  [SET_DARK_MODE]: (state, action) => ({
+    darkMode: action.data
   })
 };
 
