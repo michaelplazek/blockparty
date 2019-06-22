@@ -86,7 +86,7 @@ import {
   setRun as setRunAction
 } from "../../actions/app";
 import withNav from "../../HOCs/withNav";
-import {COLBALT} from "../../constants/colors";
+import {COLBALT, GOLD} from "../../constants/colors";
 
 const styles = () => ({
   root: {
@@ -151,6 +151,7 @@ const Dashboard = ({
         count={numberOfTransactions}
         description="time to meet up"
         color={isDarkMode ? COLBALT : undefined}
+        textColor={isDarkMode ? 'textSecondary' : undefined}
       >
         {myTransactions.map(item => (
           <TransactionTile
@@ -167,6 +168,7 @@ const Dashboard = ({
         count={numberOfOffers}
         description="offers I've made"
         color={isDarkMode ? COLBALT : undefined}
+        textColor={isDarkMode ? 'textSecondary' : undefined}
       >
         {myOffers.map(item => (
           <OfferTile
@@ -182,6 +184,7 @@ const Dashboard = ({
         count={numberOfAsks}
         description="looking to sell"
         color={isDarkMode ? COLBALT : undefined}
+        textColor={isDarkMode ? 'textSecondary' : undefined}
       >
         {myAsks.map(item => (
           <ListTile
@@ -197,6 +200,7 @@ const Dashboard = ({
         count={numberOfBids}
         description="looking to buy"
         color={isDarkMode ? COLBALT : undefined}
+        textColor={isDarkMode ? 'textSecondary' : undefined}
       >
         {myBids.map(item => (
           <ListTile
