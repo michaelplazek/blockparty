@@ -26,7 +26,8 @@ import {
   selectUsername,
   selectAskFormContactInfo,
   selectLastPrice,
-  selectAskCurrencyItems, selectIsDarkMode
+  selectAskCurrencyItems,
+  selectIsDarkMode
 } from "../../../selectors";
 import {
   createAsk as createAskAction,
@@ -36,7 +37,7 @@ import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
 import { resetAsk as resetAskAction } from "../../../actions/createAsk";
 import { ValidatorForm } from "react-material-ui-form-validator";
 import { cleanInputs } from "../../../constants/validation";
-import {COLBALT, DARK_GREEN, WHITE} from "../../../constants/colors";
+import { COLBALT, DARK_GREEN, WHITE } from "../../../constants/colors";
 
 const styles = theme => ({
   root: {
@@ -81,7 +82,7 @@ const CreateAsk = ({
         activeStep={activeIndex}
         orientation="vertical"
         style={{
-          background: isDarkMode ? DARK_GREEN : WHITE,
+          background: isDarkMode ? DARK_GREEN : WHITE
         }}
       >
         {STEPS.map((step, index) => {
@@ -130,7 +131,9 @@ const CreateAsk = ({
             background: isDarkMode ? DARK_GREEN : undefined
           }}
         >
-          <Typography color={isDarkMode ? 'textSecondary' : undefined}>Ask successfully created.</Typography>
+          <Typography color={isDarkMode ? "textSecondary" : undefined}>
+            Ask successfully created.
+          </Typography>
         </Paper>
       )}
     </Grid>

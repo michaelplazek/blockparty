@@ -21,7 +21,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import Typography from "@material-ui/core/Typography/Typography";
 import Grid from "@material-ui/core/Grid/Grid";
-import {DARK_GREEN, WHITE} from "../../constants/colors";
+import { DARK_GREEN, WHITE } from "../../constants/colors";
 
 const styles = () => ({
   closeButton: {
@@ -72,7 +72,12 @@ const Flyout = ({
       >
         <Grid direction="row" justify="space-between" container>
           <Grid className={classes.title} item>
-            <Typography color={isDarkMode ? 'secondary' : undefined} variant="title">{title}</Typography>
+            <Typography
+              color={isDarkMode ? "secondary" : undefined}
+              variant="title"
+            >
+              {title}
+            </Typography>
           </Grid>
           <Grid item>
             <div

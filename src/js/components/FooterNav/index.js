@@ -16,8 +16,12 @@ import AppBar from "@material-ui/core/AppBar/AppBar";
 import Tabs from "@material-ui/core/Tabs/Tabs";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Tab from "@material-ui/core/Tab/Tab";
-import {selectIsDarkMode, selectMarketView, selectNavIndex} from "../../selectors";
-import {COLBALT} from "../../constants/colors";
+import {
+  selectIsDarkMode,
+  selectMarketView,
+  selectNavIndex
+} from "../../selectors";
+import { COLBALT } from "../../constants/colors";
 
 const styles = () => ({
   root: {
@@ -87,8 +91,8 @@ class FooterNavBase extends Component {
           <Tabs
             value={this.props.index}
             onChange={(_, value) => this.handleChange(value)}
-            indicatorColor={ this.props.isDarkMode ? "secondary" : 'primary' }
-            textColor={ this.props.isDarkMode ? "secondary" : 'primary' }
+            indicatorColor={this.props.isDarkMode ? "secondary" : "primary"}
+            textColor={this.props.isDarkMode ? "secondary" : "primary"}
             fullWidth={true}
             style={{
               background: this.props.isDarkMode ? COLBALT : undefined

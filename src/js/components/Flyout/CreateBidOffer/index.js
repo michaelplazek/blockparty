@@ -32,7 +32,8 @@ import {
   selectContactInfo,
   selectOfferFormVolume,
   selectUserId,
-  selectUsername, selectIsDarkMode
+  selectUsername,
+  selectIsDarkMode
 } from "../../../selectors/index";
 import { ValidatorForm } from "react-material-ui-form-validator";
 import { cleanInputs } from "../../../constants/validation";
@@ -41,7 +42,7 @@ import {
   setNotification
 } from "../../../actions/app";
 import { getIndexFromPath } from "../../../utils/location";
-import {COLBALT, DARK_GREEN, WHITE} from "../../../constants/colors";
+import { COLBALT, DARK_GREEN, WHITE } from "../../../constants/colors";
 
 const styles = theme => ({
   button: {
@@ -64,7 +65,7 @@ const CreateBidOffer = ({
   handleNext,
   resetOffer,
   handleError,
-  isDarkMode,
+  isDarkMode
 }) => (
   <Flyout
     onClose={() => {
@@ -83,7 +84,7 @@ const CreateBidOffer = ({
         activeStep={activeIndex}
         orientation="vertical"
         style={{
-          background: isDarkMode ? DARK_GREEN : WHITE,
+          background: isDarkMode ? DARK_GREEN : WHITE
         }}
       >
         {STEPS.map((step, index) => {

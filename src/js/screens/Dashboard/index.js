@@ -35,7 +35,8 @@ import {
   selectBidCurrencyItems,
   selectDashboardLoaded,
   selectFilteredAskCurrencyItems,
-  selectFilteredBidCurrencyItems, selectIsDarkMode,
+  selectFilteredBidCurrencyItems,
+  selectIsDarkMode,
   selectLayer,
   selectMyAsks,
   selectMyBids,
@@ -86,7 +87,7 @@ import {
   setRun as setRunAction
 } from "../../actions/app";
 import withNav from "../../HOCs/withNav";
-import {COLBALT, GOLD} from "../../constants/colors";
+import { COLBALT, GOLD } from "../../constants/colors";
 import withMode from "../../HOCs/withMode";
 
 const styles = () => ({
@@ -122,7 +123,7 @@ const Dashboard = ({
   handleCreateBid,
   handleCallback,
   run,
-  isDarkMode,
+  isDarkMode
 }) => {
   const actions = [
     {
@@ -152,7 +153,7 @@ const Dashboard = ({
         count={numberOfTransactions}
         description="time to meet up"
         color={isDarkMode ? COLBALT : undefined}
-        textColor={isDarkMode ? 'textSecondary' : undefined}
+        textColor={isDarkMode ? "textSecondary" : undefined}
       >
         {myTransactions.map(item => (
           <TransactionTile
@@ -169,7 +170,7 @@ const Dashboard = ({
         count={numberOfOffers}
         description="offers I've made"
         color={isDarkMode ? COLBALT : undefined}
-        textColor={isDarkMode ? 'textSecondary' : undefined}
+        textColor={isDarkMode ? "textSecondary" : undefined}
       >
         {myOffers.map(item => (
           <OfferTile
@@ -186,7 +187,7 @@ const Dashboard = ({
         count={numberOfAsks}
         description="looking to sell"
         color={isDarkMode ? COLBALT : undefined}
-        textColor={isDarkMode ? 'textSecondary' : undefined}
+        textColor={isDarkMode ? "textSecondary" : undefined}
       >
         {myAsks.map(item => (
           <ListTile
@@ -203,7 +204,7 @@ const Dashboard = ({
         count={numberOfBids}
         description="looking to buy"
         color={isDarkMode ? COLBALT : undefined}
-        textColor={isDarkMode ? 'textSecondary' : undefined}
+        textColor={isDarkMode ? "textSecondary" : undefined}
       >
         {myBids.map(item => (
           <ListTile
@@ -222,7 +223,11 @@ const Dashboard = ({
           zIndex: 100
         }}
       >
-        <SpeedDialButton className="create-post" actions={actions} isDarkMode={isDarkMode} />
+        <SpeedDialButton
+          className="create-post"
+          actions={actions}
+          isDarkMode={isDarkMode}
+        />
       </div>
       <Joyride
         steps={dashboardSteps}
@@ -408,5 +413,5 @@ export default compose(
   ),
   withVisited,
   withMode,
-  withNav,
+  withNav
 )(Dashboard);

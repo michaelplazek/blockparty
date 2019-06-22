@@ -12,7 +12,8 @@ import {
   selectFilter,
   selectFilterCoin,
   selectFilterDistance,
-  selectFilterType, selectIsDarkMode
+  selectFilterType,
+  selectIsDarkMode
 } from "../../selectors";
 import mapper from "../../utils/connect";
 import IconButton from "@material-ui/core/IconButton/IconButton";
@@ -22,9 +23,9 @@ import {
   setFilterItems,
   setFocusField as setFocusFieldAction
 } from "../../actions/filters";
-import {Typography} from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import StarRating from "react-star-ratings";
-import {COLBALT, DARK_GREY, GOLD, PURPLE} from "../../constants/colors";
+import { COLBALT, DARK_GREY, GOLD, PURPLE } from "../../constants/colors";
 
 const styles = () => ({
   root: {
@@ -44,40 +45,32 @@ const Subheader = ({ classes, filter, handleOpen, isDarkMode }) => (
         <Chip
           clickable={true}
           onClick={() => handleOpen("type")}
-          label={
-            <Typography variant='caption'>
-              {`${filter.type}`}
-            </Typography>
-          }
+          label={<Typography variant="caption">{`${filter.type}`}</Typography>}
           style={{
             margin: "8px 3px 8px 3px",
-            background: isDarkMode ? COLBALT : undefined,
+            background: isDarkMode ? COLBALT : undefined
           }}
         />
         <Chip
           clickable={true}
           onClick={() => handleOpen("coin")}
-          label={
-            <Typography variant='caption'>
-              {`${filter.coin}`}
-            </Typography>
-          }
+          label={<Typography variant="caption">{`${filter.coin}`}</Typography>}
           style={{
             margin: "8px 3px 8px 3px",
-            background: isDarkMode ? COLBALT : undefined,
+            background: isDarkMode ? COLBALT : undefined
           }}
         />
         <Chip
           clickable={true}
           onClick={() => handleOpen("distance")}
           label={
-            <Typography variant='caption'>
+            <Typography variant="caption">
               {`${filter.distanceAway || 0} mi`}
             </Typography>
           }
           style={{
             margin: "8px 3px 8px 3px",
-            background: isDarkMode ? COLBALT : undefined,
+            background: isDarkMode ? COLBALT : undefined
           }}
         />
         <Chip
@@ -95,7 +88,7 @@ const Subheader = ({ classes, filter, handleOpen, isDarkMode }) => (
           }
           style={{
             margin: "8px 3px 8px 3px",
-            background: isDarkMode ? COLBALT : undefined,
+            background: isDarkMode ? COLBALT : undefined
           }}
         />
       </Grid>

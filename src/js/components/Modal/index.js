@@ -20,7 +20,7 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import Typography from "@material-ui/core/Typography/Typography";
 import Grid from "@material-ui/core/Grid/Grid";
 import { Dialog } from "@material-ui/core";
-import {COLBALT, WHITE} from "../../constants/colors";
+import { COLBALT, WHITE } from "../../constants/colors";
 
 const styles = () => ({
   closeButton: {
@@ -44,7 +44,7 @@ const ModalBase = ({
   setModalOpen,
   setModal,
   onClose,
-  title,
+  title
 }) => (
   <Dialog
     open={open}
@@ -95,7 +95,7 @@ ModalBase.defaultProps = {
 const propMap = {
   height: selectWindowHeight,
   width: selectWindowWidth,
-  open: selectModalOpen,
+  open: selectModalOpen
 };
 
 const actionMap = {

@@ -25,7 +25,7 @@ const ListTileWithBadge = ({ classes, onClick, item, isDarkMode }) => {
       <Badge
         classes={{ badge: classes.badge }}
         badgeContent={item.offers.length}
-        color={isDarkMode ? 'secondary' : 'primary'}
+        color={isDarkMode ? "secondary" : "primary"}
       >
         <ListTile onClick={onClick} item={item} isDarkMode={isDarkMode} />
       </Badge>

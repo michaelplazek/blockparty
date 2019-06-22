@@ -53,7 +53,10 @@ const ContactDetailItem = ({ name, value, onClick, contact, isDarkMode }) => {
               <ListItemText
                 disableTypography
                 primary={
-                  <Typography style={theme.palette.inverse} variant="subheading">
+                  <Typography
+                    style={theme.palette.inverse}
+                    variant="subheading"
+                  >
                     {name}
                   </Typography>
                 }
@@ -63,7 +66,10 @@ const ContactDetailItem = ({ name, value, onClick, contact, isDarkMode }) => {
               <ListItemText
                 disableTypography
                 primary={
-                  <Typography style={theme.palette.inverse} variant="subheading">
+                  <Typography
+                    style={theme.palette.inverse}
+                    variant="subheading"
+                  >
                     {value}
                   </Typography>
                 }
@@ -83,8 +89,8 @@ const ContactDetailItem = ({ name, value, onClick, contact, isDarkMode }) => {
         </Grid>
       </Grid>
     </ListItem>
-  )
-}
+  );
+};
 
 const UserDetailItem = ({ name, value, onClick, isDarkMode }) => (
   <ListItem divider={true}>

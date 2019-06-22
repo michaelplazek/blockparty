@@ -43,12 +43,12 @@ import {
 import { truncateString } from "../../utils/strings";
 import { setQR as setQRAction } from "../../actions/metrics";
 import withNav from "../../HOCs/withNav";
-import {BLUE, GOLD} from "../../constants/colors";
+import { BLUE, GOLD } from "../../constants/colors";
 import withMode from "../../HOCs/withMode";
 
 const styles = () => ({
   body: {
-    marginTop: "1.2em",
+    marginTop: "1.2em"
   },
   items: {
     margin: "0.3em"
@@ -106,7 +106,12 @@ const Account = ({
           <Grid item className={classes.items}>
             <Grid container direction="column" alignItems="center">
               <Grid item>
-                <Typography color={isDarkMode ? 'secondary' : undefined} variant="display1">{username}</Typography>
+                <Typography
+                  color={isDarkMode ? "secondary" : undefined}
+                  variant="display1"
+                >
+                  {username}
+                </Typography>
               </Grid>
               <Grid item className={classes.bio}>
                 <Typography variant="caption">{bio}</Typography>
@@ -221,7 +226,7 @@ const Account = ({
         callback={handleCallback}
       />
     </div>
-  )
+  );
 };
 
 const propMap = {

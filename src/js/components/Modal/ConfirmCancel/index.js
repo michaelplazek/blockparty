@@ -8,7 +8,7 @@ import Grid from "@material-ui/core/Grid/Grid";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import mapper from "../../../utils/connect";
-import {selectIsDarkMode} from "../../../selectors";
+import { selectIsDarkMode } from "../../../selectors";
 
 const styles = () => ({
   container: {
@@ -47,7 +47,7 @@ const ConfirmCancel = ({ classes, handleCancel, isDarkMode }) => {
         </Grid>
       </Grid>
     </Modal>
-  )
+  );
 };
 
 const propMap = {

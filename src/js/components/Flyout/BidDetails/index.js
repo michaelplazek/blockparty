@@ -13,7 +13,8 @@ import {
   selectBid,
   selectBidLoaded,
   selectBidOfferTotal,
-  selectBidPostTime, selectIsDarkMode,
+  selectBidPostTime,
+  selectIsDarkMode,
   selectLayerOpen,
   selectOffers,
   selectUserId,
@@ -48,7 +49,15 @@ const styles = () => ({
   }
 });
 
-const DeleteBid = ({ classes, bid, offers, time, history, handleDelete, isDarkMode }) => {
+const DeleteBid = ({
+  classes,
+  bid,
+  offers,
+  time,
+  history,
+  handleDelete,
+  isDarkMode
+}) => {
   const theme = isDarkMode ? dark : light;
   return (
     <Flyout size={8} title="Bid Details">
@@ -92,7 +101,7 @@ const DeleteBid = ({ classes, bid, offers, time, history, handleDelete, isDarkMo
         </Grid>
       </Grid>
     </Flyout>
-  )
+  );
 };
 
 const propMap = {

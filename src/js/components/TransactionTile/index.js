@@ -10,7 +10,7 @@ import ListItemText from "@material-ui/core/ListItemText/ListItemText";
 import ListItem from "@material-ui/core/ListItem/ListItem";
 import { light, dark } from "../../../theme";
 import { getStatusIcon } from "../../utils/status";
-import {COLBALT} from "../../constants/colors";
+import { COLBALT } from "../../constants/colors";
 
 const styles = () => ({
   coin: {
@@ -58,16 +58,27 @@ const TransactionTile = ({ classes, item, onClick, isDarkMode }) => {
                 <Grid item>
                   <Grid container direction="row">
                     <Grid item>
-                      <Typography color={isDarkMode ? 'secondary' : undefined} className={classes.volume} variant="title">
+                      <Typography
+                        color={isDarkMode ? "secondary" : undefined}
+                        className={classes.volume}
+                        variant="title"
+                      >
                         {item.volume}
                       </Typography>
                     </Grid>
                     <Grid item className={classes.coin}>
-                      <Typography  color={isDarkMode ? 'secondary' : undefined} variant="subheading">{item.coin}</Typography>
+                      <Typography
+                        color={isDarkMode ? "secondary" : undefined}
+                        variant="subheading"
+                      >
+                        {item.coin}
+                      </Typography>
                     </Grid>
                   </Grid>
                   <Grid className={classes.type} item>
-                    <Typography variant="caption">{item.description}</Typography>
+                    <Typography variant="caption">
+                      {item.description}
+                    </Typography>
                   </Grid>
                 </Grid>
               </Grid>
@@ -100,9 +111,7 @@ const TransactionTile = ({ classes, item, onClick, isDarkMode }) => {
         </ListItem>
       </Paper>
     </div>
-  )
+  );
 };
 
-export default compose(
-  withStyles(styles)
-)(TransactionTile);
+export default compose(withStyles(styles))(TransactionTile);

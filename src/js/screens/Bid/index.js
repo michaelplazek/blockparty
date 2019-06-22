@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { compose, lifecycle, withHandlers } from "recompose";
 import { withRouter } from "react-router";
-import theme, {dark, light} from "../../../theme";
+import theme, { dark, light } from "../../../theme";
 import mapper from "../../utils/connect";
 import {
   selectBid,
@@ -14,7 +14,8 @@ import {
   selectMyOffersLoaded,
   selectUserId,
   selectWindowHeight,
-  selectModal, selectIsDarkMode
+  selectModal,
+  selectIsDarkMode
 } from "../../selectors/index";
 import { loadBid as loadBidAction } from "../../actions/bids";
 import Grid from "@material-ui/core/Grid/Grid";
@@ -53,7 +54,7 @@ const styles = theme => ({
     background: theme.palette.createButton.background
   },
   backButton: {
-    padding: "1em",
+    padding: "1em"
   }
 });
 
@@ -123,7 +124,7 @@ const Bid = ({
         </div>
       )}
     </div>
-  )
+  );
 };
 
 Bid.propTypes = {
@@ -183,5 +184,5 @@ export default compose(
     }
   }),
   withMode,
-  withNav,
+  withNav
 )(Bid);

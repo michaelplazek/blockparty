@@ -12,7 +12,8 @@ import {
   selectAsk,
   selectAskLoaded,
   selectAskOfferTotal,
-  selectAskPostTime, selectIsDarkMode,
+  selectAskPostTime,
+  selectIsDarkMode,
   selectLayerOpen,
   selectOffers,
   selectUserId,
@@ -48,7 +49,15 @@ const styles = () => ({
   }
 });
 
-const AskDetails = ({ classes, ask, offers, time, history, handleDelete, isDarkMode }) => {
+const AskDetails = ({
+  classes,
+  ask,
+  offers,
+  time,
+  history,
+  handleDelete,
+  isDarkMode
+}) => {
   const theme = isDarkMode ? dark : light;
   return (
     <Flyout size={8} title="Ask Details">
@@ -92,7 +101,7 @@ const AskDetails = ({ classes, ask, offers, time, history, handleDelete, isDarkM
         </Grid>
       </Grid>
     </Flyout>
-  )
+  );
 };
 
 const propMap = {

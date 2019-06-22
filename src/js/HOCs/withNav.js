@@ -9,11 +9,12 @@ import FooterNav from "../components/FooterNav";
 export default ProtectedRoute => {
   const NavHOC = props => {
     return (
-    <Fragment>
-      <ProtectedRoute {...props} />
-      <FooterNav />
-    </Fragment>
-  )};
+      <Fragment>
+        <ProtectedRoute {...props} />
+        <FooterNav />
+      </Fragment>
+    );
+  };
 
-  return NavHOC
+  return NavHOC;
 };

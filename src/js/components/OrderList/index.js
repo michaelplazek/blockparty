@@ -10,13 +10,14 @@ import { Typography, Grid, ListItem, ListItemText } from "@material-ui/core";
 import {
   selectAskList,
   selectBidList,
-  selectFilterCoin, selectIsDarkMode
+  selectFilterCoin,
+  selectIsDarkMode
 } from "../../selectors";
 
 const styles = () => ({
   root: {},
   list: {
-    marginRight: "0.5em",
+    marginRight: "0.5em"
   },
   item: {
     marginRight: "0.5em"
@@ -37,7 +38,11 @@ const ListItemBase = ({ item, classes, isBid, onClick, isDarkMode }) => (
       <Grid item>
         <ListItemText
           disableTypography
-          primary={<Typography color={isDarkMode ? 'textSecondary' : undefined}>{item.volume}</Typography>}
+          primary={
+            <Typography color={isDarkMode ? "textSecondary" : undefined}>
+              {item.volume}
+            </Typography>
+          }
         />
       </Grid>
       <Grid item>

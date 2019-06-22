@@ -24,7 +24,7 @@ import { loadMyBids } from "../../actions/bids";
 import { setNotification } from "../../actions/app";
 import { loadUser as loadUserAction } from "../../actions/users";
 import UserInfo from "../Modal/UserInfo";
-import {COLBALT, WHITE} from "../../constants/colors";
+import { COLBALT, WHITE } from "../../constants/colors";
 
 const OfferWidgetList = ({
   offers,
@@ -37,7 +37,7 @@ const OfferWidgetList = ({
 }) => (
   <Tile
     color={isDarkMode ? COLBALT : undefined}
-    textColor={isDarkMode ? 'textSecondary' : undefined}
+    textColor={isDarkMode ? "textSecondary" : undefined}
     title="Offers"
     count={offers.length}
   >

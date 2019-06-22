@@ -3,11 +3,11 @@ import { compose } from "recompose";
 import { BrowserRouter as Router } from "react-router-dom";
 import Routes from "./Routes";
 
-import {DARK_GREEN} from "./constants/colors";
+import { DARK_GREEN } from "./constants/colors";
 import mapper from "./utils/connect";
-import {selectIsDarkMode} from "./selectors";
+import { selectIsDarkMode } from "./selectors";
 import { light, dark } from "../theme";
-import {MuiThemeProvider} from "@material-ui/core";
+import { MuiThemeProvider } from "@material-ui/core";
 
 const App = ({ isDarkMode }) => (
   <MuiThemeProvider theme={isDarkMode ? dark : light}>
@@ -30,6 +30,4 @@ const propMap = {
   isDarkMode: selectIsDarkMode
 };
 
-export default compose(
-  mapper(propMap, {})
-)(App);
+export default compose(mapper(propMap, {}))(App);

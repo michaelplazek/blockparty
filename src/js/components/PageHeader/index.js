@@ -11,8 +11,8 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import Button from "@material-ui/core/Button/Button";
 import Typography from "@material-ui/core/Typography/Typography";
 import IconButton from "@material-ui/core/IconButton/IconButton";
-import {selectIsDarkMode} from "../../selectors";
-import {COLBALT, DARK_GREY, GOLD, PURPLE} from "../../constants/colors";
+import { selectIsDarkMode } from "../../selectors";
+import { COLBALT, DARK_GREY, GOLD, PURPLE } from "../../constants/colors";
 
 const styles = {
   root: {

@@ -16,7 +16,8 @@ import {
   selectFormattedAskOfferTotalInUSD,
   selectAskPrice,
   selectFormattedOfferFormVolume,
-  selectOfferFormVolumeInUSD, selectIsDarkMode
+  selectOfferFormVolumeInUSD,
+  selectIsDarkMode
 } from "../../../selectors";
 import mapper from "../../../utils/connect";
 import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
@@ -29,7 +30,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import { getMinimalUnit } from "../../../utils/validate";
 import { setError } from "../../../actions/errors";
 import Chip from "@material-ui/core/Chip";
-import {WHITE} from "../../../constants/colors";
+import { WHITE } from "../../../constants/colors";
 
 const styles = () => ({
   info: {
@@ -187,10 +188,21 @@ const CreateAskContent = ({
             </Grid>
           </FormControl>
           <Grid container direction="column" className={classes.info}>
-            <Typography color={isDarkMode ? 'textSecondary' : undefined}>Type: {coin}</Typography>
-            <Typography color={isDarkMode ? 'textSecondary' : undefined}>Price: {formattedPrice}</Typography>
-            <Typography color={isDarkMode ? 'textSecondary' : undefined}>Amount: {volume}</Typography>
-            <Typography color={isDarkMode ? 'textSecondary' : undefined} variant="subheading">Total: {total}</Typography>
+            <Typography color={isDarkMode ? "textSecondary" : undefined}>
+              Type: {coin}
+            </Typography>
+            <Typography color={isDarkMode ? "textSecondary" : undefined}>
+              Price: {formattedPrice}
+            </Typography>
+            <Typography color={isDarkMode ? "textSecondary" : undefined}>
+              Amount: {volume}
+            </Typography>
+            <Typography
+              color={isDarkMode ? "textSecondary" : undefined}
+              variant="subheading"
+            >
+              Total: {total}
+            </Typography>
           </Grid>
         </div>
       );
@@ -218,10 +230,21 @@ const CreateAskContent = ({
     case 2:
       return (
         <Grid container direction="column">
-          <Typography color={isDarkMode ? 'textSecondary' : undefined}>Type: {coin}</Typography>
-          <Typography color={isDarkMode ? 'textSecondary' : undefined}>Price: {formattedPrice}</Typography>
-          <Typography color={isDarkMode ? 'textSecondary' : undefined}>Amount: {volume}</Typography>
-          <Typography color={isDarkMode ? 'textSecondary' : undefined} variant="subheading">Total: {total}</Typography>
+          <Typography color={isDarkMode ? "textSecondary" : undefined}>
+            Type: {coin}
+          </Typography>
+          <Typography color={isDarkMode ? "textSecondary" : undefined}>
+            Price: {formattedPrice}
+          </Typography>
+          <Typography color={isDarkMode ? "textSecondary" : undefined}>
+            Amount: {volume}
+          </Typography>
+          <Typography
+            color={isDarkMode ? "textSecondary" : undefined}
+            variant="subheading"
+          >
+            Total: {total}
+          </Typography>
         </Grid>
       );
   }

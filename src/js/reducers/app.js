@@ -19,7 +19,7 @@ import {
 import { MAP } from "../constants/app";
 import { getIndexFromPath } from "../utils/location";
 
-const mode = window.localStorage.getItem('dark');
+const mode = window.localStorage.getItem("dark");
 
 const initialState = {
   navigationBarHeight: 0,
@@ -39,7 +39,7 @@ const initialState = {
   bidInfo: undefined,
   listOpen: false,
   darkMode: mode ? JSON.parse(mode) : false,
-  modeLoaded: mode !== undefined,
+  modeLoaded: mode !== undefined
 };
 
 const handlers = {

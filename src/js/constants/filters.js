@@ -3,7 +3,7 @@ export const DEFAULT_FILTER = {
   distanceAway: 25,
   type: "ALL",
   price: undefined,
-  reputation: 4,
+  reputation: 4
 };
 
 export const types = ["ALL", "ASK", "BID"];

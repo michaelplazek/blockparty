@@ -1,5 +1,5 @@
 import React from "react";
-import {compose, lifecycle, withHandlers, withState} from "recompose";
+import { compose, lifecycle, withHandlers, withState } from "recompose";
 import { withRouter } from "react-router-dom";
 import { dark, light } from "../../../theme";
 import { VERSION } from "../../constants/app";
@@ -16,7 +16,8 @@ import withDimensions from "../../HOCs/withDimensions";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Grid from "@material-ui/core/Grid/Grid";
 import {
-  selectIsDarkMode, selectModeLoaded,
+  selectIsDarkMode,
+  selectModeLoaded,
   selectMyAsksLoaded,
   selectMyBidsLoaded,
   selectMyOffersLoaded,
@@ -37,11 +38,14 @@ import { loadOffersByUser as loadOffersByUserAction } from "../../actions/offers
 import { loadTransactions as loadTransactionsAction } from "../../actions/transactions";
 import withNav from "../../HOCs/withNav";
 import PermissionStatuses from "./PermissionStatuses";
-import {WHITE} from "../../constants/colors";
+import { WHITE } from "../../constants/colors";
 import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
-import {getMode as getModeAction, setDarkMode as setDarkModeAction} from "../../actions/app";
+import {
+  getMode as getModeAction,
+  setDarkMode as setDarkModeAction
+} from "../../actions/app";
 import withMode from "../../HOCs/withMode";
 
 const styles = () => ({
@@ -93,10 +97,7 @@ const Settings = ({
           alignItems="center"
         >
           <Grid item>
-            <ValidatorForm
-              autoComplete="off"
-              onSubmit={handleUpdate}
-            >
+            <ValidatorForm autoComplete="off" onSubmit={handleUpdate}>
               <Grid
                 container
                 className={classes.top}
@@ -106,12 +107,12 @@ const Settings = ({
                 <Grid
                   item
                   style={{
-                    width: `${windowWidth - 30}px`,
+                    width: `${windowWidth - 30}px`
                   }}
                 >
                   <TextValidator
                     id="bio-field"
-                    name='bio'
+                    name="bio"
                     fullWidth
                     label="Bio"
                     multiline
@@ -120,8 +121,8 @@ const Settings = ({
                     onChange={({ target }) => setUpdatedBio(target.value)}
                     margin="normal"
                     variant="outlined"
-                    validators={['maxStringLength:250']}
-                    errorMessages={['must be under 250 characters']}
+                    validators={["maxStringLength:250"]}
+                    errorMessages={["must be under 250 characters"]}
                     inputProps={{
                       style: {
                         color: isDarkMode ? WHITE : undefined
@@ -130,7 +131,12 @@ const Settings = ({
                   />
                 </Grid>
                 <Grid item>
-                  <Button variant="contained" disabled={disabled} color="primary" type="submit">
+                  <Button
+                    variant="contained"
+                    disabled={disabled}
+                    color="primary"
+                    type="submit"
+                  >
                     {buttonText}
                   </Button>
                 </Grid>
@@ -176,10 +182,7 @@ const Settings = ({
                 </Button>
               </Grid>
               <Grid item>
-                <Button
-                  onClick={() => history.push('/policy')}
-                  variant='text'
-                >
+                <Button onClick={() => history.push("/policy")} variant="text">
                   View our policy
                 </Button>
               </Grid>
@@ -191,7 +194,7 @@ const Settings = ({
         </Grid>
       </div>
     </div>
-  )
+  );
 };
 
 const propMap = {
@@ -236,7 +239,7 @@ export default compose(
         asksLoaded,
         bidsLoaded,
         offersLoaded,
-        transactionsLoaded,
+        transactionsLoaded
       } = this.props;
       if (!asksLoaded) {
         loadMyAsks(userId);
@@ -250,13 +253,19 @@ export default compose(
       if (!transactionsLoaded) {
         loadTransactions(userId);
       }
-    },
+    }
   }),
-  withState('updatedBio', 'setUpdatedBio', ({ bio }) => bio),
-  withState('disabled', 'setDisabled', false),
-  withState('buttonText', 'setButtonText', "Update"),
+  withState("updatedBio", "setUpdatedBio", ({ bio }) => bio),
+  withState("disabled", "setDisabled", false),
+  withState("buttonText", "setButtonText", "Update"),
   withHandlers({
-    handleUpdate: ({ userId, updateUser, updatedBio, setButtonText, setDisabled }) => () => {
+    handleUpdate: ({
+      userId,
+      updateUser,
+      updatedBio,
+      setButtonText,
+      setDisabled
+    }) => () => {
       const update = { id: userId, bio: updatedBio };
       setButtonText("Updating...");
       setDisabled(true);
@@ -271,11 +280,10 @@ export default compose(
     },
     handleToggle: ({ setDarkMode, isDarkMode, userId }) => () => {
       const payload = { userId, dark: !isDarkMode };
-      setDarkMode(payload)
-        .then(() => window.location.reload());
-    },
+      setDarkMode(payload).then(() => window.location.reload());
+    }
   }),
   withDimensions,
   withMode,
-  withNav,
+  withNav
 )(Settings);

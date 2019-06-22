@@ -32,7 +32,8 @@ import {
   selectOfferFormVolume,
   selectUserId,
   selectAskVolume,
-  selectUsername, selectIsDarkMode
+  selectUsername,
+  selectIsDarkMode
 } from "../../../selectors";
 import { ValidatorForm } from "react-material-ui-form-validator";
 import { cleanInputs } from "../../../constants/validation";
@@ -41,7 +42,7 @@ import {
   setNotification
 } from "../../../actions/app";
 import { getIndexFromPath } from "../../../utils/location";
-import {DARK_GREEN} from "../../../constants/colors";
+import { DARK_GREEN } from "../../../constants/colors";
 
 const styles = theme => ({
   root: {

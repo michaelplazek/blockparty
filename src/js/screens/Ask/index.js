@@ -14,7 +14,8 @@ import {
   selectMyOffersLoaded,
   selectUserId,
   selectWindowHeight,
-  selectModal, selectIsDarkMode
+  selectModal,
+  selectIsDarkMode
 } from "../../selectors/index";
 import { loadAsk as loadAskAction } from "../../actions/asks";
 import Grid from "@material-ui/core/Grid/Grid";
@@ -54,7 +55,7 @@ const styles = theme => ({
     background: theme.palette.createButton.background
   },
   backButton: {
-    padding: "1em",
+    padding: "1em"
   }
 });
 
@@ -85,11 +86,9 @@ const Ask = ({
       {loaded && (
         <div>
           {layer === "CREATE_ASK_OFFER" && (
-            <CreateAskOffer handleClose={() => {
-            }} handleSubmit={() => {
-            }}/>
+            <CreateAskOffer handleClose={() => {}} handleSubmit={() => {}} />
           )}
-          {modal === "VIEW_USER_DETAILS" && <UserInfo id={ask.userId}/>}
+          {modal === "VIEW_USER_DETAILS" && <UserInfo id={ask.userId} />}
           <Grid>
             <Grid className={classes.backButton}>
               <Button
@@ -108,8 +107,8 @@ const Ask = ({
                   {ask.volume} {ask.coin}
                 </Typography>
               </Grid>
-              <br/>
-              <DetailList items={items} userClick={handleUserClick}/>
+              <br />
+              <DetailList items={items} userClick={handleUserClick} />
             </div>
             {showButton && (
               <Fab
@@ -122,11 +121,11 @@ const Ask = ({
               </Fab>
             )}
           </Grid>
-          <Grid/>
+          <Grid />
         </div>
       )}
     </div>
-  )
+  );
 };
 
 Ask.propTypes = {
@@ -186,5 +185,5 @@ export default compose(
     }
   }),
   withMode,
-  withNav,
+  withNav
 )(Ask);

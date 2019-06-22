@@ -11,7 +11,7 @@ import ListItemText from "@material-ui/core/ListItemText/ListItemText";
 import moment from "moment";
 import ListItem from "@material-ui/core/ListItem/ListItem";
 import { getStatusColor } from "../../utils/status";
-import {COLBALT} from "../../constants/colors";
+import { COLBALT } from "../../constants/colors";
 
 const styles = () => ({
   coin: {
@@ -50,12 +50,21 @@ const OfferTile = ({ classes, item, onClick, isDarkMode }) => (
               <Grid item>
                 <Grid container direction="row">
                   <Grid item>
-                    <Typography color={isDarkMode ? 'secondary' : undefined} className={classes.volume} variant="title">
+                    <Typography
+                      color={isDarkMode ? "secondary" : undefined}
+                      className={classes.volume}
+                      variant="title"
+                    >
                       {item.volume}
                     </Typography>
                   </Grid>
                   <Grid item className={classes.coin}>
-                    <Typography color={isDarkMode ? 'secondary' : undefined} variant="subheading">{item.coin}</Typography>
+                    <Typography
+                      color={isDarkMode ? "secondary" : undefined}
+                      variant="subheading"
+                    >
+                      {item.coin}
+                    </Typography>
                   </Grid>
                 </Grid>
                 <Grid className={classes.type} item>

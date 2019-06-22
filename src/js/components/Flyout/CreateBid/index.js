@@ -26,7 +26,8 @@ import {
   selectUsername,
   selectBidFormContactInfo,
   selectBidCurrencyItems,
-  selectLastPrice, selectIsDarkMode
+  selectLastPrice,
+  selectIsDarkMode
 } from "../../../selectors";
 import {
   createBid as createBidAction,
@@ -36,7 +37,13 @@ import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
 import { resetBid as resetBidAction } from "../../../actions/createBid";
 import { ValidatorForm } from "react-material-ui-form-validator";
 import { cleanInputs } from "../../../constants/validation";
-import {COLBALT, DARK_GREEN, GOLD, LIGHT_GREY, WHITE} from "../../../constants/colors";
+import {
+  COLBALT,
+  DARK_GREEN,
+  GOLD,
+  LIGHT_GREY,
+  WHITE
+} from "../../../constants/colors";
 
 const styles = theme => ({
   button: {
@@ -71,7 +78,7 @@ const CreateBid = ({
   >
     <Grid
       style={{
-        margin: "30px",
+        margin: "30px"
       }}
     >
       <Typography variant="caption">
@@ -82,7 +89,7 @@ const CreateBid = ({
         activeStep={activeIndex}
         orientation="vertical"
         style={{
-          background: isDarkMode ? DARK_GREEN : WHITE,
+          background: isDarkMode ? DARK_GREEN : WHITE
         }}
       >
         {STEPS.map((step, index) => {
@@ -131,7 +138,9 @@ const CreateBid = ({
             background: isDarkMode ? DARK_GREEN : undefined
           }}
         >
-          <Typography color={isDarkMode ? 'textSecondary' : undefined}>Bid successfully created.</Typography>
+          <Typography color={isDarkMode ? "textSecondary" : undefined}>
+            Bid successfully created.
+          </Typography>
         </Paper>
       )}
     </Grid>

@@ -55,7 +55,7 @@ const ButtonContainer = ({
         </Button>
       </Grid>
     </Grid>
-  )
-}
+  );
+};
 
 export default compose(withStyles(styles))(ButtonContainer);

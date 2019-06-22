@@ -21,7 +21,8 @@ import {
   selectAskFormVolumeInUSD,
   selectFormattedAskFormVolume,
   selectCurrencyItems,
-  selectLastPrice, selectIsDarkMode
+  selectLastPrice,
+  selectIsDarkMode
 } from "../../../selectors";
 import mapper from "../../../utils/connect";
 import {
@@ -42,7 +43,7 @@ import { getMinimalUnit } from "../../../utils/validate";
 import { loadLastPrice } from "../../../actions/metrics";
 import { USD_DECIMALS } from "../../../constants/currency";
 import SelectCoin from "./SelectCoin";
-import {WHITE} from "../../../constants/colors";
+import { WHITE } from "../../../constants/colors";
 
 const CreateAskContent = ({
   index,
@@ -229,10 +230,21 @@ const CreateAskContent = ({
     case 5:
       return (
         <Grid container direction="column">
-          <Typography color={isDarkMode ? 'textSecondary' : undefined}>Type: {coin}</Typography>
-          <Typography color={isDarkMode ? 'textSecondary' : undefined}>Amount: {volume}</Typography>
-          <Typography color={isDarkMode ? 'textSecondary' : undefined}>Price: {formattedPrice}</Typography>
-          <Typography color={isDarkMode ? 'textSecondary' : undefined} variant="subheading">Total: {total}</Typography>
+          <Typography color={isDarkMode ? "textSecondary" : undefined}>
+            Type: {coin}
+          </Typography>
+          <Typography color={isDarkMode ? "textSecondary" : undefined}>
+            Amount: {volume}
+          </Typography>
+          <Typography color={isDarkMode ? "textSecondary" : undefined}>
+            Price: {formattedPrice}
+          </Typography>
+          <Typography
+            color={isDarkMode ? "textSecondary" : undefined}
+            variant="subheading"
+          >
+            Total: {total}
+          </Typography>
         </Grid>
       );
   }

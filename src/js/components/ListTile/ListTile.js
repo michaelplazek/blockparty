@@ -10,7 +10,7 @@ import { getCoinIcon } from "../List/utils";
 import ListItemText from "@material-ui/core/ListItemText/ListItemText";
 import moment from "moment";
 import ListItem from "@material-ui/core/ListItem/ListItem";
-import {COLBALT, DARK_GREEN, DARK_GREY, GOLD} from "../../constants/colors";
+import { COLBALT, DARK_GREEN, DARK_GREY, GOLD } from "../../constants/colors";
 
 const styles = () => ({
   root: {
@@ -33,10 +33,7 @@ const styles = () => ({
 });
 
 const ListTile = ({ classes, className, onClick, item, isDarkMode }) => (
-  <div
-    className={`${classes.root} ${className}`}
-    onClick={onClick}
-  >
+  <div className={`${classes.root} ${className}`} onClick={onClick}>
     <Paper
       elevation={2}
       style={{
@@ -52,12 +49,21 @@ const ListTile = ({ classes, className, onClick, item, isDarkMode }) => (
                 {getCoinIcon(item.coin, isDarkMode)}
               </Grid>
               <Grid item>
-                <Typography color={isDarkMode ? 'secondary' : undefined} className={classes.volume} variant="title">
+                <Typography
+                  color={isDarkMode ? "secondary" : undefined}
+                  className={classes.volume}
+                  variant="title"
+                >
                   {item.volume}
                 </Typography>
               </Grid>
               <Grid item className={classes.coin}>
-                <Typography color={isDarkMode ? 'secondary' : undefined} variant="subheading">{item.coin}</Typography>
+                <Typography
+                  color={isDarkMode ? "secondary" : undefined}
+                  variant="subheading"
+                >
+                  {item.coin}
+                </Typography>
               </Grid>
             </Grid>
           }

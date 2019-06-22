@@ -1,6 +1,6 @@
 import { createMuiTheme } from "@material-ui/core";
 import { indigo } from "@material-ui/core/colors";
-import {COLBALT, GOLD, WHITE} from "./js/constants/colors";
+import { COLBALT, GOLD, WHITE } from "./js/constants/colors";
 
 export const light = createMuiTheme({
   palette: {

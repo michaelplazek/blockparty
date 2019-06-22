@@ -6,7 +6,7 @@ import Grid from "@material-ui/core/Grid/Grid";
 import Typography from "@material-ui/core/Typography/Typography";
 import Collapsible from "react-collapsible";
 import Button from "@material-ui/core/Button/Button";
-import {COLBALT} from "../../constants/colors";
+import { COLBALT } from "../../constants/colors";
 
 const styles = () => ({
   coin: {
@@ -56,17 +56,31 @@ const OfferWidget = ({
         <Grid item>
           <Grid container justify="space-between" direction="row">
             <Grid item>
-              <Typography color={isDarkMode ? 'textSecondary' : undefined} variant="title">{total}</Typography>
+              <Typography
+                color={isDarkMode ? "textSecondary" : undefined}
+                variant="title"
+              >
+                {total}
+              </Typography>
             </Grid>
             <Grid item>
               <Grid direction="row" container>
                 <Grid item>
-                  <Typography color={isDarkMode ? 'textSecondary' : undefined} className={classes.volume} variant="subheading">
+                  <Typography
+                    color={isDarkMode ? "textSecondary" : undefined}
+                    className={classes.volume}
+                    variant="subheading"
+                  >
                     {volume}
                   </Typography>
                 </Grid>
                 <Grid item className={classes.coin}>
-                  <Typography color={isDarkMode ? 'textSecondary' : undefined} variant="subheading">{coin}</Typography>
+                  <Typography
+                    color={isDarkMode ? "textSecondary" : undefined}
+                    variant="subheading"
+                  >
+                    {coin}
+                  </Typography>
                 </Grid>
               </Grid>
             </Grid>
@@ -76,7 +90,11 @@ const OfferWidget = ({
               <Typography variant="caption">{time}</Typography>
             </Grid>
             <Grid item onClick={onUserClick}>
-              <Typography color={isDarkMode ? 'secondary' : undefined} variant="subtitle1" className={classes.user}>
+              <Typography
+                color={isDarkMode ? "secondary" : undefined}
+                variant="subtitle1"
+                className={classes.user}
+              >
                 {username}
               </Typography>
             </Grid>

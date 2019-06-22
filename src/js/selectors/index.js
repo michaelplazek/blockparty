@@ -597,7 +597,7 @@ export const selectCurrencyItems = createSelector(
   fpMap(item => ({
     label: `${item.assetName} - ${item.assetSymbol}`,
     value: item.assetSymbol,
-    disabled: false,
+    disabled: false
   }))
 );
 

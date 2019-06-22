@@ -39,7 +39,7 @@ export const marketSteps = [
       "To view posts in a list view, click the list icon to open a slide out.",
     disableBeacon: true,
     placement: "auto"
-  },
+  }
 ];
 
 export const dashboardSteps = [

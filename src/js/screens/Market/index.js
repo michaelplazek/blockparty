@@ -18,7 +18,8 @@ import {
   selectLayer,
   selectInitialLocation,
   selectModal,
-  selectListOpen, selectIsDarkMode
+  selectListOpen,
+  selectIsDarkMode
 } from "../../selectors";
 import { loadAsks as loadAsksAction } from "../../actions/asks";
 import { loadBids as loadBidsAction } from "../../actions/bids";
@@ -77,7 +78,7 @@ class Market extends Component {
       layer,
       run,
       modal,
-      isDarkMode,
+      isDarkMode
     } = this.props;
 
     return (
@@ -205,5 +206,5 @@ export default compose(
   withPushNotifications,
   withVisited,
   withMode,
-  withNav,
+  withNav
 )(Market);

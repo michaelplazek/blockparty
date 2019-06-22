@@ -12,7 +12,8 @@ import {
   selectBidDisplayPrice,
   selectOfferFormVolumeInUSD,
   selectFormattedOfferFormVolume,
-  selectBidPrice, selectIsDarkMode
+  selectBidPrice,
+  selectIsDarkMode
 } from "../../../selectors/index";
 import mapper from "../../../utils/connect";
 import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
@@ -30,7 +31,7 @@ import {
 } from "../../../selectors";
 import { getMinimalUnit } from "../../../utils/validate";
 import Chip from "@material-ui/core/Chip";
-import {COLBALT, WHITE} from "../../../constants/colors";
+import { COLBALT, WHITE } from "../../../constants/colors";
 
 const styles = () => ({
   info: {
@@ -188,10 +189,21 @@ const CreateBidOfferContent = ({
             </Grid>
           </FormControl>
           <Grid container direction="column" className={classes.info}>
-            <Typography color={isDarkMode ? 'textSecondary' : undefined}>Type: {coin}</Typography>
-            <Typography color={isDarkMode ? 'textSecondary' : undefined}>Price: {formattedPrice}</Typography>
-            <Typography color={isDarkMode ? 'textSecondary' : undefined}>Amount: {volume}</Typography>
-            <Typography color={isDarkMode ? 'textSecondary' : undefined} variant="subheading">Total: {total}</Typography>
+            <Typography color={isDarkMode ? "textSecondary" : undefined}>
+              Type: {coin}
+            </Typography>
+            <Typography color={isDarkMode ? "textSecondary" : undefined}>
+              Price: {formattedPrice}
+            </Typography>
+            <Typography color={isDarkMode ? "textSecondary" : undefined}>
+              Amount: {volume}
+            </Typography>
+            <Typography
+              color={isDarkMode ? "textSecondary" : undefined}
+              variant="subheading"
+            >
+              Total: {total}
+            </Typography>
           </Grid>
         </div>
       );
@@ -219,10 +231,21 @@ const CreateBidOfferContent = ({
     case 2:
       return (
         <Grid container direction="column">
-          <Typography color={isDarkMode ? 'textSecondary' : undefined}>Type: {coin}</Typography>
-          <Typography color={isDarkMode ? 'textSecondary' : undefined}>Price: {formattedPrice}</Typography>
-          <Typography color={isDarkMode ? 'textSecondary' : undefined}>Amount: {volume}</Typography>
-          <Typography color={isDarkMode ? 'textSecondary' : undefined} variant="subheading">Total: {total}</Typography>
+          <Typography color={isDarkMode ? "textSecondary" : undefined}>
+            Type: {coin}
+          </Typography>
+          <Typography color={isDarkMode ? "textSecondary" : undefined}>
+            Price: {formattedPrice}
+          </Typography>
+          <Typography color={isDarkMode ? "textSecondary" : undefined}>
+            Amount: {volume}
+          </Typography>
+          <Typography
+            color={isDarkMode ? "textSecondary" : undefined}
+            variant="subheading"
+          >
+            Total: {total}
+          </Typography>
         </Grid>
       );
   }
