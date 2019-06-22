@@ -19,19 +19,19 @@ const styles = () => ({
   }
 });
 
-const ListTileWithBadge = ({ classes, onClick, item }) => {
+const ListTileWithBadge = ({ classes, onClick, item, isDarkMode }) => {
   return item.offers.length > 0 ? (
     <div className={classes.root}>
       <Badge
         classes={{ badge: classes.badge }}
         badgeContent={item.offers.length}
-        color="primary"
+        color={isDarkMode ? 'secondary' : 'primary'}
       >
-        <ListTile onClick={onClick} item={item} />
+        <ListTile onClick={onClick} item={item} isDarkMode={isDarkMode} />
       </Badge>
     </div>
   ) : (
-    <ListTile onClick={onClick} item={item} />
+    <ListTile onClick={onClick} item={item} isDarkMode={isDarkMode} />
   );
 };
 

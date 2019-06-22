@@ -175,6 +175,7 @@ const Dashboard = ({
             item={item}
             key={item._id}
             onClick={() => handleOfferClick(item)}
+            isDarkMode={isDarkMode}
           />
         ))}
       </Tile>
@@ -191,6 +192,7 @@ const Dashboard = ({
             item={item}
             key={item._id}
             onClick={() => handleAskClick(item)}
+            isDarkMode={isDarkMode}
           />
         ))}
       </Tile>
@@ -207,6 +209,7 @@ const Dashboard = ({
             item={item}
             key={item._id}
             onClick={() => handleBidClick(item)}
+            isDarkMode={isDarkMode}
           />
         ))}
       </Tile>
