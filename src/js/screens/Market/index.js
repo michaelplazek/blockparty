@@ -18,7 +18,7 @@ import {
   selectLayer,
   selectInitialLocation,
   selectModal,
-  selectListOpen
+  selectListOpen, selectIsDarkMode
 } from "../../selectors";
 import { loadAsks as loadAsksAction } from "../../actions/asks";
 import { loadBids as loadBidsAction } from "../../actions/bids";
@@ -75,7 +75,8 @@ class Market extends Component {
       handleOpenList,
       layer,
       run,
-      modal
+      modal,
+      isDarkMode,
     } = this.props;
 
     return (
@@ -108,6 +109,7 @@ class Market extends Component {
           height={(windowHeight - navHeight - headerHeight) / 2}
           navHeight={navHeight}
           windowHeight={windowHeight}
+          isDarkMode={isDarkMode}
         />
         <Joyride
           steps={marketSteps}
@@ -135,6 +137,7 @@ const propMap = {
   run: selectRun,
   initialLocation: selectInitialLocation,
   listOpen: selectListOpen,
+  isDarkMode: selectIsDarkMode,
   loaded: selectMarketLoaded // from withLoader
 };
 

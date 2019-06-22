@@ -36,7 +36,7 @@ const initialState = {
   askInfo: "Mid Market Price",
   bidInfo: undefined,
   listOpen: false,
-  darkMode: false,
+  darkMode: true,
 };
 
 const handlers = {

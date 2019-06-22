@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { compose, lifecycle, withHandlers } from "recompose";
 import { withRouter } from "react-router";
-import theme from "../../../theme";
+import { light, dark } from "../../../theme";
 import mapper from "../../utils/connect";
 import {
   selectAsk,
@@ -14,7 +14,7 @@ import {
   selectMyOffersLoaded,
   selectUserId,
   selectWindowHeight,
-  selectModal
+  selectModal, selectIsDarkMode
 } from "../../selectors/index";
 import { loadAsk as loadAskAction } from "../../actions/asks";
 import Grid from "@material-ui/core/Grid/Grid";
@@ -70,57 +70,63 @@ const Ask = ({
   buttonText,
   showButton,
   height,
-  handleUserClick
-}) => (
-  <div
-    style={{
-      background: theme.palette.inverse.background,
-      height: `${height}px`
-    }}
-  >
-    {loaded && (
-      <div>
-        {layer === "CREATE_ASK_OFFER" && (
-          <CreateAskOffer handleClose={() => {}} handleSubmit={() => {}} />
-        )}
-        {modal === "VIEW_USER_DETAILS" && <UserInfo id={ask.userId} />}
-        <Grid>
-          <Grid className={classes.backButton}>
-            <Button
-              style={theme.palette.inverse}
-              onClick={() => history.goBack()}
-            >
-              Go Back
-            </Button>
-          </Grid>
-          <div className={classes.root}>
-            <Grid item className={classes.body}>
-              <Typography style={theme.palette.inverse} variant="display1">
-                Ask for
-              </Typography>
-              <Typography style={theme.palette.inverse} variant="display2">
-                {ask.volume} {ask.coin}
-              </Typography>
-            </Grid>
-            <br />
-            <DetailList items={items} userClick={handleUserClick} />
-          </div>
-          {showButton && (
-            <Fab
-              className={classes.buttons}
-              variant="extended"
-              disabled={hasAskOffer}
-              onClick={handleOffer}
-            >
-              {buttonText}
-            </Fab>
+  handleUserClick,
+  isDarkMode
+}) => {
+  const theme = isDarkMode ? dark : light;
+  return (
+    <div
+      style={{
+        background: theme.palette.inverse.background,
+        height: `${height}px`
+      }}
+    >
+      {loaded && (
+        <div>
+          {layer === "CREATE_ASK_OFFER" && (
+            <CreateAskOffer handleClose={() => {
+            }} handleSubmit={() => {
+            }}/>
           )}
-        </Grid>
-        <Grid />
-      </div>
-    )}
-  </div>
-);
+          {modal === "VIEW_USER_DETAILS" && <UserInfo id={ask.userId}/>}
+          <Grid>
+            <Grid className={classes.backButton}>
+              <Button
+                style={theme.palette.inverse}
+                onClick={() => history.goBack()}
+              >
+                Go Back
+              </Button>
+            </Grid>
+            <div className={classes.root}>
+              <Grid item className={classes.body}>
+                <Typography style={theme.palette.inverse} variant="display1">
+                  Ask for
+                </Typography>
+                <Typography style={theme.palette.inverse} variant="display2">
+                  {ask.volume} {ask.coin}
+                </Typography>
+              </Grid>
+              <br/>
+              <DetailList items={items} userClick={handleUserClick}/>
+            </div>
+            {showButton && (
+              <Fab
+                className={classes.buttons}
+                variant="extended"
+                disabled={hasAskOffer}
+                onClick={handleOffer}
+              >
+                {buttonText}
+              </Fab>
+            )}
+          </Grid>
+          <Grid/>
+        </div>
+      )}
+    </div>
+  )
+};
 
 Ask.propTypes = {
   ask: PropTypes.object.isRequired,
@@ -140,7 +146,8 @@ const propMap = {
   myOffersLoaded: selectMyOffersLoaded,
   height: selectWindowHeight,
   userId: selectUserId,
-  showButton: selectAskHasButton
+  showButton: selectAskHasButton,
+  isDarkMode: selectIsDarkMode
 };
 
 const actionMap = {

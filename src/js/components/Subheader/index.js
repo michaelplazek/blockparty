@@ -24,6 +24,7 @@ import {
 } from "../../actions/filters";
 import {Typography} from "@material-ui/core";
 import StarRating from "react-star-ratings";
+import {COLBALT, DARK_GREY, GOLD, PURPLE} from "../../constants/colors";
 
 const styles = () => ({
   root: {
@@ -31,7 +32,8 @@ const styles = () => ({
     borderBottom: "1px #CCC solid"
   },
   chip: {
-    margin: "8px 3px 8px 3px"
+    margin: "8px 3px 8px 3px",
+    background: COLBALT,
   },
   menuButton: {
     marginRight: 8
@@ -52,6 +54,7 @@ const Subheader = ({ classes, filter, handleOpen }) => (
             </Typography>
           }
           className={classes.chip}
+          color='secondary'
         />
         <Chip
           clickable={true}
