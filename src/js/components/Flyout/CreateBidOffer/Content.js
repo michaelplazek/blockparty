@@ -80,7 +80,7 @@ const CreateBidOfferContent = ({
                       variant="outlined"
                       style={{
                         marginRight: "2px",
-                        background: WHITE
+                        color: isDarkMode ? WHITE : undefined
                       }}
                     />
                   </Grid>
@@ -93,7 +93,7 @@ const CreateBidOfferContent = ({
                       variant="outlined"
                       style={{
                         marginRight: "2px",
-                        background: WHITE
+                        color: isDarkMode ? WHITE : undefined
                       }}
                     />
                   </Grid>
@@ -106,7 +106,7 @@ const CreateBidOfferContent = ({
                       variant="outlined"
                       style={{
                         marginRight: "2px",
-                        background: WHITE
+                        color: isDarkMode ? WHITE : undefined
                       }}
                     />
                   </Grid>

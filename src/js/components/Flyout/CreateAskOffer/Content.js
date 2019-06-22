@@ -79,7 +79,7 @@ const CreateAskContent = ({
                       variant="outlined"
                       style={{
                         marginRight: "2px",
-                        background: WHITE
+                        color: isDarkMode ? WHITE : undefined
                       }}
                     />
                   </Grid>
@@ -92,7 +92,7 @@ const CreateAskContent = ({
                       variant="outlined"
                       style={{
                         marginRight: "2px",
-                        background: WHITE
+                        color: isDarkMode ? WHITE : undefined
                       }}
                     />
                   </Grid>
@@ -105,7 +105,7 @@ const CreateAskContent = ({
                       variant="outlined"
                       style={{
                         marginRight: "2px",
-                        background: WHITE
+                        color: isDarkMode ? WHITE : undefined
                       }}
                     />
                   </Grid>
