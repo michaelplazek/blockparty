@@ -85,7 +85,7 @@ class Market extends Component {
       <div>
         {modal === "WELCOME" && <Welcome />}
         {layer === "FILTER_MAP" && <FilterMap />}
-        <Orders />
+        <Orders openList={handleOpenList} />
         <PageHeader
           leftHandLabel="Market"
           showSubheader={true}

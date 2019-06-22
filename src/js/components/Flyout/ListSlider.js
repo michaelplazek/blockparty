@@ -13,12 +13,13 @@ import {
 } from "../../selectors";
 import { setListOpen as setListOpenAction } from "../../actions/app";
 import Slide from "@material-ui/core/Slide/Slide";
-import { DARK_GREEN } from "../../constants/colors";
+import {DARK_GREEN} from "../../constants/colors";
 
 const ListSlider = ({
   navHeight,
   headerHeight,
   windowHeight,
+  width,
   children,
   open,
   direction,
@@ -32,9 +33,9 @@ const ListSlider = ({
         top: `${(windowHeight - navHeight - headerHeight) / 2 +
           headerHeight}px`,
         height: `${(windowHeight - navHeight - headerHeight) / 2}px`,
+        width: `${width}px`,
         zIndex: 99,
-        borderRight: "#CCC 1px solid",
-        background: isDarkMode ? DARK_GREEN : "whitesmoke",
+        background: isDarkMode ? DARK_GREEN : 'whitesmoke',
         overflowY: "auto",
         overflowX: "hidden"
       }}

@@ -13,14 +13,19 @@ import {
   selectFilterCoin,
   selectIsDarkMode
 } from "../../selectors";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faTimes} from "@fortawesome/free-solid-svg-icons";
+import {DARK_GREY, WHITE} from "../../constants/colors";
 
 const styles = () => ({
-  root: {},
   list: {
-    marginRight: "0.5em"
+    marginLeft: "0.2em"
   },
-  item: {
-    marginRight: "0.5em"
+  closeButton: {
+    textAlign: "right",
+    position: "relative",
+    right: "1.5em",
+    cursor: "pointer"
   },
   link: {
     cursor: "pointer"
@@ -94,36 +99,55 @@ const OrderListHeader = compose(withStyles(styles))(ListHeaderBase);
 const OrderListItem = compose(withStyles(styles))(ListItemBase);
 const OrderListTitle = compose(withStyles(styles))(ListTitleBase);
 
-const OrderList = ({ classes, bids, asks, handleClick, isDarkMode }) => (
-  <Grid container direction="row" className={classes.root}>
-    <Grid item className={classes.list}>
-      <Grid container direction="column">
-        <OrderListTitle title="Bids" />
-        <OrderListHeader />
-        {bids.map(item => (
-          <OrderListItem
-            isDarkMode={isDarkMode}
-            key={item}
-            onClick={() => handleClick(item)}
-            item={item}
-            isBid={true}
-          />
-        ))}
-      </Grid>
+const OrderList = ({
+  classes,
+  bids,
+  asks,
+  handleClick,
+  isDarkMode,
+  openList
+  }) => (
+  <Grid container direction='column'>
+    <Grid item>
+      <div
+        className={classes.closeButton}
+        onClick={openList}
+      >
+        <FontAwesomeIcon color={isDarkMode ? WHITE : DARK_GREY} icon={faTimes} />
+      </div>
     </Grid>
     <Grid item>
-      <Grid container direction="column">
-        <OrderListTitle title="Asks" />
-        <OrderListHeader />
-        {asks.map(item => (
-          <OrderListItem
-            isDarkMode={isDarkMode}
-            key={item}
-            onClick={() => handleClick(item)}
-            item={item}
-            isBid={false}
-          />
-        ))}
+      <Grid container direction="row" justify='center'>
+        <Grid item>
+          <Grid container direction="column">
+            <OrderListTitle title="Bids" />
+            <OrderListHeader />
+            {bids.map(item => (
+              <OrderListItem
+                isDarkMode={isDarkMode}
+                key={item}
+                onClick={() => handleClick(item)}
+                item={item}
+                isBid={true}
+              />
+            ))}
+          </Grid>
+        </Grid>
+        <Grid item className={classes.list}>
+          <Grid container direction="column">
+            <OrderListTitle title="Asks" />
+            <OrderListHeader />
+            {asks.map(item => (
+              <OrderListItem
+                isDarkMode={isDarkMode}
+                key={item}
+                onClick={() => handleClick(item)}
+                item={item}
+                isBid={false}
+              />
+            ))}
+          </Grid>
+        </Grid>
       </Grid>
     </Grid>
   </Grid>

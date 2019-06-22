@@ -9,14 +9,14 @@ import OrderList from "../../OrderList";
 
 const styles = () => ({
   root: {
-    margin: "1em 0.5em 1em 0.5em"
+    margin: "1em 0.5em 1em 0em"
   }
 });
 
-const Orders = ({ classes }) => (
+const Orders = ({ classes, openList }) => (
   <ListSlider>
     <Grid container className={classes.root}>
-      <OrderList />
+      <OrderList openList={openList} />
     </Grid>
   </ListSlider>
 );
