@@ -12,7 +12,7 @@ import {
   selectAsk,
   selectAskLoaded,
   selectAskOfferTotal,
-  selectAskPostTime,
+  selectAskPostTime, selectIsDarkMode,
   selectLayerOpen,
   selectOffers,
   selectUserId,
@@ -25,7 +25,7 @@ import Typography from "@material-ui/core/Typography/Typography";
 import Button from "@material-ui/core/Button/Button";
 import { loadMyBids } from "../../../actions/bids";
 import { loadOffersByUser } from "../../../actions/offers";
-import theme from "../../../../theme";
+import { dark, light } from "../../../../theme";
 
 const styles = () => ({
   paper: {
@@ -48,48 +48,52 @@ const styles = () => ({
   }
 });
 
-const AskDetails = ({ classes, ask, offers, time, history, handleDelete }) => (
-  <Flyout size={8} title="Ask Details">
-    <Grid container direction="column">
-      <Grid item>
-        <DetailBox
-          post={ask}
-          time={time}
-          onClick={() => {
-            history.push(`/ask?${ask._id}`);
-          }}
-        />
-      </Grid>
-      <Grid item>
-        <OfferWidgetList offers={offers} post={ask} />
-      </Grid>
-      <Grid item>
-        <Grid
-          direction="column"
-          className={classes.footer}
-          alignItems="center"
-          container
-        >
-          <div className={classes.button}>
-            <Button
-              variant="contained"
-              disabled={offers.length > 0}
-              style={
-                !(offers.length > 0)
-                  ? theme.palette.errorButton
-                  : theme.palette.disabledErrorButton
-              }
-              onClick={() => handleDelete(ask._id)}
-            >
-              Delete Ask
-            </Button>
-          </div>
-          <Typography className={classes.time}>Posted {time}</Typography>
+const AskDetails = ({ classes, ask, offers, time, history, handleDelete, isDarkMode }) => {
+  const theme = isDarkMode ? dark : light;
+  return (
+    <Flyout size={8} title="Ask Details">
+      <Grid container direction="column">
+        <Grid item>
+          <DetailBox
+            post={ask}
+            time={time}
+            onClick={() => {
+              history.push(`/ask?${ask._id}`);
+            }}
+            isDarkMode={isDarkMode}
+          />
+        </Grid>
+        <Grid item>
+          <OfferWidgetList isDarkMode={isDarkMode} offers={offers} post={ask} />
+        </Grid>
+        <Grid item>
+          <Grid
+            direction="column"
+            className={classes.footer}
+            alignItems="center"
+            container
+          >
+            <div className={classes.button}>
+              <Button
+                variant="contained"
+                disabled={offers.length > 0}
+                style={
+                  !(offers.length > 0)
+                    ? theme.palette.errorButton
+                    : theme.palette.disabledErrorButton
+                }
+                onClick={() => handleDelete(ask._id)}
+              >
+                Delete Ask
+              </Button>
+            </div>
+            <Typography className={classes.time}>Posted {time}</Typography>
+          </Grid>
         </Grid>
       </Grid>
-    </Grid>
-  </Flyout>
-);
+    </Flyout>
+  )
+};
 
 const propMap = {
   open: selectLayerOpen,
@@ -100,7 +104,8 @@ const propMap = {
   total: selectAskOfferTotal,
   windowHeight: selectWindowHeight,
   windowWidth: selectWindowWidth,
-  time: selectAskPostTime
+  time: selectAskPostTime,
+  isDarkMode: selectIsDarkMode
 };
 
 const actionMap = {

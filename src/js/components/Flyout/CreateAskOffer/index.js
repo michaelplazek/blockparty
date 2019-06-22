@@ -32,7 +32,7 @@ import {
   selectOfferFormVolume,
   selectUserId,
   selectAskVolume,
-  selectUsername
+  selectUsername, selectIsDarkMode
 } from "../../../selectors";
 import { ValidatorForm } from "react-material-ui-form-validator";
 import { cleanInputs } from "../../../constants/validation";
@@ -41,6 +41,7 @@ import {
   setNotification
 } from "../../../actions/app";
 import { getIndexFromPath } from "../../../utils/location";
+import {DARK_GREEN} from "../../../constants/colors";
 
 const styles = theme => ({
   root: {
@@ -65,7 +66,8 @@ const CreateAskOffer = ({
   handleBack,
   handleNext,
   resetOffer,
-  handleError
+  handleError,
+  isDarkMode
 }) => (
   <Flyout
     onClose={() => {
@@ -76,7 +78,13 @@ const CreateAskOffer = ({
     title="Make an offer to buy"
   >
     <Grid className={classes.root}>
-      <Stepper activeStep={activeIndex} orientation="vertical">
+      <Stepper
+        activeStep={activeIndex}
+        orientation="vertical"
+        style={{
+          background: isDarkMode ? DARK_GREEN : undefined
+        }}
+      >
         {STEPS.map((step, index) => {
           return (
             <Step key={index}>
@@ -138,7 +146,8 @@ const propMap = {
   owner: selectAskOwner,
   total: selectAskOfferTotal,
   postId: selectAskId,
-  username: selectUsername
+  username: selectUsername,
+  isDarkMode: selectIsDarkMode
 };
 
 const actionMap = {

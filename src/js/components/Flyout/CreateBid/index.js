@@ -123,8 +123,15 @@ const CreateBid = ({
         })}
       </Stepper>
       {activeIndex === STEPS.length && (
-        <Paper square elevation={0} className={classes.resetContainer}>
-          <Typography>Bid successfully created.</Typography>
+        <Paper
+          square
+          elevation={0}
+          className={classes.resetContainer}
+          style={{
+            background: isDarkMode ? DARK_GREEN : undefined
+          }}
+        >
+          <Typography color={isDarkMode ? 'textSecondary' : undefined}>Bid successfully created.</Typography>
         </Paper>
       )}
     </Grid>

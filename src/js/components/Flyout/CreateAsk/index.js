@@ -36,7 +36,7 @@ import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
 import { resetAsk as resetAskAction } from "../../../actions/createAsk";
 import { ValidatorForm } from "react-material-ui-form-validator";
 import { cleanInputs } from "../../../constants/validation";
-import {DARK_GREEN, WHITE} from "../../../constants/colors";
+import {COLBALT, DARK_GREEN, WHITE} from "../../../constants/colors";
 
 const styles = theme => ({
   root: {
@@ -122,8 +122,15 @@ const CreateAsk = ({
         })}
       </Stepper>
       {activeIndex === STEPS.length && (
-        <Paper square elevation={0} className={classes.resetContainer}>
-          <Typography>Ask successfully created.</Typography>
+        <Paper
+          square
+          elevation={0}
+          className={classes.resetContainer}
+          style={{
+            background: isDarkMode ? DARK_GREEN : undefined
+          }}
+        >
+          <Typography color={isDarkMode ? 'textSecondary' : undefined}>Ask successfully created.</Typography>
         </Paper>
       )}
     </Grid>

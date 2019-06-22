@@ -97,6 +97,7 @@ const OrderList = ({ classes, bids, asks, handleClick }) => (
         <OrderListHeader />
         {bids.map(item => (
           <OrderListItem
+            key={item}
             onClick={() => handleClick(item)}
             item={item}
             isBid={true}
@@ -110,6 +111,7 @@ const OrderList = ({ classes, bids, asks, handleClick }) => (
         <OrderListHeader />
         {asks.map(item => (
           <OrderListItem
+            key={item}
             onClick={() => handleClick(item)}
             item={item}
             isBid={false}

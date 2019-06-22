@@ -6,16 +6,9 @@ import Grid from "@material-ui/core/Grid/Grid";
 import Typography from "@material-ui/core/Typography/Typography";
 import Collapsible from "react-collapsible";
 import Button from "@material-ui/core/Button/Button";
+import {COLBALT} from "../../constants/colors";
 
 const styles = () => ({
-  root: {
-    display: "flex",
-    minHeight: "100%",
-    flexDirection: "column",
-    margin: "2px",
-    padding: "10px",
-    cursor: "pointer"
-  },
   coin: {
     margin: "0px 0px 0px 4px"
   },
@@ -43,25 +36,37 @@ const OfferWidget = ({
   setOpen,
   handleAccept,
   handleDecline,
-  onUserClick
+  onUserClick,
+  isDarkMode
 }) => (
   <div onClick={() => setOpen(!open)}>
-    <Paper className={classes.root} elevation={1}>
+    <Paper
+      elevation={1}
+      style={{
+        display: "flex",
+        minHeight: "100%",
+        flexDirection: "column",
+        margin: "2px",
+        padding: "10px",
+        cursor: "pointer",
+        background: isDarkMode ? COLBALT : undefined
+      }}
+    >
       <Grid container direction="column">
         <Grid item>
           <Grid container justify="space-between" direction="row">
             <Grid item>
-              <Typography variant="title">{total}</Typography>
+              <Typography color={isDarkMode ? 'textSecondary' : undefined} variant="title">{total}</Typography>
             </Grid>
             <Grid item>
               <Grid direction="row" container>
                 <Grid item>
-                  <Typography className={classes.volume} variant="subheading">
+                  <Typography color={isDarkMode ? 'textSecondary' : undefined} className={classes.volume} variant="subheading">
                     {volume}
                   </Typography>
                 </Grid>
                 <Grid item className={classes.coin}>
-                  <Typography variant="subheading">{coin}</Typography>
+                  <Typography color={isDarkMode ? 'textSecondary' : undefined} variant="subheading">{coin}</Typography>
                 </Grid>
               </Grid>
             </Grid>
@@ -71,7 +76,7 @@ const OfferWidget = ({
               <Typography variant="caption">{time}</Typography>
             </Grid>
             <Grid item onClick={onUserClick}>
-              <Typography variant="subtitle1" className={classes.user}>
+              <Typography color={isDarkMode ? 'secondary' : undefined} variant="subtitle1" className={classes.user}>
                 {username}
               </Typography>
             </Grid>

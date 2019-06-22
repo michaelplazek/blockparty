@@ -12,7 +12,7 @@ const styles = () => ({
   }
 });
 
-const TransactionDetailList = ({ items, classes }) => (
+const TransactionDetailList = ({ items, classes, isDarkMode }) => (
   <Paper className={classes.paper}>
     <List disablePadding>
       {items.map((item, index) => (
@@ -23,6 +23,7 @@ const TransactionDetailList = ({ items, classes }) => (
           onClick={item.onClick}
           contact={item.contact}
           isLast={index === items.length - 1}
+          isDarkMode={isDarkMode}
         />
       ))}
     </List>

@@ -3,6 +3,8 @@ import { withRouter } from "react-router";
 import { compose } from "recompose";
 import {Typography, Grid, withStyles, Button} from "@material-ui/core";
 import withNav from "../HOCs/withNav";
+import mapper from "../utils/connect";
+import {selectIsDarkMode} from "../selectors";
 
 const styles = () => ({
   root: {
@@ -19,12 +21,13 @@ const styles = () => ({
   }
 });
 
-const Policy = ({ history, classes }) => (
+const Policy = ({ history, classes, isDarkMode }) => (
   <div className={classes.root}>
     <Grid container direction='column'>
       <Grid item className={classes.backButton}>
         <Button
           onClick={() => history.goBack()}
+          color={isDarkMode ? 'secondary' : undefined}
         >
           Go Back
         </Button>
@@ -32,7 +35,7 @@ const Policy = ({ history, classes }) => (
       <Grid item className={classes.title}>
         <Grid container justify='center'>
           <Grid item>
-            <Typography variant='subheading'>
+            <Typography color={isDarkMode ? 'textSecondary' : undefined} variant='subheading'>
               Policy
             </Typography>
           </Grid>
@@ -62,8 +65,13 @@ const Policy = ({ history, classes }) => (
   </div>
 );
 
+const propMap = {
+  isDarkMode: selectIsDarkMode
+};
+
 export default compose(
   withStyles(styles),
   withRouter,
   withNav,
+  mapper(propMap, {})
 )(Policy);

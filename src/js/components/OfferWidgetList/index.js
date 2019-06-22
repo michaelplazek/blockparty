@@ -24,6 +24,7 @@ import { loadMyBids } from "../../actions/bids";
 import { setNotification } from "../../actions/app";
 import { loadUser as loadUserAction } from "../../actions/users";
 import UserInfo from "../Modal/UserInfo";
+import {COLBALT, WHITE} from "../../constants/colors";
 
 const OfferWidgetList = ({
   offers,
@@ -31,14 +32,21 @@ const OfferWidgetList = ({
   modal,
   handleAccept,
   handleDecline,
-  handleUserClick
+  handleUserClick,
+  isDarkMode
 }) => (
-  <Tile title="Offers" count={offers.length}>
+  <Tile
+    color={isDarkMode ? COLBALT : undefined}
+    textColor={isDarkMode ? 'textSecondary' : undefined}
+    title="Offers"
+    count={offers.length}
+  >
     <Grid container direction="column">
       {offers.map((item, index) => (
         <Fragment>
           {modal === "VIEW_USER_DETAILS" && <UserInfo id={item.userId} />}
           <OfferWidget
+            isDarkMode={isDarkMode}
             key={`${item.volume}-${index}`}
             total={getTotal(post.price, item.volume)}
             volume={item.volume}

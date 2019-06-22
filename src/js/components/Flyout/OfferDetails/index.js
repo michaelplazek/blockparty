@@ -72,12 +72,12 @@ const OfferDetails = ({ classes, offer, time, handleDelete, total, isDarkMode })
               <Grid item className={classes.header}>
                 <Grid container direction="row">
                   <Grid className={classes.bid} item>
-                    <Typography variant="h4">
+                    <Typography color={isDarkMode ? 'textSecondary' : undefined} variant="h4">
                       {offer.bid ? "Sell" : "Buy"} {offer.volume}
                     </Typography>
                   </Grid>
                   <Grid item>
-                    <Typography variant="headline" className={classes.coin}>
+                    <Typography color={isDarkMode ? 'textSecondary' : undefined} variant="headline" className={classes.coin}>
                       {offer.coin}
                     </Typography>
                   </Grid>
@@ -86,19 +86,19 @@ const OfferDetails = ({ classes, offer, time, handleDelete, total, isDarkMode })
               <Grid item>
                 <Grid container direction="row">
                   <Grid item>
-                    <Typography variant="headline">
+                    <Typography color={isDarkMode ? 'textSecondary' : undefined} variant="headline">
                       at {numeral(offer.price).format(USD)}
                     </Typography>
                   </Grid>
                   <Grid item>
-                    <Typography className={classes.rate} variant="caption">
+                    <Typography color={isDarkMode ? 'textSecondary' : undefined} className={classes.rate} variant="caption">
                       /{offer.coin}
                     </Typography>
                   </Grid>
                 </Grid>
               </Grid>
               <Grid item>
-                <Typography variant="headline">for {total}</Typography>
+                <Typography color={isDarkMode ? 'textSecondary' : undefined} variant="headline">for {total}</Typography>
               </Grid>
               <Grid item>
                 <Typography

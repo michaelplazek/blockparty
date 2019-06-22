@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import theme from "../../../../../theme";
+import { dark, light } from "../../../../../theme";
 
 import Grid from "@material-ui/core/Grid/Grid";
 import Typography from "@material-ui/core/Typography/Typography";
@@ -9,7 +9,7 @@ import ListItemText from "@material-ui/core/ListItemText/ListItemText";
 
 import { isEmail, isPhoneNumber } from "../../../../utils/regex";
 
-const getLink = contact => {
+const getLink = (contact, theme) => {
   if (isPhoneNumber(contact)) {
     return (
       <Typography
@@ -42,48 +42,51 @@ const getLink = contact => {
   }
 };
 
-const ContactDetailItem = ({ name, value, onClick, contact }) => (
-  <ListItem style={theme.palette.inverse} divider={false}>
-    <Grid direction="column" container>
-      <Grid item>
-        <Grid container justify="space-between" onClick={onClick}>
-          <Grid item>
-            <ListItemText
-              disableTypography
-              primary={
-                <Typography style={theme.palette.inverse} variant="subheading">
-                  {name}
-                </Typography>
-              }
-            />
+const ContactDetailItem = ({ name, value, onClick, contact, isDarkMode }) => {
+  const theme = isDarkMode ? dark : light;
+  return (
+    <ListItem style={theme.palette.inverse} divider={false}>
+      <Grid direction="column" container>
+        <Grid item>
+          <Grid container justify="space-between" onClick={onClick}>
+            <Grid item>
+              <ListItemText
+                disableTypography
+                primary={
+                  <Typography style={theme.palette.inverse} variant="subheading">
+                    {name}
+                  </Typography>
+                }
+              />
+            </Grid>
+            <Grid item>
+              <ListItemText
+                disableTypography
+                primary={
+                  <Typography style={theme.palette.inverse} variant="subheading">
+                    {value}
+                  </Typography>
+                }
+              />
+            </Grid>
           </Grid>
-          <Grid item>
-            <ListItemText
-              disableTypography
-              primary={
-                <Typography style={theme.palette.inverse} variant="subheading">
-                  {value}
-                </Typography>
-              }
-            />
+        </Grid>
+        <Grid item>
+          <Grid
+            container
+            direction="column"
+            alignItems="center"
+            style={{ marginTop: "1em", marginBottom: "1em" }}
+          >
+            <Grid item>{getLink(contact, theme)}</Grid>
           </Grid>
         </Grid>
       </Grid>
-      <Grid item>
-        <Grid
-          container
-          direction="column"
-          alignItems="center"
-          style={{ marginTop: "1em", marginBottom: "1em" }}
-        >
-          <Grid item>{getLink(contact)}</Grid>
-        </Grid>
-      </Grid>
-    </Grid>
-  </ListItem>
-);
+    </ListItem>
+  )
+}
 
-const UserDetailItem = ({ name, value, onClick }) => (
+const UserDetailItem = ({ name, value, onClick, isDarkMode }) => (
   <ListItem divider={true}>
     <Grid direction="column" container>
       <Grid container justify="space-between" onClick={onClick}>
@@ -108,7 +111,8 @@ const TransactionDetailListItem = ({
   value,
   isLast,
   onClick,
-  contact
+  contact,
+  isDarkMode
 }) => (
   <div>
     {!isLast && (
@@ -117,6 +121,7 @@ const TransactionDetailListItem = ({
         value={value}
         isLast={isLast}
         onClick={onClick}
+        isDarkMode={isDarkMode}
       />
     )}
     {isLast && (
@@ -126,6 +131,7 @@ const TransactionDetailListItem = ({
         isLast={isLast}
         onClick={onClick}
         contact={contact}
+        isDarkMode={isDarkMode}
       />
     )}
   </div>

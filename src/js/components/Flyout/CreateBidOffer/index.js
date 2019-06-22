@@ -32,7 +32,7 @@ import {
   selectContactInfo,
   selectOfferFormVolume,
   selectUserId,
-  selectUsername
+  selectUsername, selectIsDarkMode
 } from "../../../selectors/index";
 import { ValidatorForm } from "react-material-ui-form-validator";
 import { cleanInputs } from "../../../constants/validation";
@@ -41,11 +41,9 @@ import {
   setNotification
 } from "../../../actions/app";
 import { getIndexFromPath } from "../../../utils/location";
+import {COLBALT, DARK_GREEN, WHITE} from "../../../constants/colors";
 
 const styles = theme => ({
-  root: {
-    margin: "30px"
-  },
   button: {
     marginTop: theme.spacing.unit,
     marginRight: theme.spacing.unit
@@ -65,7 +63,8 @@ const CreateBidOffer = ({
   handleBack,
   handleNext,
   resetOffer,
-  handleError
+  handleError,
+  isDarkMode,
 }) => (
   <Flyout
     onClose={() => {
@@ -75,8 +74,18 @@ const CreateBidOffer = ({
     size={8}
     title="Make an offer to sell"
   >
-    <Grid className={classes.root}>
-      <Stepper activeStep={activeIndex} orientation="vertical">
+    <Grid
+      style={{
+        margin: "30px"
+      }}
+    >
+      <Stepper
+        activeStep={activeIndex}
+        orientation="vertical"
+        style={{
+          background: isDarkMode ? DARK_GREEN : WHITE,
+        }}
+      >
         {STEPS.map((step, index) => {
           return (
             <Step key={index}>
@@ -138,7 +147,8 @@ const propMap = {
   owner: selectBidOwner,
   total: selectBidOfferTotal,
   postId: selectBidId,
-  username: selectUsername
+  username: selectUsername,
+  isDarkMode: selectIsDarkMode
 };
 
 const actionMap = {
