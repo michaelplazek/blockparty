@@ -21,7 +21,7 @@ import {
   selectAskFormVolumeInUSD,
   selectFormattedAskFormVolume,
   selectCurrencyItems,
-  selectLastPrice
+  selectLastPrice, selectIsDarkMode
 } from "../../../selectors";
 import mapper from "../../../utils/connect";
 import {
@@ -42,6 +42,7 @@ import { getMinimalUnit } from "../../../utils/validate";
 import { loadLastPrice } from "../../../actions/metrics";
 import { USD_DECIMALS } from "../../../constants/currency";
 import SelectCoin from "./SelectCoin";
+import {WHITE} from "../../../constants/colors";
 
 const CreateAskContent = ({
   index,
@@ -64,7 +65,8 @@ const CreateAskContent = ({
   contactInfo,
   setAskContactInfo,
   setAskVolumeInUSD,
-  currentLocation
+  currentLocation,
+  isDarkMode
 }) => {
   switch (index) {
     case 0:
@@ -93,6 +95,11 @@ const CreateAskContent = ({
               endAdornment: (
                 <InputAdornment position="start">{`/${coin}`}</InputAdornment>
               )
+            }}
+            inputProps={{
+              style: {
+                color: isDarkMode ? WHITE : undefined
+              }
             }}
           />
         </FormControl>
@@ -128,6 +135,11 @@ const CreateAskContent = ({
                     <InputAdornment position="start">{coin}</InputAdornment>
                   )
                 }}
+                inputProps={{
+                  style: {
+                    color: isDarkMode ? WHITE : undefined
+                  }
+                }}
               />
             </Grid>
             <Grid item>
@@ -153,6 +165,11 @@ const CreateAskContent = ({
                   endAdornment: (
                     <InputAdornment position="start">USD</InputAdornment>
                   )
+                }}
+                inputProps={{
+                  style: {
+                    color: isDarkMode ? WHITE : undefined
+                  }
                 }}
               />
             </Grid>
@@ -183,6 +200,7 @@ const CreateAskContent = ({
               position="relative"
               onDrag={coords => handleDrag(coords)}
               currentLocation={currentLocation}
+              isDarkMode={isDarkMode}
             />
           )}
         </div>
@@ -200,16 +218,21 @@ const CreateAskContent = ({
             margin="dense"
             helperText="Usually a phone number"
             variant="standard"
+            inputProps={{
+              style: {
+                color: isDarkMode ? WHITE : undefined
+              }
+            }}
           />
         </FormControl>
       );
     case 5:
       return (
         <Grid container direction="column">
-          <Typography>Type: {coin}</Typography>
-          <Typography>Amount: {volume}</Typography>
-          <Typography>Price: {formattedPrice}</Typography>
-          <Typography variant="subheading">Total: {total}</Typography>
+          <Typography color={isDarkMode ? 'textSecondary' : undefined}>Type: {coin}</Typography>
+          <Typography color={isDarkMode ? 'textSecondary' : undefined}>Amount: {volume}</Typography>
+          <Typography color={isDarkMode ? 'textSecondary' : undefined}>Price: {formattedPrice}</Typography>
+          <Typography color={isDarkMode ? 'textSecondary' : undefined} variant="subheading">Total: {total}</Typography>
         </Grid>
       );
   }
@@ -230,7 +253,8 @@ const propMap = {
   useCurrentLocation: selectAskUseCurrentLocation,
   currentLocation: selectCurrentLocation,
   volumeInUSD: selectAskFormVolumeInUSD,
-  lastPrice: selectLastPrice
+  lastPrice: selectLastPrice,
+  isDarkMode: selectIsDarkMode
 };
 
 const actionMap = {

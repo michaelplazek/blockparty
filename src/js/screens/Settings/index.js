@@ -37,6 +37,7 @@ import { loadOffersByUser as loadOffersByUserAction } from "../../actions/offers
 import { loadTransactions as loadTransactionsAction } from "../../actions/transactions";
 import withNav from "../../HOCs/withNav";
 import PermissionStatuses from "./PermissionStatuses";
+import {WHITE} from "../../constants/colors";
 
 const styles = () => ({
   top: {
@@ -116,6 +117,11 @@ const Settings = ({
                     variant="outlined"
                     validators={['maxStringLength:250']}
                     errorMessages={['must be under 250 characters']}
+                    inputProps={{
+                      style: {
+                        color: isDarkMode ? WHITE : undefined
+                      }
+                    }}
                   />
                 </Grid>
                 <Grid item>

@@ -9,7 +9,8 @@ const LocationSelector = ({
   width,
   position,
   showLabels,
-  currentLocation
+  currentLocation,
+  isDarkMode
 }) => (
   <div>
     <GoogleMapsWrapper
@@ -22,6 +23,7 @@ const LocationSelector = ({
       markersDraggable={true}
       showLabels={showLabels}
       currentLocation={currentLocation}
+      isDarkMode={isDarkMode}
     />
   </div>
 );

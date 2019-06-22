@@ -11,8 +11,11 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Downshift from 'downshift';
 import Paper from "@material-ui/core/Paper";
 import {withStyles} from "@material-ui/core";
+import {WHITE} from "../../constants/colors";
+import mapper from "../../utils/connect";
+import {selectIsDarkMode} from "../../selectors";
 
-function renderInput(inputProps) {
+function renderInput(inputProps, isDarkMode) {
   const { InputProps, classes, ref, ...other } = inputProps;
 
   return (
@@ -24,6 +27,9 @@ function renderInput(inputProps) {
           input: classes.inputInput,
         },
         ...InputProps,
+        style: {
+          color: isDarkMode ? WHITE : undefined
+        }
       }}
       {...other}
     />
@@ -102,7 +108,8 @@ const SearchableSelect = ({
   classes,
   suggestions,
   onSelect,
-  value
+  value,
+  isDarkMode
 }) => (
   <Downshift
     id="downshift-options"
@@ -153,7 +160,7 @@ const SearchableSelect = ({
             InputLabelProps: getLabelProps({ shrink: true }),
             InputProps: { onBlur, onChange, onFocus },
             inputProps,
-          })}
+          }, isDarkMode)}
 
           <div {...getMenuProps()}>
             {isOpen ? (
@@ -177,7 +184,12 @@ const SearchableSelect = ({
   </Downshift>
 );
 
+const propMap = {
+  isDarkMode: selectIsDarkMode
+};
+
 export default compose(
   withStyles(styles),
   withState('inputValue', 'setInputValue', ''),
+  mapper(propMap, {})
 )(SearchableSelect);

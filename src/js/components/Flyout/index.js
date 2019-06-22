@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
 import mapper from "../../utils/connect";
 import {
+  selectIsDarkMode,
   selectLayerOpen,
   selectWindowHeight,
   selectWindowWidth
@@ -20,13 +21,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import Typography from "@material-ui/core/Typography/Typography";
 import Grid from "@material-ui/core/Grid/Grid";
+import {DARK_GREEN, WHITE} from "../../constants/colors";
 
 const styles = () => ({
-  root: {
-    position: "absolute",
-    left: 0,
-    background: "white"
-  },
   closeButton: {
     textAlign: "right",
     position: "relative",
@@ -52,7 +49,8 @@ const Flyout = ({
   size,
   onClose,
   title,
-  direction
+  direction,
+  isDarkMode
 }) => (
   <Modal
     open={open}
@@ -64,12 +62,17 @@ const Flyout = ({
   >
     <Slide direction={direction} in={open} mountOnEnter unmountOnExit>
       <div
-        className={classes.root}
-        style={{ height: height, width: `${width - width / size}px` }}
+        style={{
+          height: height,
+          width: `${width - width / size}px`,
+          position: "absolute",
+          left: 0,
+          background: isDarkMode ? DARK_GREEN : WHITE
+        }}
       >
         <Grid direction="row" justify="space-between" container>
           <Grid className={classes.title} item>
-            <Typography variant="title">{title}</Typography>
+            <Typography color={isDarkMode ? 'secondary' : undefined} variant="title">{title}</Typography>
           </Grid>
           <Grid item>
             <div
@@ -105,7 +108,8 @@ Flyout.defaultProps = {
 const propMap = {
   height: selectWindowHeight,
   width: selectWindowWidth,
-  open: selectLayerOpen
+  open: selectLayerOpen,
+  isDarkMode: selectIsDarkMode
 };
 
 const actionMap = {
