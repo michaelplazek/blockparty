@@ -5,9 +5,9 @@ const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
 
 export default {
     devtool: 'inline-source-map',
-    mode: 'production',
+    mode: 'development',
     entry: [
-        path.resolve(__dirname, 'src/index')
+        path.resolve(__dirname, 'src/index'),
     ],
     target: 'web',
     output: {
@@ -37,6 +37,7 @@ export default {
             ],
             filename: "sw.js",
         }),
+        new webpack.HotModuleReplacementPlugin()
     ],
     devServer: {
         contentBase: path.resolve(__dirname, 'src')

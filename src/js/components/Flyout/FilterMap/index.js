@@ -1,5 +1,7 @@
 import React from "react";
 import { compose, withHandlers } from "recompose";
+import find from 'lodash/find';
+import SearchableSelect from '../../../components/SearchableSelect';
 import withStyles from "@material-ui/core/styles/withStyles";
 import mapper from "../../../utils/connect";
 
@@ -81,24 +83,12 @@ const FilterMap = ({
           </Select>
         </FormControl>
         <FormControl margin="dense" fullWidth={true}>
-          <InputLabel>Coin</InputLabel>
-          <Select
-            inputProps={{
-              autoFocus: focusField === "coin"
-            }}
-            variant="outlined"
-            native
+          <SearchableSelect
+            suggestions={coins}
+            selectedItem={find(coins, item => item.label === coin)}
+            onSelect={item => setFilterCoin(item)}
             value={coin}
-            onChange={({ target }) => {
-              setFilterCoin(target.value);
-            }}
-          >
-            {coins.map(item => (
-              <option key={item.value} value={item.value}>
-                {item.label}
-              </option>
-            ))}
-          </Select>
+          />
         </FormControl>
         <FormControl margin="dense" fullWidth={true}>
           <InputLabel>User Reputation</InputLabel>
@@ -111,7 +101,7 @@ const FilterMap = ({
             onChange={({ target }) => setFilterReputation(target.value)}
           >
             {[1, 2, 3, 4].map(item => (
-              <MenuItem value={item} label={item}>
+              <MenuItem value={item} label={item} key={item}>
                 <Grid
                   container
                   direction='row'

@@ -17,6 +17,8 @@ import {
   setAskPrice as setAskPriceAction
 } from "../../../actions/createAsk";
 import { loadLastPrice as loadLastPriceAction } from "../../../actions/metrics";
+import SearchableSelect from "../../SearchableSelect";
+import find from "lodash/find";
 
 const SelectCoin = ({
   coins,
@@ -26,23 +28,17 @@ const SelectCoin = ({
   setAskCoin
 }) => (
   <FormControl margin="dense" fullWidth={true}>
-    <Select
-      variant="outlined"
-      native
-      value={coin}
-      onChange={({ target }) => {
-        loadLastPrice(target.value).then(response => {
+    <SearchableSelect
+      suggestions={coins}
+      selectedItem={find(coins, item => item.label === coin)}
+      onSelect={item => {
+        loadLastPrice(item).then(response => {
           setAskPrice(numeral(response.data).format(COST));
         });
-        setAskCoin(target.value);
+        setAskCoin(item);
       }}
-    >
-      {coins.map(coin => (
-        <option disabled={coin.disabled} key={coin.value} value={coin.value}>
-          {coin.label}
-        </option>
-      ))}
-    </Select>
+      value={coin}
+    />
   </FormControl>
 );
 
