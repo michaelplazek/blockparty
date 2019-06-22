@@ -199,7 +199,7 @@ class GoogleMapsWrapper extends Component {
                 >
                   <Grid item>
                     <Grid container direction="row">
-                      <Grid item style={{ margin: "4px 4px 0px 0px" }}>
+                      <Grid item style={{ margin: "0px 4px 0px 0px" }}>
                         {getCoinIcon(item.coin, 15)}
                       </Grid>
                       <Grid item>

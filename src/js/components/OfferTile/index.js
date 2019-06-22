@@ -45,7 +45,7 @@ const OfferTile = ({ classes, item, onClick, isDarkMode }) => (
           primary={
             <Grid direction="row" alignItems="center" container>
               <Grid className={classes.icon} item>
-                {getCoinIcon(item.coin)}
+                {getCoinIcon(item.coin, isDarkMode)}
               </Grid>
               <Grid item>
                 <Grid container direction="row">

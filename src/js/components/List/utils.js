@@ -13,8 +13,8 @@ const convertToLowercase = string => {
 export const getCoinIcon = (coin, isDarkMode, size = 24) => {
   const Component = Icon[convertToLowercase(coin)];
   return Component ? (
-    <Component size={size} />
+    <Component color={isDarkMode ? GOLD : undefined} size={size} />
   ) : (
-    <FontAwesomeIcon color={GOLD} icon={faFileInvoiceDollar} />
+    <FontAwesomeIcon color={isDarkMode ? GOLD : undefined} icon={faFileInvoiceDollar} />
   );
 };
