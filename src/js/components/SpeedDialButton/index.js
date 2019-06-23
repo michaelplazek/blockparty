@@ -4,6 +4,7 @@ import SpeedDial from "@material-ui/lab/SpeedDial";
 import SpeedDialIcon from "@material-ui/lab/SpeedDialIcon";
 import CloseIcon from "@material-ui/icons/Close";
 import SpeedDialAction from "@material-ui/lab/SpeedDialAction";
+import { GOLD, COLBALT } from "../../constants/colors";
 
 const SpeedDialButton = ({
   actions,
@@ -11,7 +12,8 @@ const SpeedDialButton = ({
   handleOpen,
   handleClose,
   open,
-  className
+  className,
+  isDarkMode
 }) => (
   <SpeedDial
     ariaLabel="Create"
@@ -24,6 +26,9 @@ const SpeedDialButton = ({
     // onMouseEnter={handleOpen}
     // onMouseLeave={handleClose}
     open={open}
+    ButtonProps={{
+      color: isDarkMode ? "secondary" : "primary"
+    }}
   >
     /* * NOTE: this behavior will not work for touch devices * due issue:
     https://github.com/mui-org/material-ui/issues/13006 * */
@@ -41,6 +46,10 @@ const SpeedDialButton = ({
           onClick: () => {
             handleClick();
             action.onClick();
+          },
+          style: {
+            color: isDarkMode ? GOLD : undefined,
+            background: isDarkMode ? COLBALT : undefined
           }
         }}
       />

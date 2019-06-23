@@ -1,7 +1,7 @@
 import React from "react";
 import { compose, withHandlers } from "recompose";
-import find from 'lodash/find';
-import SearchableSelect from '../../../components/SearchableSelect';
+import find from "lodash/find";
+import SearchableSelect from "../../../components/SearchableSelect";
 import withStyles from "@material-ui/core/styles/withStyles";
 import mapper from "../../../utils/connect";
 
@@ -9,7 +9,8 @@ import {
   selectFilter,
   selectFilterCoin,
   selectFilterDistance,
-  selectFocusField
+  selectFocusField,
+  selectIsDarkMode
 } from "../../../selectors/index";
 import {
   setFilterDistance as setFilterDistanceAction,
@@ -28,7 +29,11 @@ import Grid from "@material-ui/core/Grid/Grid";
 import FormControl from "@material-ui/core/FormControl/FormControl";
 import InputLabel from "@material-ui/core/InputLabel/InputLabel";
 import Select from "@material-ui/core/Select/Select";
-import {selectCurrencyItems, selectFilterReputation, selectFilterType} from "../../../selectors";
+import {
+  selectCurrencyItems,
+  selectFilterReputation,
+  selectFilterType
+} from "../../../selectors";
 import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
 import Button from "@material-ui/core/Button/Button";
 import { cleanInputs, DISTANCE } from "../../../constants/validation";
@@ -38,8 +43,9 @@ import {
   setTouched as setTouchedAction
 } from "../../../actions/app";
 import StarRating from "react-star-ratings";
-import {Typography} from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import MenuItem from "@material-ui/core/MenuItem";
+import { WHITE } from "../../../constants/colors";
 
 const styles = () => ({
   root: {
@@ -59,7 +65,8 @@ const FilterMap = ({
   handleSetDistance,
   coins,
   type,
-  focusField
+  focusField,
+  isDarkMode
 }) => (
   <Flyout size={5}>
     <Grid className={classes.root}>
@@ -68,7 +75,10 @@ const FilterMap = ({
           <InputLabel>Type</InputLabel>
           <Select
             inputProps={{
-              autoFocus: focusField === "type"
+              autoFocus: focusField === "type",
+              style: {
+                color: isDarkMode ? WHITE : undefined
+              }
             }}
             variant="outlined"
             native
@@ -76,7 +86,7 @@ const FilterMap = ({
             onChange={({ target }) => setFilterType(target.value)}
           >
             {types.map(item => (
-              <option key={item} value={item}>
+              <option style={{ color: "black" }} key={item} value={item}>
                 {item}
               </option>
             ))}
@@ -94,7 +104,10 @@ const FilterMap = ({
           <InputLabel>User Reputation</InputLabel>
           <Select
             inputProps={{
-              autoFocus: focusField === "reputation"
+              autoFocus: focusField === "reputation",
+              style: {
+                color: isDarkMode ? WHITE : undefined
+              }
             }}
             variant="outlined"
             value={reputation}
@@ -102,11 +115,8 @@ const FilterMap = ({
           >
             {[0, 1, 2, 3, 4].map(item => (
               <MenuItem value={item} label={item} key={item}>
-                <Grid
-                  container
-                  direction='row'
-                >
-                  <Grid item style={{ marginRight: '0.3em' }}>
+                <Grid container direction="row">
+                  <Grid item style={{ marginRight: "0.3em" }}>
                     <StarRating
                       rating={item}
                       starRatedColor="#ffc107"
@@ -117,7 +127,9 @@ const FilterMap = ({
                     />
                   </Grid>
                   <Grid item>
-                    <Typography>
+                    <Typography
+                      color={isDarkMode ? "textSecondary" : undefined}
+                    >
                       & up
                     </Typography>
                   </Grid>
@@ -129,7 +141,10 @@ const FilterMap = ({
         <FormControl margin="dense" fullWidth={true}>
           <TextValidator
             inputProps={{
-              autoFocus: focusField === "distance"
+              autoFocus: focusField === "distance",
+              style: {
+                color: isDarkMode ? WHITE : undefined
+              }
             }}
             id="distance"
             name="distance"
@@ -163,7 +178,8 @@ const propMap = {
   coins: selectCurrencyItems,
   type: selectFilterType,
   filter: selectFilter,
-  focusField: selectFocusField
+  focusField: selectFocusField,
+  isDarkMode: selectIsDarkMode
 };
 
 const actionMap = {

@@ -3,11 +3,12 @@ import { compose, withHandlers } from "recompose";
 import withStyles from "@material-ui/core/styles/withStyles";
 import mapper from "../../../utils/connect";
 
-import theme from "../../../../theme";
+import { dark, light } from "../../../../theme";
 import Grid from "@material-ui/core/Grid/Grid";
 import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
 
 import {
+  selectIsDarkMode,
   selectLayerOpen,
   selectOffer,
   selectOfferPostTime,
@@ -60,79 +61,108 @@ const styles = () => ({
   }
 });
 
-const OfferDetails = ({ classes, offer, time, handleDelete, total }) => (
-  <Flyout size={8} title="Offer Details">
-    <Grid container direction="column">
-      <Grid item>
-        <Grid className={classes.paper}>
-          <Grid container className={classes.box}>
-            <Grid item className={classes.header}>
-              <Grid container direction="row">
-                <Grid className={classes.bid} item>
-                  <Typography variant="h4">
-                    {offer.bid ? "Sell" : "Buy"} {offer.volume}
-                  </Typography>
-                </Grid>
-                <Grid item>
-                  <Typography variant="headline" className={classes.coin}>
-                    {offer.coin}
-                  </Typography>
+const OfferDetails = ({
+  classes,
+  offer,
+  time,
+  handleDelete,
+  total,
+  isDarkMode
+}) => {
+  const theme = isDarkMode ? dark : light;
+  return (
+    <Flyout size={8} title="Offer Details">
+      <Grid container direction="column">
+        <Grid item>
+          <Grid className={classes.paper}>
+            <Grid container className={classes.box}>
+              <Grid item className={classes.header}>
+                <Grid container direction="row">
+                  <Grid className={classes.bid} item>
+                    <Typography
+                      color={isDarkMode ? "textSecondary" : undefined}
+                      variant="h4"
+                    >
+                      {offer.bid ? "Sell" : "Buy"} {offer.volume}
+                    </Typography>
+                  </Grid>
+                  <Grid item>
+                    <Typography
+                      color={isDarkMode ? "textSecondary" : undefined}
+                      variant="headline"
+                      className={classes.coin}
+                    >
+                      {offer.coin}
+                    </Typography>
+                  </Grid>
                 </Grid>
               </Grid>
-            </Grid>
-            <Grid item>
-              <Grid container direction="row">
-                <Grid item>
-                  <Typography variant="headline">
-                    at {numeral(offer.price).format(USD)}
-                  </Typography>
-                </Grid>
-                <Grid item>
-                  <Typography className={classes.rate} variant="caption">
-                    /{offer.coin}
-                  </Typography>
+              <Grid item>
+                <Grid container direction="row">
+                  <Grid item>
+                    <Typography
+                      color={isDarkMode ? "textSecondary" : undefined}
+                      variant="headline"
+                    >
+                      at {numeral(offer.price).format(USD)}
+                    </Typography>
+                  </Grid>
+                  <Grid item>
+                    <Typography
+                      color={isDarkMode ? "textSecondary" : undefined}
+                      className={classes.rate}
+                      variant="caption"
+                    >
+                      /{offer.coin}
+                    </Typography>
+                  </Grid>
                 </Grid>
               </Grid>
-            </Grid>
-            <Grid item>
-              <Typography variant="headline">for {total}</Typography>
-            </Grid>
-            <Grid item>
-              <Typography
-                style={getStatusColor(offer.status)}
-                className={classes.rate}
-                variant="caption"
-              >
-                {offer.status}
-              </Typography>
+              <Grid item>
+                <Typography
+                  color={isDarkMode ? "textSecondary" : undefined}
+                  variant="headline"
+                >
+                  for {total}
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Typography
+                  style={getStatusColor(offer.status, theme)}
+                  className={classes.rate}
+                  variant="caption"
+                >
+                  {offer.status}
+                </Typography>
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
-      </Grid>
-      <Grid item>
-        <Grid
-          direction="column"
-          className={classes.footer}
-          alignItems="center"
-          container
-        >
-          <div className={classes.button}>
-            <Button
-              variant="contained"
-              disabled={offer.status === "ACCEPTED"}
-              style={theme.palette.errorButton}
-              classes={{ disabled: classes.disabled }}
-              onClick={() => handleDelete(offer._id)}
-            >
-              Delete Offer
-            </Button>
-          </div>
-          <Typography className={classes.time}>Posted {time}</Typography>
+        <Grid item>
+          <Grid
+            direction="column"
+            className={classes.footer}
+            alignItems="center"
+            container
+          >
+            <div className={classes.button}>
+              <Button
+                variant="contained"
+                disabled={offer.status === "ACCEPTED"}
+                style={theme.palette.errorButton}
+                classes={{ disabled: classes.disabled }}
+                onClick={() => handleDelete(offer._id)}
+              >
+                Delete Offer
+              </Button>
+            </div>
+            <Typography className={classes.time}>Posted {time}</Typography>
+          </Grid>
         </Grid>
       </Grid>
-    </Grid>
-  </Flyout>
-);
+    </Flyout>
+  );
+};
 
 const propMap = {
   open: selectLayerOpen,
@@ -141,7 +171,8 @@ const propMap = {
   offer: selectOffer,
   windowHeight: selectWindowHeight,
   windowWidth: selectWindowWidth,
-  time: selectOfferPostTime
+  time: selectOfferPostTime,
+  isDarkMode: selectIsDarkMode
 };
 
 const actionMap = {

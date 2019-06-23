@@ -19,29 +19,29 @@ const styles = () => ({
   },
   body: {
     marginTop: "2.5em"
-  },
+  }
 });
 
 const Register = ({ handleSignUp, classes, history }) => (
   <div className={classes.root}>
-  <Grid style={{ background: "white" }}>
-    <Button onClick={() => history.goBack()}>Back to login</Button>
-    <Grid
-      className={classes.body}
-      container
-      justify="center"
-      direction="column"
-    >
-      <Grid item>
-        <Grid container direction="column" justify="center">
-          <Typography align="center" variant="display1">
-            Sign Up
-          </Typography>
-          <RegisterForm onClick={handleSignUp} />
+    <Grid style={{ background: "white" }}>
+      <Button onClick={() => history.goBack()}>Back to login</Button>
+      <Grid
+        className={classes.body}
+        container
+        justify="center"
+        direction="column"
+      >
+        <Grid item>
+          <Grid container direction="column" justify="center">
+            <Typography align="center" variant="display1">
+              Sign Up
+            </Typography>
+            <RegisterForm onClick={handleSignUp} />
+          </Grid>
         </Grid>
       </Grid>
     </Grid>
-  </Grid>
   </div>
 );
 

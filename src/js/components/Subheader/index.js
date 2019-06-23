@@ -12,7 +12,8 @@ import {
   selectFilter,
   selectFilterCoin,
   selectFilterDistance,
-  selectFilterType
+  selectFilterType,
+  selectIsDarkMode
 } from "../../selectors";
 import mapper from "../../utils/connect";
 import IconButton from "@material-ui/core/IconButton/IconButton";
@@ -22,16 +23,14 @@ import {
   setFilterItems,
   setFocusField as setFocusFieldAction
 } from "../../actions/filters";
-import {Typography} from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import StarRating from "react-star-ratings";
+import {COLBALT, GOLD, LIGHT_GREY} from "../../constants/colors";
 
 const styles = () => ({
   root: {
     height: "50px",
     borderBottom: "1px #CCC solid"
-  },
-  chip: {
-    margin: "8px 3px 8px 3px"
   },
   menuButton: {
     marginRight: 8
@@ -39,39 +38,40 @@ const styles = () => ({
   filterButton: {}
 });
 
-const Subheader = ({ classes, filter, handleOpen }) => (
+const Subheader = ({ classes, filter, handleOpen, isDarkMode }) => (
   <div className={classes.root}>
     <Grid container justify="space-between">
       <Grid item>
         <Chip
           clickable={true}
           onClick={() => handleOpen("type")}
-          label={
-            <Typography variant='caption'>
-              {`${filter.type}`}
-            </Typography>
-          }
-          className={classes.chip}
+          label={<Typography variant="caption">{`${filter.type}`}</Typography>}
+          style={{
+            margin: "8px 3px 8px 3px",
+            background: isDarkMode ? COLBALT : undefined
+          }}
         />
         <Chip
           clickable={true}
           onClick={() => handleOpen("coin")}
-          label={
-            <Typography variant='caption'>
-              {`${filter.coin}`}
-            </Typography>
-          }
-          className={classes.chip}
+          label={<Typography variant="caption">{`${filter.coin}`}</Typography>}
+          style={{
+            margin: "8px 3px 8px 3px",
+            background: isDarkMode ? COLBALT : undefined
+          }}
         />
         <Chip
           clickable={true}
           onClick={() => handleOpen("distance")}
           label={
-            <Typography variant='caption'>
+            <Typography variant="caption">
               {`${filter.distanceAway || 0} mi`}
             </Typography>
           }
-          className={classes.chip}
+          style={{
+            margin: "8px 3px 8px 3px",
+            background: isDarkMode ? COLBALT : undefined
+          }}
         />
         <Chip
           clickable={true}
@@ -86,7 +86,10 @@ const Subheader = ({ classes, filter, handleOpen }) => (
               name="rating"
             />
           }
-          className={classes.chip}
+          style={{
+            margin: "8px 3px 8px 3px",
+            background: isDarkMode ? COLBALT : undefined
+          }}
         />
       </Grid>
       <Grid item className={classes.filterButton}>
@@ -95,7 +98,7 @@ const Subheader = ({ classes, filter, handleOpen }) => (
           className={`${classes.menuButton} filters`}
           aria-label="Menu"
         >
-          <FilterListIcon />
+          <FilterListIcon color={isDarkMode ? 'secondary' : undefined} />
         </IconButton>
       </Grid>
     </Grid>
@@ -106,7 +109,8 @@ const propMap = {
   type: selectFilterType,
   coin: selectFilterCoin,
   distanceAway: selectFilterDistance,
-  filter: selectFilter
+  filter: selectFilter,
+  isDarkMode: selectIsDarkMode
 };
 
 const actionMap = {

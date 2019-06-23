@@ -1,7 +1,7 @@
 import React from "react";
 import { compose, withHandlers } from "recompose";
 import { withRouter } from "react-router-dom";
-import theme from "../../../../theme";
+import { dark, light } from "../../../../theme";
 import withStyles from "@material-ui/core/styles/withStyles";
 import mapper from "../../../utils/connect";
 import Flyout from "../index";
@@ -14,6 +14,7 @@ import {
   selectBidLoaded,
   selectBidOfferTotal,
   selectBidPostTime,
+  selectIsDarkMode,
   selectLayerOpen,
   selectOffers,
   selectUserId,
@@ -48,48 +49,60 @@ const styles = () => ({
   }
 });
 
-const DeleteBid = ({ classes, bid, offers, time, history, handleDelete }) => (
-  <Flyout size={8} title="Bid Details">
-    <Grid container direction="column">
-      <Grid item>
-        <DetailBox
-          post={bid}
-          time={time}
-          onClick={() => {
-            history.push(`/bid?${bid._id}`);
-          }}
-        />
-      </Grid>
-      <Grid item>
-        <OfferWidgetList offers={offers} post={bid} />
-      </Grid>
-      <Grid item>
-        <Grid
-          direction="column"
-          className={classes.footer}
-          alignItems="center"
-          container
-        >
-          <div className={classes.button}>
-            <Button
-              variant="contained"
-              disabled={offers.length > 0}
-              style={
-                !(offers.length > 0)
-                  ? theme.palette.errorButton
-                  : theme.palette.disabledErrorButton
-              }
-              onClick={() => handleDelete(bid._id)}
-            >
-              Delete Bid
-            </Button>
-          </div>
-          <Typography className={classes.time}>Posted {time}</Typography>
+const DeleteBid = ({
+  classes,
+  bid,
+  offers,
+  time,
+  history,
+  handleDelete,
+  isDarkMode
+}) => {
+  const theme = isDarkMode ? dark : light;
+  return (
+    <Flyout size={8} title="Bid Details">
+      <Grid container direction="column">
+        <Grid item>
+          <DetailBox
+            post={bid}
+            time={time}
+            onClick={() => {
+              history.push(`/bid?${bid._id}`);
+            }}
+            isDarkMode={isDarkMode}
+          />
+        </Grid>
+        <Grid item>
+          <OfferWidgetList isDarkMode={isDarkMode} offers={offers} post={bid} />
+        </Grid>
+        <Grid item>
+          <Grid
+            direction="column"
+            className={classes.footer}
+            alignItems="center"
+            container
+          >
+            <div className={classes.button}>
+              <Button
+                variant="contained"
+                disabled={offers.length > 0}
+                style={
+                  !(offers.length > 0)
+                    ? theme.palette.errorButton
+                    : theme.palette.disabledErrorButton
+                }
+                onClick={() => handleDelete(bid._id)}
+              >
+                Delete Bid
+              </Button>
+            </div>
+            <Typography className={classes.time}>Posted {time}</Typography>
+          </Grid>
         </Grid>
       </Grid>
-    </Grid>
-  </Flyout>
-);
+    </Flyout>
+  );
+};
 
 const propMap = {
   open: selectLayerOpen,
@@ -100,7 +113,8 @@ const propMap = {
   total: selectBidOfferTotal,
   windowHeight: selectWindowHeight,
   windowWidth: selectWindowWidth,
-  time: selectBidPostTime
+  time: selectBidPostTime,
+  isDarkMode: selectIsDarkMode
 };
 
 const actionMap = {

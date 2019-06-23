@@ -40,7 +40,7 @@ const handlers = {
       distanceAway: state.distanceAway,
       type: state.type,
       price: state.price,
-      reputation: state.reputation,
+      reputation: state.reputation
     }
   }),
   [SET_FILTER_ITEMS]: state => ({

@@ -29,18 +29,25 @@ const styles = () => ({
   }
 });
 
-const DetailBox = ({ post, classes, time, onClick }) => (
+const DetailBox = ({ post, classes, time, onClick, isDarkMode }) => (
   <Grid onClick={onClick} className={classes.paper}>
     <Grid container className={classes.box}>
       <Grid item>
         <Grid container direction="row">
           <Grid item className={classes.heading}>
-            <Typography variant="h4">
+            <Typography
+              color={isDarkMode ? "textSecondary" : undefined}
+              variant="h4"
+            >
               {post.isBid ? "Buy" : "Sell"} {post.volume}
             </Typography>
           </Grid>
           <Grid item>
-            <Typography variant="headline" className={classes.coin}>
+            <Typography
+              color={isDarkMode ? "textSecondary" : undefined}
+              variant="headline"
+              className={classes.coin}
+            >
               {post.coin}
             </Typography>
           </Grid>
@@ -49,19 +56,29 @@ const DetailBox = ({ post, classes, time, onClick }) => (
       <Grid item>
         <Grid container direction="row">
           <Grid item>
-            <Typography variant="headline">
+            <Typography
+              color={isDarkMode ? "textSecondary" : undefined}
+              variant="headline"
+            >
               at {numeral(post.price).format(USD)}
             </Typography>
           </Grid>
           <Grid item>
-            <Typography className={classes.rate} variant="caption">
+            <Typography
+              color={isDarkMode ? "textSecondary" : undefined}
+              className={classes.rate}
+              variant="caption"
+            >
               /{post.coin}
             </Typography>
           </Grid>
         </Grid>
       </Grid>
       <Grid item>
-        <Typography variant="headline">
+        <Typography
+          color={isDarkMode ? "textSecondary" : undefined}
+          variant="headline"
+        >
           for {numeral(post.price * post.volume).format(USD)}
         </Typography>
       </Grid>

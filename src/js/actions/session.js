@@ -23,7 +23,7 @@ export const logInUser = (
   username,
   password,
   history,
-  setNavIndex
+  setNavIndex,
 ) => dispatch => {
   const user = {
     username,

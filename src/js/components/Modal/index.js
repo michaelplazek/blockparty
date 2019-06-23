@@ -20,12 +20,9 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import Typography from "@material-ui/core/Typography/Typography";
 import Grid from "@material-ui/core/Grid/Grid";
 import { Dialog } from "@material-ui/core";
+import { WHITE } from "../../constants/colors";
 
 const styles = () => ({
-  root: {
-    borderRadius: "10px",
-    background: "white"
-  },
   closeButton: {
     textAlign: "right",
     position: "relative",
@@ -58,7 +55,12 @@ const ModalBase = ({
     }}
   >
     <Slide direction="up" in={open} mountOnEnter unmountOnExit>
-      <div className={classes.root}>
+      <div
+        style={{
+          borderRadius: "10px",
+          background: WHITE
+        }}
+      >
         <Grid direction="row" justify="space-between" container>
           <Grid className={classes.title} item>
             <Typography variant="title">{title}</Typography>

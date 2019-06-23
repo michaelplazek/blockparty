@@ -26,7 +26,8 @@ import {
   selectUsername,
   selectBidFormContactInfo,
   selectBidCurrencyItems,
-  selectLastPrice
+  selectLastPrice,
+  selectIsDarkMode
 } from "../../../selectors";
 import {
   createBid as createBidAction,
@@ -36,11 +37,12 @@ import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
 import { resetBid as resetBidAction } from "../../../actions/createBid";
 import { ValidatorForm } from "react-material-ui-form-validator";
 import { cleanInputs } from "../../../constants/validation";
+import {
+  DARK_GREEN,
+  WHITE
+} from "../../../constants/colors";
 
 const styles = theme => ({
-  root: {
-    margin: "30px"
-  },
   button: {
     marginTop: theme.spacing.unit,
     marginRight: theme.spacing.unit
@@ -60,7 +62,8 @@ const CreateBid = ({
   handleBack,
   handleNext,
   resetBid,
-  handleError
+  handleError,
+  isDarkMode
 }) => (
   <Flyout
     onClose={() => {
@@ -70,12 +73,22 @@ const CreateBid = ({
     size={8}
     title="Create new bid"
   >
-    <Grid className={classes.root}>
+    <Grid
+      style={{
+        margin: "30px"
+      }}
+    >
       <Typography variant="caption">
         Please note that there is a limit of one bid <b>per coin</b> at any
         time.
       </Typography>
-      <Stepper activeStep={activeIndex} orientation="vertical">
+      <Stepper
+        activeStep={activeIndex}
+        orientation="vertical"
+        style={{
+          background: isDarkMode ? DARK_GREEN : WHITE
+        }}
+      >
         {STEPS.map((step, index) => {
           return (
             <Step key={index}>
@@ -114,8 +127,17 @@ const CreateBid = ({
         })}
       </Stepper>
       {activeIndex === STEPS.length && (
-        <Paper square elevation={0} className={classes.resetContainer}>
-          <Typography>Bid successfully created.</Typography>
+        <Paper
+          square
+          elevation={0}
+          className={classes.resetContainer}
+          style={{
+            background: isDarkMode ? DARK_GREEN : undefined
+          }}
+        >
+          <Typography color={isDarkMode ? "textSecondary" : undefined}>
+            Bid successfully created.
+          </Typography>
         </Paper>
       )}
     </Grid>
@@ -132,7 +154,8 @@ const propMap = {
   username: selectUsername,
   userId: selectUserId,
   lastPrice: selectLastPrice,
-  coins: selectBidCurrencyItems
+  coins: selectBidCurrencyItems,
+  isDarkMode: selectIsDarkMode
 };
 
 const actionMap = {

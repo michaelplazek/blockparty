@@ -1,2 +1,12 @@
 export const BID_COLOR = "#82ca9d";
 export const ASK_COLOR = "#E50004";
+export const PURPLE = "#9A8297";
+export const ORANGE = "#C8782A";
+export const DARK_GREY = "#333";
+export const LIGHT_GREY = "#CCC";
+export const GOLD = "#bb875e";
+export const COLBALT = "#293240";
+export const DARK_GREEN = "#2a3e41";
+export const WHITE = "#ffffff";
+export const BLUE = "#3f51b5";
+export const BLACK = "#000000";

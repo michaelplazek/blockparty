@@ -71,6 +71,7 @@ export const SET_TOUCHED = "SET_TOUCHED";
 export const SET_ASK_INFO = "SET_ASK_INFO";
 export const SET_BID_INFO = "SET_BID_INFO";
 export const SET_LIST_OPEN = "SET_LIST_OPEN";
+export const SET_DARK_MODE = "SET_DARK_MODE";
 
 // FILTERS
 export const SET_FILTER_DISTANCE = "SET_FILTER_DISTANCE";

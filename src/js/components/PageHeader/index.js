@@ -11,6 +11,8 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import Button from "@material-ui/core/Button/Button";
 import Typography from "@material-ui/core/Typography/Typography";
 import IconButton from "@material-ui/core/IconButton/IconButton";
+import { selectIsDarkMode } from "../../selectors";
+import { COLBALT, GOLD } from "../../constants/colors";
 
 const styles = {
   root: {
@@ -59,7 +61,13 @@ class PageHeader extends Component {
   render() {
     return (
       <div className={this.props.classes.root} ref={this.saveRef}>
-        <AppBar position="static">
+        <AppBar
+          position="static"
+          style={{
+            background: this.props.isDarkMode ? COLBALT : undefined,
+            color: this.props.isDarkMode ? GOLD : undefined
+          }}
+        >
           <Toolbar>
             {this.props.leftHandButton && (
               <Button onClick={this.props.leftHandAction} color="inherit">
@@ -119,7 +127,9 @@ PageHeader.defaultProps = {
   subheader: null
 };
 
-const propMap = {};
+const propMap = {
+  isDarkMode: selectIsDarkMode
+};
 
 const actionMap = {
   setHeaderHeight: setHeaderHeightAction

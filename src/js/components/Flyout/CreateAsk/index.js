@@ -26,7 +26,8 @@ import {
   selectUsername,
   selectAskFormContactInfo,
   selectLastPrice,
-  selectAskCurrencyItems
+  selectAskCurrencyItems,
+  selectIsDarkMode
 } from "../../../selectors";
 import {
   createAsk as createAskAction,
@@ -36,6 +37,7 @@ import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
 import { resetAsk as resetAskAction } from "../../../actions/createAsk";
 import { ValidatorForm } from "react-material-ui-form-validator";
 import { cleanInputs } from "../../../constants/validation";
+import {DARK_GREEN, GOLD, WHITE} from "../../../constants/colors";
 
 const styles = theme => ({
   root: {
@@ -50,7 +52,7 @@ const styles = theme => ({
   },
   resetContainer: {
     padding: theme.spacing.unit * 3
-  }
+  },
 });
 
 const CreateAsk = ({
@@ -60,7 +62,8 @@ const CreateAsk = ({
   handleBack,
   handleNext,
   resetAsk,
-  handleError
+  handleError,
+  isDarkMode
 }) => (
   <Flyout
     onClose={() => {
@@ -75,11 +78,21 @@ const CreateAsk = ({
         Please note that there is a limit of one ask <b>per coin</b> at any
         time.
       </Typography>
-      <Stepper activeStep={activeIndex} orientation="vertical">
+      <Stepper
+        activeStep={activeIndex}
+        orientation="vertical"
+        style={{
+          background: isDarkMode ? DARK_GREEN : WHITE
+        }}
+      >
         {STEPS.map((step, index) => {
           return (
             <Step key={index}>
-              <StepLabel>{step}</StepLabel>
+              <StepLabel
+                style={{color: GOLD}}
+              >
+                {step}
+              </StepLabel>
               <StepContent>
                 <ValidatorForm
                   autoComplete="on"
@@ -114,8 +127,17 @@ const CreateAsk = ({
         })}
       </Stepper>
       {activeIndex === STEPS.length && (
-        <Paper square elevation={0} className={classes.resetContainer}>
-          <Typography>Ask successfully created.</Typography>
+        <Paper
+          square
+          elevation={0}
+          className={classes.resetContainer}
+          style={{
+            background: isDarkMode ? DARK_GREEN : undefined
+          }}
+        >
+          <Typography color={isDarkMode ? "textSecondary" : undefined}>
+            Ask successfully created.
+          </Typography>
         </Paper>
       )}
     </Grid>
@@ -132,7 +154,8 @@ const propMap = {
   userId: selectUserId,
   contactInfo: selectAskFormContactInfo,
   lastPrice: selectLastPrice,
-  coins: selectAskCurrencyItems
+  coins: selectAskCurrencyItems,
+  isDarkMode: selectIsDarkMode
 };
 
 const actionMap = {

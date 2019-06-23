@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { compose, lifecycle, withHandlers } from "recompose";
 import { withRouter } from "react-router";
-import theme from "../../../theme";
+import theme, { dark, light } from "../../../theme";
 import mapper from "../../utils/connect";
 import {
   selectBid,
@@ -14,7 +14,8 @@ import {
   selectMyOffersLoaded,
   selectUserId,
   selectWindowHeight,
-  selectModal
+  selectModal,
+  selectIsDarkMode
 } from "../../selectors/index";
 import { loadBid as loadBidAction } from "../../actions/bids";
 import Grid from "@material-ui/core/Grid/Grid";
@@ -36,6 +37,7 @@ import { selectBidHasButton } from "../../selectors";
 import Fab from "@material-ui/core/Fab";
 import UserInfo from "../../components/Modal/UserInfo";
 import withNav from "../../HOCs/withNav";
+import withMode from "../../HOCs/withMode";
 
 const styles = theme => ({
   root: {
@@ -52,7 +54,7 @@ const styles = theme => ({
     background: theme.palette.createButton.background
   },
   backButton: {
-    padding: "1em",
+    padding: "1em"
   }
 });
 
@@ -69,57 +71,61 @@ const Bid = ({
   buttonText,
   showButton,
   height,
-  handleUserClick
-}) => (
-  <div
-    style={{
-      background: theme.palette.inverse.background,
-      height: `${height}px`
-    }}
-  >
-    {loaded && (
-      <div>
-        {layer === "CREATE_BID_OFFER" && (
-          <CreateBidOffer handleClose={() => {}} handleSubmit={() => {}} />
-        )}
-        {modal === "VIEW_USER_DETAILS" && <UserInfo id={bid.userId} />}
-        <Grid>
-          <Grid className={classes.backButton}>
-            <Button
-              style={theme.palette.inverse}
-              onClick={() => history.goBack()}
-            >
-              Go Back
-            </Button>
-          </Grid>
-          <div className={classes.root}>
-            <Grid item className={classes.body}>
-              <Typography style={theme.palette.inverse} variant="display1">
-                Bid for
-              </Typography>
-              <Typography style={theme.palette.inverse} variant="display2">
-                {bid.volume} {bid.coin}
-              </Typography>
-            </Grid>
-            <br />
-            <DetailList items={items} userClick={handleUserClick} />
-          </div>
-          {showButton && (
-            <Fab
-              className={classes.buttons}
-              disabled={bidHasOffer}
-              variant="extended"
-              onClick={handleOffer}
-            >
-              {buttonText}
-            </Fab>
+  handleUserClick,
+  isDarkMode
+}) => {
+  const theme = isDarkMode ? dark : light;
+  return (
+    <div
+      style={{
+        background: theme.palette.inverse.background,
+        height: `${height}px`
+      }}
+    >
+      {loaded && (
+        <div>
+          {layer === "CREATE_BID_OFFER" && (
+            <CreateBidOffer handleClose={() => {}} handleSubmit={() => {}} />
           )}
-        </Grid>
-        <Grid />
-      </div>
-    )}
-  </div>
-);
+          {modal === "VIEW_USER_DETAILS" && <UserInfo id={bid.userId} />}
+          <Grid>
+            <Grid className={classes.backButton}>
+              <Button
+                style={theme.palette.inverse}
+                onClick={() => history.goBack()}
+              >
+                Go Back
+              </Button>
+            </Grid>
+            <div className={classes.root}>
+              <Grid item className={classes.body}>
+                <Typography style={theme.palette.inverse} variant="display1">
+                  Bid for
+                </Typography>
+                <Typography style={theme.palette.inverse} variant="display2">
+                  {bid.volume} {bid.coin}
+                </Typography>
+              </Grid>
+              <br />
+              <DetailList items={items} userClick={handleUserClick} />
+            </div>
+            {showButton && (
+              <Fab
+                className={classes.buttons}
+                disabled={bidHasOffer}
+                variant="extended"
+                onClick={handleOffer}
+              >
+                {buttonText}
+              </Fab>
+            )}
+          </Grid>
+          <Grid />
+        </div>
+      )}
+    </div>
+  );
+};
 
 Bid.propTypes = {
   bid: PropTypes.object.isRequired,
@@ -139,7 +145,8 @@ const propMap = {
   myOffersLoaded: selectMyOffersLoaded,
   userId: selectUserId,
   showButton: selectBidHasButton,
-  height: selectWindowHeight
+  height: selectWindowHeight,
+  isDarkMode: selectIsDarkMode
 };
 
 const actionMap = {
@@ -154,6 +161,7 @@ const actionMap = {
 export default compose(
   withRouter,
   withStyles(styles),
+  withMode,
   mapper(propMap, actionMap),
   lifecycle({
     componentDidMount() {
@@ -176,5 +184,5 @@ export default compose(
       setModalOpen(true);
     }
   }),
-  withNav,
+  withNav
 )(Bid);

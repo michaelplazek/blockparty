@@ -11,11 +11,9 @@ import ListItemText from "@material-ui/core/ListItemText/ListItemText";
 import moment from "moment";
 import ListItem from "@material-ui/core/ListItem/ListItem";
 import { getStatusColor } from "../../utils/status";
+import { COLBALT } from "../../constants/colors";
 
 const styles = () => ({
-  root: {
-    margin: "5px"
-  },
   coin: {
     margin: "4px 0px 0px 4px"
   },
@@ -32,26 +30,41 @@ const styles = () => ({
   }
 });
 
-const OfferTile = ({ classes, item, onClick }) => (
+const OfferTile = ({ classes, item, onClick, isDarkMode }) => (
   <div>
-    <Paper className={classes.root} elevation={2}>
+    <Paper
+      elevation={2}
+      style={{
+        background: isDarkMode ? COLBALT : undefined,
+        margin: "5px"
+      }}
+    >
       <ListItem button onClick={onClick}>
         <ListItemText
           disableTypography={true}
           primary={
             <Grid direction="row" alignItems="center" container>
               <Grid className={classes.icon} item>
-                {getCoinIcon(item.coin)}
+                {getCoinIcon(item.coin, isDarkMode)}
               </Grid>
               <Grid item>
                 <Grid container direction="row">
                   <Grid item>
-                    <Typography className={classes.volume} variant="title">
+                    <Typography
+                      color={isDarkMode ? "secondary" : undefined}
+                      className={classes.volume}
+                      variant="title"
+                    >
                       {item.volume}
                     </Typography>
                   </Grid>
                   <Grid item className={classes.coin}>
-                    <Typography variant="subheading">{item.coin}</Typography>
+                    <Typography
+                      color={isDarkMode ? "secondary" : undefined}
+                      variant="subheading"
+                    >
+                      {item.coin}
+                    </Typography>
                   </Grid>
                 </Grid>
                 <Grid className={classes.type} item>

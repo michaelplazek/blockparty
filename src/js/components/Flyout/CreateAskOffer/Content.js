@@ -16,7 +16,8 @@ import {
   selectFormattedAskOfferTotalInUSD,
   selectAskPrice,
   selectFormattedOfferFormVolume,
-  selectOfferFormVolumeInUSD
+  selectOfferFormVolumeInUSD,
+  selectIsDarkMode
 } from "../../../selectors";
 import mapper from "../../../utils/connect";
 import InputAdornment from "@material-ui/core/InputAdornment/InputAdornment";
@@ -29,6 +30,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import { getMinimalUnit } from "../../../utils/validate";
 import { setError } from "../../../actions/errors";
 import Chip from "@material-ui/core/Chip";
+import { WHITE } from "../../../constants/colors";
 
 const styles = () => ({
   info: {
@@ -57,7 +59,8 @@ const CreateAskContent = ({
   setContactInfo,
   totalInUSD,
   totalFormattedInUSD,
-  handleChipClick
+  handleChipClick,
+  isDarkMode
 }) => {
   switch (index) {
     case 0:
@@ -74,6 +77,10 @@ const CreateAskContent = ({
                       label="25%"
                       size="small"
                       variant="outlined"
+                      style={{
+                        marginRight: "2px",
+                        color: isDarkMode ? WHITE : undefined
+                      }}
                     />
                   </Grid>
                   <Grid className={classes.chip} item>
@@ -83,6 +90,10 @@ const CreateAskContent = ({
                       label="50%"
                       size="small"
                       variant="outlined"
+                      style={{
+                        marginRight: "2px",
+                        color: isDarkMode ? WHITE : undefined
+                      }}
                     />
                   </Grid>
                   <Grid className={classes.chip} item>
@@ -92,6 +103,10 @@ const CreateAskContent = ({
                       label="100%"
                       size="small"
                       variant="outlined"
+                      style={{
+                        marginRight: "2px",
+                        color: isDarkMode ? WHITE : undefined
+                      }}
                     />
                   </Grid>
                 </Grid>
@@ -126,6 +141,11 @@ const CreateAskContent = ({
                       <InputAdornment position="start">{coin}</InputAdornment>
                     )
                   }}
+                  inputProps={{
+                    style: {
+                      color: isDarkMode ? WHITE : undefined
+                    }
+                  }}
                 />
               </Grid>
               <Grid item>
@@ -158,15 +178,31 @@ const CreateAskContent = ({
                       <InputAdornment position="start">USD</InputAdornment>
                     )
                   }}
+                  inputProps={{
+                    style: {
+                      color: isDarkMode ? WHITE : undefined
+                    }
+                  }}
                 />
               </Grid>
             </Grid>
           </FormControl>
           <Grid container direction="column" className={classes.info}>
-            <Typography>Type: {coin}</Typography>
-            <Typography>Price: {formattedPrice}</Typography>
-            <Typography>Amount: {volume}</Typography>
-            <Typography variant="subheading">Total: {total}</Typography>
+            <Typography color={isDarkMode ? "textSecondary" : undefined}>
+              Type: {coin}
+            </Typography>
+            <Typography color={isDarkMode ? "textSecondary" : undefined}>
+              Price: {formattedPrice}
+            </Typography>
+            <Typography color={isDarkMode ? "textSecondary" : undefined}>
+              Amount: {volume}
+            </Typography>
+            <Typography
+              color={isDarkMode ? "textSecondary" : undefined}
+              variant="subheading"
+            >
+              Total: {total}
+            </Typography>
           </Grid>
         </div>
       );
@@ -183,16 +219,32 @@ const CreateAskContent = ({
             margin="dense"
             helperText="Usually a phone number"
             variant="standard"
+            inputProps={{
+              style: {
+                color: isDarkMode ? WHITE : undefined
+              }
+            }}
           />
         </FormControl>
       );
     case 2:
       return (
         <Grid container direction="column">
-          <Typography>Type: {coin}</Typography>
-          <Typography>Price: {formattedPrice}</Typography>
-          <Typography>Amount: {volume}</Typography>
-          <Typography variant="subheading">Total: {total}</Typography>
+          <Typography color={isDarkMode ? "textSecondary" : undefined}>
+            Type: {coin}
+          </Typography>
+          <Typography color={isDarkMode ? "textSecondary" : undefined}>
+            Price: {formattedPrice}
+          </Typography>
+          <Typography color={isDarkMode ? "textSecondary" : undefined}>
+            Amount: {volume}
+          </Typography>
+          <Typography
+            color={isDarkMode ? "textSecondary" : undefined}
+            variant="subheading"
+          >
+            Total: {total}
+          </Typography>
         </Grid>
       );
   }
@@ -209,7 +261,8 @@ const propMap = {
   formattedPrice: selectAskDisplayPrice,
   total: selectAskOfferTotal,
   totalInUSD: selectAskOfferTotalInUSD,
-  totalFormattedInUSD: selectFormattedAskOfferTotalInUSD
+  totalFormattedInUSD: selectFormattedAskOfferTotalInUSD,
+  isDarkMode: selectIsDarkMode
 };
 
 const actionMap = {

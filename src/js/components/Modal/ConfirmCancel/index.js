@@ -2,11 +2,13 @@ import React from "react";
 import { compose } from "recompose";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Modal from "../index";
-import theme from "../../../../theme";
+import { dark, light } from "../../../../theme";
 
 import Grid from "@material-ui/core/Grid/Grid";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
+import mapper from "../../../utils/connect";
+import { selectIsDarkMode } from "../../../selectors";
 
 const styles = () => ({
   container: {
@@ -21,28 +23,38 @@ const styles = () => ({
   }
 });
 
-const ConfirmCancel = ({ classes, handleCancel }) => (
-  <Modal title="Are you sure?">
-    <Grid container direction="column" className={classes.container}>
-      <Grid item className={classes.items}>
-        <Typography>
-          Cancelling this transaction will have a negative impact on your
-          reputation.
-        </Typography>
+const ConfirmCancel = ({ classes, handleCancel, isDarkMode }) => {
+  const theme = isDarkMode ? dark : light;
+  return (
+    <Modal title="Are you sure?">
+      <Grid container direction="column" className={classes.container}>
+        <Grid item className={classes.items}>
+          <Typography>
+            Cancelling this transaction will have a negative impact on your
+            reputation.
+          </Typography>
+        </Grid>
+        <Grid
+          classNames={classes.buttons}
+          item
+          container
+          justify="center"
+          direction="row"
+        >
+          <Button onClick={handleCancel} style={theme.palette.errorButton}>
+            Cancel Transaction
+          </Button>
+        </Grid>
       </Grid>
-      <Grid
-        classNames={classes.buttons}
-        item
-        container
-        justify="center"
-        direction="row"
-      >
-        <Button onClick={handleCancel} style={theme.palette.errorButton}>
-          Cancel Transaction
-        </Button>
-      </Grid>
-    </Grid>
-  </Modal>
-);
+    </Modal>
+  );
+};
 
-export default compose(withStyles(styles))(ConfirmCancel);
+const propMap = {
+  isDarkMode: selectIsDarkMode
+};
+
+export default compose(
+  withStyles(styles),
+  mapper(propMap, {})
+)(ConfirmCancel);

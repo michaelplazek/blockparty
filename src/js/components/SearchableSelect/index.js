@@ -1,18 +1,21 @@
-import React from 'react';
-import {compose, withHandlers, withState} from "recompose";
-import deburr from 'lodash/deburr';
-import find from 'lodash/find';
-import fpFind from 'lodash/fp/find';
-import defaultTo from 'lodash/fp/defaultTo';
-import get from 'lodash/fp/get';
-import fpCompose from 'lodash/fp/compose'
+import React from "react";
+import { compose, withHandlers, withState } from "recompose";
+import deburr from "lodash/deburr";
+import find from "lodash/find";
+import fpFind from "lodash/fp/find";
+import defaultTo from "lodash/fp/defaultTo";
+import get from "lodash/fp/get";
+import fpCompose from "lodash/fp/compose";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
-import Downshift from 'downshift';
+import Downshift from "downshift";
 import Paper from "@material-ui/core/Paper";
-import {withStyles} from "@material-ui/core";
+import { withStyles } from "@material-ui/core";
+import { WHITE } from "../../constants/colors";
+import mapper from "../../utils/connect";
+import { selectIsDarkMode } from "../../selectors";
 
-function renderInput(inputProps) {
+function renderInput(inputProps, isDarkMode) {
   const { InputProps, classes, ref, ...other } = inputProps;
 
   return (
@@ -21,9 +24,12 @@ function renderInput(inputProps) {
         inputRef: ref,
         classes: {
           root: classes.inputRoot,
-          input: classes.inputInput,
+          input: classes.inputInput
         },
         ...InputProps,
+        style: {
+          color: isDarkMode ? WHITE : undefined
+        }
       }}
       {...other}
     />
@@ -31,9 +37,15 @@ function renderInput(inputProps) {
 }
 
 function renderSuggestion(suggestionProps) {
-  const { suggestion, index, itemProps, highlightedIndex, selectedItem } = suggestionProps;
+  const {
+    suggestion,
+    index,
+    itemProps,
+    highlightedIndex,
+    selectedItem
+  } = suggestionProps;
   const isHighlighted = highlightedIndex === index;
-  const isSelected = (selectedItem || '').indexOf(suggestion.label) > -1;
+  const isSelected = (selectedItem || "").indexOf(suggestion.label) > -1;
 
   return (
     <MenuItem
@@ -43,7 +55,7 @@ function renderSuggestion(suggestionProps) {
       selected={isHighlighted}
       component="div"
       style={{
-        fontWeight: isSelected ? 500 : 400,
+        fontWeight: isSelected ? 500 : 400
       }}
     >
       {suggestion.label}
@@ -59,114 +71,123 @@ function getSuggestions(value, { showEmpty = false } = {}, suggestions) {
   return inputLength === 0 && !showEmpty
     ? []
     : suggestions.filter(suggestion => {
-      const keep =
-        count < 5 && suggestion.label.slice(0, inputLength).toLowerCase() === inputValue;
+        const keep =
+          count < 5 &&
+          suggestion.label.slice(0, inputLength).toLowerCase() === inputValue;
 
-      if (keep) {
-        count += 1;
-      }
+        if (keep) {
+          count += 1;
+        }
 
-      return keep;
-    });
+        return keep;
+      });
 }
 
 const styles = () => ({
   root: {
     flexGrow: 1,
-    height: 250,
+    height: 250
   },
   container: {
     flexGrow: 1,
-    position: 'relative',
+    position: "relative"
   },
   paper: {
-    position: 'absolute',
+    position: "absolute",
     zIndex: 1,
     marginTop: "0.5em",
     left: 0,
-    right: 0,
+    right: 0
   },
   inputRoot: {
-    flexWrap: 'wrap',
+    flexWrap: "wrap"
   },
   inputInput: {
-    width: 'auto',
-    flexGrow: 1,
+    width: "auto",
+    flexGrow: 1
   },
   divider: {
     height: "1em"
-  },
+  }
 });
 
 const SearchableSelect = ({
   classes,
   suggestions,
   onSelect,
-  value
+  value,
+  isDarkMode
 }) => (
   <Downshift
     id="downshift-options"
-    onChange={(item) => {
+    onChange={item => {
       const value = fpCompose(
-        defaultTo(''),
-        get('value'),
+        defaultTo(""),
+        get("value"),
         fpFind(suggestion => suggestion.label === item)
       )(suggestions);
-      if (value !== '') {
+      if (value !== "") {
         onSelect(value);
       }
     }}
     initialInputValue={fpCompose(
-      defaultTo(''),
-      get('label'),
+      defaultTo(""),
+      get("label"),
       fpFind(suggestion => suggestion.value === value)
     )(suggestions)}
   >
     {({
-        clearSelection,
-        getInputProps,
-        getItemProps,
-        getLabelProps,
-        getMenuProps,
-        highlightedIndex,
-        inputValue,
-        isOpen,
-        openMenu,
-        selectedItem,
-      }) => {
+      clearSelection,
+      getInputProps,
+      getItemProps,
+      getLabelProps,
+      getMenuProps,
+      highlightedIndex,
+      inputValue,
+      isOpen,
+      openMenu,
+      selectedItem
+    }) => {
       const { onBlur, onChange, onFocus, ...inputProps } = getInputProps({
         onChange: event => {
-          if (event.target.value === '') {
+          if (event.target.value === "") {
             clearSelection();
           }
         },
         onFocus: openMenu,
-        placeholder: 'Select a coin...',
+        placeholder: "Select a coin..."
       });
 
       return (
         <div className={classes.container}>
-          {renderInput({
-            fullWidth: true,
-            classes,
-            label: 'Coin',
-            InputLabelProps: getLabelProps({ shrink: true }),
-            InputProps: { onBlur, onChange, onFocus },
-            inputProps,
-          })}
+          {renderInput(
+            {
+              fullWidth: true,
+              classes,
+              label: "Coin",
+              InputLabelProps: getLabelProps({ shrink: true }),
+              InputProps: { onBlur, onChange, onFocus },
+              inputProps
+            },
+            isDarkMode
+          )}
 
           <div {...getMenuProps()}>
             {isOpen ? (
               <Paper className={classes.paper} square>
-                {getSuggestions(inputValue, { showEmpty: true }, suggestions).map((suggestion, index) =>
+                {getSuggestions(
+                  inputValue,
+                  { showEmpty: true },
+                  suggestions
+                ).map((suggestion, index) =>
                   renderSuggestion({
                     disabled: suggestion.disabled,
                     suggestion,
                     index,
                     itemProps: getItemProps({ item: suggestion.label }),
                     highlightedIndex,
-                    selectedItem,
-                  }),
+                    selectedItem
+                  })
                 )}
               </Paper>
             ) : null}
@@ -177,7 +198,12 @@ const SearchableSelect = ({
   </Downshift>
 );
 
+const propMap = {
+  isDarkMode: selectIsDarkMode
+};
+
 export default compose(
   withStyles(styles),
-  withState('inputValue', 'setInputValue', ''),
+  withState("inputValue", "setInputValue", ""),
+  mapper(propMap, {})
 )(SearchableSelect);

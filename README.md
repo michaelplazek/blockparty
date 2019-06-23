@@ -1,4 +1,5 @@
-# Cash For Cypto
+# Blockparty
+Blockparty is a P2P cash-for-crypto exchange, a "Craigslist for crypto".
 
 ## Setup
 Install dependencies
@@ -56,9 +57,19 @@ Set the Blocktap API URL
 export BLOCKTAP_URL=https://api.blocktap.io/graphql
 ```
 
+Set the Webpack mode
+```
+export MODE=production
+```
+
 (Optional) Start the [API](https://github.com/michaelplazek/cash-for-crypto-api)
 
 To run:
 ```
 npm start
+```
+
+To build:
+```
+npm run build
 ```

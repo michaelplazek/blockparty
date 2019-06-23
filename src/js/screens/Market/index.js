@@ -18,7 +18,8 @@ import {
   selectLayer,
   selectInitialLocation,
   selectModal,
-  selectListOpen
+  selectListOpen,
+  selectIsDarkMode
 } from "../../selectors";
 import { loadAsks as loadAsksAction } from "../../actions/asks";
 import { loadBids as loadBidsAction } from "../../actions/bids";
@@ -54,6 +55,7 @@ import { setCurrentLocation as setCurrentLocationAction } from "../../actions/se
 import ListIcon from "./ListIcon";
 import Orders from "../../components/Flyout/Orders";
 import withNav from "../../HOCs/withNav";
+import withMode from "../../HOCs/withMode";
 
 class Market extends Component {
   constructor(props) {
@@ -75,14 +77,15 @@ class Market extends Component {
       handleOpenList,
       layer,
       run,
-      modal
+      modal,
+      isDarkMode
     } = this.props;
 
     return (
       <div>
         {modal === "WELCOME" && <Welcome />}
         {layer === "FILTER_MAP" && <FilterMap />}
-        <Orders />
+        <Orders openList={handleOpenList} />
         <PageHeader
           leftHandLabel="Market"
           showSubheader={true}
@@ -108,11 +111,12 @@ class Market extends Component {
           height={(windowHeight - navHeight - headerHeight) / 2}
           navHeight={navHeight}
           windowHeight={windowHeight}
+          isDarkMode={isDarkMode}
         />
         <Joyride
           steps={marketSteps}
           run={run}
-          styles={tourStyle}
+          styles={tourStyle(isDarkMode)}
           continuous={true}
           tooltipComponent={Tooltip}
           disableOverlay={true}
@@ -135,6 +139,7 @@ const propMap = {
   run: selectRun,
   initialLocation: selectInitialLocation,
   listOpen: selectListOpen,
+  isDarkMode: selectIsDarkMode,
   loaded: selectMarketLoaded // from withLoader
 };
 
@@ -156,6 +161,7 @@ export default compose(
   mapper(propMap, actionMap),
   withRouter,
   withDimensions,
+  withMode,
   withHandlers({
     handleMarkerClick: ({ history }) => marker => {
       const { id, isBid } = marker;

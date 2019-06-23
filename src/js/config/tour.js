@@ -1,3 +1,5 @@
+import {BLUE, GOLD} from "../constants/colors";
+
 export const marketSteps = [
   {
     target: ".market-nav",
@@ -38,8 +40,8 @@ export const marketSteps = [
     content:
       "To view posts in a list view, click the list icon to open a slide out.",
     disableBeacon: true,
-    placement: "auto"
-  },
+    placement: "left"
+  }
 ];
 
 export const dashboardSteps = [
@@ -120,17 +122,18 @@ export const accountSteps = [
     target: ".settings",
     header: "Settings",
     content:
-      "Update your account information or delete your account by going to the Settings screen.",
+      "Update your account information, switch to Dark Mode, and view your " +
+      "configuration by going to the Settings screen.",
     disableBeacon: true,
     placement: "auto"
   }
 ];
 
-export const tourStyle = {
+export const tourStyle = isDarkMode => ({
   options: {
-    arrowColor: "#3f51b5"
+    arrowColor: isDarkMode ? GOLD : BLUE
   }
-};
+});
 
 export const isVisited = () =>
   window.localStorage.getItem("visited") === "true";

@@ -15,6 +15,7 @@ import withDimensions from "../../HOCs/withDimensions";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Grid from "@material-ui/core/Grid/Grid";
 import {
+  selectIsDarkMode,
   selectModal,
   selectRun,
   selectUserBio,
@@ -42,17 +43,17 @@ import {
 import { truncateString } from "../../utils/strings";
 import { setQR as setQRAction } from "../../actions/metrics";
 import withNav from "../../HOCs/withNav";
+import { BLUE, GOLD } from "../../constants/colors";
+import withMode from "../../HOCs/withMode";
 
 const styles = () => ({
   body: {
-    marginTop: "1.2em",
+    marginTop: "1.2em"
   },
   items: {
     margin: "0.3em"
   },
-  username: {},
   bio: {
-    // marginTop: "0.3em",
     marginLeft: "1.5em",
     marginRight: "1.5em"
   },
@@ -73,8 +74,6 @@ const styles = () => ({
   }
 });
 
-const ICON_COLOR = "#3f51b5";
-
 const Account = ({
   logOut,
   classes,
@@ -89,137 +88,146 @@ const Account = ({
   setMoneroCopied,
   bitcoinCopied,
   setBitcoinCopied,
-  handleQR
-}) => (
-  <div>
-    {modal === "END_OF_TOUR" && <EndOfTour />}
-    {modal === "QR" && <QR />}
-    <PageHeader
-      leftHandLabel="Account"
-      rightHandIcon={<FontAwesomeIcon icon={faCog} />}
-      rightHandAction={() => history.push("/settings")}
-    />
-    <Grid container className={classes.body} direction="column">
-      <Grid item container direction="column" justify="flex-start">
-        <Grid item className={classes.items}>
-          <Grid container direction="column" alignItems="center">
-            <Grid item className={classes.username}>
-              <Typography variant="display1">{username}</Typography>
-            </Grid>
-            <Grid item className={classes.bio}>
-              <Typography variant="caption">{bio}</Typography>
+  handleQR,
+  isDarkMode
+}) => {
+  const ICON_COLOR = isDarkMode ? GOLD : BLUE;
+  return (
+    <div>
+      {modal === "END_OF_TOUR" && <EndOfTour />}
+      {modal === "QR" && <QR />}
+      <PageHeader
+        leftHandLabel="Account"
+        rightHandIcon={<FontAwesomeIcon icon={faCog} />}
+        rightHandAction={() => history.push("/settings")}
+      />
+      <Grid container className={classes.body} direction="column">
+        <Grid item container direction="column" justify="flex-start">
+          <Grid item className={classes.items}>
+            <Grid container direction="column" alignItems="center">
+              <Grid item>
+                <Typography
+                  color={isDarkMode ? "secondary" : undefined}
+                  variant="display1"
+                >
+                  {username}
+                </Typography>
+              </Grid>
+              <Grid item className={classes.bio}>
+                <Typography variant="caption">{bio}</Typography>
+              </Grid>
             </Grid>
           </Grid>
+          <Grid item className={`${classes.items} account-info`}>
+            <DetailList items={items} />
+          </Grid>
+          <Grid item className={classes.button}>
+            <Button onClick={logOut}>Log Out</Button>
+          </Grid>
         </Grid>
-        <Grid item className={`${classes.items} account-info`}>
-          <DetailList items={items} />
-        </Grid>
-        <Grid item className={classes.button}>
-          <Button onClick={logOut}>Log Out</Button>
-        </Grid>
-      </Grid>
 
-      <Grid item container justify="center">
-        <Grid item className={classes.likeTheApp}>
-          <Typography variant="caption">
-            Like the app? Donate to support our developers.
-          </Typography>
-        </Grid>
-        <Grid item container direction="row" justify="center">
-          <Grid item>
+        <Grid item container justify="center">
+          <Grid item className={classes.likeTheApp}>
             <Typography variant="caption">
-              {`Monero: ${truncateString(process.env.MONERO_ADDRESS)}`}
+              Like the app? Donate to support our developers.
             </Typography>
           </Grid>
-          <Grid item className={classes.icon}>
-            <FontAwesomeIcon
-              style={{ color: ICON_COLOR }}
-              onClick={() => handleQR("XMR")}
-              icon={faQrcode}
-            />
-          </Grid>
-          <Grid item className={classes.icon}>
-            <CopyToClipboard
-              text={process.env.MONERO_ADDRESS}
-              onCopy={() => {
-                setMoneroCopied(true);
-                setTimeout(() => setMoneroCopied(false), 1000);
-              }}
-            >
-              <FontAwesomeIcon style={{ color: ICON_COLOR }} icon={faCopy} />
-            </CopyToClipboard>
-          </Grid>
-          {moneroCopied && (
-            <Grid item className={classes.icon}>
-              <Typography variant="caption">Copied!</Typography>
+          <Grid item container direction="row" justify="center">
+            <Grid item>
+              <Typography variant="caption">
+                {`Monero: ${truncateString(process.env.MONERO_ADDRESS)}`}
+              </Typography>
             </Grid>
-          )}
-        </Grid>
-        <Grid item container direction="row" justify="center">
-          <Grid item>
-            <Typography variant="caption">
-              {`Bitcoin: ${truncateString(process.env.BITCOIN_ADDRESS)}`}
-            </Typography>
-          </Grid>
-          <Grid item className={classes.icon}>
-            <FontAwesomeIcon
-              style={{ color: ICON_COLOR }}
-              onClick={() => handleQR("BTC")}
-              icon={faQrcode}
-            />
-          </Grid>
-          <Grid item className={classes.icon}>
-            <CopyToClipboard
-              text={process.env.BITCOIN_ADDRESS}
-              onCopy={() => {
-                setBitcoinCopied(true);
-                setTimeout(() => setBitcoinCopied(false), 1000);
-              }}
-            >
-              <FontAwesomeIcon style={{ color: ICON_COLOR }} icon={faCopy} />
-            </CopyToClipboard>
-          </Grid>
-          {bitcoinCopied && (
             <Grid item className={classes.icon}>
-              <Typography variant="caption">Copied!</Typography>
+              <FontAwesomeIcon
+                style={{ color: ICON_COLOR }}
+                onClick={() => handleQR("XMR")}
+                icon={faQrcode}
+              />
             </Grid>
-          )}
-        </Grid>
-        <Grid
-          container
-          item
-          alignItems="center"
-          direction="column"
-          className={classes.suggestions}
-        >
-          <Grid item>
-            <Typography variant="caption">
-              Report bugs or send suggestions to
-            </Typography>
+            <Grid item className={classes.icon}>
+              <CopyToClipboard
+                text={process.env.MONERO_ADDRESS}
+                onCopy={() => {
+                  setMoneroCopied(true);
+                  setTimeout(() => setMoneroCopied(false), 1000);
+                }}
+              >
+                <FontAwesomeIcon style={{ color: ICON_COLOR }} icon={faCopy} />
+              </CopyToClipboard>
+            </Grid>
+            {moneroCopied && (
+              <Grid item className={classes.icon}>
+                <Typography variant="caption">Copied!</Typography>
+              </Grid>
+            )}
           </Grid>
-          <Grid item>
-            <Typography
-              variant="caption"
-              component="a"
-              href="mailto:blockpartyapp@protonmail.com"
-            >
-              blockpartyapp@protonmail.com
-            </Typography>
+          <Grid item container direction="row" justify="center">
+            <Grid item>
+              <Typography variant="caption">
+                {`Bitcoin: ${truncateString(process.env.BITCOIN_ADDRESS)}`}
+              </Typography>
+            </Grid>
+            <Grid item className={classes.icon}>
+              <FontAwesomeIcon
+                style={{ color: ICON_COLOR }}
+                onClick={() => handleQR("BTC")}
+                icon={faQrcode}
+              />
+            </Grid>
+            <Grid item className={classes.icon}>
+              <CopyToClipboard
+                text={process.env.BITCOIN_ADDRESS}
+                onCopy={() => {
+                  setBitcoinCopied(true);
+                  setTimeout(() => setBitcoinCopied(false), 1000);
+                }}
+              >
+                <FontAwesomeIcon style={{ color: ICON_COLOR }} icon={faCopy} />
+              </CopyToClipboard>
+            </Grid>
+            {bitcoinCopied && (
+              <Grid item className={classes.icon}>
+                <Typography variant="caption">Copied!</Typography>
+              </Grid>
+            )}
+          </Grid>
+          <Grid
+            container
+            item
+            alignItems="center"
+            direction="column"
+            className={classes.suggestions}
+          >
+            <Grid item>
+              <Typography variant="caption">
+                Report bugs or send suggestions to
+              </Typography>
+            </Grid>
+            <Grid item>
+              <Typography
+                variant="caption"
+                component="a"
+                href="mailto:blockpartyapp@protonmail.com"
+              >
+                blockpartyapp@protonmail.com
+              </Typography>
+            </Grid>
           </Grid>
         </Grid>
       </Grid>
-    </Grid>
-    <Joyride
-      steps={accountSteps}
-      run={run}
-      styles={tourStyle}
-      continuous={true}
-      tooltipComponent={Tooltip}
-      disableOverlay={true}
-      callback={handleCallback}
-    />
-  </div>
-);
+      <Joyride
+        steps={accountSteps}
+        run={run}
+        styles={tourStyle(isDarkMode)}
+        continuous={true}
+        tooltipComponent={Tooltip}
+        disableOverlay={true}
+        callback={handleCallback}
+      />
+    </div>
+  );
+};
 
 const propMap = {
   height: selectWindowHeight,
@@ -228,7 +236,8 @@ const propMap = {
   reputation: selectUserReputation,
   items: selectUserDetails,
   run: selectRun,
-  modal: selectModal
+  modal: selectModal,
+  isDarkMode: selectIsDarkMode
 };
 
 const actionMap = {
@@ -242,6 +251,7 @@ const actionMap = {
 
 export default compose(
   mapper(propMap, actionMap),
+  withMode,
   withState("moneroCopied", "setMoneroCopied", false),
   withState("bitcoinCopied", "setBitcoinCopied", false),
   withRouter,

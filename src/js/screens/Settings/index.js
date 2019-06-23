@@ -1,7 +1,7 @@
 import React from "react";
-import {compose, lifecycle, withHandlers, withState} from "recompose";
+import { compose, lifecycle, withHandlers, withState } from "recompose";
 import { withRouter } from "react-router-dom";
-import theme from "../../../theme";
+import { dark, light } from "../../../theme";
 import { VERSION } from "../../constants/app";
 
 import mapper from "../../utils/connect";
@@ -16,6 +16,8 @@ import withDimensions from "../../HOCs/withDimensions";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Grid from "@material-ui/core/Grid/Grid";
 import {
+  selectIsDarkMode,
+  selectModeLoaded,
   selectMyAsksLoaded,
   selectMyBidsLoaded,
   selectMyOffersLoaded,
@@ -36,10 +38,19 @@ import { loadOffersByUser as loadOffersByUserAction } from "../../actions/offers
 import { loadTransactions as loadTransactionsAction } from "../../actions/transactions";
 import withNav from "../../HOCs/withNav";
 import PermissionStatuses from "./PermissionStatuses";
+import {COLBALT, LIGHT_GREY, WHITE} from "../../constants/colors";
+import FormControl from "@material-ui/core/FormControl";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Switch from "@material-ui/core/Switch";
+import {
+  getMode as getModeAction,
+  setDarkMode as setDarkModeAction
+} from "../../actions/app";
+import withMode from "../../HOCs/withMode";
 
 const styles = () => ({
   top: {
-    paddingTop: "1em"
+    paddingTop: "0.2em"
   },
   bottom: {
     marginBottom: "0.5em"
@@ -48,14 +59,13 @@ const styles = () => ({
     marginBottom: "0.5em"
   },
   version: {
-    marginTop: "0.2em"
+    // marginTop: "0.2em"
   }
 });
 
 const Settings = ({
   classes,
   height,
-  bio,
   updatedBio,
   history,
   handleUpdate,
@@ -66,104 +76,139 @@ const Settings = ({
   windowWidth,
   buttonText,
   disabled,
-}) => (
-  <div>
-    <PageHeader
-      leftHandLabel="Settings"
-      rightHandButton="Back"
-      rightHandAction={() => history.goBack()}
-    />
+  isDarkMode,
+  handleToggle
+}) => {
+  const theme = isDarkMode ? dark : light;
+  return (
     <div>
-      <Grid
-        container
-        className={classes.top}
-        style={{ height: `${height}px` }}
-        direction="column"
-        justify="space-between"
-        alignItems="center"
-      >
-        <Grid item>
-          <ValidatorForm
-            autoComplete="off"
-            onSubmit={handleUpdate}
-          >
-            <Grid
-              container
-              className={classes.top}
-              direction="column"
-              alignItems="center"
-            >
+      <PageHeader
+        leftHandLabel="Settings"
+        rightHandButton="Back"
+        rightHandAction={() => history.goBack()}
+      />
+      <div>
+        <Grid
+          container
+          className={classes.top}
+          style={{ height: `${height}px` }}
+          direction="column"
+          justify="space-between"
+          alignItems="center"
+        >
+          <Grid item>
+            <ValidatorForm autoComplete="off" onSubmit={handleUpdate}>
               <Grid
-                item
-                style={{
-                  width: `${windowWidth - 30}px`
-                }}
+                container
+                className={classes.top}
+                direction="column"
+                alignItems="center"
               >
-                <TextValidator
-                  id="bio-field"
-                  name='bio'
-                  fullWidth
-                  label="Bio"
-                  multiline
-                  rows="4"
-                  defaultValue={bio}
-                  value={updatedBio}
-                  onChange={({ target }) => setUpdatedBio(target.value)}
-                  margin="normal"
-                  variant="outlined"
-                  validators={['maxStringLength:250']}
-                  errorMessages={['must be under 250 characters']}
-                />
+                <Grid
+                  item
+                  style={{
+                    width: `${windowWidth - 30}px`
+                  }}
+                >
+                  <TextValidator
+                    id="bio-field"
+                    name="bio"
+                    fullWidth
+                    label="Bio"
+                    multiline
+                    rows="3"
+                    value={updatedBio}
+                    onChange={({ target }) => setUpdatedBio(target.value)}
+                    margin="normal"
+                    variant="outlined"
+                    validators={["maxStringLength:250"]}
+                    errorMessages={["must be under 250 characters"]}
+                    inputProps={{
+                      style: {
+                        color: isDarkMode ? WHITE : undefined
+                      }
+                    }}
+                  />
+                </Grid>
+                <Grid item>
+                  <Button
+                    variant="contained"
+                    disabled={disabled}
+                    color="primary"
+                    type="submit"
+                  >
+                    {buttonText}
+                  </Button>
+                </Grid>
+              </Grid>
+            </ValidatorForm>
+          </Grid>
+          <Grid item>
+            <PermissionStatuses isDarkMode={isDarkMode} />
+          </Grid>
+          <Grid
+            item
+            style={{
+              background: isDarkMode ? COLBALT : undefined,
+              paddingLeft: '1em',
+              borderWidth: "1px",
+              borderColor: isDarkMode ? WHITE : LIGHT_GREY,
+              borderStyle: "solid"
+            }}
+          >
+            <FormControl margin="dense" fullWidth={true}>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={isDarkMode}
+                    onChange={handleToggle}
+                    value="dark"
+                  />
+                }
+                label={
+                  <Typography color={isDarkMode ? 'textSecondary' : undefined}>
+                    Dark Mode
+                  </Typography>
+                }
+              />
+            </FormControl>
+          </Grid>
+          <Grid item className={classes.bottom}>
+            <Grid container direction="column" alignItems="center">
+              <Grid item className={classes.deleteInfo}>
+                <Typography variant="caption">
+                  To delete account, first delete all posts and offers
+                </Typography>
               </Grid>
               <Grid item>
-                <Button variant="contained" disabled={disabled} color="primary" type="submit">
-                  {buttonText}
+                <Button
+                  variant="contained"
+                  style={
+                    totalItems === 0
+                      ? theme.palette.errorButton
+                      : theme.palette.disabledErrorButton
+                  }
+                  onClick={handleDelete}
+                  disabled={!canDelete}
+                >
+                  Delete Account
                 </Button>
               </Grid>
-            </Grid>
-          </ValidatorForm>
-        </Grid>
-        <Grid item>
-          <PermissionStatuses />
-        </Grid>
-        <Grid item className={classes.bottom}>
-          <Grid container direction="column" alignItems="center">
-            <Grid item className={classes.deleteInfo}>
-              <Typography variant="caption">
-                To delete account, first delete all posts and offers
-              </Typography>
-            </Grid>
-            <Grid item>
-              <Button
-                variant="contained"
-                style={
-                  totalItems === 0
-                    ? theme.palette.errorButton
-                    : theme.palette.disabledErrorButton
-                }
-                onClick={handleDelete}
-                disabled={!canDelete}
-              >
-                Delete Account
-              </Button>
-            </Grid>
-            <Grid item>
-              <Button
-                onClick={() => history.push('/policy')}
-                variant='text'
-              >
-                View our policy
-              </Button>
-            </Grid>
-            <Grid item className={classes.version}>
-              <Typography variant="caption">{VERSION}</Typography>
+              <Grid item>
+                <Button onClick={() => history.push("/policy")} variant="text">
+                  View our policy
+                </Button>
+              </Grid>
+              <Grid item className={classes.version}>
+                <Typography variant="caption">{VERSION}</Typography>
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
-      </Grid>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 const propMap = {
   height: selectScreenHeight,
@@ -175,7 +220,9 @@ const propMap = {
   asksLoaded: selectMyAsksLoaded,
   bidsLoaded: selectMyBidsLoaded,
   offersLoaded: selectMyOffersLoaded,
-  transactionsLoaded: selectTransactionsLoaded
+  transactionsLoaded: selectTransactionsLoaded,
+  isDarkMode: selectIsDarkMode,
+  modeLoaded: selectModeLoaded
 };
 
 const actionMap = {
@@ -185,12 +232,15 @@ const actionMap = {
   loadMyAsks: loadMyAsksAction,
   loadMyBids: loadMyBidsAction,
   loadOffersByUser: loadOffersByUserAction,
-  loadTransactions: loadTransactionsAction
+  loadTransactions: loadTransactionsAction,
+  setDarkMode: setDarkModeAction,
+  getMode: getModeAction
 };
 
 export default compose(
   mapper(propMap, actionMap),
   withRouter,
+  withMode,
   withStyles(styles),
   lifecycle({
     componentDidMount() {
@@ -217,13 +267,19 @@ export default compose(
       if (!transactionsLoaded) {
         loadTransactions(userId);
       }
-    },
+    }
   }),
-  withState('updatedBio', 'setUpdatedBio', ({ bio }) => bio),
-  withState('disabled', 'setDisabled', false),
-  withState('buttonText', 'setButtonText', "Update"),
+  withState("updatedBio", "setUpdatedBio", ({ bio }) => bio),
+  withState("disabled", "setDisabled", false),
+  withState("buttonText", "setButtonText", "Update"),
   withHandlers({
-    handleUpdate: ({ userId, updateUser, updatedBio, setButtonText, setDisabled }) => () => {
+    handleUpdate: ({
+      userId,
+      updateUser,
+      updatedBio,
+      setButtonText,
+      setDisabled
+    }) => () => {
       const update = { id: userId, bio: updatedBio };
       setButtonText("Updating...");
       setDisabled(true);
@@ -235,8 +291,12 @@ export default compose(
     },
     handleDelete: ({ userId, deleteUser }) => () => {
       deleteUser(userId);
+    },
+    handleToggle: ({ setDarkMode, isDarkMode, userId }) => () => {
+      const payload = { userId, dark: !isDarkMode };
+      setDarkMode(payload).then(() => window.location.reload());
     }
   }),
   withDimensions,
-  withNav,
+  withNav
 )(Settings);

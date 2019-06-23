@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import mapper from "../../utils/connect";
 import {
   selectHeaderHeight,
+  selectIsDarkMode,
   selectListOpen,
   selectNavHeight,
   selectWindowHeight,
@@ -12,14 +13,17 @@ import {
 } from "../../selectors";
 import { setListOpen as setListOpenAction } from "../../actions/app";
 import Slide from "@material-ui/core/Slide/Slide";
+import {DARK_GREEN} from "../../constants/colors";
 
 const ListSlider = ({
   navHeight,
   headerHeight,
   windowHeight,
+  width,
   children,
   open,
-  direction
+  direction,
+  isDarkMode
 }) => (
   <Slide direction={direction} in={open} mountOnEnter unmountOnExit>
     <div
@@ -29,11 +33,11 @@ const ListSlider = ({
         top: `${(windowHeight - navHeight - headerHeight) / 2 +
           headerHeight}px`,
         height: `${(windowHeight - navHeight - headerHeight) / 2}px`,
+        width: `${width}px`,
         zIndex: 99,
-        borderRight: "#CCC 1px solid",
-        background: 'whitesmoke',
-        overflowY: 'auto',
-        overflowX: 'hidden'
+        background: isDarkMode ? DARK_GREEN : 'whitesmoke',
+        overflowY: "auto",
+        overflowX: "hidden"
       }}
     >
       {children}
@@ -58,13 +62,12 @@ const propMap = {
   windowHeight: selectWindowHeight,
   navHeight: selectNavHeight,
   headerHeight: selectHeaderHeight,
-  open: selectListOpen
+  open: selectListOpen,
+  isDarkMode: selectIsDarkMode
 };
 
 const actionMap = {
   setListOpen: setListOpenAction
 };
 
-export default compose(
-  mapper(propMap, actionMap),
-)(ListSlider);
+export default compose(mapper(propMap, actionMap))(ListSlider);

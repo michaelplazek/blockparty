@@ -27,7 +27,6 @@ const Tile = ({
   classes,
   title,
   count,
-  onClick,
   children,
   color,
   textColor,

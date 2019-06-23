@@ -12,11 +12,11 @@ import { getDistance } from "geolib";
 import { getMilesFromMeters } from "../utils/location";
 
 import { ADMIN_1, LOCALITY, POLITICAL } from "../constants/maps";
-import Grid from "@material-ui/core/Grid";
 
 const NUMBER_OF_BINS = 100;
 
 export const intoArray = (...args) => args;
+export const fromProps = path => (state, props) => get(props, path);
 
 // SESSION
 export const selectIsLoggedIn = state => state.session.loggedIn;
@@ -406,6 +406,8 @@ export const selectMarketView = state => state.app.marketView;
 export const selectTouched = state => state.app.touched;
 export const selectAskInfo = state => state.app.askInfo;
 export const selectBidInfo = state => state.app.bidInfo;
+export const selectIsDarkMode = state => state.app.darkMode;
+export const selectModeLoaded = state => state.app.modeLoaded;
 
 // MISC
 export const selectBidHasOffer = createSelector(
@@ -595,7 +597,7 @@ export const selectCurrencyItems = createSelector(
   fpMap(item => ({
     label: `${item.assetName} - ${item.assetSymbol}`,
     value: item.assetSymbol,
-    disabled: false,
+    disabled: false
   }))
 );
 

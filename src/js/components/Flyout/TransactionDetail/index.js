@@ -11,6 +11,7 @@ import {
   setModalOpen as setModalOpenAction
 } from "../../../actions/layers";
 import {
+  selectIsDarkMode,
   selectLayerOpen,
   selectModal,
   selectTransactionBuyerUsername,
@@ -59,7 +60,8 @@ const TransactionDetails = ({
   handleCancel,
   completeButtonIsDisabled,
   modal,
-  openConfirm
+  openConfirm,
+  isDarkMode
 }) => (
   <Flyout size={8} title="Accepted Offer">
     {modal === "CONFIRM_CANCEL" && (
@@ -74,11 +76,12 @@ const TransactionDetails = ({
           be updated and the transaction will be considered completed.
         </Typography>
       </Grid>
-      <DetailList items={items} />
+      <DetailList isDarkMode={isDarkMode} items={items} />
       <ButtonContainer
         disabled={completeButtonIsDisabled}
         handleComplete={handleComplete}
         handleCancel={openConfirm}
+        isDarkMode={isDarkMode}
       />
     </Grid>
   </Flyout>
@@ -97,7 +100,8 @@ const propMap = {
   seller: selectTransactionSellerUsername,
   completeButtonIsDisabled: selectCompleteButtonIsDisabled,
   username: selectUsername,
-  modal: selectModal
+  modal: selectModal,
+  isDarkMode: selectIsDarkMode
 };
 
 const actionMap = {

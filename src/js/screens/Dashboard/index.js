@@ -36,6 +36,7 @@ import {
   selectDashboardLoaded,
   selectFilteredAskCurrencyItems,
   selectFilteredBidCurrencyItems,
+  selectIsDarkMode,
   selectLayer,
   selectMyAsks,
   selectMyBids,
@@ -85,8 +86,9 @@ import {
   setNavIndex as setNavIndexAction,
   setRun as setRunAction
 } from "../../actions/app";
-import QR from "../../components/Modal/QR";
 import withNav from "../../HOCs/withNav";
+import { COLBALT } from "../../constants/colors";
+import withMode from "../../HOCs/withMode";
 
 const styles = () => ({
   root: {
@@ -120,7 +122,8 @@ const Dashboard = ({
   handleCreateAsk,
   handleCreateBid,
   handleCallback,
-  run
+  run,
+  isDarkMode
 }) => {
   const actions = [
     {
@@ -149,9 +152,12 @@ const Dashboard = ({
         title="Accepted Offers"
         count={numberOfTransactions}
         description="time to meet up"
+        color={isDarkMode ? COLBALT : undefined}
+        textColor={isDarkMode ? "textSecondary" : undefined}
       >
         {myTransactions.map(item => (
           <TransactionTile
+            isDarkMode={isDarkMode}
             item={item}
             key={item._id}
             onClick={() => handleTransactionClick(item)}
@@ -163,12 +169,15 @@ const Dashboard = ({
         title="My Offers"
         count={numberOfOffers}
         description="offers I've made"
+        color={isDarkMode ? COLBALT : undefined}
+        textColor={isDarkMode ? "textSecondary" : undefined}
       >
         {myOffers.map(item => (
           <OfferTile
             item={item}
             key={item._id}
             onClick={() => handleOfferClick(item)}
+            isDarkMode={isDarkMode}
           />
         ))}
       </Tile>
@@ -177,12 +186,15 @@ const Dashboard = ({
         title="My Asks"
         count={numberOfAsks}
         description="looking to sell"
+        color={isDarkMode ? COLBALT : undefined}
+        textColor={isDarkMode ? "textSecondary" : undefined}
       >
         {myAsks.map(item => (
           <ListTile
             item={item}
             key={item._id}
             onClick={() => handleAskClick(item)}
+            isDarkMode={isDarkMode}
           />
         ))}
       </Tile>
@@ -191,12 +203,15 @@ const Dashboard = ({
         title="My Bids"
         count={numberOfBids}
         description="looking to buy"
+        color={isDarkMode ? COLBALT : undefined}
+        textColor={isDarkMode ? "textSecondary" : undefined}
       >
         {myBids.map(item => (
           <ListTile
             item={item}
             key={item._id}
             onClick={() => handleBidClick(item)}
+            isDarkMode={isDarkMode}
           />
         ))}
       </Tile>
@@ -208,12 +223,16 @@ const Dashboard = ({
           zIndex: 100
         }}
       >
-        <SpeedDialButton className="create-post" actions={actions} />
+        <SpeedDialButton
+          className="create-post"
+          actions={actions}
+          isDarkMode={isDarkMode}
+        />
       </div>
       <Joyride
         steps={dashboardSteps}
         run={run}
-        styles={tourStyle}
+        styles={tourStyle(isDarkMode)}
         continuous={true}
         tooltipComponent={Tooltip}
         disableOverlay={true}
@@ -241,7 +260,8 @@ const propMap = {
   askCoins: selectAskCurrencyItems,
   bidCoins: selectBidCurrencyItems,
   filteredBidCoins: selectFilteredBidCurrencyItems,
-  filteredAskCoins: selectFilteredAskCurrencyItems
+  filteredAskCoins: selectFilteredAskCurrencyItems,
+  isDarkMode: selectIsDarkMode
 };
 
 const actionMap = {
@@ -273,6 +293,7 @@ export default compose(
   mapper(propMap, actionMap),
   withStyles(styles),
   withDimensions,
+  withMode,
   lifecycle({
     componentDidMount() {
       const {
@@ -392,5 +413,5 @@ export default compose(
     5000
   ),
   withVisited,
-  withNav,
+  withNav
 )(Dashboard);

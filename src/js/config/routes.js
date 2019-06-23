@@ -65,7 +65,7 @@ export const protectedRoutes = [
     protected: true,
     component: Policy,
     index: 7
-  },
+  }
 ];
 
 export const unprotectedRoutes = [

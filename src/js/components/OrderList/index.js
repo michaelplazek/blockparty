@@ -10,23 +10,29 @@ import { Typography, Grid, ListItem, ListItemText } from "@material-ui/core";
 import {
   selectAskList,
   selectBidList,
-  selectFilterCoin
+  selectFilterCoin,
+  selectIsDarkMode
 } from "../../selectors";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faTimes} from "@fortawesome/free-solid-svg-icons";
+import {DARK_GREY, WHITE} from "../../constants/colors";
 
 const styles = () => ({
-  root: {},
   list: {
-    marginRight: "0.5em",
+    marginLeft: "0.2em"
   },
-  item: {
-    marginRight: "0.5em"
+  closeButton: {
+    textAlign: "right",
+    position: "relative",
+    right: "1.5em",
+    cursor: "pointer"
   },
   link: {
     cursor: "pointer"
   }
 });
 
-const ListItemBase = ({ item, classes, isBid, onClick }) => (
+const ListItemBase = ({ item, classes, isBid, onClick, isDarkMode }) => (
   <ListItem button={true} dense={true} divider={true}>
     <Grid
       container
@@ -37,7 +43,11 @@ const ListItemBase = ({ item, classes, isBid, onClick }) => (
       <Grid item>
         <ListItemText
           disableTypography
-          primary={<Typography>{item.volume}</Typography>}
+          primary={
+            <Typography color={isDarkMode ? "textSecondary" : undefined}>
+              {item.volume}
+            </Typography>
+          }
         />
       </Grid>
       <Grid item>
@@ -89,32 +99,55 @@ const OrderListHeader = compose(withStyles(styles))(ListHeaderBase);
 const OrderListItem = compose(withStyles(styles))(ListItemBase);
 const OrderListTitle = compose(withStyles(styles))(ListTitleBase);
 
-const OrderList = ({ classes, bids, asks, handleClick }) => (
-  <Grid container direction="row" className={classes.root}>
-    <Grid item className={classes.list}>
-      <Grid container direction="column">
-        <OrderListTitle title="Bids" />
-        <OrderListHeader />
-        {bids.map(item => (
-          <OrderListItem
-            onClick={() => handleClick(item)}
-            item={item}
-            isBid={true}
-          />
-        ))}
-      </Grid>
+const OrderList = ({
+  classes,
+  bids,
+  asks,
+  handleClick,
+  isDarkMode,
+  openList
+  }) => (
+  <Grid container direction='column'>
+    <Grid item>
+      <div
+        className={classes.closeButton}
+        onClick={openList}
+      >
+        <FontAwesomeIcon color={isDarkMode ? WHITE : DARK_GREY} icon={faTimes} />
+      </div>
     </Grid>
     <Grid item>
-      <Grid container direction="column">
-        <OrderListTitle title="Asks" />
-        <OrderListHeader />
-        {asks.map(item => (
-          <OrderListItem
-            onClick={() => handleClick(item)}
-            item={item}
-            isBid={false}
-          />
-        ))}
+      <Grid container direction="row" justify='center'>
+        <Grid item>
+          <Grid container direction="column">
+            <OrderListTitle title="Bids" />
+            <OrderListHeader />
+            {bids.map(item => (
+              <OrderListItem
+                isDarkMode={isDarkMode}
+                key={`${item.volume}-${item.price}`}
+                onClick={() => handleClick(item)}
+                item={item}
+                isBid={true}
+              />
+            ))}
+          </Grid>
+        </Grid>
+        <Grid item className={classes.list}>
+          <Grid container direction="column">
+            <OrderListTitle title="Asks" />
+            <OrderListHeader />
+            {asks.map(item => (
+              <OrderListItem
+                isDarkMode={isDarkMode}
+                key={`${item.volume}-${item.price}`}
+                onClick={() => handleClick(item)}
+                item={item}
+                isBid={false}
+              />
+            ))}
+          </Grid>
+        </Grid>
       </Grid>
     </Grid>
   </Grid>
@@ -123,7 +156,8 @@ const OrderList = ({ classes, bids, asks, handleClick }) => (
 const propMap = {
   bids: selectBidList,
   asks: selectAskList,
-  coin: selectFilterCoin
+  coin: selectFilterCoin,
+  isDarkMode: selectIsDarkMode
 };
 
 const actionMap = {};
