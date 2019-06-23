@@ -6,7 +6,7 @@ import mapper from "../../../utils/connect";
 import Modal from "../index";
 
 import { setModalOpen as setModalOpenAction } from "../../../actions/layers";
-import { selectWindowHeight, selectWindowWidth } from "../../../selectors";
+import {selectUserId, selectWindowHeight, selectWindowWidth} from "../../../selectors";
 import Grid from "@material-ui/core/Grid/Grid";
 import { Typography } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
@@ -53,7 +53,8 @@ const EndOfTour = ({ classes, handleSubmit, handleClose }) => (
 
 const propMap = {
   windowHeight: selectWindowHeight,
-  windowWidth: selectWindowWidth
+  windowWidth: selectWindowWidth,
+  userId: selectUserId
 };
 
 const actionMap = {
@@ -67,17 +68,27 @@ export default compose(
   mapper(propMap, actionMap),
   withStyles(styles),
   withHandlers({
-    handleSubmit: ({ setRun, setModalOpen, setNavIndex, history }) => () => {
-      setRun(false);
-      setModalOpen(false);
-      setAppVisited();
-      setNavIndex(0);
-      history.push("/");
+    handleSubmit: ({
+      setRun,
+      setModalOpen,
+      setNavIndex,
+      history,
+      userId
+    }) => () => {
+      setAppVisited(userId)
+        .then(() => {
+          setRun(false);
+          setModalOpen(false);
+          setNavIndex(0);
+          history.push("/");
+        })
     },
-    handleClose: ({ setRun, setModalOpen }) => () => {
-      setRun(false);
-      setModalOpen(false);
-      setAppVisited();
+    handleClose: ({ setRun, setModalOpen, userId }) => () => {
+      setAppVisited(userId)
+        .then(() => {
+          setRun(false);
+          setModalOpen(false);
+        });
     }
   })
 )(EndOfTour);

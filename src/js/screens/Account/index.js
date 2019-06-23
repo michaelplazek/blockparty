@@ -18,7 +18,7 @@ import {
   selectIsDarkMode,
   selectModal,
   selectRun,
-  selectUserBio,
+  selectUserBio, selectUserId,
   selectUsername,
   selectUserReputation,
   selectWindowHeight
@@ -237,7 +237,8 @@ const propMap = {
   items: selectUserDetails,
   run: selectRun,
   modal: selectModal,
-  isDarkMode: selectIsDarkMode
+  isDarkMode: selectIsDarkMode,
+  userId: selectUserId
 };
 
 const actionMap = {
@@ -259,10 +260,12 @@ export default compose(
   withDimensions,
   lifecycle({
     componentDidMount() {
-      const { setRun, loadUserFromToken } = this.props;
-      if (!isVisited()) {
-        setRun(true);
-      }
+      const { setRun, loadUserFromToken, userId } = this.props;
+      isVisited(userId).then(visited => {
+        if (!visited) {
+          setRun(true);
+        }
+      });
       loadUserFromToken();
     }
   }),

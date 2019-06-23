@@ -19,7 +19,7 @@ import {
   selectInitialLocation,
   selectModal,
   selectListOpen,
-  selectIsDarkMode
+  selectIsDarkMode, selectUserId
 } from "../../selectors";
 import { loadAsks as loadAsksAction } from "../../actions/asks";
 import { loadBids as loadBidsAction } from "../../actions/bids";
@@ -140,6 +140,7 @@ const propMap = {
   initialLocation: selectInitialLocation,
   listOpen: selectListOpen,
   isDarkMode: selectIsDarkMode,
+  userId: selectUserId,
   loaded: selectMarketLoaded // from withLoader
 };
 
@@ -188,14 +189,16 @@ export default compose(
   }),
   lifecycle({
     componentWillMount() {
-      const { loadAsks, loadBids, setModal, setModalOpen } = this.props;
+      const { loadAsks, loadBids, setModal, setModalOpen, userId } = this.props;
       loadAsks();
       loadBids();
 
-      if (!isVisited()) {
-        setModalOpen(true);
-        setModal("WELCOME");
-      }
+      isVisited(userId).then(visited => {
+        if (!visited) {
+          setModalOpen(true);
+          setModal("WELCOME");
+        }
+      })
     }
   }),
   withLocation,

@@ -1,4 +1,5 @@
 import {BLUE, GOLD} from "../constants/colors";
+import {wrappedFetch, wrappedFetchWithParams} from "../api/utils";
 
 export const marketSteps = [
   {
@@ -135,7 +136,25 @@ export const tourStyle = isDarkMode => ({
   }
 });
 
-export const isVisited = () =>
-  window.localStorage.getItem("visited") === "true";
-export const setAppVisited = () =>
-  window.localStorage.setItem("visited", "true");
+export const isVisited = userId => {
+  let visited = JSON.parse(window.localStorage.getItem("visited"));
+  if (visited === null) {
+    return wrappedFetchWithParams("config", undefined, "GET", `?userId=${userId}`)
+      .then(response => {
+        visited = !!response.visited;
+        window.localStorage.setItem("visited", visited);
+        return visited;
+      })
+  } else {
+    return Promise.resolve(visited);
+  }
+};
+
+export const setAppVisited = userId => {
+  const data = {
+    userId,
+    visited: true
+  };
+  return wrappedFetch("config/visited", data, "POST")
+    .then(() => window.localStorage.setItem("visited", "true"))
+};
