@@ -227,6 +227,7 @@ const actionMap = {
 export default compose(
   mapper(propMap, actionMap),
   withRouter,
+  withMode,
   withStyles(styles),
   lifecycle({
     componentDidMount() {
@@ -284,6 +285,5 @@ export default compose(
     }
   }),
   withDimensions,
-  withMode,
   withNav
 )(Settings);

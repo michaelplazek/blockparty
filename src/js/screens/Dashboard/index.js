@@ -293,6 +293,7 @@ export default compose(
   mapper(propMap, actionMap),
   withStyles(styles),
   withDimensions,
+  withMode,
   lifecycle({
     componentDidMount() {
       const {
@@ -412,6 +413,5 @@ export default compose(
     5000
   ),
   withVisited,
-  withMode,
   withNav
 )(Dashboard);

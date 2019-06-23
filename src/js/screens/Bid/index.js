@@ -161,6 +161,7 @@ const actionMap = {
 export default compose(
   withRouter,
   withStyles(styles),
+  withMode,
   mapper(propMap, actionMap),
   lifecycle({
     componentDidMount() {
@@ -183,6 +184,5 @@ export default compose(
       setModalOpen(true);
     }
   }),
-  withMode,
   withNav
 )(Bid);

@@ -12,7 +12,8 @@ import mapper from "../utils/connect";
 import Button from "@material-ui/core/Button/Button";
 import withSplash from "../HOCs/withSplash";
 import Fade from "@material-ui/core/Fade";
-import { setNavIndex } from "../actions/app";
+import {getMode as getModeAction, setNavIndex} from "../actions/app";
+import {selectModeLoaded, selectUserId} from "../selectors";
 
 const styles = () => ({
   root: {
@@ -57,11 +58,15 @@ const Login = ({ handleLogIn, classes, history }) => (
   </Grid>
 );
 
-const propMap = {};
+const propMap = {
+  modeLoaded: selectModeLoaded,
+  userId: selectUserId
+};
 
 const actionMap = {
   logInUser,
-  setNavIndex
+  setNavIndex,
+  getMode: getModeAction
 };
 
 export default compose(

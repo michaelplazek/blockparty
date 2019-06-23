@@ -161,6 +161,7 @@ export default compose(
   mapper(propMap, actionMap),
   withRouter,
   withDimensions,
+  withMode,
   withHandlers({
     handleMarkerClick: ({ history }) => marker => {
       const { id, isBid } = marker;
@@ -205,6 +206,5 @@ export default compose(
   }, 5000),
   withPushNotifications,
   withVisited,
-  withMode,
-  withNav
+  withNav,
 )(Market);

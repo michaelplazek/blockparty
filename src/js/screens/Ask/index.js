@@ -161,6 +161,7 @@ const actionMap = {
 
 export default compose(
   withRouter,
+  withMode,
   withStyles(styles),
   mapper(propMap, actionMap),
   lifecycle({
@@ -184,6 +185,5 @@ export default compose(
       setModalOpen(true);
     }
   }),
-  withMode,
   withNav
 )(Ask);

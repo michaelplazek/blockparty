@@ -251,6 +251,7 @@ const actionMap = {
 
 export default compose(
   mapper(propMap, actionMap),
+  withMode,
   withState("moneroCopied", "setMoneroCopied", false),
   withState("bitcoinCopied", "setBitcoinCopied", false),
   withRouter,
@@ -283,5 +284,4 @@ export default compose(
   }, 5000),
   withVisited,
   withNav,
-  withMode
 )(Account);
