@@ -21,7 +21,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import Typography from "@material-ui/core/Typography/Typography";
 import Grid from "@material-ui/core/Grid/Grid";
-import { DARK_GREEN, WHITE } from "../../constants/colors";
+import {DARK_GREEN, DARK_GREY, WHITE} from "../../constants/colors";
 
 const styles = () => ({
   closeButton: {
@@ -88,7 +88,7 @@ const Flyout = ({
                 setLayerOpen(false);
               }}
             >
-              <FontAwesomeIcon icon={faTimes} />
+              <FontAwesomeIcon color={isDarkMode ? WHITE : DARK_GREY} icon={faTimes} />
             </div>
           </Grid>
         </Grid>
