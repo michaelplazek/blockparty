@@ -232,6 +232,9 @@ class GoogleMapsWrapper extends Component {
 
         {markers.map(item => (
           <Marker
+            style={{
+              color: 'blue'
+            }}
             key={item.id}
             position={{
               lat: parseFloat(item.lat),

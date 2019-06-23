@@ -38,7 +38,7 @@ import { loadOffersByUser as loadOffersByUserAction } from "../../actions/offers
 import { loadTransactions as loadTransactionsAction } from "../../actions/transactions";
 import withNav from "../../HOCs/withNav";
 import PermissionStatuses from "./PermissionStatuses";
-import { WHITE } from "../../constants/colors";
+import {COLBALT, DARK_GREY, LIGHT_GREY, WHITE} from "../../constants/colors";
 import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
@@ -146,7 +146,16 @@ const Settings = ({
           <Grid item>
             <PermissionStatuses isDarkMode={isDarkMode} />
           </Grid>
-          <Grid item>
+          <Grid
+            item
+            style={{
+              background: isDarkMode ? COLBALT : undefined,
+              paddingLeft: '1em',
+              borderWidth: "1px",
+              borderColor: isDarkMode ? WHITE : LIGHT_GREY,
+              borderStyle: "solid"
+            }}
+          >
             <FormControl margin="dense" fullWidth={true}>
               <FormControlLabel
                 control={
@@ -156,7 +165,11 @@ const Settings = ({
                     value="dark"
                   />
                 }
-                label="Dark Mode"
+                label={
+                  <Typography color={isDarkMode ? 'textSecondary' : undefined}>
+                    Dark Mode
+                  </Typography>
+                }
               />
             </FormControl>
           </Grid>
