@@ -50,7 +50,7 @@ import withMode from "../../HOCs/withMode";
 
 const styles = () => ({
   top: {
-    paddingTop: "1em"
+    paddingTop: "0.2em"
   },
   bottom: {
     marginBottom: "0.5em"
@@ -59,7 +59,7 @@ const styles = () => ({
     marginBottom: "0.5em"
   },
   version: {
-    marginTop: "0.2em"
+    // marginTop: "0.2em"
   }
 });
 
