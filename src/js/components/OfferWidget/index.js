@@ -53,7 +53,13 @@ const OfferWidget = ({
       }}
     >
       <Grid container direction="column">
-        <Grid item>
+        <Grid
+          item
+          style={{
+            position: 'relative',
+            top: '0.2em'
+          }}
+        >
           <Grid container justify="space-between" direction="row">
             <Grid item>
               <Typography

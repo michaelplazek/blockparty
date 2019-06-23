@@ -125,7 +125,7 @@ const OrderList = ({
             {bids.map(item => (
               <OrderListItem
                 isDarkMode={isDarkMode}
-                key={item}
+                key={`${item.volume}-${item.price}`}
                 onClick={() => handleClick(item)}
                 item={item}
                 isBid={true}
@@ -140,7 +140,7 @@ const OrderList = ({
             {asks.map(item => (
               <OrderListItem
                 isDarkMode={isDarkMode}
-                key={item}
+                key={`${item.volume}-${item.price}`}
                 onClick={() => handleClick(item)}
                 item={item}
                 isBid={false}
