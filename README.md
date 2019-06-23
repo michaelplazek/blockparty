@@ -1,4 +1,4 @@
-# Cash For Cypto
+# Blockparty
 
 ## Setup
 Install dependencies
@@ -66,4 +66,9 @@ export MODE=production
 To run:
 ```
 npm start
+```
+
+To build:
+```
+npm run build
 ```
