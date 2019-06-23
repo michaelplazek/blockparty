@@ -116,7 +116,7 @@ class Market extends Component {
         <Joyride
           steps={marketSteps}
           run={run}
-          styles={tourStyle}
+          styles={tourStyle(isDarkMode)}
           continuous={true}
           tooltipComponent={Tooltip}
           disableOverlay={true}

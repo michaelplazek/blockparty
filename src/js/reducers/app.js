@@ -39,7 +39,7 @@ const initialState = {
   bidInfo: undefined,
   listOpen: false,
   darkMode: mode ? JSON.parse(mode) : false,
-  modeLoaded: mode !== undefined
+  modeLoaded: mode !== null
 };
 
 const handlers = {

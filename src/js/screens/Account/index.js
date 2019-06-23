@@ -219,7 +219,7 @@ const Account = ({
       <Joyride
         steps={accountSteps}
         run={run}
-        styles={tourStyle}
+        styles={tourStyle(isDarkMode)}
         continuous={true}
         tooltipComponent={Tooltip}
         disableOverlay={true}

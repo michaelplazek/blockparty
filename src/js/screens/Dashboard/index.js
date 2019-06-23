@@ -232,7 +232,7 @@ const Dashboard = ({
       <Joyride
         steps={dashboardSteps}
         run={run}
-        styles={tourStyle}
+        styles={tourStyle(isDarkMode)}
         continuous={true}
         tooltipComponent={Tooltip}
         disableOverlay={true}
