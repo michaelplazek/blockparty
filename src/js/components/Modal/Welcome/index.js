@@ -6,7 +6,7 @@ import Modal from "../index";
 
 import { setModalOpen as setModalOpenAction } from "../../../actions/layers";
 import {
-  selectModalOpen,
+  selectModalOpen, selectUserId,
   selectWindowHeight,
   selectWindowWidth
 } from "../../../selectors";
@@ -77,7 +77,8 @@ const Welcome = ({ classes, handleTour, handleSkip }) => (
 const propMap = {
   open: selectModalOpen,
   windowHeight: selectWindowHeight,
-  windowWidth: selectWindowWidth
+  windowWidth: selectWindowWidth,
+  userId: selectUserId
 };
 
 const actionMap = {
@@ -89,10 +90,12 @@ export default compose(
   mapper(propMap, actionMap),
   withStyles(styles),
   withHandlers({
-    handleSkip: ({ setRun, setModalOpen }) => () => {
-      setRun(false);
-      setAppVisited();
-      setModalOpen(false);
+    handleSkip: ({ setRun, setModalOpen, userId }) => () => {
+      setAppVisited(userId)
+        .then(() => {
+          setRun(false);
+          setModalOpen(false);
+        });
     },
     handleTour: ({ setRun, setModalOpen }) => () => {
       setRun(true);

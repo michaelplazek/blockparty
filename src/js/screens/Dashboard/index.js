@@ -302,16 +302,18 @@ export default compose(
         loadOffersByUser,
         loadTransactions,
         userId,
-        setRun
+        setRun,
       } = this.props;
       loadMyAsks(userId);
       loadMyBids(userId);
       loadOffersByUser(userId);
       loadTransactions(userId);
 
-      if (!isVisited()) {
-        setRun(true);
-      }
+      isVisited(userId).then(visited => {
+        if (!visited) {
+          setRun(true);
+        }
+      });
     }
   }),
   withHandlers({
