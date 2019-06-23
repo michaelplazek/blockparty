@@ -25,7 +25,7 @@ import {
 } from "../../actions/filters";
 import { Typography } from "@material-ui/core";
 import StarRating from "react-star-ratings";
-import { COLBALT } from "../../constants/colors";
+import {COLBALT, GOLD, LIGHT_GREY} from "../../constants/colors";
 
 const styles = () => ({
   root: {
@@ -98,7 +98,7 @@ const Subheader = ({ classes, filter, handleOpen, isDarkMode }) => (
           className={`${classes.menuButton} filters`}
           aria-label="Menu"
         >
-          <FilterListIcon />
+          <FilterListIcon color={isDarkMode ? 'secondary' : undefined} />
         </IconButton>
       </Grid>
     </Grid>
