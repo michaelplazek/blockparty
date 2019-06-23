@@ -51,7 +51,7 @@ const Policy = ({ history, classes, isDarkMode }) => (
           expressed or implied with the use of Blockparty. It is your
           responsibility to ensure you are complaint with laws that are
           applicable to you before using Blockparty. By using Blockparty you
-          assume any all risks and liabilities furthermore you agree to
+          assume any all risks and liabilities. Furthermore, you agree to
           indemnify and hold harmless Blockparty, and all of its affiliates,
           free of any and all liabilities or malfeasance.
         </Typography>
