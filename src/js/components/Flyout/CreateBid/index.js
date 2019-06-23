@@ -38,10 +38,7 @@ import { resetBid as resetBidAction } from "../../../actions/createBid";
 import { ValidatorForm } from "react-material-ui-form-validator";
 import { cleanInputs } from "../../../constants/validation";
 import {
-  COLBALT,
   DARK_GREEN,
-  GOLD,
-  LIGHT_GREY,
   WHITE
 } from "../../../constants/colors";
 

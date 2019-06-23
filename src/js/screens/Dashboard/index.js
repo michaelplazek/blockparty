@@ -87,7 +87,7 @@ import {
   setRun as setRunAction
 } from "../../actions/app";
 import withNav from "../../HOCs/withNav";
-import { COLBALT, GOLD } from "../../constants/colors";
+import { COLBALT } from "../../constants/colors";
 import withMode from "../../HOCs/withMode";
 
 const styles = () => ({

@@ -20,7 +20,7 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import Typography from "@material-ui/core/Typography/Typography";
 import Grid from "@material-ui/core/Grid/Grid";
 import { Dialog } from "@material-ui/core";
-import { COLBALT, WHITE } from "../../constants/colors";
+import { WHITE } from "../../constants/colors";
 
 const styles = () => ({
   closeButton: {

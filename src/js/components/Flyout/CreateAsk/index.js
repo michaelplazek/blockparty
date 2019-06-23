@@ -37,7 +37,7 @@ import { setLayerOpen as setLayerOpenAction } from "../../../actions/layers";
 import { resetAsk as resetAskAction } from "../../../actions/createAsk";
 import { ValidatorForm } from "react-material-ui-form-validator";
 import { cleanInputs } from "../../../constants/validation";
-import {COLBALT, DARK_GREEN, GOLD, WHITE} from "../../../constants/colors";
+import {DARK_GREEN, GOLD, WHITE} from "../../../constants/colors";
 
 const styles = theme => ({
   root: {

@@ -10,7 +10,7 @@ import { getCoinIcon } from "../List/utils";
 import ListItemText from "@material-ui/core/ListItemText/ListItemText";
 import moment from "moment";
 import ListItem from "@material-ui/core/ListItem/ListItem";
-import { COLBALT, DARK_GREEN, DARK_GREY, GOLD } from "../../constants/colors";
+import { COLBALT } from "../../constants/colors";
 
 const styles = () => ({
   root: {

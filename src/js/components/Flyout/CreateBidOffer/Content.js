@@ -31,7 +31,7 @@ import {
 } from "../../../selectors";
 import { getMinimalUnit } from "../../../utils/validate";
 import Chip from "@material-ui/core/Chip";
-import { COLBALT, WHITE } from "../../../constants/colors";
+import { WHITE } from "../../../constants/colors";
 
 const styles = () => ({
   info: {
