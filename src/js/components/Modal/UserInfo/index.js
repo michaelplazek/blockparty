@@ -28,10 +28,7 @@ const styles = () => ({
     marginTop: "2em",
     marginBottom: "1em"
   },
-  item: {
-    // paddingRight: '4em',
-    // paddingLeft: '4em'
-  },
+  item: {},
   paper: {
     paddingRight: "1em",
     paddingLeft: "1em"
@@ -46,7 +43,7 @@ const UserInfo = ({ items, classes }) => (
         <Paper elevation={0} className={classes.paper}>
           <List>
             {items.map((item, index) => (
-              <ListItem dense={true} divider={index !== items.length - 1}>
+              <ListItem key={item.name} dense={true} divider={index !== items.length - 1}>
                 <Grid
                   container
                   direction="row"

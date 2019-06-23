@@ -38,7 +38,7 @@ import { loadOffersByUser as loadOffersByUserAction } from "../../actions/offers
 import { loadTransactions as loadTransactionsAction } from "../../actions/transactions";
 import withNav from "../../HOCs/withNav";
 import PermissionStatuses from "./PermissionStatuses";
-import {COLBALT, DARK_GREY, LIGHT_GREY, WHITE} from "../../constants/colors";
+import {COLBALT, LIGHT_GREY, WHITE} from "../../constants/colors";
 import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
