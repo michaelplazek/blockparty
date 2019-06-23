@@ -116,7 +116,7 @@ const Settings = ({
                     fullWidth
                     label="Bio"
                     multiline
-                    rows="4"
+                    rows="3"
                     value={updatedBio}
                     onChange={({ target }) => setUpdatedBio(target.value)}
                     margin="normal"
