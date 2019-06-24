@@ -124,7 +124,14 @@ const CreateBidOffer = ({
         })}
       </Stepper>
       {activeIndex === STEPS.length && (
-        <Paper square elevation={0} className={classes.resetContainer}>
+        <Paper
+          square
+          elevation={0}
+          className={classes.resetContainer}
+          style={{
+            background: isDarkMode ? DARK_GREEN : undefined
+          }}
+        >
           <Typography>Offer successfully created.</Typography>
         </Paper>
       )}
