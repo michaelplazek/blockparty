@@ -132,7 +132,7 @@ const CreateBidOffer = ({
             background: isDarkMode ? DARK_GREEN : undefined
           }}
         >
-          <Typography>Offer successfully created.</Typography>
+          <Typography color={isDarkMode ? 'textSecondary' : undefined}>Offer successfully created.</Typography>
         </Paper>
       )}
     </Grid>
