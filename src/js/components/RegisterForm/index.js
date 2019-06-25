@@ -27,7 +27,8 @@ const styles = () => ({
   outlinedInput: {
     '&$focused $notchedOutline': {
       borderColor: `${GOLD} !important`,
-    }
+    },
+    color: `${GOLD} !important`
   },
   focused: {
     color: GOLD
