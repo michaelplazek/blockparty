@@ -101,7 +101,7 @@ const LoginForm = ({
         <Button
           className="submitButton"
           variant="contained"
-          color={isDarkMode ? 'secondary' : undefined}
+          color={isDarkMode ? 'secondary' : 'primary'}
           type="submit"
         >
           Submit

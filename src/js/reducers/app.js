@@ -38,7 +38,7 @@ const initialState = {
   askInfo: "Mid Market Price",
   bidInfo: undefined,
   listOpen: false,
-  darkMode: mode ? JSON.parse(mode) : false,
+  darkMode: mode ? JSON.parse(mode) : true,
   modeLoaded: mode !== null
 };
 

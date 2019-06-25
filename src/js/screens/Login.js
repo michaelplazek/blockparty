@@ -2,7 +2,6 @@ import React from "react";
 import { compose, withHandlers } from "recompose";
 import { withRouter } from "react-router-dom";
 
-import withStyles from "@material-ui/core/styles/withStyles";
 import LoginForm from "../components/LoginForm";
 import Grid from "@material-ui/core/Grid/Grid";
 import Typography from "@material-ui/core/Typography/Typography";
@@ -14,23 +13,19 @@ import withSplash from "../HOCs/withSplash";
 import Fade from "@material-ui/core/Fade";
 import {getMode as getModeAction, setNavIndex} from "../actions/app";
 import {selectIsDarkMode, selectModeLoaded, selectUserId} from "../selectors";
-import {COLBALT} from "../constants/colors";
+import {COLBALT, WHITE} from "../constants/colors";
 
-const styles = () => ({
-  root: {
-    background: COLBALT,
-    height: "100vh",
-    padding: "20px"
-  },
-  signUpText: {
-    marginRight: "20px",
-    align: "right",
-    cursor: "pointer"
-  }
-});
-
-const Login = ({ handleLogIn, classes, history, isDarkMode }) => (
-  <Grid className={classes.root} container justify="center" direction="column">
+const Login = ({ handleLogIn, history, isDarkMode }) => (
+  <Grid
+    container
+    justify="center"
+    direction="column"
+    style={{
+      background: isDarkMode ? COLBALT : WHITE,
+      height: "100vh",
+      padding: "20px"
+    }}
+  >
     <Fade
       in={true}
       timeout={{
@@ -73,7 +68,6 @@ const actionMap = {
 };
 
 export default compose(
-  withStyles(styles),
   withRouter,
   mapper(propMap, actionMap),
   withHandlers({

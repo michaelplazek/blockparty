@@ -10,22 +10,30 @@ import Typography from "@material-ui/core/Typography/Typography";
 import { registerUser } from "../actions/session";
 import mapper from "../utils/connect";
 import Button from "@material-ui/core/Button/Button";
+import {selectIsDarkMode} from "../selectors";
+import {COLBALT, WHITE} from "../constants/colors";
 
 const styles = () => ({
-  root: {
-    background: "white",
-    height: "100vh",
-    padding: "20px"
-  },
   body: {
     marginTop: "2.5em"
   }
 });
 
-const Register = ({ handleSignUp, classes, history }) => (
-  <div className={classes.root}>
-    <Grid style={{ background: "white" }}>
-      <Button onClick={() => history.goBack()}>Back to login</Button>
+const Register = ({ handleSignUp, classes, history, isDarkMode }) => (
+  <div
+    style={{
+      background: isDarkMode ? COLBALT : WHITE,
+      height: "100vh",
+      padding: "20px"
+    }}
+  >
+    <Grid>
+      <Button
+        onClick={() => history.goBack()}
+        color={isDarkMode ? 'secondary' : undefined}
+      >
+        Back to login
+      </Button>
       <Grid
         className={classes.body}
         container
@@ -34,10 +42,10 @@ const Register = ({ handleSignUp, classes, history }) => (
       >
         <Grid item>
           <Grid container direction="column" justify="center">
-            <Typography align="center" variant="display1">
+            <Typography color={isDarkMode ? 'textSecondary' : undefined} align="center" variant="display1">
               Sign Up
             </Typography>
-            <RegisterForm onClick={handleSignUp} />
+            <RegisterForm isDarkMode={isDarkMode} onClick={handleSignUp} />
           </Grid>
         </Grid>
       </Grid>
@@ -45,7 +53,9 @@ const Register = ({ handleSignUp, classes, history }) => (
   </div>
 );
 
-const propMap = {};
+const propMap = {
+  isDarkMode: selectIsDarkMode
+};
 
 const actionMap = {
   registerUser
