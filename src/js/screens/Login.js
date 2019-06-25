@@ -13,11 +13,12 @@ import Button from "@material-ui/core/Button/Button";
 import withSplash from "../HOCs/withSplash";
 import Fade from "@material-ui/core/Fade";
 import {getMode as getModeAction, setNavIndex} from "../actions/app";
-import {selectModeLoaded, selectUserId} from "../selectors";
+import {selectIsDarkMode, selectModeLoaded, selectUserId} from "../selectors";
+import {COLBALT} from "../constants/colors";
 
 const styles = () => ({
   root: {
-    background: "white",
+    background: COLBALT,
     height: "100vh",
     padding: "20px"
   },
@@ -28,7 +29,7 @@ const styles = () => ({
   }
 });
 
-const Login = ({ handleLogIn, classes, history }) => (
+const Login = ({ handleLogIn, classes, history, isDarkMode }) => (
   <Grid className={classes.root} container justify="center" direction="column">
     <Fade
       in={true}
@@ -38,17 +39,18 @@ const Login = ({ handleLogIn, classes, history }) => (
     >
       <Grid item>
         <Grid container direction="column" justify="center">
-          <Typography align="center" variant="display1">
+          <Typography color={isDarkMode ? 'textSecondary' : undefined} align="center" variant="display1">
             Log In
           </Typography>
-          <LoginForm onClick={handleLogIn} />
+          <LoginForm isDarkMode={isDarkMode} onClick={handleLogIn} />
         </Grid>
-        <Typography className="signUpText" align="right">
+        <Typography color={isDarkMode ? 'textSecondary' : undefined} className="signUpText" align="right">
           or,{" "}
           <Button
             className="signUpLink"
             onClick={() => history.push("/register")}
             variant="text"
+            color={isDarkMode ? 'inherit' : undefined}
           >
             sign up for account
           </Button>
@@ -60,7 +62,8 @@ const Login = ({ handleLogIn, classes, history }) => (
 
 const propMap = {
   modeLoaded: selectModeLoaded,
-  userId: selectUserId
+  userId: selectUserId,
+  isDarkMode: selectIsDarkMode
 };
 
 const actionMap = {
