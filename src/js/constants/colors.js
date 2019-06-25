@@ -9,4 +9,6 @@ export const COLBALT = "#293240";
 export const DARK_GREEN = "#2a3e41";
 export const WHITE = "#ffffff";
 export const BLUE = "#3f51b5";
+export const DARK_BLUE = "#1a237e";
 export const BLACK = "#000000";
+export const WHITESMOKE = '#f2f2f2';

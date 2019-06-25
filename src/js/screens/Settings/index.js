@@ -195,7 +195,11 @@ const Settings = ({
                 </Button>
               </Grid>
               <Grid item>
-                <Button onClick={() => history.push("/policy")} variant="text">
+                <Button
+                  onClick={() => history.push("/policy")}
+                  variant="text"
+                  color={isDarkMode ? 'secondary' : 'primary'}
+                >
                   View our policy
                 </Button>
               </Grid>

@@ -45,7 +45,7 @@ export const light = createMuiTheme({
     display1: {
       color: "rgba(0, 0, 0, 0.82)"
     }
-  }
+  },
 });
 
 export const dark = createMuiTheme({

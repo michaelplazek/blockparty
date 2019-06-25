@@ -59,7 +59,8 @@ const styles = () => ({
   },
   button: {
     alignSelf: "center",
-    marginBottom: "0.75em"
+    marginBottom: "0.75em",
+    marginTop: "0.5em"
   },
   likeTheApp: {
     marginBottom: "0.5em"
@@ -122,7 +123,13 @@ const Account = ({
             <DetailList items={items} />
           </Grid>
           <Grid item className={classes.button}>
-            <Button onClick={logOut}>Log Out</Button>
+            <Button
+              color={isDarkMode ? 'secondary' : undefined}
+              variant='contained'
+              onClick={logOut}
+            >
+              Log Out
+            </Button>
           </Grid>
         </Grid>
 

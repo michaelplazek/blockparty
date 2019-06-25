@@ -1,8 +1,8 @@
 import React from "react";
 import { compose, lifecycle } from "recompose";
-import withStyles from "@material-ui/core/styles/withStyles";
 import mapper from "../../utils/connect";
 import {
+  selectIsDarkMode,
   selectVisited,
   selectWindowHeight,
   selectWindowWidth
@@ -12,14 +12,7 @@ import Grid from "@material-ui/core/Grid";
 import { Typography } from "@material-ui/core";
 import { bounceIn, fadeIn } from "react-animations";
 import styled, { keyframes } from "styled-components";
-
-const styles = theme => ({
-  root: {
-    background: theme.palette.inverse.background,
-    height: "100%",
-    width: "100%"
-  }
-});
+import {COLBALT, DARK_BLUE, GOLD, WHITESMOKE} from "../../constants/colors";
 
 const Bounce = styled.div`
   animation: 3s ${keyframes`${bounceIn}`};
@@ -32,12 +25,12 @@ const Fade = styled.div`
   right: 10px; 
 `;
 
-const Splash = ({ width, height }) => (
+const Splash = ({ width, height, isDarkMode }) => (
   <div
     style={{
       width,
       height,
-      backgroundColor: "#1a237e"
+      backgroundColor: isDarkMode ? COLBALT : DARK_BLUE
     }}
   >
     <Grid container justify="center">
@@ -46,7 +39,7 @@ const Splash = ({ width, height }) => (
         style={{
           position: "relative",
           top: height / 2.25,
-          color: "#f2f2f2",
+          color: isDarkMode ? GOLD : WHITESMOKE,
           fontFamily: "Quicksand"
         }}
       >
@@ -54,7 +47,7 @@ const Splash = ({ width, height }) => (
           <Typography
             variant="h2"
             style={{
-              color: "#f2f2f2",
+              color: isDarkMode ? GOLD : WHITESMOKE,
               fontFamily: "Quicksand"
             }}
           >
@@ -66,7 +59,7 @@ const Splash = ({ width, height }) => (
             <Typography
               variant="caption"
               style={{
-                color: "#f2f2f2",
+                color: isDarkMode ? GOLD : WHITESMOKE,
                 fontFamily: "Quicksand"
               }}
             >
@@ -82,7 +75,8 @@ const Splash = ({ width, height }) => (
 const propMap = {
   visited: selectVisited,
   height: selectWindowHeight,
-  width: selectWindowWidth
+  width: selectWindowWidth,
+  isDarkMode: selectIsDarkMode
 };
 
 const actionMap = {
@@ -91,7 +85,6 @@ const actionMap = {
 
 export default compose(
   mapper(propMap, actionMap),
-  withStyles(styles),
   lifecycle({
     componentDidMount() {
       const { visited, setVisited } = this.props;

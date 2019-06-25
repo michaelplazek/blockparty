@@ -12,6 +12,7 @@ import {
   PASSWORD_CONFIRM,
   USERNAME
 } from "../../constants/validation";
+import {GOLD} from "../../constants/colors";
 
 const styles = () => ({
   root: {
@@ -19,7 +20,23 @@ const styles = () => ({
   },
   submitButton: {
     marginTop: "10px"
-  }
+  },
+  label: {
+    color: `${GOLD} !important`
+  },
+  outlinedInput: {
+    '&$focused $notchedOutline': {
+      borderColor: `${GOLD} !important`,
+    },
+    color: `${GOLD} !important`
+  },
+  focused: {
+    color: GOLD
+  },
+  notchedOutline: {
+    borderWidth: '1px',
+    borderColor: `${GOLD} !important`
+  },
 });
 
 const RegisterForm = ({
@@ -29,82 +46,111 @@ const RegisterForm = ({
   setUsername,
   setPassword,
   setPasswordConfirm,
-  onClick,
   handleSubmit,
   handleVerification,
   handleExpiration,
-  classes
-}) => (
-  <ValidatorForm
-    autoComplete="on"
-    onSubmit={handleSubmit}
-    instantValidate={false}
-  >
-    <Grid
-      container
-      className={classes.root}
-      justify="center"
-      direction="column"
-      alignItems="center"
+  classes,
+  isDarkMode
+}) => {
+  const inputClasses = isDarkMode ? {
+    root: classes.outlinedInput,
+    focused: classes.focused,
+    notchedOutline: classes.notchedOutline,
+  } : {};
+  const labelClasses = isDarkMode ? {
+    root: classes.label,
+    focused: classes.focused,
+  } : {};
+  return (
+    <ValidatorForm
+      autoComplete="on"
+      onSubmit={handleSubmit}
+      instantValidate={false}
     >
-      <TextValidator
-        id="username-field"
-        name="username"
-        label="Username"
-        value={username}
-        onChange={({ target }) => setUsername(target.value)}
-        validators={USERNAME.VALIDATORS}
-        errorMessages={USERNAME.MESSAGES}
-        margin="dense"
-        variant="outlined"
-      />
-      <br />
-      <TextValidator
-        id="password-field"
-        name="password"
-        type="password"
-        label="Password"
-        value={password}
-        onChange={({ target }) => setPassword(target.value)}
-        validators={PASSWORD.VALIDATORS}
-        errorMessages={PASSWORD.MESSAGES}
-        margin="dense"
-        variant="outlined"
-      />
-      <TextValidator
-        id="password-field-confirm"
-        name="confirmPassword"
-        type="password"
-        label="Confirm password"
-        value={passwordConfirm}
-        onChange={({ target }) => setPasswordConfirm(target.value)}
-        validators={PASSWORD_CONFIRM.VALIDATORS}
-        errorMessages={PASSWORD_CONFIRM.MESSAGES}
-        margin="dense"
-        variant="outlined"
-      />
-      <br />
-      <Grid item>
-        <Recaptcha
-          sitekey="6LfFsn8UAAAAAHTnG7NwOVTX9pD4H63_6F6bY1Jj"
-          render="explicit"
-          verifyCallback={handleVerification}
-          expiredCallback={handleExpiration}
-          size="compact"
-        />
-      </Grid>
-      <br />
-      <Button
-        className="submitButton"
-        variant="contained"
-        color="primary"
-        type="submit"
+      <Grid
+        container
+        className={classes.root}
+        justify="center"
+        direction="column"
+        alignItems="center"
       >
-        Submit
-      </Button>
-    </Grid>
-  </ValidatorForm>
-);
+        <TextValidator
+          id="username-field"
+          name="username"
+          label="Username"
+          value={username}
+          InputProps={{
+            classes: inputClasses,
+          }}
+          InputLabelProps={{
+            classes: labelClasses,
+          }}
+          onChange={({ target }) => setUsername(target.value)}
+          validators={USERNAME.VALIDATORS}
+          errorMessages={USERNAME.MESSAGES}
+          margin="dense"
+          variant="outlined"
+        />
+        <br />
+        <TextValidator
+          id="password-field"
+          name="password"
+          type="password"
+          label="Password"
+          value={password}
+          InputProps={{
+            classes: inputClasses,
+          }}
+          InputLabelProps={{
+            classes: labelClasses,
+          }}
+          onChange={({ target }) => setPassword(target.value)}
+          validators={PASSWORD.VALIDATORS}
+          errorMessages={PASSWORD.MESSAGES}
+          margin="dense"
+          variant="outlined"
+        />
+        <TextValidator
+          id="password-field-confirm"
+          name="confirmPassword"
+          type="password"
+          label="Confirm password"
+          value={passwordConfirm}
+          InputProps={{
+            classes: inputClasses,
+          }}
+          InputLabelProps={{
+            classes: labelClasses,
+          }}
+          onChange={({ target }) => setPasswordConfirm(target.value)}
+          validators={PASSWORD_CONFIRM.VALIDATORS}
+          errorMessages={PASSWORD_CONFIRM.MESSAGES}
+          margin="dense"
+          variant="outlined"
+        />
+        <br />
+        <Grid item>
+          <Recaptcha
+            sitekey="6LfFsn8UAAAAAHTnG7NwOVTX9pD4H63_6F6bY1Jj"
+            render="explicit"
+            verifyCallback={handleVerification}
+            expiredCallback={handleExpiration}
+            size="compact"
+          />
+        </Grid>
+        <br />
+        <Button
+          className="submitButton"
+          variant="contained"
+          color={isDarkMode ? 'secondary' : 'primary'}
+          type="submit"
+        >
+          Submit
+        </Button>
+      </Grid>
+    </ValidatorForm>
+  )
+};
 
 export default compose(
   withStyles(styles),

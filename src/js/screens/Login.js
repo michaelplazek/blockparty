@@ -2,7 +2,6 @@ import React from "react";
 import { compose, withHandlers } from "recompose";
 import { withRouter } from "react-router-dom";
 
-import withStyles from "@material-ui/core/styles/withStyles";
 import LoginForm from "../components/LoginForm";
 import Grid from "@material-ui/core/Grid/Grid";
 import Typography from "@material-ui/core/Typography/Typography";
@@ -13,23 +12,20 @@ import Button from "@material-ui/core/Button/Button";
 import withSplash from "../HOCs/withSplash";
 import Fade from "@material-ui/core/Fade";
 import {getMode as getModeAction, setNavIndex} from "../actions/app";
-import {selectModeLoaded, selectUserId} from "../selectors";
+import {selectIsDarkMode, selectModeLoaded, selectUserId} from "../selectors";
+import {COLBALT, WHITE} from "../constants/colors";
 
-const styles = () => ({
-  root: {
-    background: "white",
-    height: "100vh",
-    padding: "20px"
-  },
-  signUpText: {
-    marginRight: "20px",
-    align: "right",
-    cursor: "pointer"
-  }
-});
-
-const Login = ({ handleLogIn, classes, history }) => (
-  <Grid className={classes.root} container justify="center" direction="column">
+const Login = ({ handleLogIn, history, isDarkMode }) => (
+  <Grid
+    container
+    justify="center"
+    direction="column"
+    style={{
+      background: isDarkMode ? COLBALT : WHITE,
+      height: "100vh",
+      padding: "20px"
+    }}
+  >
     <Fade
       in={true}
       timeout={{
@@ -38,17 +34,18 @@ const Login = ({ handleLogIn, classes, history }) => (
     >
       <Grid item>
         <Grid container direction="column" justify="center">
-          <Typography align="center" variant="display1">
+          <Typography color={isDarkMode ? 'textSecondary' : undefined} align="center" variant="display1">
             Log In
           </Typography>
-          <LoginForm onClick={handleLogIn} />
+          <LoginForm isDarkMode={isDarkMode} onClick={handleLogIn} />
         </Grid>
-        <Typography className="signUpText" align="right">
+        <Typography color={isDarkMode ? 'textSecondary' : undefined} className="signUpText" align="right">
           or,{" "}
           <Button
             className="signUpLink"
             onClick={() => history.push("/register")}
             variant="text"
+            color={isDarkMode ? 'inherit' : undefined}
           >
             sign up for account
           </Button>
@@ -60,7 +57,8 @@ const Login = ({ handleLogIn, classes, history }) => (
 
 const propMap = {
   modeLoaded: selectModeLoaded,
-  userId: selectUserId
+  userId: selectUserId,
+  isDarkMode: selectIsDarkMode
 };
 
 const actionMap = {
@@ -70,7 +68,6 @@ const actionMap = {
 };
 
 export default compose(
-  withStyles(styles),
   withRouter,
   mapper(propMap, actionMap),
   withHandlers({
