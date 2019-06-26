@@ -156,7 +156,12 @@ const OfferDetails = ({
                 Delete Offer
               </Button>
             </div>
-            <Typography className={classes.time}>Posted {time}</Typography>
+            <Typography
+              color={isDarkMode ? 'textSecondary' : undefined}
+              className={classes.time}
+            >
+              Posted {time}
+            </Typography>
           </Grid>
         </Grid>
       </Grid>
