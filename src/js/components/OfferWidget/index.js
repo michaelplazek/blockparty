@@ -1,5 +1,5 @@
 import React from "react";
-import { compose, withState } from "recompose";
+import { compose } from "recompose";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Paper from "@material-ui/core/Paper/Paper";
 import Grid from "@material-ui/core/Grid/Grid";

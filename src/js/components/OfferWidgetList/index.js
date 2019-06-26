@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import moment from "moment";
-import {withHandlers, compose, withState, lifecycle} from "recompose";
+import {withHandlers, compose, withState} from "recompose";
 import mapper from "../../utils/connect";
 
 import OfferWidget from "../OfferWidget/index";
