@@ -32,14 +32,14 @@ const OfferWidget = ({
   coin,
   username,
   time,
-  open,
-  setOpen,
   handleAccept,
   handleDecline,
   onUserClick,
-  isDarkMode
+  isDarkMode,
+  open,
+  setOpen
 }) => (
-  <div onClick={() => setOpen(!open)}>
+  <div onClick={setOpen}>
     <Paper
       elevation={1}
       style={{
@@ -140,5 +140,4 @@ const OfferWidget = ({
 
 export default compose(
   withStyles(styles),
-  withState("open", "setOpen", false)
 )(OfferWidget);
