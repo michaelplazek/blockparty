@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import moment from "moment";
-import { withHandlers, compose } from "recompose";
+import {withHandlers, compose, withState} from "recompose";
 import mapper from "../../utils/connect";
 
 import OfferWidget from "../OfferWidget/index";
@@ -33,7 +33,9 @@ const OfferWidgetList = ({
   handleAccept,
   handleDecline,
   handleUserClick,
-  isDarkMode
+  isDarkMode,
+  open,
+  handleOpen,
 }) => (
   <Tile
     color={isDarkMode ? COLBALT : undefined}
@@ -46,6 +48,8 @@ const OfferWidgetList = ({
         <Fragment key={`${item.username}-${item.timestamp}`}>
           {modal === "VIEW_USER_DETAILS" && <UserInfo id={item.userId} />}
           <OfferWidget
+            open={open[index]}
+            setOpen={() => handleOpen(index)}
             isDarkMode={isDarkMode}
             key={`${item.volume}-${index}`}
             total={getTotal(post.price, item.volume)}
@@ -89,6 +93,7 @@ const actionMap = {
 
 export default compose(
   mapper(propMap, actionMap),
+  withState('open', 'setOpen', [true]),
   withHandlers({
     handleAccept: ({
       userId,
@@ -143,6 +148,10 @@ export default compose(
       setModal("VIEW_USER_DETAILS");
       setModalOpen(true);
       e.stopPropagation();
+    },
+    handleOpen: ({ setOpen, offers }) => (offerIndex) => {
+      const items = offers.map((_, index) => index === offerIndex);
+      setOpen(items);
     }
-  })
+  }),
 )(OfferWidgetList);

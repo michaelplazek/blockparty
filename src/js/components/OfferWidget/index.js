@@ -1,5 +1,5 @@
 import React from "react";
-import { compose, withState } from "recompose";
+import { compose } from "recompose";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Paper from "@material-ui/core/Paper/Paper";
 import Grid from "@material-ui/core/Grid/Grid";
@@ -32,14 +32,14 @@ const OfferWidget = ({
   coin,
   username,
   time,
-  open,
-  setOpen,
   handleAccept,
   handleDecline,
   onUserClick,
-  isDarkMode
+  isDarkMode,
+  open,
+  setOpen
 }) => (
-  <div onClick={() => setOpen(!open)}>
+  <div onClick={setOpen}>
     <Paper
       elevation={1}
       style={{
@@ -140,5 +140,4 @@ const OfferWidget = ({
 
 export default compose(
   withStyles(styles),
-  withState("open", "setOpen", false)
 )(OfferWidget);

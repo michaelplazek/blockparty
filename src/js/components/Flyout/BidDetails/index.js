@@ -96,7 +96,12 @@ const DeleteBid = ({
                 Delete Bid
               </Button>
             </div>
-            <Typography className={classes.time}>Posted {time}</Typography>
+            <Typography
+              className={classes.time}
+              color={isDarkMode ? "textSecondary" : undefined}
+            >
+              Posted {time}
+            </Typography>
           </Grid>
         </Grid>
       </Grid>

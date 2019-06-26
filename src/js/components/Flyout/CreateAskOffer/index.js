@@ -42,7 +42,7 @@ import {
   setNotification
 } from "../../../actions/app";
 import { getIndexFromPath } from "../../../utils/location";
-import { DARK_GREEN } from "../../../constants/colors";
+import {DARK_GREEN, GOLD, WHITE} from "../../../constants/colors";
 
 const styles = theme => ({
   root: {
@@ -57,7 +57,13 @@ const styles = theme => ({
   },
   resetContainer: {
     padding: theme.spacing.unit * 3
-  }
+  },
+  completed: {
+    color: `${WHITE} !important`
+  },
+  active: {
+    color: `${GOLD} !important`
+  },
 });
 
 const CreateAskOffer = ({
@@ -69,75 +75,87 @@ const CreateAskOffer = ({
   resetOffer,
   handleError,
   isDarkMode
-}) => (
-  <Flyout
-    onClose={() => {
-      resetOffer();
-      setActiveIndex(0);
-    }}
-    size={8}
-    title="Make an offer to buy"
-  >
-    <Grid className={classes.root}>
-      <Stepper
-        activeStep={activeIndex}
-        orientation="vertical"
-        style={{
-          background: isDarkMode ? DARK_GREEN : undefined
-        }}
-      >
-        {STEPS.map((step, index) => {
-          return (
-            <Step key={index}>
-              <StepLabel>{step}</StepLabel>
-              <StepContent>
-                <ValidatorForm
-                  autoComplete="on"
-                  onSubmit={handleNext}
-                  onError={handleError}
-                  instantValidate={false}
-                >
-                  <Content index={index} />
-                  <div className={classes.actionsContainer}>
-                    <div>
-                      <Button
-                        disabled={activeIndex === 0}
-                        onClick={handleBack}
-                        className={classes.button}
-                      >
-                        Back
-                      </Button>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        type="submit"
-                        className={classes.button}
-                      >
-                        {activeIndex === STEPS.length - 1 ? "Finish" : "Next"}
-                      </Button>
-                    </div>
-                  </div>
-                </ValidatorForm>
-              </StepContent>
-            </Step>
-          );
-        })}
-      </Stepper>
-      {activeIndex === STEPS.length && (
-        <Paper
-          square
-          elevation={0}
-          className={classes.resetContainer}
+}) => {
+  const stepClasses = isDarkMode ? {
+    completed: classes.completed,
+    active: classes.active
+  } : {};
+  return (
+    <Flyout
+      onClose={() => {
+        resetOffer();
+        setActiveIndex(0);
+      }}
+      size={8}
+      title="Make an offer to buy"
+    >
+      <Grid className={classes.root}>
+        <Stepper
+          activeStep={activeIndex}
+          orientation="vertical"
           style={{
-            background: isDarkMode ? DARK_GREEN : undefined
+            background: isDarkMode ? DARK_GREEN : undefined,
           }}
         >
-          <Typography color={isDarkMode ? 'textSecondary' : undefined}>Offer successfully created.</Typography>
-        </Paper>
-      )}
-    </Grid>
-  </Flyout>
-);
+          {STEPS.map((step, index) => {
+            return (
+              <Step
+                key={index}
+              >
+                <StepLabel
+                  classes={stepClasses}
+                >
+                  {step}
+                </StepLabel>
+                <StepContent>
+                  <ValidatorForm
+                    autoComplete="on"
+                    onSubmit={handleNext}
+                    onError={handleError}
+                    instantValidate={false}
+                  >
+                    <Content index={index} />
+                    <div className={classes.actionsContainer}>
+                      <div>
+                        <Button
+                          disabled={activeIndex === 0}
+                          onClick={handleBack}
+                          className={classes.button}
+                        >
+                          Back
+                        </Button>
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          type="submit"
+                          className={classes.button}
+                        >
+                          {activeIndex === STEPS.length - 1 ? "Finish" : "Next"}
+                        </Button>
+                      </div>
+                    </div>
+                  </ValidatorForm>
+                </StepContent>
+              </Step>
+            );
+          })}
+        </Stepper>
+        {activeIndex === STEPS.length && (
+          <Paper
+            square
+            elevation={0}
+            className={classes.resetContainer}
+            style={{
+              background: isDarkMode ? DARK_GREEN : undefined
+            }}
+          >
+            <Typography color={isDarkMode ? 'textSecondary' : undefined}>Offer successfully created.</Typography>
+          </Paper>
+        )}
+      </Grid>
+    </Flyout>
+  );
+};
 
 CreateAskOffer.propTypes = {
   handleSubmit: PropTypes.func.isRequired,

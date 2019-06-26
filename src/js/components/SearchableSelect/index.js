@@ -11,7 +11,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Downshift from "downshift";
 import Paper from "@material-ui/core/Paper";
 import { withStyles } from "@material-ui/core";
-import { WHITE } from "../../constants/colors";
+import {GOLD, WHITE} from "../../constants/colors";
 import mapper from "../../utils/connect";
 import { selectIsDarkMode } from "../../selectors";
 
@@ -24,7 +24,7 @@ function renderInput(inputProps, isDarkMode) {
         inputRef: ref,
         classes: {
           root: classes.inputRoot,
-          input: classes.inputInput
+          input: classes.inputInput,
         },
         ...InputProps,
         style: {
@@ -108,6 +108,9 @@ const styles = () => ({
   },
   divider: {
     height: "1em"
+  },
+  focused: {
+    color: `${GOLD} !important`
   }
 });
 
@@ -165,7 +168,10 @@ const SearchableSelect = ({
               fullWidth: true,
               classes,
               label: "Coin",
-              InputLabelProps: getLabelProps({ shrink: true }),
+              InputLabelProps: getLabelProps({
+                shrink: true,
+                classes: { focused: isDarkMode ? classes.focused : {} }
+              }),
               InputProps: { onBlur, onChange, onFocus },
               inputProps
             },
