@@ -82,13 +82,20 @@ const ListHeaderBase = () => (
   </ListItem>
 );
 
-const ListTitleBase = ({ title }) => (
+const ListTitleBase = ({ title, isDarkMode }) => (
   <ListItem dense={true} divider={false}>
     <Grid container justify="center">
       <Grid item>
         <ListItemText
           disableTypography
-          primary={<Typography variant="subtitle2">{title}</Typography>}
+          primary={
+            <Typography
+              variant="subtitle2"
+              color={isDarkMode ? 'textSecondary' : undefined}
+            >
+              {title}
+            </Typography>
+          }
         />
       </Grid>
     </Grid>
@@ -120,7 +127,7 @@ const OrderList = ({
       <Grid container direction="row" justify='center'>
         <Grid item>
           <Grid container direction="column">
-            <OrderListTitle title="Bids" />
+            <OrderListTitle isDarkMode={isDarkMode} title="Bids" />
             <OrderListHeader />
             {bids.map(item => (
               <OrderListItem
@@ -135,7 +142,7 @@ const OrderList = ({
         </Grid>
         <Grid item className={classes.list}>
           <Grid container direction="column">
-            <OrderListTitle title="Asks" />
+            <OrderListTitle isDarkMode={isDarkMode} title="Asks" />
             <OrderListHeader />
             {asks.map(item => (
               <OrderListItem
