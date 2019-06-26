@@ -38,7 +38,7 @@ import { resetBid as resetBidAction } from "../../../actions/createBid";
 import { ValidatorForm } from "react-material-ui-form-validator";
 import { cleanInputs } from "../../../constants/validation";
 import {
-  DARK_GREEN,
+  DARK_GREEN, GOLD,
   WHITE
 } from "../../../constants/colors";
 
@@ -52,7 +52,13 @@ const styles = theme => ({
   },
   resetContainer: {
     padding: theme.spacing.unit * 3
-  }
+  },
+  completed: {
+    color: `${WHITE} !important`
+  },
+  active: {
+    color: `${GOLD} !important`
+  },
 });
 
 const CreateBid = ({
@@ -64,85 +70,91 @@ const CreateBid = ({
   resetBid,
   handleError,
   isDarkMode
-}) => (
-  <Flyout
-    onClose={() => {
-      resetBid();
-      setActiveIndex(0);
-    }}
-    size={8}
-    title="Create new bid"
-  >
-    <Grid
-      style={{
-        margin: "30px"
+}) => {
+  const stepClasses = isDarkMode ? {
+    completed: classes.completed,
+    active: classes.active
+  } : {};
+  return (
+    <Flyout
+      onClose={() => {
+        resetBid();
+        setActiveIndex(0);
       }}
+      size={8}
+      title="Create new bid"
     >
-      <Typography variant="caption">
-        Please note that there is a limit of one bid <b>per coin</b> at any
-        time.
-      </Typography>
-      <Stepper
-        activeStep={activeIndex}
-        orientation="vertical"
+      <Grid
         style={{
-          background: isDarkMode ? DARK_GREEN : WHITE
+          margin: "30px"
         }}
       >
-        {STEPS.map((step, index) => {
-          return (
-            <Step key={index}>
-              <StepLabel>{step}</StepLabel>
-              <StepContent>
-                <ValidatorForm
-                  autoComplete="on"
-                  onSubmit={handleNext}
-                  onError={handleError}
-                  instantValidate={false}
-                >
-                  <Content index={index} />
-                  <div className={classes.actionsContainer}>
-                    <div>
-                      <Button
-                        disabled={activeIndex === 0}
-                        onClick={handleBack}
-                        className={classes.button}
-                      >
-                        Back
-                      </Button>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        type="submit"
-                        className={classes.button}
-                      >
-                        {activeIndex === STEPS.length - 1 ? "Finish" : "Next"}
-                      </Button>
-                    </div>
-                  </div>
-                </ValidatorForm>
-              </StepContent>
-            </Step>
-          );
-        })}
-      </Stepper>
-      {activeIndex === STEPS.length && (
-        <Paper
-          square
-          elevation={0}
-          className={classes.resetContainer}
+        <Typography variant="caption">
+          Please note that there is a limit of one bid <b>per coin</b> at any
+          time.
+        </Typography>
+        <Stepper
+          activeStep={activeIndex}
+          orientation="vertical"
           style={{
-            background: isDarkMode ? DARK_GREEN : undefined
+            background: isDarkMode ? DARK_GREEN : WHITE
           }}
         >
-          <Typography color={isDarkMode ? "textSecondary" : undefined}>
-            Bid successfully created.
-          </Typography>
-        </Paper>
-      )}
-    </Grid>
-  </Flyout>
-);
+          {STEPS.map((step, index) => {
+            return (
+              <Step key={index}>
+                <StepLabel classes={stepClasses}>{step}</StepLabel>
+                <StepContent>
+                  <ValidatorForm
+                    autoComplete="on"
+                    onSubmit={handleNext}
+                    onError={handleError}
+                    instantValidate={false}
+                  >
+                    <Content index={index} />
+                    <div className={classes.actionsContainer}>
+                      <div>
+                        <Button
+                          disabled={activeIndex === 0}
+                          onClick={handleBack}
+                          className={classes.button}
+                        >
+                          Back
+                        </Button>
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          type="submit"
+                          className={classes.button}
+                        >
+                          {activeIndex === STEPS.length - 1 ? "Finish" : "Next"}
+                        </Button>
+                      </div>
+                    </div>
+                  </ValidatorForm>
+                </StepContent>
+              </Step>
+            );
+          })}
+        </Stepper>
+        {activeIndex === STEPS.length && (
+          <Paper
+            square
+            elevation={0}
+            className={classes.resetContainer}
+            style={{
+              background: isDarkMode ? DARK_GREEN : undefined
+            }}
+          >
+            <Typography color={isDarkMode ? "textSecondary" : undefined}>
+              Bid successfully created.
+            </Typography>
+          </Paper>
+        )}
+      </Grid>
+    </Flyout>
+  );
+};
 
 const propMap = {
   coin: selectBidFormCoin,
