@@ -18,7 +18,6 @@ const Placeholder = ({ label, buttonLabel, action, top, isDarkMode }) => (
       <Grid container direction="column" alignItems="center">
         <Grid item>
           <Typography
-            // variant="subheading"
             color={isDarkMode ? 'textSecondary' : undefined}
           >
             {label}

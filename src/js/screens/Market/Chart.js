@@ -96,7 +96,7 @@ const Chart = ({
       <Grid
         justify='center'
         align='center'
-        style={{ margin: '20px' }}
+        style={{ marginLeft: '20px', marginRight: '20px' }}
       >
           <Placeholder
             label="There are no posts in your area. Try adjusting your filters or go to the Dashboard to create a new post."

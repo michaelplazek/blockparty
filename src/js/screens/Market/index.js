@@ -95,12 +95,12 @@ class Market extends Component {
           rightHandAction={() => history.push('/login')}
         />
         <Chart
-          height={(windowHeight - navHeight - headerHeight) / 2}
+          height={(windowHeight - navHeight - headerHeight) * 0.33}
           markerLocation={navHeight}
           width={windowWidth}
         />
         <ListIcon
-          height={(windowHeight - navHeight - headerHeight) / 2}
+          height={((windowHeight - navHeight - headerHeight) * 0.66)}
           openList={handleOpenList}
         />
         <GoogleMapsWrapper
@@ -111,7 +111,7 @@ class Market extends Component {
           showCenterIcon={true}
           markers={markers}
           onMarkerClick={handleMarkerClick}
-          height={(windowHeight - navHeight - headerHeight) / 2}
+          height={(windowHeight - navHeight - headerHeight) * 0.66}
           navHeight={navHeight}
           windowHeight={windowHeight}
           isDarkMode={isDarkMode}
