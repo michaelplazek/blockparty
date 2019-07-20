@@ -658,3 +658,4 @@ export const selectUser = state => state.users.user;
 export const selectRun = state => state.app.run;
 export const selectQR = state => state.metrics.QR;
 export const selectNavigationItems = () => navigation;
+export const selectPostLoginPath = state => state.session.postLoginPath;

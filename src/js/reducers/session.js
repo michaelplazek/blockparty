@@ -8,7 +8,9 @@ import {
   CURRENT_LOCATION_LOAD,
   SET_CURRENT_LOCATION,
   UPDATE_USER,
-  DELETE_USER
+  DELETE_USER,
+  SET_POST_LOGIN_PATH,
+  CLEAR_POST_LOGIN_PATH,
 } from "../actions";
 
 const initialState = {
@@ -31,7 +33,8 @@ const initialState = {
     lat: 40.564714,
     lng: -105.09065
   },
-  locationLoaded: false
+  locationLoaded: false,
+  postLoginPath: '',
 };
 
 const handlers = {
@@ -88,6 +91,12 @@ const handlers = {
   }),
   [SESSION_LOAD]: () => ({
     sessionLoaded: true
+  }),
+  [SET_POST_LOGIN_PATH]: (state, action) => ({
+    postLoginPath: action.data
+  }),
+  [CLEAR_POST_LOGIN_PATH]: () => ({
+    postLoginPath: initialState.postLoginPath
   }),
   [LOG_OUT]: () => ({ ...initialState }),
   [DELETE_USER]: () => ({ ...initialState })

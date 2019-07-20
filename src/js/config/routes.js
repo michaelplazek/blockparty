@@ -16,35 +16,35 @@ export const protectedRoutes = [
     exact: false,
     protected: true,
     component: Policy,
-    index: 2
+    index: 0
   },
   {
     path: "/dashboard",
     exact: true,
     protected: true,
     component: Dashboard,
-    index: 3
+    index: 1
   },
   {
     path: "/account",
     exact: false,
     protected: true,
     component: Account,
-    index: 4
+    index: 2
   },
   {
     path: "/settings",
     exact: false,
     protected: true,
     component: Settings,
-    index: 6
+    index: 3
   },
   {
     path: "/policy",
     exact: false,
     protected: true,
     component: Policy,
-    index: 7
+    index: 4
   }
 ];
 
@@ -54,42 +54,42 @@ export const unprotectedRoutes = [
     exact: true,
     protected: false,
     component: Market,
-    index: 8
+    index: 5
   },
   {
     path: "/bid",
     exact: false,
     protected: false,
     component: Bid,
-    index: 5
+    index: 6
   },
   {
     path: "/ask",
     exact: false,
     protected: false,
     component: Ask,
-    index: 1
+    index: 7
   },
   {
     path: "/register",
     exact: false,
     protected: false,
     component: Register,
-    index: 9
+    index: 8
   },
   {
     path: "/login",
     exact: false,
     protected: false,
     component: Login,
-    index: 10
+    index: 9
   },
   {
     path: "*",
     exact: true,
     protected: true,
     component: Oops,
-    index: 11
+    index: 10
   },
 ];
 

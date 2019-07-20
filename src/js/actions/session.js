@@ -9,7 +9,7 @@ import {
   CURRENT_LOCATION_LOAD,
   UPDATE_USER,
   DELETE_USER,
-  SET_CURRENT_LOCATION
+  SET_CURRENT_LOCATION, SET_POST_LOGIN_PATH, CLEAR_POST_LOGIN_PATH
 } from "./index";
 import { getIndexFromPath } from "../utils/location";
 
@@ -99,3 +99,9 @@ export const updateUser = data => dispatch => {
     dispatch({ type: UPDATE_USER, data: response });
   });
 };
+
+export const setPostLoginPath = path => dispatch =>
+  dispatch({ type: SET_POST_LOGIN_PATH, data: path });
+
+export const clearPostLoginPath = () => dispatch =>
+  dispatch({ type: CLEAR_POST_LOGIN_PATH });
