@@ -81,12 +81,11 @@ const CreateBid = ({
         resetBid();
         setActiveIndex(0);
       }}
-      size={8}
       title="Create new bid"
     >
       <Grid
         style={{
-          margin: "30px"
+          margin: "30px",
         }}
       >
         <Typography variant="caption">
@@ -97,7 +96,7 @@ const CreateBid = ({
           activeStep={activeIndex}
           orientation="vertical"
           style={{
-            background: isDarkMode ? DARK_GREEN : WHITE
+            background: isDarkMode ? DARK_GREEN : WHITE,
           }}
         >
           {STEPS.map((step, index) => {

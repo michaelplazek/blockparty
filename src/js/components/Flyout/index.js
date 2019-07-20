@@ -41,12 +41,10 @@ const styles = () => ({
 const Flyout = ({
   classes,
   height,
-  width,
   children,
   open,
   setLayerOpen,
   setLayer,
-  size,
   onClose,
   title,
   direction,
@@ -64,7 +62,7 @@ const Flyout = ({
       <div
         style={{
           height: height,
-          width: `${width - width / size}px`,
+          width: '20em',
           position: "absolute",
           left: 0,
           background: isDarkMode ? DARK_GREEN : WHITE

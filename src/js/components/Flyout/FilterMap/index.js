@@ -73,7 +73,7 @@ const FilterMap = ({
 }) => {
   const labelClasses = isDarkMode ? { focused: classes.focused } : {};
   return (
-    <Flyout size={5}>
+    <Flyout>
       <Grid className={classes.root}>
         <ValidatorForm autoComplete="on" onSubmit={handleSubmit}>
           <FormControl margin="dense" fullWidth={true}>
