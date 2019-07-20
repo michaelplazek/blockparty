@@ -85,7 +85,7 @@ export const logOutUser = () => dispatch => {
   wrappedFetch("users/logout", undefined, "POST").then(() => {
     removeSession();
     dispatch({ type: LOG_OUT });
-  });
+  })
 };
 
 export const deleteUser = id => dispatch => {

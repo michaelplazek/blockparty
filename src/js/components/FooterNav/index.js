@@ -16,7 +16,7 @@ import Tabs from "@material-ui/core/Tabs/Tabs";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Tab from "@material-ui/core/Tab/Tab";
 import {
-  selectIsDarkMode,
+  selectIsDarkMode, selectIsLoggedIn,
   selectMarketView,
   selectNavigationItems,
   selectNavIndex
@@ -106,6 +106,7 @@ class FooterNavBase extends Component {
                 key={item.index}
                 component={Link}
                 to={item.path}
+                disabled={!this.props.loggedIn && item.protected}
               />
             ))}
           </Tabs>
@@ -124,6 +125,7 @@ const propMap = {
   index: selectNavIndex,
   isDarkMode: selectIsDarkMode,
   navigation: selectNavigationItems,
+  loggedIn: selectIsLoggedIn
 };
 
 const actionMap = {
