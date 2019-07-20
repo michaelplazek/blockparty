@@ -57,7 +57,6 @@ const CreateBidContent = ({
   contactInfo,
   lat,
   lng,
-  width,
   useCurrentLocation,
   handleDrag,
   handleToggle,
@@ -197,7 +196,6 @@ const CreateBidContent = ({
               showLabels={false}
               markers={[{ id: 0, lat, lng }]}
               height="10em"
-              width={`${width / 2}px`}
               position="relative"
               onDrag={coords => handleDrag(coords)}
               currentLocation={currentLocation}

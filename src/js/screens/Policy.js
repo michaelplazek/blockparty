@@ -23,7 +23,7 @@ const styles = () => ({
 });
 
 const Policy = ({ history, classes, isDarkMode }) => (
-  <div className={classes.root}>
+  <Grid className={classes.root}>
     <Grid container direction="column">
       <Grid item className={classes.backButton}>
         <Button
@@ -45,7 +45,8 @@ const Policy = ({ history, classes, isDarkMode }) => (
           </Grid>
         </Grid>
       </Grid>
-      <Grid item>
+      <Grid align='center'>
+      <Grid item sm={8} lg={6} xl={4}>
         <Typography variant="caption">
           Blockparty is global platform free and open to use. No guarantees are
           expressed or implied with the use of Blockparty. It is your
@@ -56,7 +57,7 @@ const Policy = ({ history, classes, isDarkMode }) => (
           free of any and all liabilities or malfeasance.
         </Typography>
       </Grid>
-      <Grid item className={classes.body2}>
+      <Grid item className={classes.body2} sm={8} lg={6} xl={4}>
         <Typography variant="caption">
           Use common sense. Blockparty is an application for meeting strangers
           on the internet. Plan for the worst. These people are potentially
@@ -69,8 +70,9 @@ const Policy = ({ history, classes, isDarkMode }) => (
           only as a bell weather.
         </Typography>
       </Grid>
+      </Grid>
     </Grid>
-  </div>
+  </Grid>
 );
 
 const propMap = {

@@ -39,7 +39,7 @@ const styles = () => ({
 const TransactionTile = ({ classes, item, onClick, isDarkMode }) => {
   const theme = isDarkMode ? dark : light;
   return (
-    <div>
+    <Grid>
       <Paper
         style={{
           background: isDarkMode ? COLBALT : undefined,
@@ -110,7 +110,7 @@ const TransactionTile = ({ classes, item, onClick, isDarkMode }) => {
           />
         </ListItem>
       </Paper>
-    </div>
+    </Grid>
   );
 };
 

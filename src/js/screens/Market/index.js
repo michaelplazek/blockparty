@@ -19,7 +19,9 @@ import {
   selectInitialLocation,
   selectModal,
   selectListOpen,
-  selectIsDarkMode, selectUserId
+  selectIsDarkMode,
+  selectUserId,
+  selectIsLoggedIn
 } from "../../selectors";
 import { loadAsks as loadAsksAction } from "../../actions/asks";
 import { loadBids as loadBidsAction } from "../../actions/bids";
@@ -51,7 +53,10 @@ import withVisited from "../../HOCs/withVisited";
 import { isVisited, marketSteps, tourStyle } from "../../config/tour";
 import Tooltip from "../../components/TourTooltip";
 import Welcome from "../../components/Modal/Welcome";
-import { setCurrentLocation as setCurrentLocationAction } from "../../actions/session";
+import {
+  setCurrentLocation as setCurrentLocationAction,
+  setPostLoginPath as setPostLoginPathAction
+} from "../../actions/session";
 import ListIcon from "./ListIcon";
 import Orders from "../../components/Flyout/Orders";
 import withNav from "../../HOCs/withNav";
@@ -73,12 +78,15 @@ class Market extends Component {
       currentLocation,
       initialLocation,
       handleBoundsChanged,
+      setPostLoginPath,
       handleCallback,
       handleOpenList,
       layer,
       run,
       modal,
-      isDarkMode
+      isDarkMode,
+      history,
+      loggedIn,
     } = this.props;
 
     return (
@@ -90,14 +98,19 @@ class Market extends Component {
           leftHandLabel="Market"
           showSubheader={true}
           subheader={<Subheader />}
+          rightHandButton={!loggedIn ? "Sign In" : undefined}
+          rightHandAction={() => {
+            setPostLoginPath('/');
+            history.push('/login');
+          }}
         />
         <Chart
-          height={(windowHeight - navHeight - headerHeight) / 2}
+          height={(windowHeight - navHeight - headerHeight) * 0.33}
           markerLocation={navHeight}
           width={windowWidth}
         />
         <ListIcon
-          height={(windowHeight - navHeight - headerHeight) / 2}
+          height={((windowHeight - navHeight - headerHeight) * 0.66)}
           openList={handleOpenList}
         />
         <GoogleMapsWrapper
@@ -108,7 +121,7 @@ class Market extends Component {
           showCenterIcon={true}
           markers={markers}
           onMarkerClick={handleMarkerClick}
-          height={(windowHeight - navHeight - headerHeight) / 2}
+          height={(windowHeight - navHeight - headerHeight) * 0.66}
           navHeight={navHeight}
           windowHeight={windowHeight}
           isDarkMode={isDarkMode}
@@ -141,6 +154,7 @@ const propMap = {
   listOpen: selectListOpen,
   isDarkMode: selectIsDarkMode,
   userId: selectUserId,
+  loggedIn: selectIsLoggedIn,
   loaded: selectMarketLoaded // from withLoader
 };
 
@@ -155,7 +169,8 @@ const actionMap = {
   setRun: setRunAction,
   setNavIndex: setNavIndexAction,
   setCurrentLocation: setCurrentLocationAction,
-  setListOpen: setListOpenAction
+  setListOpen: setListOpenAction,
+  setPostLoginPath: setPostLoginPathAction
 };
 
 export default compose(

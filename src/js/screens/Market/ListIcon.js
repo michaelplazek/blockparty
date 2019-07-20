@@ -13,7 +13,7 @@ const ListIcon = ({ openList, windowHeight, navHeight, height, open }) => (
     style={{
       position: "absolute",
       right: "0.75em",
-      top: `${windowHeight - navHeight - height + 15}px`,
+      top: `${windowHeight - navHeight - height + 10}px`,
       zIndex: 50,
       color: "#666666",
       cursor: "pointer",

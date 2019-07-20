@@ -60,53 +60,62 @@ const LoginForm = ({
       <Grid
         container
         className={classes.root}
-        justify="center"
         direction="column"
       >
-        <TextValidator
-          id="username-field"
-          name="username"
-          label="Username"
-          value={username}
-          InputProps={{
-            classes: inputClasses,
-          }}
-          InputLabelProps={{
-            classes: labelClasses,
-          }}
-          onChange={({ target }) => setUsername(target.value)}
-          validators={USERNAME.VALIDATORS}
-          errorMessages={USERNAME.MESSAGES}
-          margin="dense"
-          variant="outlined"
-        />
-        <TextValidator
-          id="password-field"
-          name="password"
-          label="Password"
-          type="password"
-          value={password}
-          InputProps={{
-            classes: inputClasses,
-          }}
-          InputLabelProps={{
-            classes: labelClasses,
-          }}
-          onChange={({ target }) => setPassword(target.value)}
-          validators={PASSWORD.VALIDATORS}
-          errorMessages={PASSWORD.MESSAGES}
-          margin="dense"
-          variant="outlined"
-        />
+          <Grid item>
+            <TextValidator
+              id="username-field"
+              name="username"
+              label="Username"
+              value={username}
+              InputProps={{
+                classes: inputClasses,
+              }}
+              InputLabelProps={{
+                classes: labelClasses,
+              }}
+              onChange={({ target }) => setUsername(target.value)}
+              validators={USERNAME.VALIDATORS}
+              errorMessages={USERNAME.MESSAGES}
+              margin="dense"
+              variant="outlined"
+            />
+          </Grid>
+          <Grid item>
+            <TextValidator
+              id="password-field"
+              name="password"
+              label="Password"
+              type="password"
+              value={password}
+              InputProps={{
+                classes: inputClasses,
+              }}
+              InputLabelProps={{
+                classes: labelClasses,
+              }}
+              onChange={({ target }) => setPassword(target.value)}
+              validators={PASSWORD.VALIDATORS}
+              errorMessages={PASSWORD.MESSAGES}
+              margin="dense"
+              variant="outlined"
+            />
+          </Grid>
         <br />
-        <Button
-          className="submitButton"
-          variant="contained"
-          color={isDarkMode ? 'secondary' : 'primary'}
-          type="submit"
-        >
-          Submit
-        </Button>
+        <Grid item>
+          <Grid container justify='center'>
+            <Grid item>
+          <Button
+            className="submitButton"
+            variant="contained"
+            color={isDarkMode ? 'secondary' : 'primary'}
+            type="submit"
+          >
+            Submit
+          </Button>
+            </Grid>
+          </Grid>
+        </Grid>
       </Grid>
     </ValidatorForm>
   )

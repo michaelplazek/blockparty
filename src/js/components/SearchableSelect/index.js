@@ -1,7 +1,6 @@
 import React from "react";
-import { compose, withHandlers, withState } from "recompose";
+import { compose, withState } from "recompose";
 import deburr from "lodash/deburr";
-import find from "lodash/find";
 import fpFind from "lodash/fp/find";
 import defaultTo from "lodash/fp/defaultTo";
 import get from "lodash/fp/get";

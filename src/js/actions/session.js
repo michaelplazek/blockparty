@@ -9,7 +9,7 @@ import {
   CURRENT_LOCATION_LOAD,
   UPDATE_USER,
   DELETE_USER,
-  SET_CURRENT_LOCATION
+  SET_CURRENT_LOCATION, SET_POST_LOGIN_PATH, CLEAR_POST_LOGIN_PATH
 } from "./index";
 import { getIndexFromPath } from "../utils/location";
 
@@ -24,6 +24,7 @@ export const logInUser = (
   password,
   history,
   setNavIndex,
+  postLoginPath,
 ) => dispatch => {
   const user = {
     username,
@@ -36,8 +37,8 @@ export const logInUser = (
     })
     .then(() => dispatch({ type: SESSION_LOAD }))
     .then(() => {
-      setNavIndex(getIndexFromPath("/"));
-      history.push("/");
+      setNavIndex(getIndexFromPath(postLoginPath));
+      history.push(postLoginPath);
     });
 };
 
@@ -84,7 +85,7 @@ export const logOutUser = () => dispatch => {
   wrappedFetch("users/logout", undefined, "POST").then(() => {
     removeSession();
     dispatch({ type: LOG_OUT });
-  });
+  })
 };
 
 export const deleteUser = id => dispatch => {
@@ -99,3 +100,9 @@ export const updateUser = data => dispatch => {
     dispatch({ type: UPDATE_USER, data: response });
   });
 };
+
+export const setPostLoginPath = path => dispatch =>
+  dispatch({ type: SET_POST_LOGIN_PATH, data: path });
+
+export const clearPostLoginPath = () => dispatch =>
+  dispatch({ type: CLEAR_POST_LOGIN_PATH });

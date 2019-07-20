@@ -13,7 +13,8 @@ export const footerNavigation = [
     label: "Market",
     index: 0,
     className: "market-nav",
-    icon: <FontAwesomeIcon icon={faDollarSign} />
+    icon: <FontAwesomeIcon icon={faDollarSign} />,
+    protected: false,
   },
   {
     path: "/dashboard",
@@ -21,7 +22,8 @@ export const footerNavigation = [
     label: "Dashboard",
     index: 1,
     className: "dashboard-nav",
-    icon: <FontAwesomeIcon icon={faTachometerAlt} />
+    icon: <FontAwesomeIcon icon={faTachometerAlt} />,
+    protected: true,
   },
   {
     path: "/account",
@@ -29,6 +31,7 @@ export const footerNavigation = [
     label: "Account",
     index: 2,
     className: "account-nav",
-    icon: <FontAwesomeIcon icon={faUser} />
+    icon: <FontAwesomeIcon icon={faUser} />,
+    protected: true,
   }
 ];

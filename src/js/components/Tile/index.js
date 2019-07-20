@@ -31,56 +31,55 @@ const Tile = ({
   color,
   textColor,
   description,
-  className
+  className,
+  sizes
 }) => (
-  <div className={className}>
-    <Grid>
-      <Paper
-        style={{ background: color }}
-        className={classes.root}
-        elevation={2}
+  <Grid item sm={sizes.sm} lg={sizes.lg} xl={sizes.xl} className={className}>
+    <Paper
+      style={{ background: color }}
+      className={classes.root}
+      elevation={2}
+    >
+      <Grid
+        container
+        justify="space-between"
+        direction="row"
+        onClick={() => {}}
       >
-        <Grid
-          container
-          justify="space-between"
-          direction="row"
-          onClick={() => {}}
-        >
-          <Grid item>
-            <Grid container direction="row">
+        <Grid item>
+          <Grid container direction="row">
+            <Grid item>
+              <Typography color={textColor} variant="title">
+                {title}
+              </Typography>
+            </Grid>
+            {description && (
               <Grid item>
-                <Typography color={textColor} variant="title">
-                  {title}
-                </Typography>
-              </Grid>
-              {description && (
-                <Grid item>
-                  <Grid container direction="row">
-                    <Grid item className={classes.pipe}>
-                      <Typography color={textColor} variant="title">
-                        |
-                      </Typography>
-                    </Grid>
-                    <Grid item className={classes.description}>
-                      <Typography color={textColor} variant="subheading">
-                        {description}
-                      </Typography>
-                    </Grid>
+                <Grid container direction="row">
+                  <Grid item className={classes.pipe}>
+                    <Typography color={textColor} variant="title">
+                      |
+                    </Typography>
+                  </Grid>
+                  <Grid item className={classes.description}>
+                    <Typography color={textColor} variant="subheading">
+                      {description}
+                    </Typography>
                   </Grid>
                 </Grid>
-              )}
-            </Grid>
-          </Grid>
-          <Grid item>
-            <Typography color={textColor} variant="subheading">
-              {count}
-            </Typography>
+              </Grid>
+            )}
           </Grid>
         </Grid>
-        {children}
-      </Paper>
-    </Grid>
-  </div>
+        <Grid item>
+          <Typography color={textColor} variant="subheading">
+            {count}
+          </Typography>
+        </Grid>
+      </Grid>
+      {children}
+    </Paper>
+  </Grid>
 );
 
 Tile.propTypes = {

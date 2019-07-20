@@ -12,6 +12,7 @@ import mapper from "../utils/connect";
 import Button from "@material-ui/core/Button/Button";
 import {selectIsDarkMode} from "../selectors";
 import {COLBALT, WHITE} from "../constants/colors";
+import withNav from "../HOCs/withNav";
 
 const styles = () => ({
   body: {
@@ -25,15 +26,19 @@ const Register = ({ handleSignUp, classes, history, isDarkMode }) => (
       background: isDarkMode ? COLBALT : WHITE,
       height: "100vh",
       padding: "20px"
-    }}
+    }}>
+    <Button
+      onClick={() => history.goBack()}
+      color={isDarkMode ? 'secondary' : undefined}
+    >
+      Back to login
+    </Button>
+  <Grid
+    container
+    justify="center"
+    direction="column"
   >
-    <Grid>
-      <Button
-        onClick={() => history.goBack()}
-        color={isDarkMode ? 'secondary' : undefined}
-      >
-        Back to login
-      </Button>
+    <Grid item>
       <Grid
         className={classes.body}
         container
@@ -50,6 +55,7 @@ const Register = ({ handleSignUp, classes, history, isDarkMode }) => (
         </Grid>
       </Grid>
     </Grid>
+  </Grid>
   </div>
 );
 
@@ -69,5 +75,6 @@ export default compose(
     handleSignUp: ({ registerUser, history }) => (username, password) => {
       registerUser(username, password, history);
     }
-  })
+  }),
+  withNav
 )(Register);

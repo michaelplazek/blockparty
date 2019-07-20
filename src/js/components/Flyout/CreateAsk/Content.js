@@ -55,7 +55,6 @@ const CreateAskContent = ({
   formattedPrice,
   formattedVolume,
   total,
-  width,
   lat,
   lng,
   setAskPrice,
@@ -197,7 +196,6 @@ const CreateAskContent = ({
               showLabels={false}
               markers={[{ id: 0, lat, lng }]}
               height="10em"
-              width={`${width / 2}px`}
               position="relative"
               onDrag={coords => handleDrag(coords)}
               currentLocation={currentLocation}
