@@ -94,8 +94,6 @@ const Chart = ({
     )}
     {!hasData && (
       <Grid
-        justify='center'
-        align='center'
         style={{ marginLeft: '20px', marginRight: '20px' }}
       >
           <Placeholder

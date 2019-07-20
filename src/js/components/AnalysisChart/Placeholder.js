@@ -7,7 +7,8 @@ import Button from "@material-ui/core/Button";
 const Placeholder = ({ label, buttonLabel, action, top, isDarkMode }) => (
   <Grid
     container
-    justify="center"
+    align='center'
+    justify='center'
     style={{
       position: "relative",
       top: `${top}px`,
