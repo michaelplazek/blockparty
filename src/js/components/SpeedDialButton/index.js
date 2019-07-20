@@ -19,12 +19,7 @@ const SpeedDialButton = ({
     ariaLabel="Create"
     className={className}
     icon={<SpeedDialIcon openIcon={<CloseIcon />} />}
-    // onBlur={handleClose}
     onClick={handleClick}
-    // onClose={handleClose}
-    // onFocus={handleOpen}
-    // onMouseEnter={handleOpen}
-    // onMouseLeave={handleClose}
     open={open}
     ButtonProps={{
       color: isDarkMode ? "secondary" : "primary"
@@ -38,10 +33,6 @@ const SpeedDialButton = ({
         icon={action.icon}
         tooltipTitle={action.name}
         tooltipOpen
-        // onClick={() => {
-        //   action.onClick();
-        //   handleClick();
-        // }}
         ButtonProps={{
           onClick: () => {
             handleClick();
@@ -50,12 +41,21 @@ const SpeedDialButton = ({
           style: {
             color: isDarkMode ? GOLD : undefined,
             background: isDarkMode ? COLBALT : undefined
-          }
+          },
         }}
+        // Bandaid: check if we're in mobile to get around the above issue
+        onClick={
+          typeof window.orientation === 'undefined' ?
+            () => {
+              handleClick();
+              action.onClick();
+            } : undefined
+        }
       />
     ))}
   </SpeedDial>
-);
+)
+
 
 export default compose(
   withState("open", "setOpen", false),
