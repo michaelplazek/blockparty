@@ -99,7 +99,7 @@ const Chart = ({
         style={{ margin: '20px' }}
       >
           <Placeholder
-            label="There are no posts in your area. Go to the Dashboard to create a new post."
+            label="There are no posts in your area. Try adjusting your filters or go to the Dashboard to create a new post."
             top={40}
             action={() => {
               setNavIndex(1);
