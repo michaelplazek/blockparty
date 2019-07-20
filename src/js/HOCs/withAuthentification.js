@@ -25,7 +25,6 @@ export default ProtectedRoute => {
   const AuthHOC = props => {
     const path = props.history.location.pathname;
     const navigationItem = find(routes, item => item.path === path);
-    console.log(navigationItem);
     const shouldRedirect = navigationItem.protected;
     if (!props.sessionLoaded && getSession()) {
       return <Loading />;
