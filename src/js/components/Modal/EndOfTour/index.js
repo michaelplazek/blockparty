@@ -36,7 +36,7 @@ const EndOfTour = ({ classes, handleSubmit, handleClose }) => (
       </Grid>
       <Grid item className={classes.description}>
         <Typography>
-          Now that you you've seen all that Blockparty can do, feel free to get
+          Now that you've seen all that Blockparty can do, feel free to get
           started. Click <b>Enter Blockparty</b> to begin.
         </Typography>
       </Grid>

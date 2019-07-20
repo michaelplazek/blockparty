@@ -54,7 +54,6 @@ const styles = () => ({
 
 const Chart = ({
   chartData,
-  headerHeight,
   midMarketPrice,
   hasData,
   handleTouch,
