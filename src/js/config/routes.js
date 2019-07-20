@@ -11,13 +11,6 @@ import Oops from "../screens/Oops";
 
 export const protectedRoutes = [
   {
-    path: "/",
-    exact: true,
-    protected: true,
-    component: Market,
-    index: 0
-  },
-  {
     path: "/ask",
     exact: false,
     protected: true,
@@ -70,26 +63,34 @@ export const protectedRoutes = [
 
 export const unprotectedRoutes = [
   {
+    path: "/",
+    exact: true,
+    protected: false,
+    component: Market,
+    index: 8
+  },
+  {
     path: "/register",
     exact: false,
     protected: false,
     component: Register,
-    index: 8
+    index: 9
   },
   {
     path: "/login",
     exact: false,
     protected: false,
     component: Login,
-    index: 9
+    index: 10
   },
   {
     path: "*",
     exact: true,
     protected: true,
     component: Oops,
-    index: 10
-  }
+    index: 11
+  },
+
 ];
 
 export default protectedRoutes.concat(unprotectedRoutes);

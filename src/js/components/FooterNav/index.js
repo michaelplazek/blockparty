@@ -10,7 +10,6 @@ import {
   setNavHeight as setNavHeightAction,
   setNavIndex as setNavIndexAction
 } from "../../actions/app";
-import { footerNavigation as navigation } from "../../config/navigation";
 
 import AppBar from "@material-ui/core/AppBar/AppBar";
 import Tabs from "@material-ui/core/Tabs/Tabs";
@@ -19,6 +18,7 @@ import Tab from "@material-ui/core/Tab/Tab";
 import {
   selectIsDarkMode,
   selectMarketView,
+  selectNavigationItems,
   selectNavIndex
 } from "../../selectors";
 import { COLBALT } from "../../constants/colors";
@@ -48,7 +48,7 @@ class FooterNavBase extends Component {
 
   getIndexFromPath() {
     const { pathname } = this.props.history.location;
-    return get(navigation.find(item => item.path === pathname), "index");
+    return get(this.props.navigation.find(item => item.path === pathname), "index");
   }
 
   measure() {
@@ -98,7 +98,7 @@ class FooterNavBase extends Component {
               background: this.props.isDarkMode ? COLBALT : undefined
             }}
           >
-            {navigation.map(item => (
+            {this.props.navigation.map(item => (
               <Tab
                 className={item.className}
                 icon={item.icon}
@@ -122,7 +122,8 @@ FooterNavBase.propTypes = {
 const propMap = {
   view: selectMarketView,
   index: selectNavIndex,
-  isDarkMode: selectIsDarkMode
+  isDarkMode: selectIsDarkMode,
+  navigation: selectNavigationItems,
 };
 
 const actionMap = {
