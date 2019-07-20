@@ -89,10 +89,11 @@ import {
 import withNav from "../../HOCs/withNav";
 import { COLBALT } from "../../constants/colors";
 import withMode from "../../HOCs/withMode";
+import Grid from "@material-ui/core/Grid";
 
 const styles = () => ({
   root: {
-    paddingBottom: "4.5em"
+    paddingBottom: "4.5em",
   },
   buttonContainer: {
     display: "flex",
@@ -139,7 +140,7 @@ const Dashboard = ({
   ];
 
   return (
-    <div className={classes.root}>
+    <Grid className={classes.root}>
       {layer === "CREATE_ASK" && <CreateAsk />}
       {layer === "CREATE_BID" && <CreateBid />}
       {layer === "DELETE_ASK" && <DeleteAsk />}
@@ -147,98 +148,102 @@ const Dashboard = ({
       {layer === "VIEW_OFFER" && <OfferDetails />}
       {layer === "VIEW_TRANSACTION" && <TransactionDetails />}
       <PageHeader leftHandLabel="Dashboard" />
-      <Tile
-        className="transactions"
-        title="Accepted Offers"
-        count={numberOfTransactions}
-        description="time to meet up"
-        color={isDarkMode ? COLBALT : undefined}
-        textColor={isDarkMode ? "textSecondary" : undefined}
-      >
-        {myTransactions.map(item => (
-          <TransactionTile
-            isDarkMode={isDarkMode}
-            item={item}
-            key={item._id}
-            onClick={() => handleTransactionClick(item)}
+      <Grid align='center'>
+        <Grid item>
+          <Tile
+            className="transactions"
+            title="Accepted Offers"
+            count={numberOfTransactions}
+            description="time to meet up"
+            color={isDarkMode ? COLBALT : undefined}
+            textColor={isDarkMode ? "textSecondary" : undefined}
+          >
+            {myTransactions.map(item => (
+              <TransactionTile
+                isDarkMode={isDarkMode}
+                item={item}
+                key={item._id}
+                onClick={() => handleTransactionClick(item)}
+              />
+            ))}
+          </Tile>
+          <Tile
+            className="offers"
+            title="My Offers"
+            count={numberOfOffers}
+            description="offers I've made"
+            color={isDarkMode ? COLBALT : undefined}
+            textColor={isDarkMode ? "textSecondary" : undefined}
+          >
+            {myOffers.map(item => (
+              <OfferTile
+                item={item}
+                key={item._id}
+                onClick={() => handleOfferClick(item)}
+                isDarkMode={isDarkMode}
+              />
+            ))}
+          </Tile>
+          <Tile
+            className="asks"
+            title="My Asks"
+            count={numberOfAsks}
+            description="looking to sell"
+            color={isDarkMode ? COLBALT : undefined}
+            textColor={isDarkMode ? "textSecondary" : undefined}
+          >
+            {myAsks.map(item => (
+              <ListTile
+                item={item}
+                key={item._id}
+                onClick={() => handleAskClick(item)}
+                isDarkMode={isDarkMode}
+              />
+            ))}
+          </Tile>
+          <Tile
+            className="bids"
+            title="My Bids"
+            count={numberOfBids}
+            description="looking to buy"
+            color={isDarkMode ? COLBALT : undefined}
+            textColor={isDarkMode ? "textSecondary" : undefined}
+          >
+            {myBids.map(item => (
+              <ListTile
+                item={item}
+                key={item._id}
+                onClick={() => handleBidClick(item)}
+                isDarkMode={isDarkMode}
+              />
+            ))}
+          </Tile>
+          <div
+            style={{
+              position: "fixed",
+              right: "2em",
+              bottom: `${footerHeight + 20}px`,
+              zIndex: 100
+            }}
+          >
+            <SpeedDialButton
+              className="create-post"
+              actions={actions}
+              isDarkMode={isDarkMode}
+            />
+          </div>
+          <Joyride
+            steps={dashboardSteps}
+            run={run}
+            styles={tourStyle(isDarkMode)}
+            continuous={true}
+            tooltipComponent={Tooltip}
+            disableOverlay={true}
+            callback={handleCallback}
           />
-        ))}
-      </Tile>
-      <Tile
-        className="offers"
-        title="My Offers"
-        count={numberOfOffers}
-        description="offers I've made"
-        color={isDarkMode ? COLBALT : undefined}
-        textColor={isDarkMode ? "textSecondary" : undefined}
-      >
-        {myOffers.map(item => (
-          <OfferTile
-            item={item}
-            key={item._id}
-            onClick={() => handleOfferClick(item)}
-            isDarkMode={isDarkMode}
-          />
-        ))}
-      </Tile>
-      <Tile
-        className="asks"
-        title="My Asks"
-        count={numberOfAsks}
-        description="looking to sell"
-        color={isDarkMode ? COLBALT : undefined}
-        textColor={isDarkMode ? "textSecondary" : undefined}
-      >
-        {myAsks.map(item => (
-          <ListTile
-            item={item}
-            key={item._id}
-            onClick={() => handleAskClick(item)}
-            isDarkMode={isDarkMode}
-          />
-        ))}
-      </Tile>
-      <Tile
-        className="bids"
-        title="My Bids"
-        count={numberOfBids}
-        description="looking to buy"
-        color={isDarkMode ? COLBALT : undefined}
-        textColor={isDarkMode ? "textSecondary" : undefined}
-      >
-        {myBids.map(item => (
-          <ListTile
-            item={item}
-            key={item._id}
-            onClick={() => handleBidClick(item)}
-            isDarkMode={isDarkMode}
-          />
-        ))}
-      </Tile>
-      <div
-        style={{
-          position: "fixed",
-          right: "2em",
-          bottom: `${footerHeight + 20}px`,
-          zIndex: 100
-        }}
-      >
-        <SpeedDialButton
-          className="create-post"
-          actions={actions}
-          isDarkMode={isDarkMode}
-        />
-      </div>
-      <Joyride
-        steps={dashboardSteps}
-        run={run}
-        styles={tourStyle(isDarkMode)}
-        continuous={true}
-        tooltipComponent={Tooltip}
-        disableOverlay={true}
-        callback={handleCallback}
-      />
-    </div>
+        </Grid>
+      </Grid>
+    </Grid>
   );
 };
 
