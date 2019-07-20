@@ -120,7 +120,7 @@ const Account = ({
             </Grid>
           </Grid>
           <Grid item className={`${classes.items} account-info`} align='center'>
-              <Grid sm={8} lg={6} xl={4}>
+              <Grid item sm={8} lg={6} xl={4}>
                 <DetailList items={items} />
                 <Grid item className={classes.button}>
                   <Button
