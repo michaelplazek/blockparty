@@ -12,7 +12,7 @@ import {
   selectFilterCoin,
   selectFilterType,
   selectFormattedFilterPrice,
-  selectHeaderHeight,
+  selectHeaderHeight, selectIsDarkMode,
   selectLayer,
   selectMarketLoaded,
   selectNavHeight,
@@ -31,6 +31,7 @@ import {
   setAskInfo as setAskInfoAction,
   setBidInfo as setBidInfoAction,
   setMarketView as setMarketViewAction,
+  setNavIndex as setNavIndexAction,
   setTouched as setTouchedAction
 } from "../../actions/app";
 import AnalysisChart from "../../components/AnalysisChart";
@@ -43,6 +44,7 @@ import {
   selectMidMarketPrice,
   selectHasData
 } from "../../components/AnalysisChart/selectors";
+import Grid from "@material-ui/core/Grid";
 
 const styles = () => ({
   actionButton: {
@@ -56,13 +58,16 @@ const Chart = ({
   midMarketPrice,
   hasData,
   handleTouch,
+  setNavIndex,
   touched,
   price,
   askInfo,
   bidInfo,
   height,
   width,
-  markerLocation
+  markerLocation,
+  isDarkMode,
+  history
 }) => (
   <div
     style={{
@@ -87,7 +92,24 @@ const Chart = ({
         />
       </div>
     )}
-    {!hasData && <Placeholder label="No Available Sales" top={headerHeight} />}
+    {!hasData && (
+      <Grid
+        justify='center'
+        align='center'
+        style={{ margin: '20px' }}
+      >
+          <Placeholder
+            label="There are no posts in your area. Go to the Dashboard to create a new post."
+            top={40}
+            action={() => {
+              setNavIndex(1);
+              history.push('dashboard');
+            }}
+            isDarkMode={isDarkMode}
+            buttonLabel="Go to Dashboard"
+          />
+      </Grid>
+      )}
   </div>
 );
 
@@ -108,7 +130,8 @@ const propMap = {
   layer: selectLayer,
   touched: selectTouched,
   askInfo: selectAskInfo,
-  bidInfo: selectBidInfo
+  bidInfo: selectBidInfo,
+  isDarkMode: selectIsDarkMode
 };
 
 const actionMap = {
@@ -121,7 +144,8 @@ const actionMap = {
   setLayer,
   setTouched: setTouchedAction,
   setAskInfo: setAskInfoAction,
-  setBidInfo: setBidInfoAction
+  setBidInfo: setBidInfoAction,
+  setNavIndex: setNavIndexAction
 };
 
 export default compose(

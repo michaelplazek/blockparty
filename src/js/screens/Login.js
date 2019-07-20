@@ -36,7 +36,7 @@ const Login = ({ handleLogIn, history, isDarkMode }) => (
       <Grid item>
         <Grid container direction="column" justify="center">
           <Typography color={isDarkMode ? 'textSecondary' : undefined} align="center" variant="display1">
-            Log In
+            Sign In
           </Typography>
           <LoginForm isDarkMode={isDarkMode} onClick={handleLogIn} />
         </Grid>
