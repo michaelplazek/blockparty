@@ -77,14 +77,14 @@ const Ask = ({
 }) => {
   const theme = isDarkMode ? dark : light;
   return (
-    <div
+    <Grid
       style={{
         background: theme.palette.inverse.background,
         height: `${height}px`
       }}
     >
       {loaded && (
-        <div>
+        <Grid>
           {layer === "CREATE_ASK_OFFER" && (
             <CreateAskOffer handleClose={() => {}} handleSubmit={() => {}} />
           )}
@@ -98,7 +98,7 @@ const Ask = ({
                 Go Back
               </Button>
             </Grid>
-            <div className={classes.root}>
+            <Grid className={classes.root}>
               <Grid item className={classes.body}>
                 <Typography style={theme.palette.inverse} variant="display1">
                   Ask for
@@ -108,8 +108,12 @@ const Ask = ({
                 </Typography>
               </Grid>
               <br />
-              <DetailList items={items} userClick={handleUserClick} />
-            </div>
+              <Grid align='center'>
+                <Grid item sm={8} lg={6} xl={4}>
+                  <DetailList items={items} userClick={handleUserClick} />
+                </Grid>
+              </Grid>
+            </Grid>
             {showButton && (
               <Fab
                 className={classes.buttons}
@@ -122,9 +126,9 @@ const Ask = ({
             )}
           </Grid>
           <Grid />
-        </div>
+        </Grid>
       )}
-    </div>
+    </Grid>
   );
 };
 
