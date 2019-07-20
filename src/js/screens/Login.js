@@ -20,6 +20,7 @@ const Login = ({ handleLogIn, history, isDarkMode }) => (
   <Grid
     container
     justify="center"
+    alignItems='center'
     direction="column"
     style={{
       background: isDarkMode ? COLBALT : WHITE,
@@ -35,13 +36,12 @@ const Login = ({ handleLogIn, history, isDarkMode }) => (
     >
       <Grid item>
         <Grid container direction="column" justify="center">
-          <Typography color={isDarkMode ? 'textSecondary' : undefined} align="center" variant="display1">
+          <Typography color={isDarkMode ? 'textSecondary' : undefined} align='center' variant="display1">
             Sign In
           </Typography>
           <LoginForm isDarkMode={isDarkMode} onClick={handleLogIn} />
         </Grid>
-        <Typography color={isDarkMode ? 'textSecondary' : undefined} className="signUpText" align="right">
-          or,{" "}
+        <Typography color={isDarkMode ? 'textSecondary' : undefined} align='center' className="signUpText">
           <Button
             className="signUpLink"
             onClick={() => history.push("/register")}

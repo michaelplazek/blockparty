@@ -26,15 +26,19 @@ const Register = ({ handleSignUp, classes, history, isDarkMode }) => (
       background: isDarkMode ? COLBALT : WHITE,
       height: "100vh",
       padding: "20px"
-    }}
+    }}>
+    <Button
+      onClick={() => history.goBack()}
+      color={isDarkMode ? 'secondary' : undefined}
+    >
+      Back to login
+    </Button>
+  <Grid
+    container
+    justify="center"
+    direction="column"
   >
-    <Grid>
-      <Button
-        onClick={() => history.goBack()}
-        color={isDarkMode ? 'secondary' : undefined}
-      >
-        Back to login
-      </Button>
+    <Grid item>
       <Grid
         className={classes.body}
         container
@@ -51,6 +55,7 @@ const Register = ({ handleSignUp, classes, history, isDarkMode }) => (
         </Grid>
       </Grid>
     </Grid>
+  </Grid>
   </div>
 );
 
