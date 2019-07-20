@@ -16,7 +16,6 @@ import withDimensions from "../../HOCs/withDimensions";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Grid from "@material-ui/core/Grid/Grid";
 import {
-  selectIsDarkMode,
   selectModeLoaded,
   selectMyAsksLoaded,
   selectMyBidsLoaded,
@@ -47,6 +46,7 @@ import {
   setDarkMode as setDarkModeAction
 } from "../../actions/app";
 import withMode from "../../HOCs/withMode";
+import withDarkMode from "../../HOCs/withDarkMode";
 
 const styles = () => ({
   top: {
@@ -223,7 +223,6 @@ const propMap = {
   bidsLoaded: selectMyBidsLoaded,
   offersLoaded: selectMyOffersLoaded,
   transactionsLoaded: selectTransactionsLoaded,
-  isDarkMode: selectIsDarkMode,
   modeLoaded: selectModeLoaded
 };
 
@@ -243,6 +242,7 @@ export default compose(
   mapper(propMap, actionMap),
   withRouter,
   withMode,
+  withDarkMode,
   withStyles(styles),
   lifecycle({
     componentDidMount() {

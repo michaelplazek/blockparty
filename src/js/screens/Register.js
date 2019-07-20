@@ -10,9 +10,9 @@ import Typography from "@material-ui/core/Typography/Typography";
 import { registerUser } from "../actions/session";
 import mapper from "../utils/connect";
 import Button from "@material-ui/core/Button/Button";
-import {selectIsDarkMode} from "../selectors";
 import {COLBALT, WHITE} from "../constants/colors";
 import withNav from "../HOCs/withNav";
+import withDarkMode from "../HOCs/withDarkMode";
 
 const styles = () => ({
   body: {
@@ -59,9 +59,7 @@ const Register = ({ handleSignUp, classes, history, isDarkMode }) => (
   </div>
 );
 
-const propMap = {
-  isDarkMode: selectIsDarkMode
-};
+const propMap = {};
 
 const actionMap = {
   registerUser
@@ -70,6 +68,7 @@ const actionMap = {
 export default compose(
   withStyles(styles),
   withRouter,
+  withDarkMode,
   mapper(propMap, actionMap),
   withHandlers({
     handleSignUp: ({ registerUser, history }) => (username, password) => {

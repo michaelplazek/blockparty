@@ -36,7 +36,6 @@ import {
   selectDashboardLoaded,
   selectFilteredAskCurrencyItems,
   selectFilteredBidCurrencyItems,
-  selectIsDarkMode,
   selectLayer,
   selectMyAsks,
   selectMyBids,
@@ -90,6 +89,7 @@ import withNav from "../../HOCs/withNav";
 import { COLBALT } from "../../constants/colors";
 import withMode from "../../HOCs/withMode";
 import Grid from "@material-ui/core/Grid";
+import withDarkMode from "../../HOCs/withDarkMode";
 
 const styles = () => ({
   root: {
@@ -286,7 +286,6 @@ const propMap = {
   bidCoins: selectBidCurrencyItems,
   filteredBidCoins: selectFilteredBidCurrencyItems,
   filteredAskCoins: selectFilteredAskCurrencyItems,
-  isDarkMode: selectIsDarkMode
 };
 
 const actionMap = {
@@ -319,6 +318,7 @@ export default compose(
   withStyles(styles),
   withDimensions,
   withMode,
+  withDarkMode,
   lifecycle({
     componentDidMount() {
       const {

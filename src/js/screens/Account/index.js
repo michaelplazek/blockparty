@@ -15,7 +15,6 @@ import withDimensions from "../../HOCs/withDimensions";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Grid from "@material-ui/core/Grid/Grid";
 import {
-  selectIsDarkMode,
   selectModal,
   selectRun,
   selectUserBio, selectUserId,
@@ -45,6 +44,7 @@ import { setQR as setQRAction } from "../../actions/metrics";
 import withNav from "../../HOCs/withNav";
 import { BLUE, GOLD } from "../../constants/colors";
 import withMode from "../../HOCs/withMode";
+import withDarkMode from "../../HOCs/withDarkMode";
 
 const styles = () => ({
   body: {
@@ -245,7 +245,6 @@ const propMap = {
   items: selectUserDetails,
   run: selectRun,
   modal: selectModal,
-  isDarkMode: selectIsDarkMode,
   userId: selectUserId
 };
 
@@ -261,6 +260,7 @@ const actionMap = {
 export default compose(
   mapper(propMap, actionMap),
   withMode,
+  withDarkMode,
   withState("moneroCopied", "setMoneroCopied", false),
   withState("bitcoinCopied", "setBitcoinCopied", false),
   withRouter,
