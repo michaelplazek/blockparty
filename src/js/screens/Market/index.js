@@ -78,7 +78,8 @@ class Market extends Component {
       layer,
       run,
       modal,
-      isDarkMode
+      isDarkMode,
+      history
     } = this.props;
 
     return (
@@ -90,6 +91,8 @@ class Market extends Component {
           leftHandLabel="Market"
           showSubheader={true}
           subheader={<Subheader />}
+          rightHandButton="Sign In"
+          rightHandAction={() => history.push('/login')}
         />
         <Chart
           height={(windowHeight - navHeight - headerHeight) / 2}
