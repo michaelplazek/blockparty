@@ -59,8 +59,8 @@ const styles = () => ({
   },
   button: {
     alignSelf: "center",
-    marginBottom: "0.75em",
-    marginTop: "0.5em"
+    marginBottom: "1em",
+    marginTop: "0.75em"
   },
   likeTheApp: {
     marginBottom: "0.5em"
@@ -94,7 +94,7 @@ const Account = ({
 }) => {
   const ICON_COLOR = isDarkMode ? GOLD : BLUE;
   return (
-    <div>
+    <Grid>
       {modal === "END_OF_TOUR" && <EndOfTour />}
       {modal === "QR" && <QR />}
       <PageHeader
@@ -103,7 +103,7 @@ const Account = ({
         rightHandAction={() => history.push("/settings")}
       />
       <Grid container className={classes.body} direction="column">
-        <Grid item container direction="column" justify="flex-start">
+        <Grid item container direction="column">
           <Grid item className={classes.items}>
             <Grid container direction="column" alignItems="center">
               <Grid item>
@@ -119,106 +119,107 @@ const Account = ({
               </Grid>
             </Grid>
           </Grid>
-          <Grid item className={`${classes.items} account-info`}>
-            <DetailList items={items} />
-          </Grid>
-          <Grid item className={classes.button}>
-            <Button
-              color={isDarkMode ? 'secondary' : undefined}
-              variant='contained'
-              onClick={logOut}
-            >
-              Log Out
-            </Button>
-          </Grid>
-        </Grid>
-
-        <Grid item container justify="center">
-          <Grid item className={classes.likeTheApp}>
-            <Typography variant="caption">
-              Like the app? Donate to support our developers.
-            </Typography>
-          </Grid>
-          <Grid item container direction="row" justify="center">
-            <Grid item>
-              <Typography variant="caption">
-                {`Monero: ${truncateString(process.env.MONERO_ADDRESS)}`}
-              </Typography>
-            </Grid>
-            <Grid item className={classes.icon}>
-              <FontAwesomeIcon
-                style={{ color: ICON_COLOR }}
-                onClick={() => handleQR("XMR")}
-                icon={faQrcode}
-              />
-            </Grid>
-            <Grid item className={classes.icon}>
-              <CopyToClipboard
-                text={process.env.MONERO_ADDRESS}
-                onCopy={() => {
-                  setMoneroCopied(true);
-                  setTimeout(() => setMoneroCopied(false), 1000);
-                }}
-              >
-                <FontAwesomeIcon style={{ color: ICON_COLOR }} icon={faCopy} />
-              </CopyToClipboard>
-            </Grid>
-            {moneroCopied && (
-              <Grid item className={classes.icon}>
-                <Typography variant="caption">Copied!</Typography>
-              </Grid>
-            )}
-          </Grid>
-          <Grid item container direction="row" justify="center">
-            <Grid item>
-              <Typography variant="caption">
-                {`Bitcoin: ${truncateString(process.env.BITCOIN_ADDRESS)}`}
-              </Typography>
-            </Grid>
-            <Grid item className={classes.icon}>
-              <FontAwesomeIcon
-                style={{ color: ICON_COLOR }}
-                onClick={() => handleQR("BTC")}
-                icon={faQrcode}
-              />
-            </Grid>
-            <Grid item className={classes.icon}>
-              <CopyToClipboard
-                text={process.env.BITCOIN_ADDRESS}
-                onCopy={() => {
-                  setBitcoinCopied(true);
-                  setTimeout(() => setBitcoinCopied(false), 1000);
-                }}
-              >
-                <FontAwesomeIcon style={{ color: ICON_COLOR }} icon={faCopy} />
-              </CopyToClipboard>
-            </Grid>
-            {bitcoinCopied && (
-              <Grid item className={classes.icon}>
-                <Typography variant="caption">Copied!</Typography>
-              </Grid>
-            )}
-          </Grid>
-          <Grid
-            container
-            item
-            alignItems="center"
-            direction="column"
-            className={classes.suggestions}
-          >
-            <Grid item>
-              <Typography variant="caption">
-                Report bugs or send suggestions to
-              </Typography>
-            </Grid>
-            <Grid item>
-              <Typography
-                variant="caption"
-                component="a"
-                href="mailto:blockpartyapp@protonmail.com"
-              >
-                blockpartyapp@protonmail.com
-              </Typography>
+          <Grid item className={`${classes.items} account-info`} align='center'>
+              <Grid sm={8} lg={6} xl={4}>
+                <DetailList items={items} />
+                <Grid item className={classes.button}>
+                  <Button
+                    color={isDarkMode ? 'secondary' : undefined}
+                    variant='contained'
+                    onClick={logOut}
+                  >
+                    Log Out
+                  </Button>
+                </Grid>
+                <Grid item container justify="center">
+                  <Grid item className={classes.likeTheApp}>
+                    <Typography variant="caption">
+                      Like the app? Donate to support our developers.
+                    </Typography>
+                  </Grid>
+                  <Grid item container direction="row" justify="center">
+                    <Grid item>
+                      <Typography variant="caption">
+                        {`Monero: ${truncateString(process.env.MONERO_ADDRESS)}`}
+                      </Typography>
+                    </Grid>
+                    <Grid item className={classes.icon}>
+                      <FontAwesomeIcon
+                        style={{ color: ICON_COLOR }}
+                        onClick={() => handleQR("XMR")}
+                        icon={faQrcode}
+                      />
+                    </Grid>
+                    <Grid item className={classes.icon}>
+                      <CopyToClipboard
+                        text={process.env.MONERO_ADDRESS}
+                        onCopy={() => {
+                          setMoneroCopied(true);
+                          setTimeout(() => setMoneroCopied(false), 1000);
+                        }}
+                      >
+                        <FontAwesomeIcon style={{ color: ICON_COLOR }} icon={faCopy} />
+                      </CopyToClipboard>
+                    </Grid>
+                    {moneroCopied && (
+                      <Grid item className={classes.icon}>
+                        <Typography variant="caption">Copied!</Typography>
+                      </Grid>
+                    )}
+                  </Grid>
+                  <Grid item container direction="row" justify="center">
+                    <Grid item>
+                      <Typography variant="caption">
+                        {`Bitcoin: ${truncateString(process.env.BITCOIN_ADDRESS)}`}
+                      </Typography>
+                    </Grid>
+                    <Grid item className={classes.icon}>
+                      <FontAwesomeIcon
+                        style={{ color: ICON_COLOR }}
+                        onClick={() => handleQR("BTC")}
+                        icon={faQrcode}
+                      />
+                    </Grid>
+                    <Grid item className={classes.icon}>
+                      <CopyToClipboard
+                        text={process.env.BITCOIN_ADDRESS}
+                        onCopy={() => {
+                          setBitcoinCopied(true);
+                          setTimeout(() => setBitcoinCopied(false), 1000);
+                        }}
+                      >
+                        <FontAwesomeIcon style={{ color: ICON_COLOR }} icon={faCopy} />
+                      </CopyToClipboard>
+                    </Grid>
+                    {bitcoinCopied && (
+                      <Grid item className={classes.icon}>
+                        <Typography variant="caption">Copied!</Typography>
+                      </Grid>
+                    )}
+                  </Grid>
+                  <Grid
+                    container
+                    item
+                    alignItems="center"
+                    direction="column"
+                    className={classes.suggestions}
+                  >
+                    <Grid item>
+                      <Typography variant="caption">
+                        Report bugs or send suggestions to
+                      </Typography>
+                    </Grid>
+                    <Grid item>
+                      <Typography
+                        variant="caption"
+                        component="a"
+                        href="mailto:blockpartyapp@protonmail.com"
+                      >
+                        blockpartyapp@protonmail.com
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                </Grid>
             </Grid>
           </Grid>
         </Grid>
@@ -232,7 +233,7 @@ const Account = ({
         disableOverlay={true}
         callback={handleCallback}
       />
-    </div>
+    </Grid>
   );
 };
 
