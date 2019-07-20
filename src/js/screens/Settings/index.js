@@ -58,9 +58,7 @@ const styles = () => ({
   deleteInfo: {
     marginBottom: "0.5em"
   },
-  version: {
-    // marginTop: "0.2em"
-  }
+  version: {}
 });
 
 const Settings = ({
