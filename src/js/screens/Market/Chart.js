@@ -98,7 +98,7 @@ const Chart = ({
       >
           <Placeholder
             label="There are no posts in your area. Try adjusting your filters or go to the Dashboard to create a new post."
-            top={40}
+            top={height/2 - 30}
             action={() => {
               setNavIndex(1);
               history.push('dashboard');
