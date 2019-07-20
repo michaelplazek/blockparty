@@ -12,7 +12,7 @@ import Button from "@material-ui/core/Button/Button";
 import withSplash from "../HOCs/withSplash";
 import Fade from "@material-ui/core/Fade";
 import {getMode as getModeAction, setNavIndex} from "../actions/app";
-import {selectIsDarkMode, selectModeLoaded, selectUserId} from "../selectors";
+import {selectIsDarkMode, selectModeLoaded, selectPostLoginPath, selectUserId} from "../selectors";
 import {COLBALT, WHITE} from "../constants/colors";
 import withNav from "../HOCs/withNav";
 
@@ -59,7 +59,8 @@ const Login = ({ handleLogIn, history, isDarkMode }) => (
 const propMap = {
   modeLoaded: selectModeLoaded,
   userId: selectUserId,
-  isDarkMode: selectIsDarkMode
+  isDarkMode: selectIsDarkMode,
+  postLoginPath: selectPostLoginPath
 };
 
 const actionMap = {
@@ -72,11 +73,11 @@ export default compose(
   withRouter,
   mapper(propMap, actionMap),
   withHandlers({
-    handleLogIn: ({ logInUser, setNavIndex, history }) => (
+    handleLogIn: ({ logInUser, setNavIndex, history, postLoginPath }) => (
       username,
       password
     ) => {
-      logInUser(username, password, history, setNavIndex);
+      logInUser(username, password, history, setNavIndex, postLoginPath);
     }
   }),
   withSplash,

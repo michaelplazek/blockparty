@@ -5,7 +5,8 @@ import find from 'lodash/find';
 
 import {
   getSession,
-  loadUserFromToken as loadUserFromTokenAction
+  loadUserFromToken as loadUserFromTokenAction,
+  setPostLoginPath as setPostLoginPathAction
 } from "../actions/session";
 import mapper from "../utils/connect";
 import {
@@ -29,6 +30,7 @@ export default ProtectedRoute => {
     if (!props.sessionLoaded && getSession()) {
       return <Loading />;
     } else if (!props.loggedIn && shouldRedirect) {
+      props.setPostLoginPath(path);
       return <Redirect to="/login" />;
     } else {
       return <ProtectedRoute {...props} />
@@ -41,7 +43,8 @@ export default ProtectedRoute => {
   };
 
   const actionMap = {
-    loadUserFromToken: loadUserFromTokenAction
+    loadUserFromToken: loadUserFromTokenAction,
+    setPostLoginPath: setPostLoginPathAction
   };
 
   return compose(

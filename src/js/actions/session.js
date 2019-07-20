@@ -24,6 +24,7 @@ export const logInUser = (
   password,
   history,
   setNavIndex,
+  postLoginPath,
 ) => dispatch => {
   const user = {
     username,
@@ -36,8 +37,8 @@ export const logInUser = (
     })
     .then(() => dispatch({ type: SESSION_LOAD }))
     .then(() => {
-      setNavIndex(getIndexFromPath("/"));
-      history.push("/");
+      setNavIndex(getIndexFromPath(postLoginPath));
+      history.push(postLoginPath);
     });
 };
 

@@ -34,7 +34,7 @@ const initialState = {
     lng: -105.09065
   },
   locationLoaded: false,
-  postLoginPath: '',
+  postLoginPath: '/',
 };
 
 const handlers = {
