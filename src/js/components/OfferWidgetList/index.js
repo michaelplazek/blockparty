@@ -38,6 +38,7 @@ const OfferWidgetList = ({
   handleOpen,
 }) => (
   <Tile
+    sizes={{}}
     color={isDarkMode ? COLBALT : undefined}
     textColor={isDarkMode ? "textSecondary" : undefined}
     title="Offers"

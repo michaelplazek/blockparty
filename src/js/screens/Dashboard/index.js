@@ -151,6 +151,11 @@ const Dashboard = ({
       <Grid align='center'>
         <Grid item>
           <Tile
+            sizes={{
+              xs: 8,
+              lg: 6,
+              xl: 4,
+            }}
             className="transactions"
             title="Accepted Offers"
             count={numberOfTransactions}
@@ -168,6 +173,11 @@ const Dashboard = ({
             ))}
           </Tile>
           <Tile
+            sizes={{
+              xs: 8,
+              lg: 6,
+              xl: 4,
+            }}
             className="offers"
             title="My Offers"
             count={numberOfOffers}
@@ -185,6 +195,11 @@ const Dashboard = ({
             ))}
           </Tile>
           <Tile
+            sizes={{
+              xs: 8,
+              lg: 6,
+              xl: 4,
+            }}
             className="asks"
             title="My Asks"
             count={numberOfAsks}
@@ -202,6 +217,11 @@ const Dashboard = ({
             ))}
           </Tile>
           <Tile
+            sizes={{
+              xs: 8,
+              lg: 6,
+              xl: 4,
+            }}
             className="bids"
             title="My Bids"
             count={numberOfBids}

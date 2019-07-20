@@ -31,9 +31,10 @@ const Tile = ({
   color,
   textColor,
   description,
-  className
+  className,
+  sizes
 }) => (
-  <Grid item sm={8} lg={6} xl={4} className={className}>
+  <Grid item sm={sizes.sm} lg={sizes.lg} xl={sizes.xl} className={className}>
     <Paper
       style={{ background: color }}
       className={classes.root}
