@@ -14,6 +14,7 @@ import Fade from "@material-ui/core/Fade";
 import {getMode as getModeAction, setNavIndex} from "../actions/app";
 import {selectIsDarkMode, selectModeLoaded, selectUserId} from "../selectors";
 import {COLBALT, WHITE} from "../constants/colors";
+import withNav from "../HOCs/withNav";
 
 const Login = ({ handleLogIn, history, isDarkMode }) => (
   <Grid
@@ -78,5 +79,6 @@ export default compose(
       logInUser(username, password, history, setNavIndex);
     }
   }),
-  withSplash
+  withSplash,
+  withNav
 )(Login);

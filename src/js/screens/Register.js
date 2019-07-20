@@ -12,6 +12,7 @@ import mapper from "../utils/connect";
 import Button from "@material-ui/core/Button/Button";
 import {selectIsDarkMode} from "../selectors";
 import {COLBALT, WHITE} from "../constants/colors";
+import withNav from "../HOCs/withNav";
 
 const styles = () => ({
   body: {
@@ -69,5 +70,6 @@ export default compose(
     handleSignUp: ({ registerUser, history }) => (username, password) => {
       registerUser(username, password, history);
     }
-  })
+  }),
+  withNav
 )(Register);

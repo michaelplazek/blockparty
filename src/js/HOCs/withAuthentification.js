@@ -1,14 +1,19 @@
 import React from "react";
 import { compose, lifecycle } from "recompose";
 import { Redirect, withRouter } from "react-router";
+import find from 'lodash/find';
 
 import {
   getSession,
   loadUserFromToken as loadUserFromTokenAction
 } from "../actions/session";
 import mapper from "../utils/connect";
-import { selectIsLoggedIn, selectSessionLoaded } from "../selectors";
+import {
+  selectIsLoggedIn,
+  selectSessionLoaded,
+} from "../selectors";
 
+import routes from "../config/routes";
 import Loading from "../components/Loading";
 
 /**
@@ -19,22 +24,21 @@ import Loading from "../components/Loading";
 export default ProtectedRoute => {
   const AuthHOC = props => {
     const path = props.history.location.pathname;
-    const shouldRedirect = !(path === "/login" || path === "/register");
-
+    const navigationItem = find(routes, item => item.path === path);
+    console.log(navigationItem);
+    const shouldRedirect = navigationItem.protected;
     if (!props.sessionLoaded && getSession()) {
       return <Loading />;
+    } else if (!props.loggedIn && shouldRedirect) {
+      return <Redirect to="/login" />;
     } else {
-      return shouldRedirect && !props.loggedIn ? (
-        <Redirect to="/login" />
-      ) : (
-        <ProtectedRoute {...props} />
-      );
+      return <ProtectedRoute {...props} />
     }
   };
 
   const propMap = {
     loggedIn: selectIsLoggedIn,
-    sessionLoaded: selectSessionLoaded
+    sessionLoaded: selectSessionLoaded,
   };
 
   const actionMap = {

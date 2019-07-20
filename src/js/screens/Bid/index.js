@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { compose, lifecycle, withHandlers } from "recompose";
 import { withRouter } from "react-router";
-import theme, { dark, light } from "../../../theme";
+import { dark, light } from "../../../theme";
 import mapper from "../../utils/connect";
 import {
   selectBid,

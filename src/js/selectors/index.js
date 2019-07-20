@@ -9,7 +9,7 @@ import moment from "moment";
 import numeral from "numeral";
 import { USD, USD_DECIMALS } from "../constants/currency";
 import { getDistance } from "geolib";
-import {getMilesFromMeters, isLocationSet} from "../utils/location";
+import {getMilesFromMeters} from "../utils/location";
 import { footerNavigation as navigation } from "../config/navigation";
 
 import { ADMIN_1, LOCALITY, POLITICAL } from "../constants/maps";
@@ -177,7 +177,8 @@ export const selectBidTotal = createSelector(
 export const selectBidHasButton = createSelector(
   selectBidOwner,
   selectUsername,
-  (owner, username) => owner !== username
+  selectIsLoggedIn,
+  (owner, username, loggedIn) => loggedIn && (owner !== username)
 );
 
 // ASK
@@ -221,7 +222,8 @@ export const selectAskTotal = createSelector(
 export const selectAskHasButton = createSelector(
   selectAskOwner,
   selectUsername,
-  (owner, username) => owner !== username
+  selectIsLoggedIn,
+  (owner, username, loggedIn) => loggedIn && (owner !== username)
 );
 
 // TRANSACTIONS
@@ -655,7 +657,4 @@ export const selectListOpen = state => state.app.listOpen;
 export const selectUser = state => state.users.user;
 export const selectRun = state => state.app.run;
 export const selectQR = state => state.metrics.QR;
-export const selectNavigationItems = createSelector(
-  selectIsLoggedIn,
-  loggedIn => filter(item => loggedIn || !item.protected)(navigation)
-);
+export const selectNavigationItems = () => navigation;

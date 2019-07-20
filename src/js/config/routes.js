@@ -10,13 +10,7 @@ import Settings from "../screens/Settings";
 import Oops from "../screens/Oops";
 
 export const protectedRoutes = [
-  {
-    path: "/ask",
-    exact: false,
-    protected: true,
-    component: Ask,
-    index: 1
-  },
+
   {
     path: "/about",
     exact: false,
@@ -37,13 +31,6 @@ export const protectedRoutes = [
     protected: true,
     component: Account,
     index: 4
-  },
-  {
-    path: "/bid",
-    exact: false,
-    protected: true,
-    component: Bid,
-    index: 5
   },
   {
     path: "/settings",
@@ -70,6 +57,20 @@ export const unprotectedRoutes = [
     index: 8
   },
   {
+    path: "/bid",
+    exact: false,
+    protected: false,
+    component: Bid,
+    index: 5
+  },
+  {
+    path: "/ask",
+    exact: false,
+    protected: false,
+    component: Ask,
+    index: 1
+  },
+  {
     path: "/register",
     exact: false,
     protected: false,
@@ -90,7 +91,6 @@ export const unprotectedRoutes = [
     component: Oops,
     index: 11
   },
-
 ];
 
 export default protectedRoutes.concat(unprotectedRoutes);
