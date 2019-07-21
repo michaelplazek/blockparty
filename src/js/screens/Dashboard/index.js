@@ -274,14 +274,18 @@ const Dashboard = ({
                 />
               ))}
             </Collapsible>
-            <Grid>
-              <Button
-                color={isDarkMode ? 'secondary' : undefined}
-                onClick={() => setHistoryOpen(!historyOpen)}
-              >
-                {transactionHistory.length && (historyOpen ? "Hide History" : "Show History")}
-              </Button>
-            </Grid>
+            {
+              transactionHistory.length > 0 && (
+                <Grid>
+                  <Button
+                    color={isDarkMode ? 'secondary' : undefined}
+                    onClick={() => setHistoryOpen(!historyOpen)}
+                  >
+                    {historyOpen ? "Hide History" : "Show History"}
+                  </Button>
+                </Grid>
+              )
+            }
           </Tile>
           <div
             style={{
