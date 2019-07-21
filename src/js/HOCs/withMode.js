@@ -2,7 +2,7 @@ import React from "react";
 import { compose, lifecycle } from "recompose";
 
 import mapper from "../utils/connect";
-import { selectModeLoaded, selectUserId } from "../selectors";
+import {selectIsLoggedIn, selectModeLoaded, selectUserId} from "../selectors";
 import { getMode as getModeAction } from "../actions/app";
 
 /**
@@ -17,7 +17,8 @@ export default ProtectedRoute => {
 
   const propMap = {
     userId: selectUserId,
-    loaded: selectModeLoaded
+    modeLoaded: selectModeLoaded,
+    loggedIn: selectIsLoggedIn
   };
 
   const actionMap = {
@@ -28,10 +29,10 @@ export default ProtectedRoute => {
     mapper(propMap, actionMap),
     lifecycle({
       componentDidMount() {
-        const { loaded, getMode, userId } = this.props;
-        if (!loaded) {
+        const { modeLoaded, getMode, userId, loggedIn } = this.props;
+        if (!modeLoaded) {
           const dark = window.localStorage.getItem("dark");
-          if (!dark) {
+          if (!dark && loggedIn) {
             getMode(userId);
           }
         }

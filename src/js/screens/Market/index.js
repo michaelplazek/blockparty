@@ -204,16 +204,18 @@ export default compose(
   }),
   lifecycle({
     componentWillMount() {
-      const { loadAsks, loadBids, setModal, setModalOpen, userId } = this.props;
+      const { loadAsks, loadBids, setModal, setModalOpen, userId, loggedIn } = this.props;
       loadAsks();
       loadBids();
 
-      isVisited(userId).then(visited => {
-        if (!visited) {
-          setModalOpen(true);
-          setModal("WELCOME");
-        }
-      })
+      if (loggedIn) {
+        isVisited(userId).then(visited => {
+          if (!visited) {
+            setModalOpen(true);
+            setModal("WELCOME");
+          }
+        })
+      }
     }
   }),
   withLocation,
