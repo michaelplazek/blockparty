@@ -503,9 +503,8 @@ export const selectMarketLoaded = createSelector(
   selectBidsLoaded,
   selectCurrentLocationLoaded,
   selectFilterType,
-  (asksLoaded, bidsLoaded, locationLoaded, type) =>
-    (locationLoaded &&
-      ((asksLoaded && type === "ASK") || (bidsLoaded && type === "BID"))) ||
+  (asksLoaded, bidsLoaded, locationLoaded, type) => (locationLoaded &&
+    ((asksLoaded && type === "ASK") || (bidsLoaded && type === "BID"))) ||
     (asksLoaded && bidsLoaded && type === "ALL")
 );
 
