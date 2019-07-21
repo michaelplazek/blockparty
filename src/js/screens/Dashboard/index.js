@@ -279,7 +279,7 @@ const Dashboard = ({
                 color={isDarkMode ? 'secondary' : undefined}
                 onClick={() => setHistoryOpen(!historyOpen)}
               >
-                {historyOpen ? "Hide History" : "Show History"}
+                {transactionHistory.length && (historyOpen ? "Hide History" : "Show History")}
               </Button>
             </Grid>
           </Tile>
