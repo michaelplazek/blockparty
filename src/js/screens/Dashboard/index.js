@@ -238,6 +238,27 @@ const Dashboard = ({
               />
             ))}
           </Tile>
+          <Tile
+            sizes={{
+              xs: 8,
+              lg: 6,
+              xl: 4,
+            }}
+            className="history"
+            title="My History"
+            count={numberOfBids}
+            description="past transactions"
+            color={isDarkMode ? COLBALT : undefined}
+            textColor={isDarkMode ? "textSecondary" : undefined}
+          >
+            {myBids.map(item => (
+              <ListTile
+                item={item}
+                key={item._id}
+                isDarkMode={isDarkMode}
+              />
+            ))}
+          </Tile>
           <div
             style={{
               position: "fixed",

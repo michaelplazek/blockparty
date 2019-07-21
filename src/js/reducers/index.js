@@ -14,6 +14,7 @@ import transactions from "./transactions";
 import errors from "./errors";
 import metrics from "./metrics";
 import users from "./users";
+import history from "./history";
 
 export default combineReducers({
   app,
@@ -29,5 +30,6 @@ export default combineReducers({
   transactions,
   errors,
   metrics,
-  users
+  users,
+  history,
 });

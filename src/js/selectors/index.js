@@ -659,3 +659,5 @@ export const selectRun = state => state.app.run;
 export const selectQR = state => state.metrics.QR;
 export const selectNavigationItems = () => navigation;
 export const selectPostLoginPath = state => state.session.postLoginPath;
+export const selectTransactionHistory = state => state.history.transactionHistory;
+export const selectTransactionHistoryLoaded = state => state.history.transactionHistoryLoaded;
