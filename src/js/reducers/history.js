@@ -10,7 +10,8 @@ const initialState = {
 
 const handlers = {
   [LOAD_TRANSACTION_HISTORY]: (_, action) => ({
-    navigationBarHeight: action.data
+    transactionHistory: action.data,
+    transactionHistoryLoaded: true,
   }),
 };
 

@@ -661,3 +661,7 @@ export const selectNavigationItems = () => navigation;
 export const selectPostLoginPath = state => state.session.postLoginPath;
 export const selectTransactionHistory = state => state.history.transactionHistory;
 export const selectTransactionHistoryLoaded = state => state.history.transactionHistoryLoaded;
+export const selectTransactionHistoryCount = createSelector(
+  selectTransactionHistory,
+  history => history.length
+);

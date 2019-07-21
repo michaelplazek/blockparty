@@ -4,6 +4,7 @@ import mapper from "../../utils/connect";
 
 import Tile from "../../components/Tile";
 import ListTile from "../../components/ListTile";
+import HistoryTile from "../../components/HistoryTile"
 import TransactionTile from "../../components/TransactionTile";
 
 import {
@@ -46,6 +47,9 @@ import {
   selectNumberOfMyOffers,
   selectNumberOfMyTransactions,
   selectRun,
+  selectTransactionHistory,
+  selectTransactionHistoryCount,
+  selectTransactionHistoryLoaded,
   selectTransactionsForDisplay,
   selectUserId,
   selectUsername
@@ -90,6 +94,9 @@ import { COLBALT } from "../../constants/colors";
 import withMode from "../../HOCs/withMode";
 import Grid from "@material-ui/core/Grid";
 import withDarkMode from "../../HOCs/withDarkMode";
+import {
+  loadTransactionHistory as loadTransactionHistoryAction
+} from "../../actions/history";
 
 const styles = () => ({
   root: {
@@ -107,6 +114,8 @@ const styles = () => ({
 const Dashboard = ({
   classes,
   layer,
+  transactionHistory,
+  transactionHistoryCount,
   numberOfBids,
   numberOfAsks,
   numberOfOffers,
@@ -246,15 +255,16 @@ const Dashboard = ({
             }}
             className="history"
             title="My History"
-            count={numberOfBids}
+            count={transactionHistoryCount}
             description="past transactions"
             color={isDarkMode ? COLBALT : undefined}
             textColor={isDarkMode ? "textSecondary" : undefined}
           >
-            {myBids.map(item => (
-              <ListTile
+            {transactionHistory.map(item => (
+              <HistoryTile
                 item={item}
                 key={item._id}
+                onClick={() => {}}
                 isDarkMode={isDarkMode}
               />
             ))}
@@ -307,6 +317,9 @@ const propMap = {
   bidCoins: selectBidCurrencyItems,
   filteredBidCoins: selectFilteredBidCurrencyItems,
   filteredAskCoins: selectFilteredAskCurrencyItems,
+  historyLoaded: selectTransactionHistoryLoaded,
+  transactionHistory: selectTransactionHistory,
+  transactionHistoryCount: selectTransactionHistoryCount
 };
 
 const actionMap = {
@@ -331,7 +344,8 @@ const actionMap = {
   setRun: setRunAction,
   setNavIndex: setNavIndexAction,
   setBidCoin: setBidCoinAction,
-  setAskCoin: setAskCoinAction
+  setAskCoin: setAskCoinAction,
+  loadTransactionHistory: loadTransactionHistoryAction
 };
 
 export default compose(
@@ -345,8 +359,10 @@ export default compose(
       const {
         loadMyAsks,
         loadMyBids,
+        loadTransactionHistory,
         loadOffersByUser,
         loadTransactions,
+        historyLoaded,
         userId,
         setRun,
       } = this.props;
@@ -354,6 +370,10 @@ export default compose(
       loadMyBids(userId);
       loadOffersByUser(userId);
       loadTransactions(userId);
+
+      if (!historyLoaded) {
+        loadTransactionHistory(userId);
+      }
 
       isVisited(userId).then(visited => {
         if (!visited) {
