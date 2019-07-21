@@ -116,17 +116,17 @@ const OfferWidget = ({
                 container
               >
                 <Grid className={classes.button} item>
+                  <Button onClick={handleDecline} variant="contained">
+                    Decline
+                  </Button>
+                </Grid>
+                <Grid className={classes.button} item>
                   <Button
                     onClick={handleAccept}
                     variant="contained"
                     color="primary"
                   >
                     Accept
-                  </Button>
-                </Grid>
-                <Grid className={classes.button} item>
-                  <Button onClick={handleDecline} variant="contained">
-                    Decline
                   </Button>
                 </Grid>
               </Grid>
