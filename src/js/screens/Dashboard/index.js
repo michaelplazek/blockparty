@@ -1,5 +1,5 @@
 import React from "react";
-import { compose, lifecycle, withHandlers } from "recompose";
+import {compose, lifecycle, withHandlers, withState} from "recompose";
 import mapper from "../../utils/connect";
 
 import Tile from "../../components/Tile";
@@ -97,6 +97,8 @@ import withDarkMode from "../../HOCs/withDarkMode";
 import {
   loadTransactionHistory as loadTransactionHistoryAction
 } from "../../actions/history";
+import Collapsible from "react-collapsible";
+import Button from "@material-ui/core/Button";
 
 const styles = () => ({
   root: {
@@ -133,7 +135,9 @@ const Dashboard = ({
   handleCreateBid,
   handleCallback,
   run,
-  isDarkMode
+  isDarkMode,
+  setHistoryOpen,
+  historyOpen,
 }) => {
   const actions = [
     {
@@ -161,7 +165,7 @@ const Dashboard = ({
         <Grid item>
           <Tile
             sizes={{
-              xs: 8,
+              sm: 8,
               lg: 6,
               xl: 4,
             }}
@@ -183,7 +187,7 @@ const Dashboard = ({
           </Tile>
           <Tile
             sizes={{
-              xs: 8,
+              sm: 8,
               lg: 6,
               xl: 4,
             }}
@@ -205,7 +209,7 @@ const Dashboard = ({
           </Tile>
           <Tile
             sizes={{
-              xs: 8,
+              sm: 8,
               lg: 6,
               xl: 4,
             }}
@@ -227,7 +231,7 @@ const Dashboard = ({
           </Tile>
           <Tile
             sizes={{
-              xs: 8,
+              sm: 8,
               lg: 6,
               xl: 4,
             }}
@@ -249,7 +253,7 @@ const Dashboard = ({
           </Tile>
           <Tile
             sizes={{
-              xs: 8,
+              sm: 8,
               lg: 6,
               xl: 4,
             }}
@@ -260,14 +264,24 @@ const Dashboard = ({
             color={isDarkMode ? COLBALT : undefined}
             textColor={isDarkMode ? "textSecondary" : undefined}
           >
-            {transactionHistory.map(item => (
-              <HistoryTile
-                item={item}
-                key={item._id}
-                onClick={() => {}}
-                isDarkMode={isDarkMode}
-              />
-            ))}
+            <Collapsible open={historyOpen}>
+              {transactionHistory.map(item => (
+                <HistoryTile
+                  item={item}
+                  key={item._id}
+                  onClick={() => {}}
+                  isDarkMode={isDarkMode}
+                />
+              ))}
+            </Collapsible>
+            <Grid>
+              <Button
+                color={isDarkMode ? 'secondary' : undefined}
+                onClick={() => setHistoryOpen(!historyOpen)}
+              >
+                {historyOpen ? "Hide History" : "Show History"}
+              </Button>
+            </Grid>
           </Tile>
           <div
             style={{
@@ -354,6 +368,7 @@ export default compose(
   withDimensions,
   withMode,
   withDarkMode,
+  withState('historyOpen', 'setHistoryOpen', false),
   lifecycle({
     componentDidMount() {
       const {
