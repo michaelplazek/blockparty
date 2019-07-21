@@ -1,9 +1,10 @@
 import React from "react";
-import { compose, lifecycle, withHandlers } from "recompose";
+import {compose, lifecycle, withHandlers, withState} from "recompose";
 import mapper from "../../utils/connect";
 
 import Tile from "../../components/Tile";
 import ListTile from "../../components/ListTile";
+import HistoryTile from "../../components/HistoryTile"
 import TransactionTile from "../../components/TransactionTile";
 
 import {
@@ -36,7 +37,6 @@ import {
   selectDashboardLoaded,
   selectFilteredAskCurrencyItems,
   selectFilteredBidCurrencyItems,
-  selectIsDarkMode,
   selectLayer,
   selectMyAsks,
   selectMyBids,
@@ -47,6 +47,9 @@ import {
   selectNumberOfMyOffers,
   selectNumberOfMyTransactions,
   selectRun,
+  selectTransactionHistory,
+  selectTransactionHistoryCount,
+  selectTransactionHistoryLoaded,
   selectTransactionsForDisplay,
   selectUserId,
   selectUsername
@@ -90,6 +93,12 @@ import withNav from "../../HOCs/withNav";
 import { COLBALT } from "../../constants/colors";
 import withMode from "../../HOCs/withMode";
 import Grid from "@material-ui/core/Grid";
+import withDarkMode from "../../HOCs/withDarkMode";
+import {
+  loadTransactionHistory as loadTransactionHistoryAction
+} from "../../actions/history";
+import Collapsible from "react-collapsible";
+import Button from "@material-ui/core/Button";
 
 const styles = () => ({
   root: {
@@ -107,6 +116,8 @@ const styles = () => ({
 const Dashboard = ({
   classes,
   layer,
+  transactionHistory,
+  transactionHistoryCount,
   numberOfBids,
   numberOfAsks,
   numberOfOffers,
@@ -124,7 +135,9 @@ const Dashboard = ({
   handleCreateBid,
   handleCallback,
   run,
-  isDarkMode
+  isDarkMode,
+  setHistoryOpen,
+  historyOpen,
 }) => {
   const actions = [
     {
@@ -152,7 +165,7 @@ const Dashboard = ({
         <Grid item>
           <Tile
             sizes={{
-              xs: 8,
+              sm: 8,
               lg: 6,
               xl: 4,
             }}
@@ -174,7 +187,7 @@ const Dashboard = ({
           </Tile>
           <Tile
             sizes={{
-              xs: 8,
+              sm: 8,
               lg: 6,
               xl: 4,
             }}
@@ -196,7 +209,7 @@ const Dashboard = ({
           </Tile>
           <Tile
             sizes={{
-              xs: 8,
+              sm: 8,
               lg: 6,
               xl: 4,
             }}
@@ -218,7 +231,7 @@ const Dashboard = ({
           </Tile>
           <Tile
             sizes={{
-              xs: 8,
+              sm: 8,
               lg: 6,
               xl: 4,
             }}
@@ -237,6 +250,38 @@ const Dashboard = ({
                 isDarkMode={isDarkMode}
               />
             ))}
+          </Tile>
+          <Tile
+            sizes={{
+              sm: 8,
+              lg: 6,
+              xl: 4,
+            }}
+            className="history"
+            title="My History"
+            count={transactionHistoryCount}
+            description="past transactions"
+            color={isDarkMode ? COLBALT : undefined}
+            textColor={isDarkMode ? "textSecondary" : undefined}
+          >
+            <Collapsible open={historyOpen}>
+              {transactionHistory.map(item => (
+                <HistoryTile
+                  item={item}
+                  key={item._id}
+                  onClick={() => {}}
+                  isDarkMode={isDarkMode}
+                />
+              ))}
+            </Collapsible>
+            <Grid>
+              <Button
+                color={isDarkMode ? 'secondary' : undefined}
+                onClick={() => setHistoryOpen(!historyOpen)}
+              >
+                {historyOpen ? "Hide History" : "Show History"}
+              </Button>
+            </Grid>
           </Tile>
           <div
             style={{
@@ -286,7 +331,9 @@ const propMap = {
   bidCoins: selectBidCurrencyItems,
   filteredBidCoins: selectFilteredBidCurrencyItems,
   filteredAskCoins: selectFilteredAskCurrencyItems,
-  isDarkMode: selectIsDarkMode
+  historyLoaded: selectTransactionHistoryLoaded,
+  transactionHistory: selectTransactionHistory,
+  transactionHistoryCount: selectTransactionHistoryCount
 };
 
 const actionMap = {
@@ -311,7 +358,8 @@ const actionMap = {
   setRun: setRunAction,
   setNavIndex: setNavIndexAction,
   setBidCoin: setBidCoinAction,
-  setAskCoin: setAskCoinAction
+  setAskCoin: setAskCoinAction,
+  loadTransactionHistory: loadTransactionHistoryAction
 };
 
 export default compose(
@@ -319,13 +367,17 @@ export default compose(
   withStyles(styles),
   withDimensions,
   withMode,
+  withDarkMode,
+  withState('historyOpen', 'setHistoryOpen', false),
   lifecycle({
     componentDidMount() {
       const {
         loadMyAsks,
         loadMyBids,
+        loadTransactionHistory,
         loadOffersByUser,
         loadTransactions,
+        historyLoaded,
         userId,
         setRun,
       } = this.props;
@@ -333,6 +385,10 @@ export default compose(
       loadMyBids(userId);
       loadOffersByUser(userId);
       loadTransactions(userId);
+
+      if (!historyLoaded) {
+        loadTransactionHistory(userId);
+      }
 
       isVisited(userId).then(visited => {
         if (!visited) {

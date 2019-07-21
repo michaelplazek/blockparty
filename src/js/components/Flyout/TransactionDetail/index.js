@@ -43,6 +43,9 @@ import { loadOffersByUser } from "../../../actions/offers";
 import { setNotification } from "../../../actions/app";
 import { Typography } from "@material-ui/core";
 import ConfirmCancel from "../../Modal/ConfirmCancel";
+import {
+  loadTransactionHistory as loadTransactionHistoryAction
+} from "../../../actions/history";
 
 const styles = () => ({
   list: {
@@ -114,7 +117,8 @@ const actionMap = {
   loadOffersByUser,
   cancelTransaction,
   setModal: setModalAction,
-  setModalOpen: setModalOpenAction
+  setModalOpen: setModalOpenAction,
+  loadTransactionHistory: loadTransactionHistoryAction
 };
 
 export default compose(
@@ -131,6 +135,7 @@ export default compose(
       loadMyAsks,
       loadMyBids,
       loadOffersByUser,
+      loadTransactionHistory,
       buyer,
       seller,
       username,
@@ -142,6 +147,7 @@ export default compose(
         loadMyAsks(userId);
         loadMyBids(userId);
         loadOffersByUser(userId);
+        loadTransactionHistory(userId);
         setLayerOpen(false);
         const data = {
           title: "Offer marked as complete!",

@@ -15,7 +15,6 @@ import {
   selectUserId,
   selectWindowHeight,
   selectModal,
-  selectIsDarkMode
 } from "../../selectors/index";
 import { loadBid as loadBidAction } from "../../actions/bids";
 import Grid from "@material-ui/core/Grid/Grid";
@@ -38,6 +37,7 @@ import Fab from "@material-ui/core/Fab";
 import UserInfo from "../../components/Modal/UserInfo";
 import withNav from "../../HOCs/withNav";
 import withMode from "../../HOCs/withMode";
+import withDarkMode from "../../HOCs/withDarkMode";
 
 const styles = theme => ({
   root: {
@@ -150,7 +150,6 @@ const propMap = {
   userId: selectUserId,
   showButton: selectBidHasButton,
   height: selectWindowHeight,
-  isDarkMode: selectIsDarkMode
 };
 
 const actionMap = {
@@ -166,6 +165,7 @@ export default compose(
   withRouter,
   withStyles(styles),
   withMode,
+  withDarkMode,
   mapper(propMap, actionMap),
   lifecycle({
     componentDidMount() {

@@ -3,9 +3,8 @@ import { withRouter } from "react-router";
 import { compose } from "recompose";
 import { Typography, Grid, withStyles, Button } from "@material-ui/core";
 import withNav from "../HOCs/withNav";
-import mapper from "../utils/connect";
-import { selectIsDarkMode } from "../selectors";
 import withMode from "../HOCs/withMode";
+import withDarkMode from "../HOCs/withDarkMode";
 
 const styles = () => ({
   root: {
@@ -75,14 +74,10 @@ const Policy = ({ history, classes, isDarkMode }) => (
   </Grid>
 );
 
-const propMap = {
-  isDarkMode: selectIsDarkMode
-};
-
 export default compose(
   withStyles(styles),
   withRouter,
   withMode,
+  withDarkMode,
   withNav,
-  mapper(propMap, {})
 )(Policy);

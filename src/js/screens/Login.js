@@ -12,9 +12,14 @@ import Button from "@material-ui/core/Button/Button";
 import withSplash from "../HOCs/withSplash";
 import Fade from "@material-ui/core/Fade";
 import {getMode as getModeAction, setNavIndex} from "../actions/app";
-import {selectIsDarkMode, selectModeLoaded, selectPostLoginPath, selectUserId} from "../selectors";
+import {
+  selectModeLoaded,
+  selectPostLoginPath,
+  selectUserId
+} from "../selectors";
 import {COLBALT, WHITE} from "../constants/colors";
 import withNav from "../HOCs/withNav";
+import withDarkMode from "../HOCs/withDarkMode";
 
 const Login = ({ handleLogIn, history, isDarkMode }) => (
   <Grid
@@ -59,7 +64,6 @@ const Login = ({ handleLogIn, history, isDarkMode }) => (
 const propMap = {
   modeLoaded: selectModeLoaded,
   userId: selectUserId,
-  isDarkMode: selectIsDarkMode,
   postLoginPath: selectPostLoginPath
 };
 
@@ -71,6 +75,7 @@ const actionMap = {
 
 export default compose(
   withRouter,
+  withDarkMode,
   mapper(propMap, actionMap),
   withHandlers({
     handleLogIn: ({ logInUser, setNavIndex, history, postLoginPath }) => (

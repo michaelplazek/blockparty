@@ -39,6 +39,7 @@ import Fab from "@material-ui/core/Fab";
 import UserInfo from "../../components/Modal/UserInfo";
 import withNav from "../../HOCs/withNav";
 import withMode from "../../HOCs/withMode";
+import withDarkMode from "../../HOCs/withDarkMode";
 
 const styles = theme => ({
   root: {
@@ -151,7 +152,6 @@ const propMap = {
   height: selectWindowHeight,
   userId: selectUserId,
   showButton: selectAskHasButton,
-  isDarkMode: selectIsDarkMode
 };
 
 const actionMap = {
@@ -166,6 +166,7 @@ const actionMap = {
 export default compose(
   withRouter,
   withMode,
+  withDarkMode,
   withStyles(styles),
   mapper(propMap, actionMap),
   lifecycle({

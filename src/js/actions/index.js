@@ -121,3 +121,6 @@ export const SET_QR = "SET_QR";
 // USERS
 export const LOAD_USER = "LOAD_USER";
 export const UNLOAD_USER = "UNLOAD_USER";
+
+// HISTORY
+export const LOAD_TRANSACTION_HISTORY = "LOAD_TRANSACTION_HISTORY";

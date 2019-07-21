@@ -19,7 +19,6 @@ import {
   selectInitialLocation,
   selectModal,
   selectListOpen,
-  selectIsDarkMode,
   selectUserId,
   selectIsLoggedIn
 } from "../../selectors";
@@ -61,6 +60,7 @@ import ListIcon from "./ListIcon";
 import Orders from "../../components/Flyout/Orders";
 import withNav from "../../HOCs/withNav";
 import withMode from "../../HOCs/withMode";
+import withDarkMode from "../../HOCs/withDarkMode";
 
 class Market extends Component {
   constructor(props) {
@@ -152,7 +152,6 @@ const propMap = {
   run: selectRun,
   initialLocation: selectInitialLocation,
   listOpen: selectListOpen,
-  isDarkMode: selectIsDarkMode,
   userId: selectUserId,
   loggedIn: selectIsLoggedIn,
   loaded: selectMarketLoaded // from withLoader
@@ -178,6 +177,7 @@ export default compose(
   withRouter,
   withDimensions,
   withMode,
+  withDarkMode,
   withHandlers({
     handleMarkerClick: ({ history }) => marker => {
       const { id, isBid } = marker;
