@@ -1,4 +1,4 @@
-# [Blockparty](https://blockparty.global/)
+# [Blockparty Mobile](https://blockparty.global/)
 Blockparty is a P2P cash-for-crypto exchange, a "Craigslist for crypto".
 
 ## Setup
