@@ -83,7 +83,7 @@
     "file-loader": "0.8.5",
     "jsdom": "^11.0.0",
     "npm-run-all": "1.8.0",
-    "open": "^0.0.5",
+    "open": "^6.0.0",
     "react": "^16.5.2",
     "react-addons-test-utils": "15.0.2",
     "react-dom": "^16.5.2",
