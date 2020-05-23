@@ -121,7 +121,7 @@ class Market extends Component {
           showCenterIcon={true}
           markers={markers}
           onMarkerClick={handleMarkerClick}
-          height={(windowHeight - navHeight - headerHeight) * 0.66}
+          height={(windowHeight - navHeight - headerHeight) * 0.67}
           navHeight={navHeight}
           windowHeight={windowHeight}
           isDarkMode={isDarkMode}
