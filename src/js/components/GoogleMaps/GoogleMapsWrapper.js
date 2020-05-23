@@ -183,12 +183,12 @@ class GoogleMapsWrapper extends Component {
                 lat: parseFloat(item.lat),
                 lng: parseFloat(item.lng)
               }}
-              padding={0}
             >
               <div
                 onClick={() => onMarkerClick(item)}
                 style={{
-                  cursor: "pointer"
+                  cursor: "pointer",
+                  padding: '10px'
                 }}
               >
                 <Grid
@@ -337,5 +337,5 @@ export default compose(
         );
       }
     };
-  })
+  }),
 )(GoogleMapsWrapper);
