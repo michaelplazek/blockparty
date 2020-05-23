@@ -188,7 +188,7 @@ class GoogleMapsWrapper extends Component {
                 onClick={() => onMarkerClick(item)}
                 style={{
                   cursor: "pointer",
-                  padding: '10px'
+                  margin: '10px'
                 }}
               >
                 <Grid
