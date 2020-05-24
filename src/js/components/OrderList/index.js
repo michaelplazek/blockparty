@@ -9,7 +9,7 @@ import { Typography, Grid, ListItem, ListItemText } from "@material-ui/core";
 
 import {
   selectAskList,
-  selectBidList, selectFilter,
+  selectBidList,
   selectFilterCoin,
   selectIsDarkMode
 } from "../../selectors";
@@ -145,7 +145,7 @@ const OrderList = ({
         <FontAwesomeIcon color={isDarkMode ? WHITE : DARK_GREY} icon={faTimes} />
       </div>
     </Grid>
-    <Grid className={classes.listItems} item>
+    <Grid item>
       <Grid container direction="row" justify='center'>
         {
           bids.length > 0 && (
@@ -203,7 +203,6 @@ const propMap = {
   asks: selectAskList,
   coin: selectFilterCoin,
   isDarkMode: selectIsDarkMode,
-  orderType: selectFilter
 };
 
 const actionMap = {};
