@@ -29,10 +29,6 @@ const styles = () => ({
   },
   link: {
     cursor: "pointer"
-  },
-  listItems: {
-    position: "relative",
-    bottom: '10px'
   }
 });
 
