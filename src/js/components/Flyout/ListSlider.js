@@ -32,7 +32,7 @@ const ListSlider = ({
         left: 0,
         top: `${((windowHeight - navHeight - headerHeight) * 0.33) +
           headerHeight}px`,
-        height: `${(windowHeight - navHeight - headerHeight) * 0.66}px`,
+        height: `${(windowHeight - navHeight - headerHeight) * 0.67}px`,
         width: `${width}px`,
         zIndex: 99,
         background: isDarkMode ? DARK_GREEN : 'whitesmoke',
