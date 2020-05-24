@@ -54,7 +54,7 @@ const ListItemBase = ({ item, classes, isBid, onClick }) => (
         <ListItemText
           disableTypography
           primary={
-            <Typography>
+            <Typography variant='subheading'>
               {item.volume}
             </Typography>
           }
@@ -63,7 +63,10 @@ const ListItemBase = ({ item, classes, isBid, onClick }) => (
       <Grid item>
         <ListItemText
           primary={
-            <Typography style={{ color: isBid ? "#3e8e41" : "#c2160a" }}>
+            <Typography
+              variant='subheading'
+              style={{ color: isBid ? "#3e8e41" : "#c2160a" }}
+            >
               {item.price}
             </Typography>
           }
@@ -73,19 +76,33 @@ const ListItemBase = ({ item, classes, isBid, onClick }) => (
   </ListItem>
 );
 
-const ListHeaderBase = () => (
+const ListHeaderBase = ({ isDarkMode }) => (
   <ListItem dense={true} divider={true}>
     <Grid container justify="space-between">
       <Grid item>
         <ListItemText
           disableTypography
-          primary={<Typography variant="caption">Volume</Typography>}
+          primary={
+            <Typography
+              variant="subheading"
+              color={isDarkMode ? 'textSecondary' : undefined}
+            >
+              Volume
+            </Typography>
+          }
         />
       </Grid>
       <Grid item>
         <ListItemText
           disableTypography
-          primary={<Typography variant="caption">Price</Typography>}
+          primary={
+            <Typography
+              variant="subheading"
+              color={isDarkMode ? 'textSecondary' : undefined}
+            >
+              Price
+            </Typography>
+          }
         />
       </Grid>
     </Grid>
@@ -102,7 +119,7 @@ const ListTitleBase = ({ title, subTitle, isDarkMode }) => (
             <Grid container direction='column' alignItems='center'>
               <Grid item>
               <Typography
-                variant="subheading"
+                variant="headline"
                 color={isDarkMode ? 'textSecondary' : undefined}
               >
                 {title}
@@ -170,7 +187,7 @@ const OrderList = ({
                   title="Bids"
                   subTitle="Looking to buy"
                 />
-                <OrderListHeader />
+                <OrderListHeader isDarkMode={isDarkMode} />
                 {bids.map(item => (
                   <OrderListItem
                     isDarkMode={isDarkMode}
@@ -193,7 +210,7 @@ const OrderList = ({
                   title="Asks"
                   subTitle="Looking to sell"
                 />
-                <OrderListHeader />
+                <OrderListHeader isDarkMode={isDarkMode} />
                 {asks.map(item => (
                   <OrderListItem
                     isDarkMode={isDarkMode}
