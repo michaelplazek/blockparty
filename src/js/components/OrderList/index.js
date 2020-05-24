@@ -96,19 +96,31 @@ const ListHeaderBase = () => (
   </ListItem>
 );
 
-const ListTitleBase = ({ title, isDarkMode }) => (
+const ListTitleBase = ({ title, subTitle, isDarkMode }) => (
   <ListItem dense={true} divider={false}>
     <Grid container justify="center">
       <Grid item>
         <ListItemText
           disableTypography
           primary={
-            <Typography
-              variant="subheading"
-              color={isDarkMode ? 'textSecondary' : undefined}
-            >
-              {title}
-            </Typography>
+            <Grid container direction='column' alignItems='center'>
+              <Grid item>
+              <Typography
+                variant="subheading"
+                color={isDarkMode ? 'textSecondary' : undefined}
+              >
+                {title}
+              </Typography>
+              </Grid>
+              <Grid item>
+              <Typography
+                variant="caption"
+                color={isDarkMode ? 'textSecondary' : undefined}
+              >
+                {subTitle}
+              </Typography>
+              </Grid>
+            </Grid>
           }
         />
       </Grid>
@@ -141,7 +153,11 @@ const OrderList = ({
       <Grid container direction="row" justify='center'>
         <Grid item>
           <Grid container direction="column">
-            <OrderListTitle isDarkMode={isDarkMode} title="Bids" />
+            <OrderListTitle
+              isDarkMode={isDarkMode}
+              title="Bids"
+              subTitle="Looking to buy"
+            />
             <OrderListHeader />
             {bids.map(item => (
               <OrderListItem
@@ -156,7 +172,11 @@ const OrderList = ({
         </Grid>
         <Grid item className={classes.list}>
           <Grid container direction="column">
-            <OrderListTitle isDarkMode={isDarkMode} title="Asks" />
+            <OrderListTitle
+              isDarkMode={isDarkMode}
+              title="Asks"
+              subTitle="Looking to sell"
+            />
             <OrderListHeader />
             {asks.map(item => (
               <OrderListItem
