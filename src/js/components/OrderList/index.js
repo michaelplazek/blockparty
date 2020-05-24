@@ -148,6 +148,20 @@ const OrderList = ({
     <Grid item>
       <Grid container direction="row" justify='center'>
         {
+          bids.length === 0 && asks.length === 0 && (
+            <Grid container justify='center' style={{ marginTop: "20px" }}>
+              <Grid item>
+                <Typography
+                  color={isDarkMode ? 'textSecondary' : undefined}
+                  variant="subheading"
+                >
+                  No items
+                </Typography>
+              </Grid>
+            </Grid>
+          )
+        }
+        {
           bids.length > 0 && (
             <Grid item>
               <Grid container direction="column">
