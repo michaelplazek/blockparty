@@ -9,7 +9,7 @@ import { Typography, Grid, ListItem, ListItemText } from "@material-ui/core";
 
 import {
   selectAskList,
-  selectBidList,
+  selectBidList, selectFilter,
   selectFilterCoin,
   selectIsDarkMode
 } from "../../selectors";
@@ -138,7 +138,7 @@ const OrderList = ({
   asks,
   handleClick,
   isDarkMode,
-  openList
+  openList,
   }) => (
   <Grid container direction='column'>
     <Grid item>
@@ -151,44 +151,52 @@ const OrderList = ({
     </Grid>
     <Grid className={classes.listItems} item>
       <Grid container direction="row" justify='center'>
-        <Grid item>
-          <Grid container direction="column">
-            <OrderListTitle
-              isDarkMode={isDarkMode}
-              title="Bids"
-              subTitle="Looking to buy"
-            />
-            <OrderListHeader />
-            {bids.map(item => (
-              <OrderListItem
-                isDarkMode={isDarkMode}
-                key={`${item.volume}-${item.price}`}
-                onClick={() => handleClick(item)}
-                item={item}
-                isBid={true}
-              />
-            ))}
-          </Grid>
-        </Grid>
-        <Grid item className={classes.list}>
-          <Grid container direction="column">
-            <OrderListTitle
-              isDarkMode={isDarkMode}
-              title="Asks"
-              subTitle="Looking to sell"
-            />
-            <OrderListHeader />
-            {asks.map(item => (
-              <OrderListItem
-                isDarkMode={isDarkMode}
-                key={`${item.volume}-${item.price}`}
-                onClick={() => handleClick(item)}
-                item={item}
-                isBid={false}
-              />
-            ))}
-          </Grid>
-        </Grid>
+        {
+          bids.length > 0 && (
+            <Grid item>
+              <Grid container direction="column">
+                <OrderListTitle
+                  isDarkMode={isDarkMode}
+                  title="Bids"
+                  subTitle="Looking to buy"
+                />
+                <OrderListHeader />
+                {bids.map(item => (
+                  <OrderListItem
+                    isDarkMode={isDarkMode}
+                    key={`${item.volume}-${item.price}`}
+                    onClick={() => handleClick(item)}
+                    item={item}
+                    isBid={true}
+                  />
+                ))}
+              </Grid>
+            </Grid>
+          )
+        }
+        {
+          asks.length > 0 && (
+            <Grid item className={classes.list}>
+              <Grid container direction="column">
+                <OrderListTitle
+                  isDarkMode={isDarkMode}
+                  title="Asks"
+                  subTitle="Looking to sell"
+                />
+                <OrderListHeader />
+                {asks.map(item => (
+                  <OrderListItem
+                    isDarkMode={isDarkMode}
+                    key={`${item.volume}-${item.price}`}
+                    onClick={() => handleClick(item)}
+                    item={item}
+                    isBid={false}
+                  />
+                ))}
+              </Grid>
+            </Grid>
+          )
+        }
       </Grid>
     </Grid>
   </Grid>
@@ -198,7 +206,8 @@ const propMap = {
   bids: selectBidList,
   asks: selectAskList,
   coin: selectFilterCoin,
-  isDarkMode: selectIsDarkMode
+  isDarkMode: selectIsDarkMode,
+  orderType: selectFilter
 };
 
 const actionMap = {};
