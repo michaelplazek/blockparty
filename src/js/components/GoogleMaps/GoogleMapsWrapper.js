@@ -17,6 +17,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCrosshairs } from "@fortawesome/free-solid-svg-icons";
 import Paper from "@material-ui/core/Paper";
 
+const GREEN_MARKER = 'https://blockparty-static.s3.amazonaws.com/green_marker.svg?width=320&height=320';
+const RED_MARKER = 'https://blockparty-static.s3.amazonaws.com/red_marker.svg?width=320&height=320';
+
 const darkMode = [
   { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
   { elementType: "labels.text.stroke", stylers: [{ color: "#242f3e" }] },
@@ -220,7 +223,7 @@ class GoogleMapsWrapper extends Component {
                       color={isDarkMode ? "primary" : undefined}
                       variant="caption"
                     >
-                      {item.isBid ? "sell" : "buy"} at{" "}
+                      {item.isBid ? "buying" : "selling"} at{" "}
                       {numeral(item.price).format(USD)}/{item.coin}
                     </Typography>
                   </Grid>
@@ -232,6 +235,10 @@ class GoogleMapsWrapper extends Component {
         {markers.map(item => (
           <Marker
             key={item.id}
+            icon={{
+              url: item.isBid ? GREEN_MARKER : RED_MARKER,
+              scaledSize: new google.maps.Size(40, 40),
+            }}
             position={{
               lat: parseFloat(item.lat),
               lng: parseFloat(item.lng)

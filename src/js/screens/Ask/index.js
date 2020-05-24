@@ -15,7 +15,6 @@ import {
   selectUserId,
   selectWindowHeight,
   selectModal,
-  selectIsDarkMode
 } from "../../selectors/index";
 import { loadAsk as loadAskAction } from "../../actions/asks";
 import Grid from "@material-ui/core/Grid/Grid";
@@ -40,11 +39,13 @@ import UserInfo from "../../components/Modal/UserInfo";
 import withNav from "../../HOCs/withNav";
 import withMode from "../../HOCs/withMode";
 import withDarkMode from "../../HOCs/withDarkMode";
+import numeral from "numeral";
+import { USD } from "../../constants/currency";
 
 const styles = theme => ({
   root: {
     textAlign: "center",
-    marginTop: "40px"
+    marginTop: "12px"
   },
   body: {
     marginTop: "10px"
@@ -57,6 +58,9 @@ const styles = theme => ({
   },
   backButton: {
     padding: "1em"
+  },
+  description: {
+    margin: "12px"
   }
 });
 
@@ -113,6 +117,14 @@ const Ask = ({
                 <Grid item sm={8} lg={6} xl={4}>
                   <DetailList items={items} userClick={handleUserClick} />
                 </Grid>
+              </Grid>
+              <Grid className={classes.description}>
+                <Typography variant='caption'>
+                  {`${ask.owner} wants to sell ${ask.volume} ${ask.coin} `}
+                </Typography>
+                <Typography variant='caption'>
+                  {`at ${numeral(ask.price).format(USD)} for ${numeral(ask.volume * ask.price).format(USD)}.`}
+                </Typography>
               </Grid>
             </Grid>
             {showButton && (
