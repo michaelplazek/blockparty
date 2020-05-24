@@ -29,22 +29,36 @@ const styles = () => ({
   },
   link: {
     cursor: "pointer"
+  },
+  listItems: {
+    position: "relative",
+    bottom: '10px'
   }
 });
 
-const ListItemBase = ({ item, classes, isBid, onClick, isDarkMode }) => (
-  <ListItem button={true} dense={true} divider={true}>
+const ListItemBase = ({ item, classes, isBid, onClick }) => (
+  <ListItem
+    style={{
+      cursor: "pointer",
+      background: isBid ? "#dcefdc" : "#fcd2cf",
+      padding: "4px",
+      borderRadius: "2px",
+      margin: '1px'
+    }}
+    button={true}
+    dense={true}
+    divider={false}
+  >
     <Grid
       container
       justify="space-between"
       onClick={onClick}
-      className={classes.link}
     >
       <Grid item>
         <ListItemText
           disableTypography
           primary={
-            <Typography color={isDarkMode ? "textSecondary" : undefined}>
+            <Typography>
               {item.volume}
             </Typography>
           }
@@ -53,7 +67,7 @@ const ListItemBase = ({ item, classes, isBid, onClick, isDarkMode }) => (
       <Grid item>
         <ListItemText
           primary={
-            <Typography style={{ color: isBid ? "#4caf50" : "#f44336" }}>
+            <Typography style={{ color: isBid ? "#3e8e41" : "#c2160a" }}>
               {item.price}
             </Typography>
           }
@@ -90,7 +104,7 @@ const ListTitleBase = ({ title, isDarkMode }) => (
           disableTypography
           primary={
             <Typography
-              variant="subtitle2"
+              variant="subheading"
               color={isDarkMode ? 'textSecondary' : undefined}
             >
               {title}
@@ -123,7 +137,7 @@ const OrderList = ({
         <FontAwesomeIcon color={isDarkMode ? WHITE : DARK_GREY} icon={faTimes} />
       </div>
     </Grid>
-    <Grid item>
+    <Grid className={classes.listItems} item>
       <Grid container direction="row" justify='center'>
         <Grid item>
           <Grid container direction="column">

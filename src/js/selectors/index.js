@@ -610,13 +610,13 @@ export const selectBidList = createSelector(
   selectIsWithinRange,
   (bids, filters, withinPrice, withinRange) =>
     compose(
-      orderBy(["price"], ["desc"]),
       fpMap(bid => ({
         isBid: bid.isBid,
         id: bid._id,
         price: numeral(bid.price).format(USD),
         volume: bid.volume
       })),
+      orderBy(["price"], ["desc"]),
       filter(withinPrice),
       filter(withinRange),
       filter(item => item.coin === filters.coin),
@@ -631,13 +631,13 @@ export const selectAskList = createSelector(
   selectIsWithinRange,
   (asks, filters, withinPrice, withinRange) =>
     compose(
-      orderBy(["price"], ["asc"]),
       fpMap(ask => ({
         isBid: ask.isBid,
         id: ask._id,
         price: numeral(ask.price).format(USD),
         volume: ask.volume
       })),
+      orderBy(["price"], ["asc"]),
       filter(withinPrice),
       filter(withinRange),
       filter(item => item.coin === filters.coin),
